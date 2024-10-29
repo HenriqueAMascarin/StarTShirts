@@ -3,7 +3,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from "@App/components/inputs/InputDefault";
 import { useSchema } from "@App/pages/Welcome/useSchema";
-import TextDefault from "@App/components/Texts/TextDefault";
+import TextDefault from "@App/components/texts/TextDefault";
+import PaddingContainer from "@App/components/containers/PaddingContainer";
 
 export default function Welcome() {
     const {
@@ -15,24 +16,26 @@ export default function Welcome() {
 
     return (
         <View>
-            <TextDefault>Sign up</TextDefault>
+            <PaddingContainer>
+                <TextDefault style={{fontSize: 30}}>Sign up</TextDefault>
 
-            <View>
-                <Controller
-                    control={control}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <InputDefault
-                            onBlur={onBlur}
-                            onChangeText={onChange}
-                            value={value}
-                            label="First name"
-                        />
-                    )}
-                    name="firstName"
-                />
+                <View>
+                    <Controller
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <InputDefault
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                label="First name"
+                            />
+                        )}
+                        name="firstName"
+                    />
 
 
-            </View>
+                </View>
+            </PaddingContainer>
         </View>
     )
 }
