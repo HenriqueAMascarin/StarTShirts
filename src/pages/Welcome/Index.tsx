@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from "@App/components/inputs/InputDefault";
@@ -7,6 +7,7 @@ import TextDefault from "@App/components/texts/TextDefault";
 import PaddingContainer from "@App/components/containers/PaddingContainer";
 import { useEffect } from "react";
 import { styles } from "@App/pages/Welcome/styles";
+import InputPassword from "@App/components/inputs/InputPassword";
 
 export default function Welcome() {
     const {
@@ -50,7 +51,7 @@ export default function Welcome() {
                             />
                         )}
                     />
-                    
+
 
                     <Controller
                         control={control}
@@ -63,6 +64,20 @@ export default function Welcome() {
                                 label="E-mail"
                                 inputMode="email"
                                 errors={errors.email}
+                            />
+                        )}
+                    />
+
+                    <Controller
+                        control={control}
+                        name="email"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <InputPassword
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                label="Password"
+                                errors={errors.password}
                             />
                         )}
                     />
