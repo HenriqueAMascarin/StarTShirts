@@ -8,6 +8,7 @@ import PaddingContainer from "@App/components/containers/PaddingContainer";
 import { styles } from "@App/pages/Welcome/styles";
 import InputPassword from "@App/components/inputs/InputPassword";
 import ButtonDefault from "@App/components/buttons/ButtonDefault";
+import LineWithText from "@App/components/objects/lines/LineWithText";
 
 export default function Welcome() {
     const {
@@ -18,6 +19,10 @@ export default function Welcome() {
 
     function onSubmit(){
         console.log('salveee')
+    }
+
+    function changeMethod(){
+        
     }
 
     return (
@@ -98,7 +103,12 @@ export default function Welcome() {
                         )}
                     />
 
-                    <ButtonDefault title="Submit" onPress={handleSubmit(onSubmit)}/>
+                    <ButtonDefault title="Create account" onPress={handleSubmit(onSubmit)}/>
+
+                    <LineWithText text="or"/>
+
+                    <ButtonDefault title="Login" onPress={changeMethod}/>
+
 
                 </View>
             </PaddingContainer>
