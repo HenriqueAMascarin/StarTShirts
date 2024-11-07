@@ -15,4 +15,9 @@ export const stylesInput = StyleSheet.create({
         paddingLeft: 5,
         color: appColors.red
     },
+    passwordContainer:{
+        position: 'relative', 
+        display:"flex", 
+        alignItems: "stretch", 
+    }
 });

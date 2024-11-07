@@ -2,21 +2,23 @@ import { View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from "@App/components/inputs/InputDefault";
-import { useSchema } from "@App/pages/Welcome/useSchema";
+import { useSchema, TypeFormSchema } from "@App/pages/Welcome/useSchema";
 import TextDefault from "@App/components/texts/TextDefault";
 import PaddingContainer from "@App/components/containers/PaddingContainer";
-import { useEffect } from "react";
 import { styles } from "@App/pages/Welcome/styles";
 import InputPassword from "@App/components/inputs/InputPassword";
+import ButtonDefault from "@App/components/buttons/ButtonDefault";
 
 export default function Welcome() {
     const {
         control,
         handleSubmit,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(useSchema), mode: "onChange" });
+    } = useForm<TypeFormSchema>({ resolver: zodResolver(useSchema), mode: "onSubmit" });
 
-    useEffect(() => console.log(errors))
+    function onSubmit(){
+        console.log('salveee')
+    }
 
     return (
         <View>
@@ -70,7 +72,7 @@ export default function Welcome() {
 
                     <Controller
                         control={control}
-                        name="email"
+                        name="password"
                         render={({ field: { onChange, onBlur, value } }) => (
                             <InputPassword
                                 onBlur={onBlur}
@@ -81,6 +83,22 @@ export default function Welcome() {
                             />
                         )}
                     />
+
+                    <Controller
+                        control={control}
+                        name="confirmPassword"
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <InputPassword
+                                onBlur={onBlur}
+                                onChangeText={onChange}
+                                value={value}
+                                label="Confirm password"
+                                errors={errors.confirmPassword}
+                            />
+                        )}
+                    />
+
+                    <ButtonDefault title="Submit" onPress={handleSubmit(onSubmit)}/>
 
                 </View>
             </PaddingContainer>
