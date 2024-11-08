@@ -12,6 +12,7 @@ export const stylesLines = StyleSheet.create({
     line: {
         height: 2,
         backgroundColor: appColors.gray,
+        alignSelf: 'stretch',
     }, 
     text: {
         fontSize: 16,
@@ -19,5 +20,7 @@ export const stylesLines = StyleSheet.create({
         backgroundColor: appColors.white,
         position: 'absolute',
         zIndex: 1,
+        paddingHorizontal: 10
+        
     },
 });

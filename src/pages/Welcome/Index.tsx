@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from "@App/components/inputs/InputDefault";
 import { useSchema, TypeFormSchema } from "@App/pages/Welcome/useSchema";
-import TextDefault from "@App/components/texts/TextDefault";
+import TextTitleH1 from "@App/components/texts/TextTitleH1";
 import PaddingContainer from "@App/components/containers/PaddingContainer";
 import { styles } from "@App/pages/Welcome/styles";
 import InputPassword from "@App/components/inputs/InputPassword";
@@ -28,7 +28,7 @@ export default function Welcome() {
     return (
         <View>
             <PaddingContainer>
-                <TextDefault style={{ fontSize: 30 }}>Sign up</TextDefault>
+                <TextTitleH1 style={{ paddingBottom: 30 }}>Sign up</TextTitleH1>
 
                 <View style={styles.container}>
                     <Controller
