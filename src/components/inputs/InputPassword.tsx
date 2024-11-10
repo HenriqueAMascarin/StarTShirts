@@ -28,7 +28,7 @@ export default function InputPassword(inputProps: propsInput) {
                     secureTextEntry={!visible}
                 />
                 <TouchableOpacity
-                    style={{ position: 'absolute', top: visible ? 15 : 13, right: 10 }}
+                    style={{ position: 'absolute', top: visible ? 13 : 12, right: 10 }}
                     onPressIn={onPressVisible}>
                     {visible ? <VisibilitySvg /> : <VisibilityOffSvg />}
                 </TouchableOpacity>

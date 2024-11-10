@@ -3,12 +3,12 @@ import TextDefault from "@App/components/texts/TextDefault";
 import {stylesButtons} from "@App/components/buttons/stylesButtons";
 
 
-type propsInput = TouchableOpacityProps & { title?: string }
+type buttonTypes = TouchableOpacityProps & { title?: string, borderType?: boolean }
 
-export default function ButtonDefault(buttonProps: propsInput){
+export default function ButtonDefault(buttonProps: buttonTypes){
     return(
-        <TouchableOpacity {...buttonProps} style={[stylesButtons.defaultButton, buttonProps.style]}>
-            <TextDefault style={stylesButtons.title}>{buttonProps.title}</TextDefault>
+        <TouchableOpacity {...buttonProps} style={[stylesButtons.defaultButton, buttonProps.borderType && stylesButtons.borderButton, buttonProps.style]}>
+            <TextDefault style={[stylesButtons.title, buttonProps.borderType && stylesButtons.borderTitle]}>{buttonProps.title}</TextDefault>
         </TouchableOpacity >
     )
 }

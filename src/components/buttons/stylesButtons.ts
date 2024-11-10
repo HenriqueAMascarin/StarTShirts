@@ -13,4 +13,12 @@ export const stylesButtons = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
   },
+  borderButton: {
+    backgroundColor: appColors.white,
+    borderColor: appColors.black,
+    borderWidth: 1,
+  },
+  borderTitle: {
+    color: appColors.black,
+  },
 });
