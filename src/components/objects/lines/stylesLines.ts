@@ -7,7 +7,7 @@ export const stylesLines = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 35
+        paddingVertical: 30
     },
     line: {
         height: 2,

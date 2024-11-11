@@ -5,7 +5,7 @@ export const stylesInput = StyleSheet.create({
     defaultInput: {
         borderWidth: 1,
         borderColor: appColors.black,
-        borderRadius: 10,
+        borderRadius: 12,
         height: 40
     }, 
     label: {
