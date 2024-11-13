@@ -1,8 +1,12 @@
-import { Animated, ScrollView, TouchableOpacity, View } from "react-native";
+import { Animated, ScrollView, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from "@App/components/inputs/InputDefault";
 import { useRegisterSchema, TypeRegisterFormSchema } from "@App/pages/Welcome/schemas/useRegisterSchema";
+import { useLoginSchema, TypeLoginFormSchema } from "@App/pages/Welcome/schemas/useLoginSchema";
+import { useResetFirstSchema, TypeResetFirstFormSchema } from "@App/pages/Welcome/schemas/useResetFirstSchema";
+import { useResetSecondSchema, TypeResetSecondFormSchema } from "@App/pages/Welcome/schemas/useResetSecondSchema";
+
 import TextTitleH1 from "@App/components/texts/TextTitleH1";
 import PaddingContainer from "@App/components/containers/PaddingContainer";
 import { styles } from "@App/pages/Welcome/styles";
@@ -10,12 +14,11 @@ import InputPassword from "@App/components/inputs/InputPassword";
 import ButtonDefault from "@App/components/buttons/ButtonDefault";
 import LineWithText from "@App/components/objects/lines/LineWithText";
 import StarSvg from "@App/assets/images/star.svg";
-import { useState } from "react";
-import { useLoginSchema, TypeLoginFormSchema } from "@App/pages/Welcome/schemas/useLoginSchema";
-
+import { useMemo, useState } from "react";
 import TextDefault from "@App/components/texts/TextDefault";
+import Checkbox from "@App/components/checkbox/Checkbox";
 
-type pagesWelcome = "register" | "login";
+type pagesWelcome = "register" | "login" | "resetFirst" | "resetSecond";
 
 export default function Welcome() {
     const {
@@ -30,7 +33,27 @@ export default function Welcome() {
         formState: { errors: loginErrors },
     } = useForm<TypeLoginFormSchema>({ resolver: zodResolver(useLoginSchema), mode: "onSubmit" });
 
+    const {
+        control: resetFirstControl,
+        handleSubmit: resetFirstHandleSubmit,
+        formState: { errors: resetFirstErrors },
+    } = useForm<TypeResetFirstFormSchema>({ resolver: zodResolver(useResetFirstSchema), mode: "onSubmit" });
+
+    const {
+        control: resetSecondControl,
+        handleSubmit: resetSecondHandleSubmit,
+        formState: { errors: resetSecondErrors },
+    } = useForm<TypeResetSecondFormSchema>({ resolver: zodResolver(useResetSecondSchema), mode: "onSubmit" });
+
     const [currentPage, changeCurrentPage] = useState<pagesWelcome>("register");
+
+    function onResetFirstSubmit() {
+        changeCurrentPage('resetSecond');
+    }
+
+    function onResetSecondSubmit() {
+
+    }
 
     function onLoginSubmit() {
 
@@ -40,12 +63,43 @@ export default function Welcome() {
 
     }
 
-    function changeMethod() {
-        if (currentPage == 'register') {
+    const pagesChanges = useMemo(() => {
+        const registerPage = currentPage == 'register';
+        const loginPage = currentPage == 'login';
+        const resetFirstPage = currentPage == 'resetFirst';
+        const resetSecondPage = currentPage == 'resetSecond';
+
+
+        return {
+            registerPage,
+            loginPage,
+            resetFirstPage,
+            resetSecondPage,
+            title: registerPage ? 'Sign up' : loginPage ? 'Welcome back' : 'Reset password',
+            description: resetFirstPage ? 'Please enter your e-mail and we will send a link to reset your password.' : null,
+            firstButton:
+            {
+                title: registerPage ? 'Create account' : loginPage ? 'Login' : resetFirstPage ? 'Send e-mail' : 'Reset password',
+                function: registerPage ? registerHandleSubmit(onRegisterSubmit) : loginPage ? loginHandleSubmit(onLoginSubmit) : resetFirstPage ? resetFirstHandleSubmit(onResetFirstSubmit) : resetSecondHandleSubmit(onResetSecondSubmit)
+            },
+            secondButton:
+            {
+                title: registerPage ? 'Login' : loginPage ? 'Create account' : resetFirstPage ? 'Login' : null,
+            }
+        }
+
+    }, [currentPage])
+
+    function changeBtnMethod() {
+        if (!pagesChanges.loginPage) {
             changeCurrentPage('login');
         } else {
             changeCurrentPage('register');
         }
+    }
+
+    function forgotPasswordFunction() {
+        changeCurrentPage('resetFirst');
     }
 
     return (
@@ -57,7 +111,11 @@ export default function Welcome() {
                 </Animated.View>
             </View>
             <PaddingContainer>
-                <TextTitleH1 style={{ paddingBottom: 14 }}>{currentPage == 'register' ? 'Sign up' : 'Welcome back'}</TextTitleH1>
+                <View style={{ marginBottom: 20 }}>
+                    <TextTitleH1 >{pagesChanges.title}</TextTitleH1>
+                    {pagesChanges.description && <TextDefault>{pagesChanges.description}</TextDefault>}
+                </View>
+
 
                 <View>
                     {currentPage == 'register' &&
@@ -162,23 +220,75 @@ export default function Welcome() {
                                     value={value}
                                     label="Password"
                                     errors={loginErrors.password}
+                                    forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
                                 />
                             )}
                         />
 
-                        <TouchableOpacity><TextDefault style={styles.forgotPasswordText}>Forgot password?</TextDefault></TouchableOpacity>
+
 
                     </View>}
 
-                    <View>
-                        <ButtonDefault title="Create account"
-                            onPress={currentPage == 'register'
-                                ? registerHandleSubmit(onRegisterSubmit)
-                                : loginHandleSubmit(onLoginSubmit)} />
+                    {currentPage == 'resetFirst' &&
+                        <View style={styles.containerInputs}>
+                            <Controller
+                                control={resetFirstControl}
+                                name="email"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputDefault
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="E-mail"
+                                        inputMode="email"
+                                        errors={resetFirstErrors.email}
+                                    />
+                                )}
+                            />
+                        </View>
+                    }
 
-                        <LineWithText text="or" />
+                    {currentPage == 'resetSecond' &&
+                        <View style={styles.containerInputs}>
+                            <Controller
+                                control={resetSecondControl}
+                                name="password"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputPassword
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="Password"
+                                        errors={resetSecondErrors.password}
+                                    />
+                                )}
+                            />
 
-                        <ButtonDefault title={currentPage == 'register' ? 'Login' : 'Register'} onPress={changeMethod} borderType={true} />
+                            <Controller
+                                control={resetSecondControl}
+                                name="confirmPassword"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputPassword
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="Confirm password"
+                                        errors={resetSecondErrors.confirmPassword}
+                                    />
+                                )}
+                            />
+                        </View>
+                    }
+
+                    <View style={{ marginTop: 10 }}>
+                        {pagesChanges.loginPage && <Checkbox label="Remember me" style={{ marginBottom: 8 }} />}
+
+                        <ButtonDefault title={pagesChanges.firstButton.title}
+                            onPress={pagesChanges.firstButton.function} />
+
+                        {!pagesChanges.resetSecondPage && <LineWithText text="or" />}
+
+                        {pagesChanges.secondButton.title && <ButtonDefault title={pagesChanges.secondButton.title} onPress={changeBtnMethod} borderType={true} />}
                     </View>
 
 

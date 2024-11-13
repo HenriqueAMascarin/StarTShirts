@@ -6,8 +6,4 @@ export const styles = StyleSheet.create({
         gap: 5,
         marginBottom: 20
     }, 
-    forgotPasswordText:{
-        color: appColors.blue,
-        alignSelf: 'flex-end'
-    }
 });

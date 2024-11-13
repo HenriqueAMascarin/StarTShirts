@@ -7,7 +7,12 @@ import VisibilitySvg from "@App/assets/images/visibility.svg";
 import { useState } from "react";
 
 
-type propsInput = TextInputProps & { label?: string, errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined }
+type propsInput = TextInputProps &
+{
+    label?: string,
+    errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined,
+    forgotPassword?: { hasForgotBtn: boolean, function: Function }
+}
 
 export default function InputPassword(inputProps: propsInput) {
 
@@ -34,7 +39,15 @@ export default function InputPassword(inputProps: propsInput) {
                 </TouchableOpacity>
             </View>
 
-            <TextDefault style={stylesInput.error}>{inputProps?.errors?.message?.toString()}</TextDefault>
+            <View style={stylesInput.textsContainer}>
+                <TextDefault style={stylesInput.error}>{inputProps?.errors?.message?.toString()}</TextDefault>
+
+                {inputProps.forgotPassword?.hasForgotBtn &&
+                    <TouchableOpacity onPress={() => inputProps.forgotPassword?.function()}>
+                        <TextDefault style={stylesInput.forgotPasswordText}>Forgot password?</TextDefault>
+                    </TouchableOpacity>
+                }
+            </View>
         </View>
     )
 }
