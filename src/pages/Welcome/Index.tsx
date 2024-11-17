@@ -13,7 +13,7 @@ import { styles } from "@App/pages/Welcome/styles";
 import InputPassword from "@App/components/inputs/InputPassword";
 import ButtonDefault from "@App/components/buttons/ButtonDefault";
 import LineWithText from "@App/components/objects/lines/LineWithText";
-import StarSvg from "@App/assets/images/star.svg";
+import StarSvg from "@App/assets/svgs/star.svg";
 import { useMemo, useState } from "react";
 import TextDefault from "@App/components/texts/TextDefault";
 import Checkbox from "@App/components/checkbox/Checkbox";

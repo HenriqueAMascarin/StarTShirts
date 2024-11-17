@@ -1,16 +1,23 @@
 package com.startshirts
 
 import android.os.Bundle;
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
-
-
+import com.startshirts.splashScreen.models.StatusActiveSplashScreenViewModel
 
 class MainActivity : ReactActivity() {
 
+  private val statusViewModel = StatusActiveSplashScreenViewModel();
+
   override fun onCreate(savedInstanceState: Bundle?) {
+    installSplashScreen().apply {
+      setKeepOnScreenCondition{
+        statusViewModel.status.value == true
+      }
+    }
     super.onCreate(null)
   }
 
