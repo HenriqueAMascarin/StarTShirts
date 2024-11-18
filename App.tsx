@@ -11,7 +11,6 @@ function App(): React.JSX.Element {
 
   useEffect(() => { 
     SplashScreenModule.changeActiveSplashScreen(false)
-    console.log('hello')
   }, [])
 
   return (
