@@ -14,11 +14,21 @@ import InputPassword from "@App/components/inputs/InputPassword";
 import ButtonDefault from "@App/components/buttons/ButtonDefault";
 import LineWithText from "@App/components/objects/lines/LineWithText";
 import StarSvg from "@App/assets/svgs/star.svg";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import TextDefault from "@App/components/texts/TextDefault";
 import Checkbox from "@App/components/checkbox/Checkbox";
 
 type pagesWelcome = "register" | "login" | "resetFirst" | "resetSecond";
+
+type typeStarPositions =
+    {
+        translateX: Animated.Value;
+        rotate: {
+            animatedValue: Animated.Value;
+            interpolatedValue: string | Animated.AnimatedInterpolation<string | number>;
+        };
+    };
+
 
 export default function Welcome() {
     const {
@@ -69,12 +79,13 @@ export default function Welcome() {
         const resetFirstPage = currentPage == 'resetFirst';
         const resetSecondPage = currentPage == 'resetSecond';
 
-
         return {
-            registerPage,
-            loginPage,
-            resetFirstPage,
-            resetSecondPage,
+            pages: {
+                registerPage,
+                loginPage,
+                resetFirstPage,
+                resetSecondPage
+            },
             title: registerPage ? 'Sign up' : loginPage ? 'Welcome back' : 'Reset password',
             description: resetFirstPage ? 'Please enter your e-mail and we will send a link to reset your password.' : null,
             firstButton:
@@ -85,13 +96,41 @@ export default function Welcome() {
             secondButton:
             {
                 title: registerPage ? 'Login' : loginPage ? 'Create account' : resetFirstPage ? 'Login' : null,
-            }
+            },
         }
 
     }, [currentPage])
 
+    const starPositions = useRef<typeStarPositions>({ translateX: new Animated.Value(-80), rotate: { animatedValue: new Animated.Value(0), interpolatedValue: "0deg" } });
+
+    starPositions.current.rotate.interpolatedValue = starPositions.current.rotate.animatedValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['45deg', '360deg']
+    })
+
+    useEffect(() => {
+   
+            Animated.parallel(
+                [
+                    Animated.timing(starPositions.current.translateX, {
+                        toValue: pagesChanges.pages.registerPage ? -80 : 300,
+                        duration: 500,
+                        delay: 20,
+                        useNativeDriver: false,
+                    }),
+                    Animated.timing(starPositions.current.rotate.animatedValue, {
+                        toValue: pagesChanges.pages.registerPage ? 0 : 1,
+                        duration: 400,
+                        delay: 100,
+                        useNativeDriver: false,
+                    }),
+                ]
+            ).start();
+
+    }, [pagesChanges.pages])
+
     function changeBtnMethod() {
-        if (!pagesChanges.loginPage) {
+        if (!pagesChanges.pages.loginPage) {
             changeCurrentPage('login');
         } else {
             changeCurrentPage('register');
@@ -106,7 +145,7 @@ export default function Welcome() {
         <ScrollView contentContainerStyle={{ marginBottom: 30 }}>
             <View style={{ height: 130, marginBottom: 8 }}>
                 <Animated.View style={
-                    { position: 'absolute', top: -84, transform: [{ rotate: "5deg" }, { translateX: -80 }] }}>
+                    { position: 'absolute', top: -84, transformOrigin: 'right bottom 200px', transform: [{ rotate: starPositions.current.rotate.interpolatedValue }, { translateX: starPositions.current.translateX }] }}>
                     <StarSvg />
                 </Animated.View>
             </View>
@@ -281,12 +320,12 @@ export default function Welcome() {
                     }
 
                     <View style={{ marginTop: 10 }}>
-                        {pagesChanges.loginPage && <Checkbox label="Remember me" style={{ marginBottom: 8 }} />}
+                        {pagesChanges.pages.loginPage && <Checkbox label="Remember me" style={{ marginBottom: 8 }} />}
 
                         <ButtonDefault title={pagesChanges.firstButton.title}
                             onPress={pagesChanges.firstButton.function} />
 
-                        {!pagesChanges.resetSecondPage && <LineWithText text="or" />}
+                        {!pagesChanges.pages.resetSecondPage && <LineWithText text="or" />}
 
                         {pagesChanges.secondButton.title && <ButtonDefault title={pagesChanges.secondButton.title} onPress={changeBtnMethod} borderType={true} />}
                     </View>

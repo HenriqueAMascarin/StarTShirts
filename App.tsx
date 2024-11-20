@@ -10,7 +10,7 @@ const { SplashScreenModule } = NativeModules;
 function App(): React.JSX.Element {
 
   useEffect(() => { 
-    SplashScreenModule.changeActiveSplashScreen(false)
+    SplashScreenModule.changeActiveSplashScreen(false);
   }, [])
 
   return (

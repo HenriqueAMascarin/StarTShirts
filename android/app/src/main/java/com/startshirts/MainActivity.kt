@@ -13,11 +13,13 @@ class MainActivity : ReactActivity() {
   val statusViewModel by viewModels<StatusActiveSplashScreenViewModel>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
+
     installSplashScreen().apply {
       setKeepOnScreenCondition{
         statusViewModel.status.value == true
       }
     }
+
     super.onCreate(null)
   }
 
