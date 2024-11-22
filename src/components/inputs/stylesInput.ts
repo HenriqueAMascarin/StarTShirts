@@ -6,7 +6,8 @@ export const stylesInput = StyleSheet.create({
         borderWidth: 1,
         borderColor: appColors.black,
         borderRadius: 12,
-        height: 40
+        height: 40,
+        paddingLeft: 5,
     }, 
     label: {
         paddingLeft: 5,
