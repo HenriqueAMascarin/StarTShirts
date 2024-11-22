@@ -17,4 +17,4 @@ export const useRegisterSchema = z
     }
   });
 
-export type TypeRegisterFormSchema = z.infer<typeof useRegisterSchema>;
+export type typeRegisterSchema = z.infer<typeof useRegisterSchema>;

@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const useResetSecondSchema = z
+export const useSecondPasswordSchema = z
   .object({
     password: z.string().min(1, {message: 'Required'}),
     confirmPassword: z.string().min(1, {message: 'Required'}),
@@ -14,4 +14,4 @@ export const useResetSecondSchema = z
     }
   });
 
-export type TypeResetSecondFormSchema = z.infer<typeof useResetSecondSchema>;
+export type typeSecondPasswordSchema = z.infer<typeof useSecondPasswordSchema>;

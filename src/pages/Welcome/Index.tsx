@@ -2,10 +2,10 @@ import { Animated, ScrollView, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from "@App/components/inputs/InputDefault";
-import { useRegisterSchema, TypeRegisterFormSchema } from "@App/pages/Welcome/schemas/useRegisterSchema";
-import { useLoginSchema, TypeLoginFormSchema } from "@App/pages/Welcome/schemas/useLoginSchema";
-import { useResetFirstSchema, TypeResetFirstFormSchema } from "@App/pages/Welcome/schemas/useResetFirstSchema";
-import { useResetSecondSchema, TypeResetSecondFormSchema } from "@App/pages/Welcome/schemas/useResetSecondSchema";
+import { useRegisterSchema, typeRegisterSchema } from "@App/pages/Welcome/schemas/useRegisterSchema";
+import { useLoginSchema, typeLoginSchema } from "@App/pages/Welcome/schemas/useLoginSchema";
+import { useFirstPasswordSchema, typeFirstPasswordSchema } from "@App/pages/Welcome/schemas/useFirstPasswordSchema";
+import { useSecondPasswordSchema, typeSecondPasswordSchema } from "@App/pages/Welcome/schemas/useSecondPasswordSchema";
 
 import TextTitleH1 from "@App/components/texts/TextTitleH1";
 import PaddingContainer from "@App/components/containers/PaddingContainer";
@@ -14,46 +14,40 @@ import InputPassword from "@App/components/inputs/InputPassword";
 import ButtonDefault from "@App/components/buttons/ButtonDefault";
 import LineWithText from "@App/components/objects/lines/LineWithText";
 import StarSvg from "@App/assets/svgs/star.svg";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TextDefault from "@App/components/texts/TextDefault";
 import Checkbox from "@App/components/checkbox/Checkbox";
 
 type pagesWelcome = "register" | "login" | "resetFirst" | "resetSecond";
 
-type typeStarPositions =
-    {
-        translateX: Animated.Value;
-        rotate: {
-            animatedValue: Animated.Value;
-            interpolatedValue: string | Animated.AnimatedInterpolation<string | number>;
-        };
-    };
-
-
 export default function Welcome() {
     const {
         control: registerControl,
         handleSubmit: registerHandleSubmit,
-        formState: { errors: registerErrors },
-    } = useForm<TypeRegisterFormSchema>({ resolver: zodResolver(useRegisterSchema), mode: "onSubmit" });
+        formState: { errors: registerErrors, isDirty: registerIsDirty },
+        reset: registerReset,
+    } = useForm<typeRegisterSchema>({ resolver: zodResolver(useRegisterSchema), mode: "onSubmit" });
 
     const {
         control: loginControl,
         handleSubmit: loginHandleSubmit,
-        formState: { errors: loginErrors },
-    } = useForm<TypeLoginFormSchema>({ resolver: zodResolver(useLoginSchema), mode: "onSubmit" });
+        formState: { errors: loginErrors, isDirty: loginIsDirty },
+        reset: loginReset
+    } = useForm<typeLoginSchema>({ resolver: zodResolver(useLoginSchema), mode: "onSubmit" });
 
     const {
-        control: resetFirstControl,
-        handleSubmit: resetFirstHandleSubmit,
-        formState: { errors: resetFirstErrors },
-    } = useForm<TypeResetFirstFormSchema>({ resolver: zodResolver(useResetFirstSchema), mode: "onSubmit" });
+        control: firstPasswordControl,
+        handleSubmit: firstPasswordHandleSubmit,
+        formState: { errors: firstPasswordErrors, isDirty: firstPasswordIsDirty },
+        reset: firstPasswordReset
+    } = useForm<typeFirstPasswordSchema>({ resolver: zodResolver(useFirstPasswordSchema), mode: "onSubmit" });
 
     const {
-        control: resetSecondControl,
-        handleSubmit: resetSecondHandleSubmit,
-        formState: { errors: resetSecondErrors },
-    } = useForm<TypeResetSecondFormSchema>({ resolver: zodResolver(useResetSecondSchema), mode: "onSubmit" });
+        control: secondPasswordControl,
+        handleSubmit: secondPasswordHandleSubmit,
+        formState: { errors: secondPasswordErrors, isDirty: secondPasswordIsDirty },
+        reset: secondPasswordReset
+    } = useForm<typeSecondPasswordSchema>({ resolver: zodResolver(useSecondPasswordSchema), mode: "onSubmit" });
 
     const [currentPage, changeCurrentPage] = useState<pagesWelcome>("register");
 
@@ -91,7 +85,7 @@ export default function Welcome() {
             firstButton:
             {
                 title: registerPage ? 'Create account' : loginPage ? 'Login' : resetFirstPage ? 'Send e-mail' : 'Reset password',
-                function: registerPage ? registerHandleSubmit(onRegisterSubmit) : loginPage ? loginHandleSubmit(onLoginSubmit) : resetFirstPage ? resetFirstHandleSubmit(onResetFirstSubmit) : resetSecondHandleSubmit(onResetSecondSubmit)
+                function: registerPage ? registerHandleSubmit(onRegisterSubmit) : loginPage ? loginHandleSubmit(onLoginSubmit) : resetFirstPage ? firstPasswordHandleSubmit(onResetFirstSubmit) : secondPasswordHandleSubmit(onResetSecondSubmit)
             },
             secondButton:
             {
@@ -99,34 +93,21 @@ export default function Welcome() {
             },
         }
 
-    }, [currentPage])
-
-    const starPositions = useRef<typeStarPositions>({ translateX: new Animated.Value(-80), rotate: { animatedValue: new Animated.Value(0), interpolatedValue: "0deg" } });
-
-    starPositions.current.rotate.interpolatedValue = starPositions.current.rotate.animatedValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['45deg', '360deg']
-    })
+    }, [currentPage]);
 
     useEffect(() => {
-   
-            Animated.parallel(
-                [
-                    Animated.timing(starPositions.current.translateX, {
-                        toValue: pagesChanges.pages.registerPage ? -80 : 300,
-                        duration: 500,
-                        delay: 20,
-                        useNativeDriver: false,
-                    }),
-                    Animated.timing(starPositions.current.rotate.animatedValue, {
-                        toValue: pagesChanges.pages.registerPage ? 0 : 1,
-                        duration: 400,
-                        delay: 100,
-                        useNativeDriver: false,
-                    }),
-                ]
-            ).start();
+        const arrayDirty = [
+            { resetFunction: registerReset, isDirty: registerIsDirty },
+            { resetFunction: loginReset, isDirty: loginIsDirty },
+            { resetFunction: firstPasswordReset, isDirty: firstPasswordIsDirty },
+            { resetFunction: secondPasswordReset, isDirty: secondPasswordIsDirty }
+        ]
 
+        for(let keyForm in arrayDirty){
+            if(arrayDirty[keyForm].isDirty){
+                arrayDirty[keyForm].resetFunction();
+            }
+        }
     }, [pagesChanges.pages])
 
     function changeBtnMethod() {
@@ -143,12 +124,14 @@ export default function Welcome() {
 
     return (
         <ScrollView contentContainerStyle={{ marginBottom: 30 }}>
-            <View style={{ height: 130, marginBottom: 8 }}>
+
+            <View style={{ height: 100, marginBottom: 20 }}>
                 <Animated.View style={
-                    { position: 'absolute', top: -84, transformOrigin: 'right bottom 200px', transform: [{ rotate: starPositions.current.rotate.interpolatedValue }, { translateX: starPositions.current.translateX }] }}>
-                    <StarSvg />
+                    { position: 'absolute', top: -78, left: -54, transform: [{ rotate: "10deg" }] }}>
+                    <StarSvg width={"183"} height={"173"} />
                 </Animated.View>
             </View>
+
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>
                     <TextTitleH1 >{pagesChanges.title}</TextTitleH1>
@@ -271,7 +254,7 @@ export default function Welcome() {
                     {currentPage == 'resetFirst' &&
                         <View style={styles.containerInputs}>
                             <Controller
-                                control={resetFirstControl}
+                                control={firstPasswordControl}
                                 name="email"
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <InputDefault
@@ -280,7 +263,7 @@ export default function Welcome() {
                                         value={value}
                                         label="E-mail"
                                         inputMode="email"
-                                        errors={resetFirstErrors.email}
+                                        errors={firstPasswordErrors.email}
                                     />
                                 )}
                             />
@@ -290,7 +273,7 @@ export default function Welcome() {
                     {currentPage == 'resetSecond' &&
                         <View style={styles.containerInputs}>
                             <Controller
-                                control={resetSecondControl}
+                                control={secondPasswordControl}
                                 name="password"
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <InputPassword
@@ -298,13 +281,13 @@ export default function Welcome() {
                                         onChangeText={onChange}
                                         value={value}
                                         label="Password"
-                                        errors={resetSecondErrors.password}
+                                        errors={secondPasswordErrors.password}
                                     />
                                 )}
                             />
 
                             <Controller
-                                control={resetSecondControl}
+                                control={secondPasswordControl}
                                 name="confirmPassword"
                                 render={({ field: { onChange, onBlur, value } }) => (
                                     <InputPassword
@@ -312,7 +295,7 @@ export default function Welcome() {
                                         onChangeText={onChange}
                                         value={value}
                                         label="Confirm password"
-                                        errors={resetSecondErrors.confirmPassword}
+                                        errors={secondPasswordErrors.confirmPassword}
                                     />
                                 )}
                             />
