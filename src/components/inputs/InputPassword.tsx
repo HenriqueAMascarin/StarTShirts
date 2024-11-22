@@ -16,7 +16,7 @@ type propsInput = TextInputProps &
 
 export default function InputPassword(inputProps: propsInput) {
 
-    const [visible, changeVisible] = useState(true);
+    const [visible, changeVisible] = useState(false);
 
     function onPressVisible() {
         changeVisible(!visible)
@@ -33,9 +33,11 @@ export default function InputPassword(inputProps: propsInput) {
                     secureTextEntry={!visible}
                 />
                 <TouchableOpacity
-                    style={{ position: 'absolute', top: visible ? 13 : 12, right: 10 }}
+                    style={stylesInput.passwordRevealBtn}
                     onPressIn={onPressVisible}>
-                    {visible ? <VisibilitySvg /> : <VisibilityOffSvg />}
+                    <View style={{paddingTop: visible ? 0 : 3}}>
+                        {visible ? <VisibilitySvg /> : <VisibilityOffSvg />}
+                    </View>
                 </TouchableOpacity>
             </View>
 
