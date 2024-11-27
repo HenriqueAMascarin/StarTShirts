@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Welcome from '@App/pages/Welcome/Index';
-import { appColors } from '@App/utils/styleVariables';
+import Welcome from '@src/modules/Welcome/Index';
+import { appColors } from '@src/utils/styleVariables';
 
 const Stack = createNativeStackNavigator();
 

@@ -1,4 +1,4 @@
-import { appColors } from '@App/utils/styleVariables';
+import { appColors } from '@src/utils/styleVariables';
 import {StyleSheet} from 'react-native';
 
 export const stylesLines = StyleSheet.create({

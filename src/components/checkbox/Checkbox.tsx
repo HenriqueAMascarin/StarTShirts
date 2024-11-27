@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
-import CheckIcon from "@App/assets/svgs/check_small.svg"
-import TextDefault from "@App/components/texts/TextDefault";
-import { stylesCheckbox } from "@App/components/checkbox/stylesCheckbox";
-import { appColors } from "@App/utils/styleVariables";
+import CheckIcon from "@src/assets/svgs/check_small.svg"
+import TextDefault from "@src/components/texts/TextDefault";
+import { stylesCheckbox } from "@src/components/checkbox/stylesCheckbox";
+import { appColors } from "@src/utils/styleVariables";
 
 export default function Checkbox({ label, style }: { label?: string, style?: StyleProp<ViewStyle> }) {
     const [isSelected, changeIsSelected] = useState(false);

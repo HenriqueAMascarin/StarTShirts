@@ -1,9 +1,9 @@
 import { TextInput, TextInputProps, TouchableOpacity, View } from "react-native";
-import TextDefault from "@App/components/texts/TextDefault";
-import { stylesInput } from "@App/components/inputs/stylesInput";
+import TextDefault from "@src/components/texts/TextDefault";
+import { stylesInput } from "@src/components/inputs/stylesInput";
 import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
-import VisibilityOffSvg from "@App/assets/svgs/visibility_off.svg";
-import VisibilitySvg from "@App/assets/svgs/visibility.svg";
+import VisibilityOffSvg from "@src/assets/svgs/visibility_off.svg";
+import VisibilitySvg from "@src/assets/svgs/visibility.svg";
 import { useState } from "react";
 
 

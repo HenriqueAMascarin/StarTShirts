@@ -1,6 +1,6 @@
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import TextDefault from "@App/components/texts/TextDefault";
-import {stylesButtons} from "@App/components/buttons/stylesButtons";
+import TextDefault from "@src/components/texts/TextDefault";
+import {stylesButtons} from "@src/components/buttons/stylesButtons";
 
 
 type buttonTypes = TouchableOpacityProps & { title?: string, borderType?: boolean }

@@ -1,6 +1,6 @@
 import { View } from "react-native";
-import TextDefault from "@App/components/texts/TextDefault";
-import { stylesLines } from "@App/components/objects/lines/stylesLines";
+import TextDefault from "@src/components/texts/TextDefault";
+import { stylesLines } from "@src/components/objects/lines/stylesLines";
 
 type linesProp = { text?: string }
 

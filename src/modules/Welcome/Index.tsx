@@ -1,26 +1,30 @@
 import { Animated, ScrollView, View } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
-import InputDefault from "@App/components/inputs/InputDefault";
-import { useRegisterSchema, typeRegisterSchema } from "@App/pages/Welcome/schemas/useRegisterSchema";
-import { useLoginSchema, typeLoginSchema } from "@App/pages/Welcome/schemas/useLoginSchema";
-import { useFirstPasswordSchema, typeFirstPasswordSchema } from "@App/pages/Welcome/schemas/useFirstPasswordSchema";
-import { useSecondPasswordSchema, typeSecondPasswordSchema } from "@App/pages/Welcome/schemas/useSecondPasswordSchema";
+import InputDefault from "@src/components/inputs/InputDefault";
+import { useRegisterSchema, typeRegisterSchema } from "@src/modules/Welcome/schemas/useRegisterSchema";
+import { useLoginSchema, typeLoginSchema } from "@src/modules/Welcome/schemas/useLoginSchema";
+import { useFirstPasswordSchema, typeFirstPasswordSchema } from "@src/modules/Welcome/schemas/useFirstPasswordSchema";
+import { useSecondPasswordSchema, typeSecondPasswordSchema } from "@src/modules/Welcome/schemas/useSecondPasswordSchema";
 
-import TextTitleH1 from "@App/components/texts/TextTitleH1";
-import PaddingContainer from "@App/components/containers/PaddingContainer";
-import { styles } from "@App/pages/Welcome/styles";
-import InputPassword from "@App/components/inputs/InputPassword";
-import ButtonDefault from "@App/components/buttons/ButtonDefault";
-import LineWithText from "@App/components/objects/lines/LineWithText";
-import StarSvg from "@App/assets/svgs/star.svg";
+import TextTitleH1 from "@src/components/texts/TextTitleH1";
+import PaddingContainer from "@src/components/containers/PaddingContainer";
+import { styles } from "@src/modules/Welcome/styles";
+import InputPassword from "@src/components/inputs/InputPassword";
+import ButtonDefault from "@src/components/buttons/ButtonDefault";
+import LineWithText from "@src/components/objects/lines/LineWithText";
+import StarSvg from "@src/assets/svgs/star.svg";
 import { useEffect, useMemo, useState } from "react";
-import TextDefault from "@App/components/texts/TextDefault";
-import Checkbox from "@App/components/checkbox/Checkbox";
+import TextDefault from "@src/components/texts/TextDefault";
+import Checkbox from "@src/components/checkbox/Checkbox";
+import { postUser } from "@src/services/user/postUser";
+import { useDispatch } from "react-redux";
 
 type pagesWelcome = "register" | "login" | "resetFirst" | "resetSecond";
 
 export default function Welcome() {
+    const dispatch = useDispatch();
+
     const {
         control: registerControl,
         handleSubmit: registerHandleSubmit,
@@ -63,8 +67,10 @@ export default function Welcome() {
 
     }
 
-    function onRegisterSubmit() {
-
+    async function onRegisterSubmit(formValues: typeRegisterSchema) {
+        let payload = { ...formValues };
+        
+        await postUser(payload);
     }
 
     const pagesChanges = useMemo(() => {
@@ -103,8 +109,8 @@ export default function Welcome() {
             { resetFunction: secondPasswordReset, isDirty: secondPasswordIsDirty }
         ]
 
-        for(let keyForm in arrayDirty){
-            if(arrayDirty[keyForm].isDirty){
+        for (let keyForm in arrayDirty) {
+            if (arrayDirty[keyForm].isDirty) {
                 arrayDirty[keyForm].resetFunction();
             }
         }

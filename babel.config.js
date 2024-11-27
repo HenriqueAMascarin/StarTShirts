@@ -5,7 +5,7 @@ module.exports = {
       'module-resolver',
       {
         alias: {
-          '@App': './src',
+          '@src': './src',
         },
       },
     ],

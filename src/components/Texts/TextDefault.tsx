@@ -1,4 +1,4 @@
-import { appColors } from "@App/utils/styleVariables";
+import { appColors } from "@src/utils/styleVariables";
 import { Text, TextProps } from "react-native";
 
 export default function TextDefault(textProps: TextProps) {
