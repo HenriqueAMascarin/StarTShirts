@@ -18,13 +18,10 @@ import { useEffect, useMemo, useState } from "react";
 import TextDefault from "@src/components/texts/TextDefault";
 import Checkbox from "@src/components/checkbox/Checkbox";
 import { postUser } from "@src/services/user/postUser";
-import { useDispatch } from "react-redux";
 
 type pagesWelcome = "register" | "login" | "resetFirst" | "resetSecond";
 
-export default function Welcome() {
-    const dispatch = useDispatch();
-
+export default function PageWelcome() {
     const {
         control: registerControl,
         handleSubmit: registerHandleSubmit,

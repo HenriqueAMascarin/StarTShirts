@@ -1,6 +1,6 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type typeElement = {Element:  React.ComponentClass, props: Object};
+type typeElement = { Element: (props?: any) => React.ReactElement, props: Object };
 
 const initialState: typeElement[] = [];
 

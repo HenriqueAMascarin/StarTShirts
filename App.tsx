@@ -4,7 +4,7 @@ import {
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { globalStore } from '@src/store/globalStore';
-import Main from '@src/modules/Main';
+import MainLayout from '@src/modules/Layout/MainLayout';
 
 const { SplashScreenModule } = NativeModules;
 
@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Provider store={globalStore}>
-      <Main />
+      <MainLayout />
     </Provider>
   );
 }
