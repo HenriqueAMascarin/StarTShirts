@@ -4,7 +4,7 @@ import { addElement } from '@src/store/features/instantiableElements/instantiabl
 import { globalStore } from '@src/store/globalStore';
 
 export async function apiManagement(response: genericResponse) {
-  globalStore.dispatch(addElement({ Element: SuccessAlert, props: {message: "User created with success!"} }))
+  globalStore.dispatch(addElement({ Element: SuccessAlert, props: {message: "User created with success!", duration: 3000},  }))
 
   return response;
 }

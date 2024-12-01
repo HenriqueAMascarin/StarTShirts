@@ -1,22 +1,36 @@
 import TextDefault from "@src/components/texts/TextDefault"
-import React from "react"
-import { Animated, View } from "react-native"
+import React, { useEffect, useRef } from "react"
+import { Animated } from "react-native"
 import { stylesAlerts } from "@src/components/alerts/stylesAlerts"
 
-interface typeSuccessAlert { message?: string };
+export type typeAlerts = { duration: number, message?: string, onHideFn: Function };
 
-export function SuccessAlert(props: typeSuccessAlert) {
-    const animatedY = new Animated.Value(-100);
+export function SuccessAlert({message, onHideFn, duration}: typeAlerts) {
 
-    Animated.timing(animatedY, {
-        toValue: 0,
-        delay: 10,
-        useNativeDriver: false,
-    }).start();
+    const opacityValue = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.sequence([
+            Animated.timing(opacityValue, {
+                toValue: 1,
+                duration: 200, 
+                useNativeDriver: false,
+            }),
+            Animated.delay(duration),
+            Animated.timing(opacityValue, {
+                toValue: 0,
+                duration: 200,
+                useNativeDriver: false,
+            })
+        ]
+        ).start(() => {
+            onHideFn();
+        });
+    }, [])
 
     return (
-        <Animated.View style={[stylesAlerts.defaultAlertContainer, { transform: [{ translateY: animatedY }] }]}>
-            <TextDefault>{props.message}</TextDefault>
+        <Animated.View style={[stylesAlerts.defaultAlertContainer, { opacity: opacityValue }]}>
+            <TextDefault>{message}</TextDefault>
         </Animated.View>
     )
 }
