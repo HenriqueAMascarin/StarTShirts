@@ -3,9 +3,9 @@ import React, { useEffect, useRef } from "react"
 import { Animated } from "react-native"
 import { stylesAlerts } from "@src/components/alerts/stylesAlerts"
 
-export type typeAlerts = { duration: number, message?: string, onHideFn: Function };
+export type typeAlerts = { type: 'success' | 'error', message?: string, onHideFn: Function, duration: number };
 
-export function SuccessAlert({message, onHideFn, duration}: typeAlerts) {
+export function Alert({ message, onHideFn, duration }: typeAlerts) {
 
     const opacityValue = useRef(new Animated.Value(0)).current;
 
@@ -13,7 +13,7 @@ export function SuccessAlert({message, onHideFn, duration}: typeAlerts) {
         Animated.sequence([
             Animated.timing(opacityValue, {
                 toValue: 1,
-                duration: 200, 
+                duration: 200,
                 useNativeDriver: false,
             }),
             Animated.delay(duration),

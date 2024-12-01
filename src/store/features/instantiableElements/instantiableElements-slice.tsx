@@ -14,11 +14,11 @@ export const instantiableElementsSlice = createSlice({
     addElement: (state, action: PayloadAction<typeElement>) => {
       state.push(action.payload);
     },
-    filterElement: (state, action: PayloadAction<typeElement>) => {
-      state = state.filter((objectElement) => objectElement != action.payload);
+    removeElement: (state, action: PayloadAction<number>) => {
+      state.splice(action.payload, 1);
     },
   },
 });
 
-export const { addElement, filterElement } = instantiableElementsSlice.actions;
+export const { addElement, removeElement } = instantiableElementsSlice.actions;
 export const instantiableElementsReducer = instantiableElementsSlice.reducer;
