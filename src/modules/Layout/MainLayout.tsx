@@ -3,27 +3,27 @@ import { SafeAreaView, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { useAppSelector } from '@src/store/reduxHookCustom';
 import { styles } from '@src/modules/Layout/styles';
-import { removeElement } from '@src/store/features/instantiableElements/instantiableElements-slice';
+import { removeElement, typeElement } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 import { useDispatch } from 'react-redux';
 
 export default function MainLayout() {
-    const instantiableElements = useAppSelector(({ instantiableElements }) => instantiableElements);
+    const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
     const dispatch = useDispatch();
 
-    function hideFunction(index: number) {
-        dispatch(removeElement(index));
+    function hideFunction(instantiable: typeElement) {
+        dispatch(removeElement(instantiable));
     }
 
     useEffect(() => {
-        console.log(instantiableElements)
-    }, [instantiableElements])
+        console.log(alertsInstantiable)
+    }, [alertsInstantiable])
 
     return (
         <SafeAreaView style={{ flex: 1, position: "relative" }}>
             <View style={styles.containerInstantiables}>
-                {instantiableElements.map(({ Element, props }, itemKey) => {
+                {alertsInstantiable.map((instantiable) => {
 
-                    return (<Element key={itemKey} onHideFn={() => hideFunction(itemKey)} {...props} />)
+                    return (<instantiable.Element onHideFn={() => hideFunction(instantiable)} key={instantiable.keyItem} {...instantiable.props} />)
                 })}
             </View>
 

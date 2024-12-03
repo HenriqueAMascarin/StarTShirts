@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { instantiableElementsReducer } from '@src/store/features/instantiableElements/instantiableElements-slice';
+import { alertsInstantiableReducer } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 
 export const globalStore = configureStore({
-  reducer: { instantiableElements: instantiableElementsReducer },
+  reducer: { alertsInstantiable: alertsInstantiableReducer },
   middleware: (getDefaultMiddleware) =>
    getDefaultMiddleware({
     serializableCheck: false,

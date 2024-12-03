@@ -7,7 +7,7 @@ import SuccessIcon from "@src/assets/svgs/success_icon.svg";
 
 type typeStatus = 'success' | 'error';
 
-export type typeAlerts = { type: typeStatus, message?: string, onHideFn: Function, duration: number };
+export type typeAlerts = {type: typeStatus, message?: string, onHideFn: Function, duration?: number };
 
 type typeStatusObjects = {
     Icon: React.JSX.Element;
@@ -15,11 +15,12 @@ type typeStatusObjects = {
     status: typeStatus;
 }[]
 
-export function Alert({ type, message, onHideFn, duration }: typeAlerts) {
+export function Alert({ type, message, onHideFn, duration = 5000 }: typeAlerts) {
 
     const opacityValue = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
+        console.log(duration)
         Animated.sequence([
             Animated.timing(opacityValue, {
                 toValue: 1,

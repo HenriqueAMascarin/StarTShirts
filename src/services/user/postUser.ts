@@ -16,7 +16,7 @@ export const postUser = async (userData: userObject) => {
 
     await AsyncStorage.setItem(keysLocalStorage.userKey, jsonValue);
 
-    response.messageSuccess = 'User created with success!';
+    response.messageSuccess = 'Account has been created!';
   }
 
   await apiManagement(response);
