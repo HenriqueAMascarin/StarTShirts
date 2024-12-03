@@ -7,7 +7,7 @@ import {apiManagement} from '@src/services/apiManagement';
 export const postUser = async (userData: userObject) => {
   const allUsersData = await getUser();
 
-  let response: genericResponse = {success: false};
+  let response: genericResponse = {messageSuccess: null};
 
   if (allUsersData.find(user => user.email == userData.email)) {
     response = {...response, errors: {email: 'E-mail already exists'}};
@@ -16,7 +16,7 @@ export const postUser = async (userData: userObject) => {
 
     await AsyncStorage.setItem(keysLocalStorage.userKey, jsonValue);
 
-    response.success = true;
+    response.messageSuccess = 'User created with success!';
   }
 
   await apiManagement(response);

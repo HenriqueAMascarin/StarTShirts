@@ -4,7 +4,14 @@ import { addElement } from '@src/store/features/instantiableElements/instantiabl
 import { globalStore } from '@src/store/globalStore';
 
 export async function apiManagement(response: genericResponse) {
-  globalStore.dispatch(addElement({ Element: Alert, props: {type: 'success', message: "User created with success!", duration: 3000},  }))
+
+  if (response.messageSuccess) {
+    globalStore.dispatch(addElement({ Element: Alert, props: { type: 'success', message: response.messageSuccess, duration: 3000 }, }))
+  } else {
+    for (let key in response.errors){
+      globalStore.dispatch(addElement({ Element: Alert, props: { type: 'error', message: response.errors?.[key], duration: 3000 }, }))
+    }
+  }
 
   return response;
 }
