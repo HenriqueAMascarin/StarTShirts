@@ -9,7 +9,7 @@ import { useSecondPasswordSchema, typeSecondPasswordSchema } from "@src/modules/
 
 import TextTitleH1 from "@src/components/texts/TextTitleH1";
 import PaddingContainer from "@src/components/containers/PaddingContainer";
-import { styles } from "@src/modules/Welcome/styles";
+import { stylesWelcome } from "@src/modules/Welcome/stylesWelcome";
 import InputPassword from "@src/components/inputs/InputPassword";
 import ButtonDefault from "@src/components/buttons/ButtonDefault";
 import LineWithText from "@src/components/objects/lines/LineWithText";
@@ -144,7 +144,7 @@ export default function PageWelcome() {
 
                 <View>
                     {currentPage == 'register' &&
-                        <View style={styles.containerInputs}>
+                        <View style={stylesWelcome.containerInputs}>
                             <Controller
                                 control={registerControl}
                                 name="firstName"
@@ -219,7 +219,7 @@ export default function PageWelcome() {
                         </View>
                     }
 
-                    {currentPage == 'login' && <View style={styles.containerInputs}>
+                    {currentPage == 'login' && <View style={stylesWelcome.containerInputs}>
                         <Controller
                             control={loginControl}
                             name="email"
@@ -255,7 +255,7 @@ export default function PageWelcome() {
                     </View>}
 
                     {currentPage == 'resetFirst' &&
-                        <View style={styles.containerInputs}>
+                        <View style={stylesWelcome.containerInputs}>
                             <Controller
                                 control={firstPasswordControl}
                                 name="email"
@@ -274,7 +274,7 @@ export default function PageWelcome() {
                     }
 
                     {currentPage == 'resetSecond' &&
-                        <View style={styles.containerInputs}>
+                        <View style={stylesWelcome.containerInputs}>
                             <Controller
                                 control={secondPasswordControl}
                                 name="password"

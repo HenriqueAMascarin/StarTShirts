@@ -1,4 +1,4 @@
-import { Alert } from '@src/components/alerts/alerts';
+import { AlertItem } from '@src/modules/Alert/components/AlertItem/AlertItem';
 import { genericResponse } from '@src/services/user/genericTypes';
 import { addElement } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 import { globalStore } from '@src/store/globalStore';
@@ -9,10 +9,10 @@ export async function apiManagement(response: genericResponse) {
   const randomKey = randomValue();
 
   if (response.messageSuccess) {
-    globalStore.dispatch(addElement({ Element: Alert, props: { type: 'success', message: response.messageSuccess }, keyItem: randomKey }))
+    globalStore.dispatch(addElement({ Element: AlertItem, props: { type: 'success', message: response.messageSuccess }, keyItem: randomKey }))
   } else {
     for (let key in response.errors) {
-      globalStore.dispatch(addElement({ Element: Alert, props: { type: 'error', message: response.errors?.[key]}, keyItem: randomKey }))
+      globalStore.dispatch(addElement({ Element: AlertItem, props: { type: 'error', message: response.errors?.[key]}, keyItem: randomKey }))
     }
   }
 

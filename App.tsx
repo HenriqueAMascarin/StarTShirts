@@ -4,7 +4,9 @@ import {
 import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { globalStore } from '@src/store/globalStore';
-import MainLayout from '@src/modules/Layout/MainLayout';
+import AppRoutes from '@src/routes/app.routes';
+import { SafeAreaView } from 'react-native';
+import { GeneratorAlert } from '@src/modules/Alert/GeneratorAlert';
 
 const { SplashScreenModule } = NativeModules;
 
@@ -16,7 +18,11 @@ function App() {
 
   return (
     <Provider store={globalStore}>
-      <MainLayout />
+      <SafeAreaView style={{ flex: 1, position: "relative" }}>
+            <GeneratorAlert />
+
+            <AppRoutes />
+        </SafeAreaView>
     </Provider>
   );
 }

@@ -1,7 +1,7 @@
 import {appColors} from '@src/utils/styleVariables';
 import {StyleSheet} from 'react-native';
 
-export const stylesAlerts = StyleSheet.create({
+export const stylesAlertItem = StyleSheet.create({
   defaultAlertContainer: {
     backgroundColor: appColors.white,
     paddingVertical: 15,
@@ -9,12 +9,17 @@ export const stylesAlerts = StyleSheet.create({
     borderRadius: 10,
     width: 340,
     flex: 1,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     gap: 8,
     alignSelf: 'center',
+    shadowColor: '#000000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   errorContainer: {
     backgroundColor: appColors.red,
@@ -24,6 +29,6 @@ export const stylesAlerts = StyleSheet.create({
   },
   defaultAlertText: {
     fontSize: 16,
-    color: appColors.white
-  }
+    color: appColors.white,
+  },
 });
