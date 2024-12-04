@@ -3,7 +3,11 @@ import { typeAlerts } from '@src/modules/Alert/components/AlertItem/AlertItem';
 
 type typeProps = Omit<typeAlerts, "onHideFn">;
 
-export type typeElement = { Element: ({}: typeAlerts) => React.ReactElement, props: typeProps, keyItem: number };
+export type typeElement = {
+  Element: ({ }: typeAlerts) => React.ReactElement,
+  props: typeProps,
+  keyItem: number
+};
 
 const initialState: typeElement[] = [];
 
@@ -14,8 +18,8 @@ export const alertsInstantiableSlice = createSlice({
     addElement: (state, action: PayloadAction<typeElement>) => {
       return [...state, action.payload];
     },
-    removeElement: (state, action: PayloadAction<typeElement>) => {
-      return state.filter((instantiable) => instantiable.keyItem !== action.payload.keyItem);
+    removeElement: (state, action: PayloadAction<typeElement["keyItem"]>) => {
+      return state.filter((instantiable) => instantiable.keyItem !== action.payload);
     },
   },
 });

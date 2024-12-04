@@ -58,7 +58,10 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
     }, [])
 
     return (
-        <Animated.View style={[stylesAlertItem.defaultAlertContainer, { opacity: opacityValue, transform: [{ translateY: translateYAnimated }] }, alertProperties?.containerClass]}>
+        <Animated.View style={[stylesAlertItem.defaultAlertContainer,
+        { opacity: opacityValue, transform: [{ translateY: translateYAnimated }] },
+        alertProperties?.containerClass]}
+        >
             {alertProperties?.Icon}
             <TextDefault style={stylesAlertItem.defaultAlertText}>{message}</TextDefault>
         </Animated.View>

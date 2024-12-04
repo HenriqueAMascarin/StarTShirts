@@ -9,10 +9,22 @@ export async function apiManagement(response: genericResponse) {
   const randomKey = randomValue();
 
   if (response.messageSuccess) {
-    globalStore.dispatch(addElement({ Element: AlertItem, props: { type: 'success', message: response.messageSuccess }, keyItem: randomKey }))
+    globalStore.dispatch(addElement(
+      {
+        Element: AlertItem,
+        props: { type: 'success', message: response.messageSuccess },
+        keyItem: randomKey
+      }
+    ));
   } else {
     for (let key in response.errors) {
-      globalStore.dispatch(addElement({ Element: AlertItem, props: { type: 'error', message: response.errors?.[key]}, keyItem: randomKey }))
+      globalStore.dispatch(addElement(
+        {
+          Element: AlertItem,
+          props: { type: 'error', message: response.errors?.[key] },
+          keyItem: randomKey
+        }
+      ));
     }
   }
 
