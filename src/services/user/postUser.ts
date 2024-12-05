@@ -10,7 +10,7 @@ export const postUser = async (userData: userObject) => {
   let response: genericResponse = {messageSuccess: null};
 
   if (allUsersData.find(user => user.email == userData.email)) {
-    response = {...response, errors: {email: 'E-mail already exists'}};
+    response = {...response, errors: {email: 'Account already exists'}};
   } else {
     const jsonValue = JSON.stringify([...allUsersData, userData]);
 
