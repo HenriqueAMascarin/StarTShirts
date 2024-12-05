@@ -5,7 +5,7 @@ Aplicativo para meu portfólio, procurando fazer um projeto real só que de apre
 ## Conteúdos
 
 - [Sobre](#Sobre)
-  - [Screenshot](#screenshot)
+  - [Review](#review)
   - [Aprendizado](#Aprendizado)
   - [Futuro](#Futuro)
   - [Links](#links)
@@ -13,7 +13,7 @@ Aplicativo para meu portfólio, procurando fazer um projeto real só que de apre
 
 ## Sobre
 
-### Screenshot
+### Review
 
 ![](/src/assets/readme/feature.jpg)
 
