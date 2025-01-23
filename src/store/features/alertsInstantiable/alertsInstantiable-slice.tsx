@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { typeAlerts } from '@src/modules/Alert/components/AlertItem/AlertItem';
+import { typeAlerts } from '@src/components/alert/components/AlertItem/AlertItem';
 
 type typeProps = Omit<typeAlerts, "onHideFn">;
 

@@ -1,7 +1,7 @@
 import TextDefault from "@src/components/texts/TextDefault";
 import React, { useEffect, useMemo, useRef } from "react";
 import { Animated } from "react-native";
-import { stylesAlertItem } from "@src/modules/Alert/components/AlertItem/stylesAlertItem";
+import { stylesAlertItem } from "@src/components/alert/components/AlertItem/stylesAlertItem";
 import ErrorIcon from "@src/assets/svgs/error_icon.svg";
 import SuccessIcon from "@src/assets/svgs/success_icon.svg";
 

@@ -1,4 +1,4 @@
-import { AlertItem } from '@src/modules/Alert/components/AlertItem/AlertItem';
+import { AlertItem } from '@src/components/alert/components/AlertItem/AlertItem';
 import { genericResponse } from '@src/services/user/genericTypes';
 import { addElement } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 import { globalStore } from '@src/store/globalStore';

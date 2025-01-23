@@ -1,10 +1,11 @@
 import * as z from 'zod';
 
-export const useSecondPasswordSchema = z
+export const usePasswordResetSchema = z
   .object({
     password: z.string().min(1, {message: 'Required'}),
     confirmPassword: z.string().min(1, {message: 'Required'}),
-  }).superRefine(({password, confirmPassword}, ctx) => {
+  })
+  .superRefine(({password, confirmPassword}, ctx) => {
     if (password != confirmPassword) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -14,4 +15,4 @@ export const useSecondPasswordSchema = z
     }
   });
 
-export type typeSecondPasswordSchema = z.infer<typeof useSecondPasswordSchema>;
+export type typePasswordResetSchema = z.infer<typeof usePasswordResetSchema>;

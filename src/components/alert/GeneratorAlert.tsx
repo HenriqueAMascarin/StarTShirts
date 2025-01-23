@@ -3,7 +3,7 @@ import { useAppSelector } from '@src/store/reduxHookCustom';
 import { removeElement } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 import { useDispatch } from 'react-redux';
 import { useMemo } from "react";
-import { stylesGeneratorAlert } from "@src/modules/Alert/stylesGeneratorAlert";
+import { stylesGeneratorAlert } from "@src/components/alert/stylesGeneratorAlert";
 
 export function GeneratorAlert() {
     const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
