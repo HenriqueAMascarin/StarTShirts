@@ -1,35 +1,44 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import {userObject} from '@src/services/user/genericTypes';
-// import {genericStatus} from '@src/services/genericTypes';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { genericStatus } from "@src/services/genericTypes";
+import { keysLocalStorage } from "@src/utils/localStorage";
+import { apiManagement } from "@src/services/apiManagement";
+import { getUsers } from "@src/services/user/methods/getUsers";
+import { userObjectType } from "@src/services/user/types/genericTypes";
 
-// import {getUsers} from '@src/services/user/getUsers';
-// import {keysLocalStorage} from '@src/utils/localStorage';
-// import {apiManagement} from '@src/services/apiManagement';
+type putUserType = {
+    [key in keyof userObjectType]?: userObjectType[key];
+};
 
-// export const putUser = async (userData: userObject) => {
-//   const allUsersData = await getUsers();
+export const putUser = async (userData: putUserType) => {
+  const userResponseAll = await getUsers({});
 
-//   let status: genericStatus = {messageSuccess: null};
+  let userDataById = userResponseAll.find((user) => user.id == userData.id);
 
-//   let data: userObject | null = null;
+  let status: genericStatus = { messageSuccess: null };
 
-//   if (allUsersData?.find(user => user.email == userData.email)) {
-//     status = {...status, errors: {email: 'User already exists'}};
-//   } else {
-//     const newUserData = {...userData, id: allUsersData?.length ?? 1};
+  let data: userObjectType | null = null;
 
-//     const arrayToConvertJson = allUsersData ? [...allUsersData, newUserData] : [newUserData];
+  if (userDataById) {
+    let newUserEditedData =  { ...userDataById, ...userData }
 
-//     const jsonValue = JSON.stringify(arrayToConvertJson);
+    const indexUserById = userResponseAll.findIndex((user) => user.id = newUserEditedData.id);
 
-//     await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
+    userResponseAll[indexUserById] = newUserEditedData;
 
-//     status.messageSuccess = 'User has been created!';
+    const arrayToConvertJson = userResponseAll;
 
-//     data = newUserData;
-//   }
+    const jsonValue = JSON.stringify(arrayToConvertJson);
 
-//   await apiManagement(status);
+    await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
 
-//   return {...status, data: data};
-// };
+    status.messageSuccess = "User has been edited!";
+
+    data = userDataById;
+  } else {
+    status = { ...status, errors: { email: "User doesn't exist" } };
+  }
+
+  await apiManagement(status);
+
+  return { ...status, data: data };
+};

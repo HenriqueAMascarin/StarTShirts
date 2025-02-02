@@ -11,8 +11,16 @@ export const getResetRequests = async (generatedUrl?: string) => {
     ? JSON.parse(resetRequestsResponse)
     : [];
 
-  if(generatedUrl){
-    resetRequestsData.find((request) => request.generatedUrl == generatedUrl);
+  if (
+    generatedUrl
+  ) {
+    const findByGeneratedUrl = resetRequestsData.find(
+      (request) => request.generatedUrl == generatedUrl
+    );
+
+    if (findByGeneratedUrl) {
+      resetRequestsData = [findByGeneratedUrl];
+    }
   }
 
   return resetRequestsData;

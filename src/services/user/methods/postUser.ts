@@ -7,19 +7,19 @@ import { keysLocalStorage } from "@src/utils/localStorage";
 import { apiManagement } from "@src/services/apiManagement";
 
 export const postUser = async (userData: userObjectType) => {
-  const allUsersData = await getUsers();
+  const userResponseAll = await getUsers({});
 
   let status: genericStatus = { messageSuccess: null };
 
   let data: userObjectType | null = null;
 
-  if (allUsersData?.find((user) => user.email == userData.email)) {
+  if (userResponseAll?.find((user) => user.email == userData.email)) {
     status = { ...status, errors: { email: "User already exists" } };
   } else {
-    const newUserData = { ...userData, id: allUsersData?.length ?? 1 };
+    const newUserData = { ...userData, id: userResponseAll?.length ?? 1 };
 
-    const arrayToConvertJson = allUsersData
-      ? [...allUsersData, newUserData]
+    const arrayToConvertJson = userResponseAll
+      ? [...userResponseAll, newUserData]
       : [newUserData];
 
     const jsonValue = JSON.stringify(arrayToConvertJson);

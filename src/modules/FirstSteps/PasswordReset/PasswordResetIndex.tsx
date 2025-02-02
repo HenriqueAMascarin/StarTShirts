@@ -14,6 +14,9 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useRef } from "react";
 import { getResetRequests } from "@src/services/user/passwordReset/methods/getResetRequests";
 import { resetRequestsDataType } from "@src/services/user/passwordReset/types/genericTypes";
+import { putUser } from "@src/services/user/methods/putUser";
+import { useNavigation } from "@react-navigation/native";
+import { loginUser } from "@src/services/user/methods/loginUser";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
@@ -21,9 +24,11 @@ export default function PasswordResetIndex({ route }: Props) {
 
     const { generatedUrl } = route.params;
 
+    const navigation = useNavigation();
+
     const resetRequestData = useRef<resetRequestsDataType>(undefined);
 
-    useEffect(() => { 
+    useEffect(() => {
         (async () => {
             const resetRequestResponse = await getResetRequests(generatedUrl);
 
@@ -38,9 +43,20 @@ export default function PasswordResetIndex({ route }: Props) {
     } = useForm<typePasswordResetSchema>({ resolver: zodResolver(usePasswordResetSchema), mode: "onSubmit" });
 
     async function onPasswordReset(formValues: typePasswordResetSchema) {
-        let payload = { ...formValues };
+        const requestsData = resetRequestData.current?.[0];
 
-        resetRequestData.current;
+        if (requestsData) {
+            let payload = { password: formValues.password, id: requestsData.userId };
+
+            const responseEditUser = await putUser(payload);
+
+            if(responseEditUser.messageSuccess && responseEditUser.data){
+                const responseLogin = await loginUser({...responseEditUser.data});
+
+                navigation.navigate(responseLogin.messageSuccess ? "home" : "login");
+            }
+        }
+
     }
 
     return (

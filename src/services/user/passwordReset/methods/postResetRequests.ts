@@ -11,13 +11,13 @@ type postResetRequestType = {
 };
 
 export const postResetRequests = async (emailData: postResetRequestType) => {
-  const allUsersData = await getUsers();
+  const userResponseAll = await getUsers({});
 
   let status: genericStatus = { messageSuccess: null };
 
   let data: resetRequestsDataObjectType | null = null;
 
-  const existentUserData = allUsersData?.find((user) => user.email == emailData.email);
+  const existentUserData = userResponseAll?.find((user) => user.email == emailData.email);
 
   if (existentUserData) {
     let resetRequestsData = await getResetRequests();

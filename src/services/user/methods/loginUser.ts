@@ -8,25 +8,29 @@ import { keysLocalStorage } from "@src/utils/localStorage";
 type LoginUserType = {
   password: string;
   email: string;
-  rememberMe: boolean;
+  rememberMe?: boolean;
 };
 
-export const loginUser = async (userData: LoginUserType) => {
-  const allUsersData = await getUsers();
+export const loginUser = async ({
+  password,
+  email,
+  rememberMe = true,
+}: LoginUserType) => {
+  const userResponseAll = await getUsers({});
 
   let status: genericStatus = { messageSuccess: null };
 
   let data: userObjectType | null = null;
 
   const hasUser =
-    allUsersData != null
-      ? allUsersData.find((user) => user.email == userData.email)
+    userResponseAll != null
+      ? userResponseAll.find((user) => user.email == email)
       : null;
 
   if (hasUser) {
-    if (userData.password == hasUser.password) {
+    if (password == hasUser.password) {
       // Pick the new logged user
-      const jsonValueUser = JSON.stringify(hasUser);
+      const jsonValueUser = JSON.stringify({ password, email, rememberMe });
 
       // Now is set the new logged user
       await AsyncStorage.setItem(keysLocalStorage.loggedUserKey, jsonValueUser);
