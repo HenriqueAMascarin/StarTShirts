@@ -1,10 +1,10 @@
 import { AlertItem } from '@src/components/alert/components/AlertItem/AlertItem';
-import { genericResponse } from '@src/services/user/genericTypes';
+import { genericStatus } from '@src/services/genericTypes';
 import { addElement } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 import { globalStore } from '@src/store/globalStore';
 import { randomValue } from '@src/utils/randomValue';
 
-export async function apiManagement(response: genericResponse) {
+export async function apiManagement(response: genericStatus) {
 
   const randomKey = randomValue();
 
@@ -27,6 +27,4 @@ export async function apiManagement(response: genericResponse) {
       ));
     }
   }
-
-  return response;
 }

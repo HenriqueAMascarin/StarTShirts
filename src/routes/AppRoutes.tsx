@@ -7,11 +7,12 @@ import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequest
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
 
 
-type RootStackParamList = {
-  Register: undefined,
-  Login: undefined,
-  ResetRequest: undefined,
-  PasswordReset: undefined,
+export type RootStackParamList = {
+  register: undefined,
+  login: undefined,
+  'request-reset': undefined,
+  'password-reset': { generatedUrl: string },
+  home: undefined,
 };
 
 declare global {
@@ -27,21 +28,21 @@ export default function AppRoutes() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Register"
+        initialRouteName="register"
         screenOptions={{
           headerShown: false,
           contentStyle: {
             backgroundColor: appColors.white,
-            flexGrow: 1,
-
+            flexGrow: 1
           },
+          animationTypeForReplace: "push"
         }}>
 
         <Stack.Group>
-          <Stack.Screen name="Register" component={RegisterIndex} />
-          <Stack.Screen name="Login" component={LoginIndex} />
-          <Stack.Screen name="ResetRequest" component={ResetRequestIndex} />
-          <Stack.Screen name="PasswordReset" component={PasswordResetIndex} />
+          <Stack.Screen name="register" component={RegisterIndex} />
+          <Stack.Screen name="login" component={LoginIndex} />
+          <Stack.Screen name="request-reset" component={ResetRequestIndex} />
+          <Stack.Screen name="password-reset" component={PasswordResetIndex} />
         </Stack.Group>
 
       </Stack.Navigator>

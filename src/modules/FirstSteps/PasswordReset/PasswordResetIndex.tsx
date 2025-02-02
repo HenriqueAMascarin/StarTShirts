@@ -9,9 +9,28 @@ import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
 import ButtonDefault from "@src/components/buttons/ButtonDefault";
 import InputPassword from "@src/components/inputs/InputPassword";
 import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
+import { RootStackParamList } from "@src/routes/AppRoutes";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useEffect, useRef } from "react";
+import { getResetRequests } from "@src/services/user/passwordReset/methods/getResetRequests";
+import { resetRequestsDataType } from "@src/services/user/passwordReset/types/genericTypes";
 
+type Props = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
-export default function PasswordResetIndex() {
+export default function PasswordResetIndex({ route }: Props) {
+
+    const { generatedUrl } = route.params;
+
+    const resetRequestData = useRef<resetRequestsDataType>(undefined);
+
+    useEffect(() => { 
+        (async () => {
+            const resetRequestResponse = await getResetRequests(generatedUrl);
+
+            resetRequestData.current = resetRequestResponse;
+        })()
+    }, [])
+
     const {
         control: passwordResetControl,
         handleSubmit: passwordResetHandleSubmit,
@@ -21,7 +40,7 @@ export default function PasswordResetIndex() {
     async function onPasswordReset(formValues: typePasswordResetSchema) {
         let payload = { ...formValues };
 
-        console.log(payload)
+        resetRequestData.current;
     }
 
     return (

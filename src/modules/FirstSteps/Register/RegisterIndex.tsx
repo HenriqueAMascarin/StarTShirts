@@ -10,7 +10,7 @@ import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
 import InputPassword from "@src/components/inputs/InputPassword";
 import ButtonDefault from "@src/components/buttons/ButtonDefault";
 import LineWithText from "@src/components/objects/lines/LineWithText";
-import { postUser } from "@src/services/user/postUser";
+import { postUser } from "@src/services/user/methods/postUser";
 import { useNavigation } from "@react-navigation/native";
 import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
 
@@ -31,7 +31,7 @@ export default function RegisterIndex() {
     }
 
     function changeBtnMethod() {
-        navigation.navigate("Login")
+        navigation.navigate("login")
     }
 
     return (

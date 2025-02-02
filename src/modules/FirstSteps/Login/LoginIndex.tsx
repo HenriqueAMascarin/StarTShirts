@@ -10,9 +10,12 @@ import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
 import InputPassword from "@src/components/inputs/InputPassword";
 import ButtonDefault from "@src/components/buttons/ButtonDefault";
 import LineWithText from "@src/components/objects/lines/LineWithText";
-import { useNavigation } from "@react-navigation/native";
+
 import Checkbox from "@src/components/checkbox/Checkbox";
 import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
+import { loginUser } from "@src/services/user/methods/loginUser";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 
 export default function LoginIndex() {
     const {
@@ -23,18 +26,24 @@ export default function LoginIndex() {
 
     const navigation = useNavigation();
 
-    async function onLoginSubmit(formValues: typeLoginSchema) {
-        let payload = { ...formValues };
+    const [checkboxState, changeCheckboxState] = useState(true);
 
-        console.log(payload)
+    async function onLoginSubmit(formValues: typeLoginSchema) {
+        let payload = { ...formValues, rememberMe: checkboxState };
+
+        const response = await loginUser(payload);
+
+        if (response.messageSuccess) {
+            navigation.navigate("home");
+        }
     }
 
     function changeBtnMethod() {
-        navigation.navigate("Register")
+        navigation.navigate("register")
     }
 
     function forgotPasswordFunction() {
-        navigation.navigate("ResetRequest")
+        navigation.navigate("request-reset")
     }
 
     return (
@@ -81,7 +90,7 @@ export default function LoginIndex() {
 
 
                     <View style={{ marginTop: 10 }}>
-                        <Checkbox label="Remember me" style={{ marginBottom: 8 }} />
+                        <Checkbox stateValue={checkboxState} changeStateValueFn={changeCheckboxState} label="Remember me" style={{ marginBottom: 8 }} />
 
                         <ButtonDefault title="Login" onPress={loginHandleSubmit(onLoginSubmit)} />
 

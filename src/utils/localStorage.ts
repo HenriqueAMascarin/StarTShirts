@@ -1,3 +1,5 @@
 export const keysLocalStorage = {
-    userKey: "local/user"
+    usersKey: "local/users",
+    loggedUserKey: "local/loggedUser",
+    resetRequestsKey: "local/resetRequests"
 }

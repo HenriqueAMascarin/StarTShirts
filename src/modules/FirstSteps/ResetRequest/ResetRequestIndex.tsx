@@ -11,6 +11,7 @@ import ButtonDefault from "@src/components/buttons/ButtonDefault";
 import LineWithText from "@src/components/objects/lines/LineWithText";
 import { useNavigation } from "@react-navigation/native";
 import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
+import { postResetRequests } from "@src/services/user/passwordReset/methods/postResetRequests";
 
 export default function ResetRequestIndex() {
     const {
@@ -24,12 +25,15 @@ export default function ResetRequestIndex() {
     async function onResetSubmit(formValues: typeResetRequestSchema) {
         let payload = { ...formValues };
 
-        console.log(payload)
-        navigation.navigate("PasswordReset")
+        const response = await postResetRequests(payload);
+
+        if (response.messageSuccess && response.data) {
+            navigation.navigate("password-reset", { generatedUrl: response.data.generatedUrl });
+        }
     }
 
     function changeBtnMethod() {
-        navigation.navigate("Login");
+        navigation.navigate("login");
     }
 
     return (
