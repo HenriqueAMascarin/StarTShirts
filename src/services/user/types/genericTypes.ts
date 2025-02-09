@@ -6,3 +6,10 @@ export type userObjectType = {
   id?: number,
 };
 
+export type userResponseObjectType = {
+  password: string,
+  firstName: string,
+  lastName: string,
+  email: string,
+  id: number,
+};

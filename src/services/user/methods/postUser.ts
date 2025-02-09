@@ -5,6 +5,7 @@ import { genericStatus } from "@src/services/genericTypes";
 import { getUsers } from "@src/services/user/methods/getUsers";
 import { keysLocalStorage } from "@src/utils/localStorage";
 import { apiManagement } from "@src/services/apiManagement";
+import { setLoginData } from "@src/services/user/methods/loginUser";
 
 export const postUser = async (userData: userObjectType) => {
   const userResponseAll = await getUsers({});
@@ -18,15 +19,24 @@ export const postUser = async (userData: userObjectType) => {
   } else {
     const newUserData = { ...userData, id: userResponseAll?.length ?? 1 };
 
-    const arrayToConvertJson = userResponseAll
-      ? [...userResponseAll, newUserData]
-      : [newUserData];
+    const arrayToConvertJson = userResponseAll ? [...userResponseAll, newUserData] : [newUserData];
 
     const jsonValue = JSON.stringify(arrayToConvertJson);
 
     await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
 
     status.messageSuccess = "User has been created!";
+
+    // LOGIN TASK
+    const payloadLogin = {
+      password: newUserData.password,
+      email: newUserData.email,
+      rememberMe: true,
+      id: newUserData.id,
+    };
+
+    await setLoginData(payloadLogin);
+    // LOGIN TASK
 
     data = newUserData;
   }

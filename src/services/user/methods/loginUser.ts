@@ -11,29 +11,35 @@ type LoginUserType = {
   rememberMe?: boolean;
 };
 
-export const loginUser = async ({
-  password,
-  email,
-  rememberMe = true,
-}: LoginUserType) => {
+type payloadLoginType = {
+  password: string;
+  email: string;
+  rememberMe?: boolean;
+  id: number;
+};
+
+export async function setLoginData({email, id, password, rememberMe = true}: payloadLoginType) {
+  const payloadLoginData = {email, id, password, rememberMe};
+
+  // Pick the new logged user
+  const jsonValueUser = JSON.stringify(payloadLoginData);
+
+  // Now is set the new logged user
+  await AsyncStorage.setItem(keysLocalStorage.loggedUserKey, jsonValueUser);
+}
+
+export const loginUser = async ({ password, email, rememberMe = true }: LoginUserType) => {
   const userResponseAll = await getUsers({});
 
   let status: genericStatus = { messageSuccess: null };
 
   let data: userObjectType | null = null;
 
-  const hasUser =
-    userResponseAll != null
-      ? userResponseAll.find((user) => user.email == email)
-      : null;
+  const hasUser = userResponseAll.find((user) => user.email == email);
 
-  if (hasUser) {
+  if (hasUser && hasUser.id != undefined) {
     if (password == hasUser.password) {
-      // Pick the new logged user
-      const jsonValueUser = JSON.stringify({ password, email, rememberMe });
-
-      // Now is set the new logged user
-      await AsyncStorage.setItem(keysLocalStorage.loggedUserKey, jsonValueUser);
+      await setLoginData({ password, email, rememberMe, id: hasUser.id });
 
       status = { messageSuccess: "User logged in!" };
 

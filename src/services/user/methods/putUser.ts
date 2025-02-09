@@ -3,7 +3,7 @@ import { genericStatus } from "@src/services/genericTypes";
 import { keysLocalStorage } from "@src/utils/localStorage";
 import { apiManagement } from "@src/services/apiManagement";
 import { getUsers } from "@src/services/user/methods/getUsers";
-import { userObjectType } from "@src/services/user/types/genericTypes";
+import { userObjectType, userResponseObjectType } from "@src/services/user/types/genericTypes";
 
 type putUserType = {
     [key in keyof userObjectType]?: userObjectType[key];
@@ -16,7 +16,7 @@ export const putUser = async (userData: putUserType) => {
 
   let status: genericStatus = { messageSuccess: null };
 
-  let data: userObjectType | null = null;
+  let data: userResponseObjectType | null = null;
 
   if (userDataById) {
     let newUserEditedData =  { ...userDataById, ...userData }

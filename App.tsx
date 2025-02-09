@@ -19,9 +19,8 @@ function App() {
     <Provider store={globalStore}>
       <SafeAreaView style={{ flex: 1, position: "relative" }}>
         <GeneratorAlert />
-
-    
-          <AppRoutes />
+        
+        <AppRoutes />
 
       </SafeAreaView>
     </Provider>

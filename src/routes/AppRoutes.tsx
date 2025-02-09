@@ -5,7 +5,7 @@ import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
 import LoginIndex from '@src/modules/FirstSteps/Login/LoginIndex';
 import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequestIndex';
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
-
+import HomeIndex from '@src/modules/Home/HomeIndex';
 
 export type RootStackParamList = {
   register: undefined,
@@ -43,6 +43,10 @@ export default function AppRoutes() {
           <Stack.Screen name="login" component={LoginIndex} />
           <Stack.Screen name="request-reset" component={ResetRequestIndex} />
           <Stack.Screen name="password-reset" component={PasswordResetIndex} />
+        </Stack.Group>
+
+        <Stack.Group>
+          <Stack.Screen name='home' component={HomeIndex}/>
         </Stack.Group>
 
       </Stack.Navigator>

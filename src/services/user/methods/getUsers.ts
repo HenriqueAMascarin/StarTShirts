@@ -1,8 +1,8 @@
 import { keysLocalStorage } from "@src/utils/localStorage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userObjectType } from "@src/services/user/types/genericTypes";
+import { userResponseObjectType } from "@src/services/user/types/genericTypes";
 
-type typeUserData = userObjectType[];
+type typeUserData = userResponseObjectType[];
 
 export type getUsersByIdType = { id?: number };
 
