@@ -36,7 +36,6 @@ Viso adquirir novos conhecimentos, me aperfeiçoar e aprofundar no React Native.
 
 - React Native
 - React Native Async Storage
-- React Native Background Timer
 - React SVG + SVG Transformer
 - Typescript
 - Redux
