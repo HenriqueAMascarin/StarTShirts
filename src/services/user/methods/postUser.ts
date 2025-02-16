@@ -5,7 +5,7 @@ import { genericStatus } from "@src/services/genericTypes";
 import { getUsers } from "@src/services/user/methods/getUsers";
 import { keysLocalStorage } from "@src/utils/localStorage";
 import { apiManagement } from "@src/services/apiManagement";
-import { setLoginData } from "@src/services/user/methods/loginUser";
+import { setLoginData } from "@src/services/user/methods/postLoginUser";
 
 export const postUser = async (userData: userObjectType) => {
   const userResponseAll = await getUsers({});
@@ -17,7 +17,7 @@ export const postUser = async (userData: userObjectType) => {
   if (userResponseAll?.find((user) => user.email == userData.email)) {
     status = { ...status, errors: { email: "User already exists" } };
   } else {
-    const newUserData = { ...userData, id: userResponseAll?.length ?? 1 };
+    const newUserData = { ...userData, id: userResponseAll.length };
 
     const arrayToConvertJson = userResponseAll ? [...userResponseAll, newUserData] : [newUserData];
 
@@ -29,10 +29,8 @@ export const postUser = async (userData: userObjectType) => {
 
     // LOGIN TASK
     const payloadLogin = {
-      password: newUserData.password,
-      email: newUserData.email,
+      ...newUserData,
       rememberMe: true,
-      id: newUserData.id,
     };
 
     await setLoginData(payloadLogin);

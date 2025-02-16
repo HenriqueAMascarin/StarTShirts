@@ -6,7 +6,7 @@ import { getUsers } from "@src/services/user/methods/getUsers";
 import { userObjectType, userResponseObjectType } from "@src/services/user/types/genericTypes";
 
 type putUserType = {
-    [key in keyof userObjectType]?: userObjectType[key];
+  [key in keyof userObjectType]?: userObjectType[key];
 };
 
 export const putUser = async (userData: putUserType) => {
@@ -19,11 +19,13 @@ export const putUser = async (userData: putUserType) => {
   let data: userResponseObjectType | null = null;
 
   if (userDataById) {
-    let newUserEditedData =  { ...userDataById, ...userData }
+    let newUserEditedData = { ...userDataById, ...userData };
 
-    const indexUserById = userResponseAll.findIndex((user) => user.id = newUserEditedData.id);
+    let newUserPayloadAll = userResponseAll;
 
-    userResponseAll[indexUserById] = newUserEditedData;
+    const indexUserById = userResponseAll.findIndex((user) => user.id == newUserEditedData.id);
+
+    newUserPayloadAll[indexUserById] = newUserEditedData;
 
     const arrayToConvertJson = userResponseAll;
 

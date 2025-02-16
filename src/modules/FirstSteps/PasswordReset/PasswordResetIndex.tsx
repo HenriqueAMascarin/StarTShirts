@@ -16,7 +16,7 @@ import { getResetRequests } from "@src/services/user/passwordReset/methods/getRe
 import { resetRequestsDataType } from "@src/services/user/passwordReset/types/genericTypes";
 import { putUser } from "@src/services/user/methods/putUser";
 import { useNavigation } from "@react-navigation/native";
-import { loginUser, setLoginData } from "@src/services/user/methods/loginUser";
+import { setLoginData } from "@src/services/user/methods/postLoginUser";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
@@ -53,7 +53,7 @@ export default function PasswordResetIndex({ route }: Props) {
             const dataEditUser = responseEditUser.data;
 
             if(responseEditUser.messageSuccess && dataEditUser && typeof dataEditUser.id != undefined){
-                await setLoginData({email: dataEditUser.email, password: dataEditUser.password, id: dataEditUser.id })
+                await setLoginData({...dataEditUser})
 
                 navigation.navigate("home");
             }

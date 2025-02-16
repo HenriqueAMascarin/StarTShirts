@@ -13,7 +13,7 @@ import LineWithText from "@src/components/objects/lines/LineWithText";
 
 import Checkbox from "@src/components/checkbox/Checkbox";
 import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
-import { loginUser } from "@src/services/user/methods/loginUser";
+import { postLoginUser } from "@src/services/user/methods/postLoginUser";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
@@ -31,7 +31,7 @@ export default function LoginIndex() {
     async function onLoginSubmit(formValues: typeLoginSchema) {
         let payload = { ...formValues, rememberMe: checkboxState };
 
-        const response = await loginUser(payload);
+        const response = await postLoginUser(payload);
 
         if (response.messageSuccess) {
             navigation.navigate("home");

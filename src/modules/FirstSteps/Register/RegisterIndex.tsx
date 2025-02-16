@@ -27,9 +27,14 @@ export default function RegisterIndex() {
     async function onRegisterSubmit(formValues: typeRegisterSchema) {
         let payload = { ...formValues };
 
-        const userResponse = await postUser(payload);
+        const userResponse = await postUser({
+            email: payload.email,
+            firstName: payload.firstName,
+            lastName: payload.lastName,
+            password: payload.password
+        });
 
-        if(userResponse.messageSuccess){
+        if (userResponse.messageSuccess) {
             navigation.navigate('home');
         }
     }

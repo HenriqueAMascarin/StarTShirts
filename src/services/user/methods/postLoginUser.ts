@@ -1,4 +1,4 @@
-import { userObjectType } from "@src/services/user/types/genericTypes";
+import { userObjectType, userResponseObjectType } from "@src/services/user/types/genericTypes";
 import { genericStatus } from "@src/services/genericTypes";
 import { getUsers } from "@src/services/user/methods/getUsers";
 import { apiManagement } from "@src/services/apiManagement";
@@ -11,15 +11,19 @@ type LoginUserType = {
   rememberMe?: boolean;
 };
 
-type payloadLoginType = {
-  password: string;
-  email: string;
+interface payloadLoginType extends userResponseObjectType {
   rememberMe?: boolean;
-  id: number;
-};
+}
 
-export async function setLoginData({email, id, password, rememberMe = true}: payloadLoginType) {
-  const payloadLoginData = {email, id, password, rememberMe};
+export async function setLoginData({
+  email,
+  id,
+  password,
+  firstName,
+  lastName,
+  rememberMe = true,
+}: payloadLoginType) {
+  const payloadLoginData = { email, id, password, rememberMe, firstName, lastName };
 
   // Pick the new logged user
   const jsonValueUser = JSON.stringify(payloadLoginData);
@@ -28,7 +32,7 @@ export async function setLoginData({email, id, password, rememberMe = true}: pay
   await AsyncStorage.setItem(keysLocalStorage.loggedUserKey, jsonValueUser);
 }
 
-export const loginUser = async ({ password, email, rememberMe = true }: LoginUserType) => {
+export const postLoginUser = async ({ password, email, rememberMe = true }: LoginUserType) => {
   const userResponseAll = await getUsers({});
 
   let status: genericStatus = { messageSuccess: null };
@@ -39,7 +43,14 @@ export const loginUser = async ({ password, email, rememberMe = true }: LoginUse
 
   if (hasUser && hasUser.id != undefined) {
     if (password == hasUser.password) {
-      await setLoginData({ password, email, rememberMe, id: hasUser.id });
+      await setLoginData({
+        password,
+        email,
+        firstName: hasUser.firstName,
+        lastName: hasUser.lastName,
+        id: hasUser.id,
+        rememberMe,
+      });
 
       status = { messageSuccess: "User logged in!" };
 
