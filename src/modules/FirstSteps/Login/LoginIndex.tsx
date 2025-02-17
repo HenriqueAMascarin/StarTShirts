@@ -34,7 +34,10 @@ export default function LoginIndex() {
         const response = await postLoginUser(payload);
 
         if (response.messageSuccess) {
-            navigation.navigate("home");
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'home' }],
+            });
         }
     }
 

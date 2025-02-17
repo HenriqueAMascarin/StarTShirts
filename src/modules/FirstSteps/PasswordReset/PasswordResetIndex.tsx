@@ -55,7 +55,10 @@ export default function PasswordResetIndex({ route }: Props) {
             if(responseEditUser.messageSuccess && dataEditUser && typeof dataEditUser.id != undefined){
                 await setLoginData({...dataEditUser})
 
-                navigation.navigate("home");
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'home' }],
+                });
             }
         }
 

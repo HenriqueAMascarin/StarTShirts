@@ -11,7 +11,6 @@ export default function HomeIndex() {
     const [logged, changeLogged] = useState<string | null>(null);
     const [resetRequests, changeResetRequests] = useState<string | null>(null);
 
-
     (async () => {
         changeUsers(await AsyncStorage.getItem(keysLocalStorage.usersKey));
         changeLogged(await AsyncStorage.getItem(keysLocalStorage.loggedUserKey));
