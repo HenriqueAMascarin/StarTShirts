@@ -13,7 +13,7 @@ export async function apiManagement(response: genericStatus) {
       {
         Element: AlertItem,
         props: { type: 'success', message: response.messageSuccess },
-        keyItem: randomKey
+        keyItem: randomKey,
       }
     ));
   } else {
@@ -22,7 +22,7 @@ export async function apiManagement(response: genericStatus) {
         {
           Element: AlertItem,
           props: { type: 'error', message: response.errors?.[key] },
-          keyItem: randomKey
+          keyItem: randomKey,
         }
       ));
     }

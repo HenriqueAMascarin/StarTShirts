@@ -12,6 +12,7 @@ import LineWithText from "@src/components/objects/lines/LineWithText";
 import { useNavigation } from "@react-navigation/native";
 import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
 import { postResetRequests } from "@src/services/user/passwordReset/methods/postResetRequests";
+import TextDefault from "@src/components/texts/TextDefault";
 
 export default function ResetRequestIndex() {
     const {
@@ -43,6 +44,8 @@ export default function ResetRequestIndex() {
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>
                     <TextTitleH1>Reset password</TextTitleH1>
+                    
+                    <TextDefault>Please enter your e-mail and we will send a link to reset your password.</TextDefault>
                 </View>
 
                 <View>

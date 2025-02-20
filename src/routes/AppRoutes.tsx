@@ -6,6 +6,7 @@ import LoginIndex from '@src/modules/FirstSteps/Login/LoginIndex';
 import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequestIndex';
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
 import HomeIndex from '@src/modules/Home/HomeIndex';
+import React from 'react';
 
 export type RootStackParamList = {
   register: undefined,
@@ -35,7 +36,7 @@ export default function AppRoutes() {
             backgroundColor: appColors.white,
             flexGrow: 1
           },
-          animationTypeForReplace: "push"
+          animationTypeForReplace: 'push'
         }}>
 
         <Stack.Group>
@@ -46,7 +47,7 @@ export default function AppRoutes() {
         </Stack.Group>
 
         <Stack.Group>
-          <Stack.Screen name='home' component={HomeIndex}/>
+          <Stack.Screen name="home" component={HomeIndex}/>
         </Stack.Group>
 
       </Stack.Navigator>

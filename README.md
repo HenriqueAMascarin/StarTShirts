@@ -42,3 +42,5 @@ Viso adquirir novos conhecimentos, me aperfeiçoar e aprofundar no React Native.
 - Router
 - Zod
 - React Hook Form
+- Jest
+- React Native Testing Library
