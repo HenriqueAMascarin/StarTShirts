@@ -67,6 +67,7 @@ export default function RegisterIndex() {
                                     value={value}
                                     label="First name"
                                     errors={registerErrors.firstName}
+                                    testID="firstNameInput"
                                 />
                             )}
                         />
@@ -81,6 +82,7 @@ export default function RegisterIndex() {
                                     value={value}
                                     label="Last name"
                                     errors={registerErrors.lastName}
+                                    testID="lastNameInput"
                                 />
                             )}
                         />
@@ -97,6 +99,7 @@ export default function RegisterIndex() {
                                     label="E-mail"
                                     inputMode="email"
                                     errors={registerErrors.email}
+                                    testID="emailInput"
                                 />
                             )}
                         />
@@ -111,6 +114,7 @@ export default function RegisterIndex() {
                                     value={value}
                                     label="Password"
                                     errors={registerErrors.password}
+                                    testID="passwordInput"
                                 />
                             )}
                         />
@@ -125,6 +129,7 @@ export default function RegisterIndex() {
                                     value={value}
                                     label="Confirm password"
                                     errors={registerErrors.confirmPassword}
+                                    testID="confirmPasswordInput"
                                 />
                             )}
                         />
