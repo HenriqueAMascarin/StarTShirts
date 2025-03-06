@@ -27,10 +27,10 @@ export default function HomeIndex() {
                 <TextDefault>
                     USERS: {users}
                 </TextDefault>
-                <TextDefault>
+                <TextDefault style={{marginTop: 5}}>
                     LOGGED USER: {logged}
                 </TextDefault>
-                <TextDefault>
+                <TextDefault style={{marginTop: 5}}>
                     RESET REQUESTS: {resetRequests}
                 </TextDefault>
             </PaddingContainer>

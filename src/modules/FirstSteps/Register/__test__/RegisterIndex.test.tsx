@@ -1,22 +1,24 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import React from 'react';
 import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
-import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { keysLocalStorage } from '@src/utils/localStorage';
+import { NavigationContainer } from '@react-navigation/native';
+
+const responseMock = {
+    firstName: 'Henrique',
+    lastName: 'Test',
+    email: 'test@gmail.com',
+    password: '123',
+    id: 0,
+};
 
 describe('RegisterIndex', () => {
-    it('the simple registration', async () => {
-        const response = {
-            firstName: 'Henrique',
-            lastName: 'Test',
-            email: 'test@gmail.com',
-            password: '123',
-            id: 0,
-        };
+
+    it('Should do a simple REGISTRATION', async () => {
 
         const mockFormData = {
-            ...response,
+            ...responseMock,
             id: undefined,
             confirmPassword: '123',
         };
@@ -27,7 +29,7 @@ describe('RegisterIndex', () => {
 
         const user = userEvent.setup();
 
-        const firstNameInput =  screen.getByTestId('firstNameInput');
+        const firstNameInput = screen.getByTestId('firstNameInput');
         const lastNameInput = screen.getByTestId('lastNameInput');
         const emailInput = screen.getByTestId('emailInput');
         const passwordInput = screen.getByTestId('passwordInput');
@@ -45,7 +47,21 @@ describe('RegisterIndex', () => {
 
         const dataUsers = rawUsers != null ? JSON.parse(rawUsers) : null;
 
-        expect(dataUsers[0]).toEqual(response);
+        expect(dataUsers[0]).toEqual(responseMock);
+
     });
+
+    it('Should LOGIN after registration', async () => {
+
+        const responseLoggedUser = { ...responseMock, rememberMe: true };
+
+        const rawLoggedUser = await AsyncStorage.getItem(keysLocalStorage.loggedUserKey);
+
+        const dataLoggedUser = rawLoggedUser != null ? JSON.parse(rawLoggedUser) : null;
+
+        expect(dataLoggedUser).toEqual(responseLoggedUser);
+
+    });
+
 
 });
