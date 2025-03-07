@@ -1,11 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userObjectType } from "@src/services/user/types/genericTypes";
-import { genericStatus } from "@src/services/genericTypes";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userObjectType } from '@src/services/user/types/genericTypes';
+import { genericStatus } from '@src/services/genericTypes';
 
-import { getUsers } from "@src/services/user/methods/getUsers";
-import { keysLocalStorage } from "@src/utils/localStorage";
-import { apiManagement } from "@src/services/apiManagement";
-import { setLoginData } from "@src/services/user/methods/postLoginUser";
+import { getUsers } from '@src/services/user/methods/getUsers';
+import { keysLocalStorage } from '@src/utils/localStorage';
+import { apiManagement } from '@src/services/apiManagement';
+import { setLoginData } from '@src/services/user/methods/postLoginUser';
 
 export const postUser = async (userData: userObjectType) => {
   const userResponseAll = await getUsers({});
@@ -14,8 +14,8 @@ export const postUser = async (userData: userObjectType) => {
 
   let data: userObjectType | null = null;
 
-  if (userResponseAll?.find((user) => user.email == userData.email)) {
-    status = { ...status, errors: { email: "User already exists" } };
+  if (userResponseAll?.find((user) => user.email === userData.email)) {
+    status = { ...status, errors: { email: 'User already exists' } };
   } else {
     const newUserData = { ...userData, id: userResponseAll.length };
 
@@ -25,7 +25,7 @@ export const postUser = async (userData: userObjectType) => {
 
     await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
 
-    status.messageSuccess = "User has been created!";
+    status.messageSuccess = 'User has been created!';
 
     // LOGIN TASK
     const payloadLogin = {

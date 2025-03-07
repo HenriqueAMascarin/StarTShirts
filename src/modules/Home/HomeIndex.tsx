@@ -1,10 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import PaddingContainer from "@src/components/containers/PaddingContainer";
-import TextDefault from "@src/components/texts/TextDefault";
-import TextTitleH1 from "@src/components/texts/TextTitleH1";
-import { keysLocalStorage } from "@src/utils/localStorage";
-import { useState } from "react";
-import { ScrollView } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import PaddingContainer from '@src/components/containers/PaddingContainer';
+import TextDefault from '@src/components/texts/TextDefault';
+import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import { keysLocalStorage } from '@src/utils/localStorage';
+import { useState } from 'react';
+import { ScrollView } from 'react-native';
 
 export default function HomeIndex() {
     const [users, changeUsers] = useState<string | null>(null);

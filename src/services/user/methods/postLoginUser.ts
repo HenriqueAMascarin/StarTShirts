@@ -1,9 +1,9 @@
-import { userObjectType, userResponseObjectType } from "@src/services/user/types/genericTypes";
-import { genericStatus } from "@src/services/genericTypes";
-import { getUsers } from "@src/services/user/methods/getUsers";
-import { apiManagement } from "@src/services/apiManagement";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { keysLocalStorage } from "@src/utils/localStorage";
+import { userObjectType, userResponseObjectType } from '@src/services/user/types/genericTypes';
+import { genericStatus } from '@src/services/genericTypes';
+import { getUsers } from '@src/services/user/methods/getUsers';
+import { apiManagement } from '@src/services/apiManagement';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { keysLocalStorage } from '@src/utils/localStorage';
 
 type LoginUserType = {
   password: string;
@@ -39,10 +39,10 @@ export const postLoginUser = async ({ password, email, rememberMe = true }: Logi
 
   let data: userObjectType | null = null;
 
-  const hasUser = userResponseAll.find((user) => user.email == email);
+  const hasUser = userResponseAll.find((user) => user.email === email);
 
-  if (hasUser && hasUser.id != undefined) {
-    if (password == hasUser.password) {
+  if (hasUser && hasUser.id !== undefined) {
+    if (password === hasUser.password) {
       await setLoginData({
         password,
         email,
@@ -52,11 +52,11 @@ export const postLoginUser = async ({ password, email, rememberMe = true }: Logi
         rememberMe,
       });
 
-      status = { messageSuccess: "User logged in!" };
+      status = { messageSuccess: 'User logged in!' };
 
       data = hasUser;
     } else {
-      status = { ...status, errors: { email: "Incorrect password" } };
+      status = { ...status, errors: { email: 'Incorrect password' } };
     }
   } else {
     status = { ...status, errors: { email: "User doesn't exist" } };

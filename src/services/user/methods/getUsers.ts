@@ -1,6 +1,6 @@
-import { keysLocalStorage } from "@src/utils/localStorage";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userResponseObjectType } from "@src/services/user/types/genericTypes";
+import { keysLocalStorage } from '@src/utils/localStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { userResponseObjectType } from '@src/services/user/types/genericTypes';
 
 type typeUserData = userResponseObjectType[];
 
@@ -12,7 +12,7 @@ export const getUsers = async ({ id }: getUsersByIdType): Promise<typeUserData> 
   let usersData: typeUserData = usersResponse ? JSON.parse(usersResponse) : [];
 
   if (id) {
-    const findById = usersData.find((request) => request.id == id);
+    const findById = usersData.find((request) => request.id === id);
 
     if (findById) {
       usersData = [findById];

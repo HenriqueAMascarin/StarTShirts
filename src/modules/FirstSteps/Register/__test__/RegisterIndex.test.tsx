@@ -1,7 +1,7 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import React from 'react';
 import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -43,7 +43,7 @@ describe('RegisterIndex', () => {
 
         await user.press(elementButton);
 
-        const rawUsers = await AsyncStorage.getItem(keysLocalStorage.usersKey);
+        const rawUsers = await AsyncStorageMock.getItem(keysLocalStorage.usersKey);
 
         const dataUsers = rawUsers != null ? JSON.parse(rawUsers) : null;
 
@@ -55,7 +55,7 @@ describe('RegisterIndex', () => {
 
         const responseLoggedUser = { ...responseMock, rememberMe: true };
 
-        const rawLoggedUser = await AsyncStorage.getItem(keysLocalStorage.loggedUserKey);
+        const rawLoggedUser = await AsyncStorageMock.getItem(keysLocalStorage.loggedUserKey);
 
         const dataLoggedUser = rawLoggedUser != null ? JSON.parse(rawLoggedUser) : null;
 

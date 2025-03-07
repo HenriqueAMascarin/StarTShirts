@@ -1,28 +1,28 @@
-import { ScrollView, View } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { ScrollView, View } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InputDefault from "@src/components/inputs/InputDefault";
-import { useLoginSchema, typeLoginSchema } from "@src/modules/FirstSteps/Login/useLoginSchema";
+import InputDefault from '@src/components/inputs/InputDefault';
+import { useLoginSchema, typeLoginSchema } from '@src/modules/FirstSteps/Login/useLoginSchema';
+import React from 'react';
+import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import PaddingContainer from '@src/components/containers/PaddingContainer';
+import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
+import InputPassword from '@src/components/inputs/InputPassword';
+import ButtonDefault from '@src/components/buttons/ButtonDefault';
+import LineWithText from '@src/components/objects/lines/LineWithText';
 
-import TextTitleH1 from "@src/components/texts/TextTitleH1";
-import PaddingContainer from "@src/components/containers/PaddingContainer";
-import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
-import InputPassword from "@src/components/inputs/InputPassword";
-import ButtonDefault from "@src/components/buttons/ButtonDefault";
-import LineWithText from "@src/components/objects/lines/LineWithText";
-
-import Checkbox from "@src/components/checkbox/Checkbox";
-import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
-import { postLoginUser } from "@src/services/user/methods/postLoginUser";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import Checkbox from '@src/components/checkbox/Checkbox';
+import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
+import { postLoginUser } from '@src/services/user/methods/postLoginUser';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 export default function LoginIndex() {
     const {
         control: loginControl,
         handleSubmit: loginHandleSubmit,
         formState: { errors: loginErrors },
-    } = useForm<typeLoginSchema>({ resolver: zodResolver(useLoginSchema), mode: "onSubmit" });
+    } = useForm<typeLoginSchema>({ resolver: zodResolver(useLoginSchema), mode: 'onSubmit' });
 
     const navigation = useNavigation();
 
@@ -42,11 +42,11 @@ export default function LoginIndex() {
     }
 
     function changeBtnMethod() {
-        navigation.navigate("register")
+        navigation.navigate('register');
     }
 
     function forgotPasswordFunction() {
-        navigation.navigate("request-reset")
+        navigation.navigate('request-reset');
     }
 
     return (
@@ -71,6 +71,7 @@ export default function LoginIndex() {
                                     label="E-mail"
                                     inputMode="email"
                                     errors={loginErrors.email}
+                                    testID="emailInput"
                                 />
                             )}
                         />
@@ -86,6 +87,7 @@ export default function LoginIndex() {
                                     label="Password"
                                     errors={loginErrors.password}
                                     forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
+                                    testID="passwordInput"
                                 />
                             )}
                         />
