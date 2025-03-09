@@ -1,9 +1,8 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import React from 'react';
 import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
-import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
-import { keysLocalStorage } from '@src/utils/localStorage';
 import { NavigationContainer } from '@react-navigation/native';
+import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
 
 const responseMock = {
     firstName: 'Henrique',
@@ -15,7 +14,7 @@ const responseMock = {
 
 describe('RegisterIndex', () => {
 
-    it('Should do a simple REGISTRATION', async () => {
+    it('Should do a REGISTRATION', async () => {
 
         const mockFormData = {
             ...responseMock,
@@ -43,9 +42,7 @@ describe('RegisterIndex', () => {
 
         await user.press(elementButton);
 
-        const rawUsers = await AsyncStorageMock.getItem(keysLocalStorage.usersKey);
-
-        const dataUsers = rawUsers != null ? JSON.parse(rawUsers) : null;
+        const dataUsers = await getDataLocalStorageMock({keyStorage: 'usersKey'});
 
         expect(dataUsers[0]).toEqual(responseMock);
 
@@ -55,9 +52,7 @@ describe('RegisterIndex', () => {
 
         const responseLoggedUser = { ...responseMock, rememberMe: true };
 
-        const rawLoggedUser = await AsyncStorageMock.getItem(keysLocalStorage.loggedUserKey);
-
-        const dataLoggedUser = rawLoggedUser != null ? JSON.parse(rawLoggedUser) : null;
+        const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
 
         expect(dataLoggedUser).toEqual(responseLoggedUser);
 

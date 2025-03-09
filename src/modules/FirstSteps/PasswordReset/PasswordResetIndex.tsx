@@ -1,26 +1,26 @@
-import { ScrollView, View } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { ScrollView, View } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePasswordResetSchema, typePasswordResetSchema } from "@src/modules/FirstSteps/PasswordReset/usePasswordResetSchema";
+import { usePasswordResetSchema, typePasswordResetSchema } from '@src/modules/FirstSteps/PasswordReset/usePasswordResetSchema';
+import React from 'react';
+import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import PaddingContainer from '@src/components/containers/PaddingContainer';
+import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
+import ButtonDefault from '@src/components/buttons/ButtonDefault';
+import InputPassword from '@src/components/inputs/InputPassword';
+import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
+import { RootStackParamList } from '@src/routes/AppRoutes';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useEffect, useRef } from 'react';
+import { getResetRequests } from '@src/services/user/passwordReset/methods/getResetRequests';
+import { resetRequestsDataType } from '@src/services/user/passwordReset/types/genericTypes';
+import { putUser } from '@src/services/user/methods/putUser';
+import { useNavigation } from '@react-navigation/native';
+import { setLoginData } from '@src/services/user/methods/postLoginUser';
 
-import TextTitleH1 from "@src/components/texts/TextTitleH1";
-import PaddingContainer from "@src/components/containers/PaddingContainer";
-import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
-import ButtonDefault from "@src/components/buttons/ButtonDefault";
-import InputPassword from "@src/components/inputs/InputPassword";
-import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
-import { RootStackParamList } from "@src/routes/AppRoutes";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useEffect, useRef } from "react";
-import { getResetRequests } from "@src/services/user/passwordReset/methods/getResetRequests";
-import { resetRequestsDataType } from "@src/services/user/passwordReset/types/genericTypes";
-import { putUser } from "@src/services/user/methods/putUser";
-import { useNavigation } from "@react-navigation/native";
-import { setLoginData } from "@src/services/user/methods/postLoginUser";
+export type PropsPasswordResetIndex = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
-type Props = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
-
-export default function PasswordResetIndex({ route }: Props) {
+export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
 
     const { generatedUrl } = route.params;
 
@@ -33,14 +33,14 @@ export default function PasswordResetIndex({ route }: Props) {
             const resetRequestResponse = await getResetRequests(generatedUrl);
 
             resetRequestData.current = resetRequestResponse;
-        })()
-    }, [])
+        })();
+    }, [generatedUrl]);
 
     const {
         control: passwordResetControl,
         handleSubmit: passwordResetHandleSubmit,
         formState: { errors: passwordResetErrors },
-    } = useForm<typePasswordResetSchema>({ resolver: zodResolver(usePasswordResetSchema), mode: "onSubmit" });
+    } = useForm<typePasswordResetSchema>({ resolver: zodResolver(usePasswordResetSchema), mode: 'onSubmit' });
 
     async function onPasswordReset(formValues: typePasswordResetSchema) {
         const requestsData = resetRequestData.current?.[0];
@@ -52,8 +52,8 @@ export default function PasswordResetIndex({ route }: Props) {
 
             const dataEditUser = responseEditUser.data;
 
-            if(responseEditUser.messageSuccess && dataEditUser && typeof dataEditUser.id != undefined){
-                await setLoginData({...dataEditUser})
+            if (responseEditUser.messageSuccess && dataEditUser && typeof dataEditUser.id !== 'undefined') {
+                await setLoginData({ ...dataEditUser });
 
                 navigation.reset({
                     index: 0,
@@ -71,6 +71,7 @@ export default function PasswordResetIndex({ route }: Props) {
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>
                     <TextTitleH1>Reset password</TextTitleH1>
+                    <TextTitleH1>{generatedUrl}</TextTitleH1>
                 </View>
 
                 <View>
@@ -85,6 +86,7 @@ export default function PasswordResetIndex({ route }: Props) {
                                     value={value}
                                     label="Password"
                                     errors={passwordResetErrors.password}
+                                    testID='passwordInput'
                                 />
                             )}
                         />
@@ -99,6 +101,7 @@ export default function PasswordResetIndex({ route }: Props) {
                                     value={value}
                                     label="Confirm password"
                                     errors={passwordResetErrors.confirmPassword}
+                                    testID='confirmPasswordInput'
                                 />
                             )}
                         />
@@ -106,11 +109,11 @@ export default function PasswordResetIndex({ route }: Props) {
 
 
                     <View style={{ marginTop: 10 }}>
-                        <ButtonDefault title="Reset password" onPress={passwordResetHandleSubmit(onPasswordReset)} />
+                        <ButtonDefault title="Reset password" onPress={passwordResetHandleSubmit(onPasswordReset)} testID="resetBtn" />
                     </View>
 
                 </View>
             </PaddingContainer>
         </ScrollView>
-    )
+    );
 }

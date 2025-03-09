@@ -1,10 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { genericStatus } from "@src/services/genericTypes";
-import { getUsers } from "@src/services/user/methods/getUsers";
-import { keysLocalStorage } from "@src/utils/localStorage";
-import { apiManagement } from "@src/services/apiManagement";
-import { getResetRequests } from "@src/services/user/passwordReset/methods/getResetRequests";
-import { resetRequestsDataObjectType } from "@src/services/user/passwordReset/types/genericTypes";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { genericStatus } from '@src/services/genericTypes';
+import { getUsers } from '@src/services/user/methods/getUsers';
+import { keysLocalStorage } from '@src/utils/localStorage';
+import { apiManagement } from '@src/services/apiManagement';
+import { getResetRequests } from '@src/services/user/passwordReset/methods/getResetRequests';
+import { resetRequestsDataObjectType } from '@src/services/user/passwordReset/types/genericTypes';
 
 type postResetRequestType = {
   email: string;
@@ -17,17 +17,17 @@ export const postResetRequests = async (emailData: postResetRequestType) => {
 
   let data: resetRequestsDataObjectType | null = null;
 
-  const existentUserData = userResponseAll?.find((user) => user.email == emailData.email);
+  const existentUserData = userResponseAll?.find((user) => user.email === emailData.email);
 
   if (existentUserData) {
     let resetRequestsData = await getResetRequests();
 
-    const generatedUrl = "STEMURL" + (resetRequestsData?.length ?? 1);
+    const generatedUrl = 'STPRURL' + (resetRequestsData?.length ?? 1);
 
     const newRequestData = {
       email: emailData.email,
       generatedUrl: generatedUrl,
-      userId: existentUserData.id
+      userId: existentUserData.id,
     };
 
     const arrayToConvertJson = resetRequestsData
@@ -38,7 +38,7 @@ export const postResetRequests = async (emailData: postResetRequestType) => {
 
     await AsyncStorage.setItem(keysLocalStorage.resetRequestsKey, jsonValue);
 
-    status.messageSuccess = "E-mail exists!";
+    status.messageSuccess = 'E-mail exists!';
 
     data = newRequestData;
   } else {

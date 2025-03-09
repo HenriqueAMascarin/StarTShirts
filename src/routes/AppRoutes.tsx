@@ -34,9 +34,9 @@ export default function AppRoutes() {
           headerShown: false,
           contentStyle: {
             backgroundColor: appColors.white,
-            flexGrow: 1
+            flexGrow: 1,
           },
-          animationTypeForReplace: 'push'
+          animationTypeForReplace: 'push',
         }}>
 
         <Stack.Group>

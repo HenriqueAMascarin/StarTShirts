@@ -1,25 +1,25 @@
-import { ScrollView, View } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { ScrollView, View } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InputDefault from "@src/components/inputs/InputDefault";
-import { typeResetRequestSchema, useResetRequestSchema } from "@src/modules/FirstSteps/ResetRequest/useResetRequestSchema";
-
-import TextTitleH1 from "@src/components/texts/TextTitleH1";
-import PaddingContainer from "@src/components/containers/PaddingContainer";
-import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
-import ButtonDefault from "@src/components/buttons/ButtonDefault";
-import LineWithText from "@src/components/objects/lines/LineWithText";
-import { useNavigation } from "@react-navigation/native";
-import StarIconTop from "@src/modules/FirstSteps/components/StarIconTop";
-import { postResetRequests } from "@src/services/user/passwordReset/methods/postResetRequests";
-import TextDefault from "@src/components/texts/TextDefault";
+import InputDefault from '@src/components/inputs/InputDefault';
+import { typeResetRequestSchema, useResetRequestSchema } from '@src/modules/FirstSteps/ResetRequest/useResetRequestSchema';
+import React from 'react';
+import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import PaddingContainer from '@src/components/containers/PaddingContainer';
+import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
+import ButtonDefault from '@src/components/buttons/ButtonDefault';
+import LineWithText from '@src/components/objects/lines/LineWithText';
+import { useNavigation } from '@react-navigation/native';
+import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
+import { postResetRequests } from '@src/services/user/passwordReset/methods/postResetRequests';
+import TextDefault from '@src/components/texts/TextDefault';
 
 export default function ResetRequestIndex() {
     const {
         control: resetRequestControl,
         handleSubmit: resetRequestHandleSubmit,
         formState: { errors: resetRequestErrors },
-    } = useForm<typeResetRequestSchema>({ resolver: zodResolver(useResetRequestSchema), mode: "onSubmit" });
+    } = useForm<typeResetRequestSchema>({ resolver: zodResolver(useResetRequestSchema), mode: 'onSubmit' });
 
     const navigation = useNavigation();
 
@@ -29,12 +29,12 @@ export default function ResetRequestIndex() {
         const response = await postResetRequests(payload);
 
         if (response.messageSuccess && response.data) {
-            navigation.navigate("password-reset", { generatedUrl: response.data.generatedUrl });
+            navigation.navigate('password-reset', { generatedUrl: response.data.generatedUrl });
         }
     }
 
     function changeBtnMethod() {
-        navigation.navigate("login");
+        navigation.navigate('login');
     }
 
     return (
@@ -44,7 +44,7 @@ export default function ResetRequestIndex() {
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>
                     <TextTitleH1>Reset password</TextTitleH1>
-                    
+
                     <TextDefault>Please enter your e-mail and we will send a link to reset your password.</TextDefault>
                 </View>
 
@@ -61,6 +61,7 @@ export default function ResetRequestIndex() {
                                     label="E-mail"
                                     inputMode="email"
                                     errors={resetRequestErrors.email}
+                                    testID="emailInput"
                                 />
                             )}
                         />

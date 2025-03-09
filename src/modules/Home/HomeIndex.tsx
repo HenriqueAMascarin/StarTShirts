@@ -3,7 +3,7 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import TextDefault from '@src/components/texts/TextDefault';
 import TextTitleH1 from '@src/components/texts/TextTitleH1';
 import { keysLocalStorage } from '@src/utils/localStorage';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 
 export default function HomeIndex() {

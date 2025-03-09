@@ -41,7 +41,7 @@ export const postLoginUser = async ({ password, email, rememberMe = true }: Logi
 
   const hasUser = userResponseAll.find((user) => user.email === email);
 
-  if (hasUser && hasUser.id !== undefined) {
+  if (hasUser && hasUser.id != undefined) {
     if (password === hasUser.password) {
       await setLoginData({
         password,

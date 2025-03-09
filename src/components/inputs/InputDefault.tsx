@@ -1,7 +1,8 @@
-import { TextInput, TextInputProps, View } from "react-native";
-import TextDefault from "@src/components/texts/TextDefault";
-import { stylesInput } from "@src/components/inputs/stylesInput";
-import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
+import { TextInput, TextInputProps, View } from 'react-native';
+import TextDefault from '@src/components/texts/TextDefault';
+import { stylesInput } from '@src/components/inputs/stylesInput';
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
+import React from 'react';
 
 type propsInput = TextInputProps & { label?: string, errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined }
 
@@ -18,5 +19,5 @@ export default function InputDefault(inputProps: propsInput) {
 
             <TextDefault style={stylesInput.error}>{inputProps?.errors?.message?.toString()}</TextDefault>
         </View>
-    )
+    );
 }

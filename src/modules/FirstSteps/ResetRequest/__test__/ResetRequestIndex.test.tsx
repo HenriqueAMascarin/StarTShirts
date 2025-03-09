@@ -1,12 +1,12 @@
 import { render, screen, userEvent } from '@testing-library/react-native';
 import React from 'react';
-import LoginIndex from '@src/modules/FirstSteps/Login/LoginIndex';
+import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequestIndex';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
 
-const responseMock = {
+const responseUserMock = {
     firstName: 'Henrique',
     lastName: 'Test',
     email: 'test@gmail.com',
@@ -15,37 +15,43 @@ const responseMock = {
     rememberMe: true,
 };
 
-describe('LoginIndex', () => {
+const responseRequestMock = {
+    email: responseUserMock.email,
+    generatedUrl: 'STPRURL0',
+    userId: responseUserMock.id,
+};
+
+describe('ResetRequestIndex', () => {
 
     it('Should have a USER REGISTERED', async () => {
-        const userArray = [responseMock];
+
+        const userArray = [responseUserMock];
 
         await AsyncStorageMock.setItem(keysLocalStorage.usersKey, JSON.stringify(userArray));
 
         const dataRawUsers = await getDataLocalStorageMock({ keyStorage: 'usersKey' });
 
         expect(dataRawUsers).toEqual(userArray);
+
     });
 
-    it('Should do a LOGIN', async () => {
+    it('Should do a RESET REQUEST', async () => {
 
-        render(<NavigationContainer><LoginIndex /></NavigationContainer>);
+        render(<NavigationContainer><ResetRequestIndex /></NavigationContainer>);
 
-        const elementButton = screen.getByText('Login');
+        const elementButton = screen.getByText('Send e-mail');
 
         const user = userEvent.setup();
 
         const emailInput = screen.getByTestId('emailInput');
-        const passwordInput = screen.getByTestId('passwordInput');
 
-        await user.type(emailInput, responseMock.email);
-        await user.type(passwordInput, responseMock.password);
+        await user.type(emailInput, responseRequestMock.email);
 
         await user.press(elementButton);
 
-        const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
+        const dataResetRequests = await getDataLocalStorageMock({keyStorage: 'resetRequestsKey'});
 
-        expect(dataLoggedUser).toEqual(responseMock);
+        expect(dataResetRequests[0]).toEqual(responseRequestMock);
 
     });
 });
