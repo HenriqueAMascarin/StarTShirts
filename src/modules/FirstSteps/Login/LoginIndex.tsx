@@ -1,19 +1,19 @@
 import { ScrollView, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InputDefault from '@src/components/inputs/InputDefault';
+import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useLoginSchema, typeLoginSchema } from '@src/modules/FirstSteps/Login/useLoginSchema';
 import React from 'react';
 import TextTitleH1 from '@src/components/texts/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
-import InputPassword from '@src/components/inputs/InputPassword';
+import InputPassword from '@src/components/inputs/Password/InputPassword';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import LineWithText from '@src/components/objects/lines/LineWithText';
 
 import Checkbox from '@src/components/checkbox/Checkbox';
-import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
-import { postLoginUser } from '@src/services/user/methods/postLoginUser';
+import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
+import { postLoginUser } from '@src/services/user/login/postLoginUser';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
@@ -51,7 +51,7 @@ export default function LoginIndex() {
 
     return (
         <ScrollView>
-            <StarIconTop />
+            <StarIconTopIndex />
 
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>

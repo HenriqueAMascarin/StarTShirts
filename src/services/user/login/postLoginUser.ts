@@ -1,19 +1,16 @@
-import { userObjectType, userResponseObjectType } from '@src/services/user/types/genericTypes';
+import { userObjectType } from '@src/services/user/types/genericTypes';
 import { genericStatus } from '@src/services/genericTypes';
 import { getUsers } from '@src/services/user/methods/getUsers';
 import { apiManagement } from '@src/services/apiManagement';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { keysLocalStorage } from '@src/utils/localStorage';
+import { UserLoggedType } from '@src/services/user/login/types/genericTypes';
 
 type LoginUserType = {
   password: string;
   email: string;
   rememberMe?: boolean;
 };
-
-interface payloadLoginType extends userResponseObjectType {
-  rememberMe?: boolean;
-}
 
 export async function setLoginData({
   email,
@@ -22,7 +19,7 @@ export async function setLoginData({
   firstName,
   lastName,
   rememberMe = true,
-}: payloadLoginType) {
+}: UserLoggedType) {
   const payloadLoginData = { email, id, password, rememberMe, firstName, lastName };
 
   // Pick the new logged user

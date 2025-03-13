@@ -5,8 +5,9 @@ import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
 import LoginIndex from '@src/modules/FirstSteps/Login/LoginIndex';
 import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequestIndex';
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
-import HomeIndex from '@src/modules/Home/HomeIndex';
+import HomeIndex from '@src/modules/InApp/Home/HomeIndex';
 import React from 'react';
+import HeaderIndex from '@src/modules/InApp/Home/components/Header/HeaderIndex';
 
 export type RootStackParamList = {
   register: undefined,
@@ -24,12 +25,16 @@ declare global {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function AppRoutes() {
+const inAppOptions = { header: HeaderIndex };
+
+type AppRoutesType = {initialRouteName: keyof RootStackParamList};
+
+export default function AppRoutes({initialRouteName}: AppRoutesType) {
 
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="register"
+        initialRouteName={initialRouteName}
         screenOptions={{
           headerShown: false,
           contentStyle: {
@@ -46,11 +51,11 @@ export default function AppRoutes() {
           <Stack.Screen name="password-reset" component={PasswordResetIndex} />
         </Stack.Group>
 
-        <Stack.Group>
-          <Stack.Screen name="home" component={HomeIndex}/>
+        <Stack.Group screenOptions={inAppOptions}>
+          <Stack.Screen name="home" component={HomeIndex} />
         </Stack.Group>
 
       </Stack.Navigator>
     </NavigationContainer>
-  )
+  );
 }

@@ -7,8 +7,8 @@ import TextTitleH1 from '@src/components/texts/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
-import InputPassword from '@src/components/inputs/InputPassword';
-import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
+import InputPassword from '@src/components/inputs/Password/InputPassword';
+import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useRef } from 'react';
@@ -16,7 +16,7 @@ import { getResetRequests } from '@src/services/user/passwordReset/methods/getRe
 import { resetRequestsDataType } from '@src/services/user/passwordReset/types/genericTypes';
 import { putUser } from '@src/services/user/methods/putUser';
 import { useNavigation } from '@react-navigation/native';
-import { setLoginData } from '@src/services/user/methods/postLoginUser';
+import { setLoginData } from '@src/services/user/login/postLoginUser';
 
 export type PropsPasswordResetIndex = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
@@ -66,7 +66,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
 
     return (
         <ScrollView>
-            <StarIconTop />
+            <StarIconTopIndex />
 
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>

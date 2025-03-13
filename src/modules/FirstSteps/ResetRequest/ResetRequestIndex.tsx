@@ -1,7 +1,7 @@
 import { ScrollView, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InputDefault from '@src/components/inputs/InputDefault';
+import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { typeResetRequestSchema, useResetRequestSchema } from '@src/modules/FirstSteps/ResetRequest/useResetRequestSchema';
 import React from 'react';
 import TextTitleH1 from '@src/components/texts/TextTitleH1';
@@ -10,7 +10,7 @@ import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import LineWithText from '@src/components/objects/lines/LineWithText';
 import { useNavigation } from '@react-navigation/native';
-import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
+import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { postResetRequests } from '@src/services/user/passwordReset/methods/postResetRequests';
 import TextDefault from '@src/components/texts/TextDefault';
 
@@ -39,7 +39,7 @@ export default function ResetRequestIndex() {
 
     return (
         <ScrollView>
-            <StarIconTop />
+            <StarIconTopIndex />
 
             <PaddingContainer>
                 <View style={{ marginBottom: 20 }}>

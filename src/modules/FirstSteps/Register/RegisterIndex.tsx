@@ -1,25 +1,25 @@
-import { ScrollView, View } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { ScrollView, View } from 'react-native';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InputDefault from "@src/components/inputs/InputDefault";
-import { useRegisterSchema, typeRegisterSchema } from "@src/modules/FirstSteps/Register/useRegisterSchema";
+import InputDefault from '@src/components/inputs/Default/InputDefault';
+import { useRegisterSchema, typeRegisterSchema } from '@src/modules/FirstSteps/Register/useRegisterSchema';
 import React from 'react';
-import TextTitleH1 from "@src/components/texts/TextTitleH1";
-import PaddingContainer from "@src/components/containers/PaddingContainer";
-import { globalStyles } from "@src/modules/FirstSteps/globalStyles";
-import InputPassword from "@src/components/inputs/InputPassword";
-import ButtonDefault from "@src/components/buttons/ButtonDefault";
-import LineWithText from "@src/components/objects/lines/LineWithText";
-import { postUser } from "@src/services/user/methods/postUser";
-import { useNavigation } from "@react-navigation/native";
-import StarIconTop from '@src/modules/FirstSteps/components/StarIconTop';
+import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import PaddingContainer from '@src/components/containers/PaddingContainer';
+import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
+import InputPassword from '@src/components/inputs/Password/InputPassword';
+import ButtonDefault from '@src/components/buttons/ButtonDefault';
+import LineWithText from '@src/components/objects/lines/LineWithText';
+import { postUser } from '@src/services/user/methods/postUser';
+import { useNavigation } from '@react-navigation/native';
+import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 
 export default function RegisterIndex() {
     const {
         control: registerControl,
         handleSubmit: registerHandleSubmit,
         formState: { errors: registerErrors },
-    } = useForm<typeRegisterSchema>({ resolver: zodResolver(useRegisterSchema), mode: "onSubmit" });
+    } = useForm<typeRegisterSchema>({ resolver: zodResolver(useRegisterSchema), mode: 'onSubmit' });
 
     const navigation = useNavigation();
 
@@ -47,7 +47,7 @@ export default function RegisterIndex() {
 
     return (
         <ScrollView>
-            <StarIconTop />
+            <StarIconTopIndex />
 
             <PaddingContainer>
 

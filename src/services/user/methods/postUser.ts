@@ -5,7 +5,7 @@ import { genericStatus } from '@src/services/genericTypes';
 import { getUsers } from '@src/services/user/methods/getUsers';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import { apiManagement } from '@src/services/apiManagement';
-import { setLoginData } from '@src/services/user/methods/postLoginUser';
+import { setLoginData } from '@src/services/user/login/postLoginUser';
 
 export const postUser = async (userData: userObjectType) => {
   const userResponseAll = await getUsers({});
