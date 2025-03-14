@@ -15,40 +15,47 @@ async function getBootData() {
 
   let initialRoute: keyof RootStackParamList = 'register';
 
-    if(loggedUserData){
-      if(loggedUserData.rememberMe){
-        initialRoute = 'home';
-      }else{
-        initialRoute = 'login';
-      }
+  if (loggedUserData) {
+    if (loggedUserData.rememberMe) {
+      initialRoute = 'home';
+    } else {
+      initialRoute = 'login';
     }
+  }
 
-  return { loggedUserData, initialRoute };
+  return { loggedUserData: loggedUserData, initialRoute };
 }
-
-
 
 function App() {
 
-  const [bootStateData, changeBootStateData] = useState<Awaited<ReturnType<typeof getBootData>>>();
+  const [bootStateData, changeBootStateData] = useState<Awaited<ReturnType<typeof getBootData>> | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const bootData = await getBootData();
-      changeBootStateData(bootData);
-    })();
+    if (!bootStateData) {
+      (async () => {
+        const bootData = await getBootData();
+        changeBootStateData(bootData);
+      })();
+    } else {
+      SplashScreenModule.changeActiveSplashScreen(false);
+    }
+  }, [bootStateData]);
 
-    SplashScreenModule.changeActiveSplashScreen(false);
-  }, []);
+  useEffect(() => {
+
+  }, [bootStateData]);
 
   return (
     <Provider store={globalStore}>
-      <SafeAreaView style={{ flex: 1, position: "relative" }}>
-        <GeneratorAlert />
-        
-        <AppRoutes initialRouteName={bootStateData?.initialRoute}/>
+      {bootStateData &&
+        <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+          <GeneratorAlert />
 
-      </SafeAreaView>
+          <AppRoutes initialRouteName={bootStateData.initialRoute} />
+
+        </SafeAreaView>
+      }
+
     </Provider>
   );
 }
