@@ -1,4 +1,4 @@
-import {appColors} from '@src/utils/styleVariables';
+import {appColors} from '@src/utils/appColors';
 import {StyleSheet} from 'react-native';
 
 export const stylesInputPassword = StyleSheet.create({

@@ -17,8 +17,6 @@ export default function InputDefault(inputProps: propsInput) {
                     {...inputProps}
                     style={[stylesGlobal.defaultInput, inputProps.style]}
                 />
-
-                {inputProps.children}
             </View>
 
             <TextDefault style={stylesGlobal.error}>{inputProps?.errors?.message?.toString()}</TextDefault>

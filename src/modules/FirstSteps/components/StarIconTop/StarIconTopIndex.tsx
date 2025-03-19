@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import StarSVG from '@src/assets/svgs/star.svg';
-import { appColors } from '@src/utils/styleVariables';
+import { appColors } from '@src/utils/appColors';
 import React from 'react';
 
 export default function StarIconTopIndex() {

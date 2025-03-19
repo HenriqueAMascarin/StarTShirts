@@ -2,7 +2,7 @@ import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
 import CheckIcon from "@src/assets/svgs/check_small.svg"
 import TextDefault from "@src/components/texts/TextDefault";
 import { stylesCheckbox } from "@src/components/checkbox/stylesCheckbox";
-import { appColors } from "@src/utils/styleVariables";
+import { appColors } from "@src/utils/appColors";
 
 type CheckboxType = {
     stateValue: boolean,
