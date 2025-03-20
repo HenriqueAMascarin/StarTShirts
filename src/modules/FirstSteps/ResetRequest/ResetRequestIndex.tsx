@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { postResetRequests } from '@src/services/user/passwordReset/methods/postResetRequests';
 import TextDefault from '@src/components/texts/TextDefault';
+import BottomContainer from '@src/components/containers/BottomContainer';
 
 export default function ResetRequestIndex() {
     const {
@@ -42,42 +43,43 @@ export default function ResetRequestIndex() {
             <StarIconTopIndex />
 
             <PaddingContainer>
-                <View style={{ marginBottom: 20 }}>
-                    <TextTitleH1>Reset password</TextTitleH1>
+                <BottomContainer>
+                    <View style={{ marginBottom: 20 }}>
+                        <TextTitleH1>Reset password</TextTitleH1>
 
-                    <TextDefault>Please enter your e-mail and we will send a link to reset your password.</TextDefault>
-                </View>
-
-                <View>
-                    <View style={globalStyles.containerInputs}>
-                        <Controller
-                            control={resetRequestControl}
-                            name="email"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputDefault
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="E-mail"
-                                    inputMode="email"
-                                    errors={resetRequestErrors.email}
-                                    testID="emailInput"
-                                />
-                            )}
-                        />
+                        <TextDefault>Please enter your e-mail and we will send a link to reset your password.</TextDefault>
                     </View>
 
+                    <View>
+                        <View style={globalStyles.containerInputs}>
+                            <Controller
+                                control={resetRequestControl}
+                                name="email"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputDefault
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="E-mail"
+                                        inputMode="email"
+                                        errors={resetRequestErrors.email}
+                                        testID="emailInput"
+                                    />
+                                )}
+                            />
+                        </View>
 
-                    <View style={{ marginTop: 10 }}>
-                        <ButtonDefault title="Send e-mail" onPress={resetRequestHandleSubmit(onResetSubmit)} />
 
-                        <LineWithText text="or" />
+                        <View style={{ marginTop: 10 }}>
+                            <ButtonDefault title="Send e-mail" onPress={resetRequestHandleSubmit(onResetSubmit)} />
 
-                        <ButtonDefault title="Login" onPress={changeBtnMethod} borderType={true} />
+                            <LineWithText text="or" />
+
+                            <ButtonDefault title="Login" onPress={changeBtnMethod} borderType={true} />
+                        </View>
                     </View>
-
-                </View>
+                </BottomContainer>
             </PaddingContainer>
         </ScrollView>
-    )
+    );
 }

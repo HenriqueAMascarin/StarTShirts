@@ -13,6 +13,7 @@ import LineWithText from '@src/components/objects/lines/LineWithText';
 import { postUser } from '@src/services/user/methods/postUser';
 import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
+import BottomContainer from '@src/components/containers/BottomContainer';
 
 export default function RegisterIndex() {
     const {
@@ -50,102 +51,102 @@ export default function RegisterIndex() {
             <StarIconTopIndex />
 
             <PaddingContainer>
-
-                <View style={{ marginBottom: 20 }}>
-                    <TextTitleH1>Sign up</TextTitleH1>
-                </View>
-
-                <View>
-                    <View style={globalStyles.containerInputs}>
-                        <Controller
-                            control={registerControl}
-                            name="firstName"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputDefault
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="First name"
-                                    errors={registerErrors.firstName}
-                                    testID="firstNameInput"
-                                />
-                            )}
-                        />
-
-                        <Controller
-                            control={registerControl}
-                            name="lastName"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputDefault
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="Last name"
-                                    errors={registerErrors.lastName}
-                                    testID="lastNameInput"
-                                />
-                            )}
-                        />
-
-
-                        <Controller
-                            control={registerControl}
-                            name="email"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputDefault
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="E-mail"
-                                    inputMode="email"
-                                    errors={registerErrors.email}
-                                    testID="emailInput"
-                                />
-                            )}
-                        />
-
-                        <Controller
-                            control={registerControl}
-                            name="password"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputPassword
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="Password"
-                                    errors={registerErrors.password}
-                                    testID="passwordInput"
-                                />
-                            )}
-                        />
-
-                        <Controller
-                            control={registerControl}
-                            name="confirmPassword"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputPassword
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="Confirm password"
-                                    errors={registerErrors.confirmPassword}
-                                    testID="confirmPasswordInput"
-                                />
-                            )}
-                        />
+                <BottomContainer>
+                    <View style={{ marginBottom: 20 }}>
+                        <TextTitleH1>Sign up</TextTitleH1>
                     </View>
 
+                    <View>
+                        <View style={globalStyles.containerInputs}>
+                            <Controller
+                                control={registerControl}
+                                name="firstName"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputDefault
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="First name"
+                                        errors={registerErrors.firstName}
+                                        testID="firstNameInput"
+                                    />
+                                )}
+                            />
 
-                    <View style={{ marginTop: 10 }}>
-                        <ButtonDefault title="Create account" onPress={registerHandleSubmit(onRegisterSubmit)} />
+                            <Controller
+                                control={registerControl}
+                                name="lastName"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputDefault
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="Last name"
+                                        errors={registerErrors.lastName}
+                                        testID="lastNameInput"
+                                    />
+                                )}
+                            />
 
-                        <LineWithText text="or" />
 
-                        <ButtonDefault title="Login" onPress={changeBtnMethod} borderType={true} />
+                            <Controller
+                                control={registerControl}
+                                name="email"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputDefault
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="E-mail"
+                                        inputMode="email"
+                                        errors={registerErrors.email}
+                                        testID="emailInput"
+                                    />
+                                )}
+                            />
+
+                            <Controller
+                                control={registerControl}
+                                name="password"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputPassword
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="Password"
+                                        errors={registerErrors.password}
+                                        testID="passwordInput"
+                                    />
+                                )}
+                            />
+
+                            <Controller
+                                control={registerControl}
+                                name="confirmPassword"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputPassword
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="Confirm password"
+                                        errors={registerErrors.confirmPassword}
+                                        testID="confirmPasswordInput"
+                                    />
+                                )}
+                            />
+                        </View>
+
+
+                        <View style={{ marginTop: 10 }}>
+                            <ButtonDefault title="Create account" onPress={registerHandleSubmit(onRegisterSubmit)} />
+
+                            <LineWithText text="or" />
+
+                            <ButtonDefault title="Login" onPress={changeBtnMethod} borderType={true} />
+                        </View>
                     </View>
-
-                </View>
+                </BottomContainer>
             </PaddingContainer>
         </ScrollView>
-    )
+    );
 }

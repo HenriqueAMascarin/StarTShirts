@@ -16,6 +16,7 @@ import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/Sta
 import { postLoginUser } from '@src/services/user/login/postLoginUser';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import BottomContainer from '@src/components/containers/BottomContainer';
 
 export default function LoginIndex() {
     const {
@@ -54,57 +55,58 @@ export default function LoginIndex() {
             <StarIconTopIndex />
 
             <PaddingContainer>
-                <View style={{ marginBottom: 20 }}>
-                    <TextTitleH1>Welcome back</TextTitleH1>
-                </View>
-
-                <View>
-                    <View style={globalStyles.containerInputs}>
-                        <Controller
-                            control={loginControl}
-                            name="email"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputDefault
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="E-mail"
-                                    inputMode="email"
-                                    errors={loginErrors.email}
-                                    testID="emailInput"
-                                />
-                            )}
-                        />
-
-                        <Controller
-                            control={loginControl}
-                            name="password"
-                            render={({ field: { onChange, onBlur, value } }) => (
-                                <InputPassword
-                                    onBlur={onBlur}
-                                    onChangeText={onChange}
-                                    value={value}
-                                    label="Password"
-                                    errors={loginErrors.password}
-                                    forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
-                                    testID="passwordInput"
-                                />
-                            )}
-                        />
+                <BottomContainer>
+                    <View style={{ marginBottom: 20 }}>
+                        <TextTitleH1>Welcome back</TextTitleH1>
                     </View>
 
+                    <View>
+                        <View style={globalStyles.containerInputs}>
+                            <Controller
+                                control={loginControl}
+                                name="email"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputDefault
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="E-mail"
+                                        inputMode="email"
+                                        errors={loginErrors.email}
+                                        testID="emailInput"
+                                    />
+                                )}
+                            />
 
-                    <View style={{ marginTop: 10 }}>
-                        <Checkbox stateValue={checkboxState} changeStateValueFn={changeCheckboxState} label="Remember me" style={{ marginBottom: 8 }} />
+                            <Controller
+                                control={loginControl}
+                                name="password"
+                                render={({ field: { onChange, onBlur, value } }) => (
+                                    <InputPassword
+                                        onBlur={onBlur}
+                                        onChangeText={onChange}
+                                        value={value}
+                                        label="Password"
+                                        errors={loginErrors.password}
+                                        forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
+                                        testID="passwordInput"
+                                    />
+                                )}
+                            />
+                        </View>
 
-                        <ButtonDefault title="Login" onPress={loginHandleSubmit(onLoginSubmit)} />
 
-                        <LineWithText text="or" />
+                        <View style={{ marginTop: 10 }}>
+                            <Checkbox stateValue={checkboxState} changeStateValueFn={changeCheckboxState} label="Remember me" style={{ marginBottom: 8 }} />
 
-                        <ButtonDefault title="Create account" onPress={changeBtnMethod} borderType={true} />
+                            <ButtonDefault title="Login" onPress={loginHandleSubmit(onLoginSubmit)} />
+
+                            <LineWithText text="or" />
+
+                            <ButtonDefault title="Create account" onPress={changeBtnMethod} borderType={true} />
+                        </View>
                     </View>
-
-                </View>
+                </BottomContainer>
             </PaddingContainer>
         </ScrollView>
     )

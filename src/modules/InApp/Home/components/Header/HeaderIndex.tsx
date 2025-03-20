@@ -1,15 +1,14 @@
 import React from 'react';
-import { TouchableOpacity, View, SafeAreaView } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import StarSVG from '@src/assets/svgs/star.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { stylesHeaderIndex } from '@src/modules/InApp/Home/components/Header/stylesHeaderIndex';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import { appColors } from '@src/utils/appColors';
 
 export default function HeaderIndex () {
     return (
-        <View style={{ backgroundColor: appColors.black }}>
+        <View style={stylesHeaderIndex.container}>
             <PaddingContainer>
                 <View style={stylesHeaderIndex.flexContainer}>
                     <StarSVG width={'43'} height={'33'} />
