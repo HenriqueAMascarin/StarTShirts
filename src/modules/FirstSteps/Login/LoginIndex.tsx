@@ -99,11 +99,11 @@ export default function LoginIndex() {
                         <View style={{ marginTop: 10 }}>
                             <Checkbox stateValue={checkboxState} changeStateValueFn={changeCheckboxState} label="Remember me" style={{ marginBottom: 8 }} />
 
-                            <ButtonDefault title="Login" onPress={loginHandleSubmit(onLoginSubmit)} />
+                            <ButtonDefault title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
 
                             <LineWithText text="or" />
 
-                            <ButtonDefault title="Create account" onPress={changeBtnMethod} borderType={true} />
+                            <ButtonDefault title="Create account" onPressIn={changeBtnMethod} borderType={true} />
                         </View>
                     </View>
                 </BottomContainer>

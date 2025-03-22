@@ -6,6 +6,7 @@ import VisibilityOffSvg from '@src/assets/svgs/visibility_off.svg';
 import VisibilitySvg from '@src/assets/svgs/visibility.svg';
 import React, { useState } from 'react';
 import { stylesInputPassword } from '@src/components/inputs/Password/stylesInputPassword';
+import { appColors } from '@src/utils/appColors';
 
 type propsInput = TextInputProps &
 {
@@ -31,6 +32,7 @@ export default function InputPassword(inputProps: propsInput) {
                     {...inputProps}
                     style={[stylesGlobal.defaultInput, inputProps.style]}
                     secureTextEntry={!visible}
+                    placeholderTextColor={appColors.black}
                 />
                 <TouchableOpacity
                     style={stylesInputPassword.passwordRevealBtn}
@@ -45,7 +47,7 @@ export default function InputPassword(inputProps: propsInput) {
                 <TextDefault style={stylesGlobal.error}>{inputProps?.errors?.message?.toString()}</TextDefault>
 
                 {inputProps.forgotPassword?.hasForgotBtn &&
-                    <TouchableOpacity onPress={() => inputProps.forgotPassword?.function()}>
+                    <TouchableOpacity onPressIn={() => inputProps.forgotPassword?.function()}>
                         <TextDefault style={stylesInputPassword.forgotPasswordText}>Forgot password?</TextDefault>
                     </TouchableOpacity>
                 }

@@ -12,6 +12,10 @@ export const stylesGlobal = StyleSheet.create({
     paddingLeft: 5,
     paddingTop: 0,
     paddingBottom: 0,
+    backgroundColor: appColors.white,
+  },
+  container: {
+    alignSelf: 'stretch',
   },
   label: {
     paddingLeft: 5,

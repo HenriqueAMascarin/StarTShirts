@@ -110,7 +110,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
 
 
                         <View style={{ marginTop: 10 }}>
-                            <ButtonDefault title="Reset password" onPress={passwordResetHandleSubmit(onPasswordReset)} testID="resetBtn" />
+                            <ButtonDefault title="Reset password" onPressIn={passwordResetHandleSubmit(onPasswordReset)} testID="resetBtn" />
                         </View>
 
                     </View>

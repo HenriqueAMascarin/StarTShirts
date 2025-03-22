@@ -138,11 +138,11 @@ export default function RegisterIndex() {
 
 
                         <View style={{ marginTop: 10 }}>
-                            <ButtonDefault title="Create account" onPress={registerHandleSubmit(onRegisterSubmit)} />
+                            <ButtonDefault title="Create account" onPressIn={registerHandleSubmit(onRegisterSubmit)} />
 
                             <LineWithText text="or" />
 
-                            <ButtonDefault title="Login" onPress={changeBtnMethod} borderType={true} />
+                            <ButtonDefault title="Login" onPressIn={changeBtnMethod} borderType={true} />
                         </View>
                     </View>
                 </BottomContainer>

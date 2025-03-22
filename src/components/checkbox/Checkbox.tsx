@@ -1,8 +1,9 @@
-import { StyleProp, TouchableOpacity, View, ViewStyle } from "react-native";
-import CheckIcon from "@src/assets/svgs/check_small.svg"
-import TextDefault from "@src/components/texts/TextDefault";
-import { stylesCheckbox } from "@src/components/checkbox/stylesCheckbox";
-import { appColors } from "@src/utils/appColors";
+import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
+import CheckIcon from '@src/assets/svgs/check_small.svg';
+import TextDefault from '@src/components/texts/TextDefault';
+import { stylesCheckbox } from '@src/components/checkbox/stylesCheckbox';
+import { appColors } from '@src/utils/appColors';
+import React from 'react';
 
 type CheckboxType = {
     stateValue: boolean,
@@ -18,7 +19,7 @@ export default function Checkbox({ stateValue, changeStateValueFn, label, style 
     }
 
     return (
-        <TouchableOpacity style={[stylesCheckbox.container, style]} onPress={toggleCheckbox}>
+        <TouchableOpacity style={[stylesCheckbox.container, style]} onPressIn={toggleCheckbox}>
             <View style={[stylesCheckbox.checkboxContainer, { backgroundColor: stateValue ? appColors.blue : appColors.white }]}>
                 {stateValue &&
                     <CheckIcon width={13} height={13} />

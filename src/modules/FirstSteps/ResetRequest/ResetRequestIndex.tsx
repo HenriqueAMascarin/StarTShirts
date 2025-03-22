@@ -71,11 +71,11 @@ export default function ResetRequestIndex() {
 
 
                         <View style={{ marginTop: 10 }}>
-                            <ButtonDefault title="Send e-mail" onPress={resetRequestHandleSubmit(onResetSubmit)} />
+                            <ButtonDefault title="Send e-mail" onPressIn={resetRequestHandleSubmit(onResetSubmit)} />
 
                             <LineWithText text="or" />
 
-                            <ButtonDefault title="Login" onPress={changeBtnMethod} borderType={true} />
+                            <ButtonDefault title="Login" onPressIn={changeBtnMethod} borderType={true} />
                         </View>
                     </View>
                 </BottomContainer>
