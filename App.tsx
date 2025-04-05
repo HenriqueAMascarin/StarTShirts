@@ -8,6 +8,7 @@ import AppRoutes, { RootStackParamList } from '@src/routes/AppRoutes';
 import { SafeAreaView } from 'react-native';
 import { GeneratorAlert } from '@src/components/alert/GeneratorAlert';
 import { getLoggedUser } from '@src/services/user/login/getLoggedUser';
+
 const { SplashScreenModule } = NativeModules;
 
 async function getBootData() {
@@ -52,10 +53,8 @@ function App() {
           <GeneratorAlert />
 
           <AppRoutes initialRouteName={bootStateData.initialRoute} />
-
         </SafeAreaView>
       }
-
     </Provider>
   );
 }

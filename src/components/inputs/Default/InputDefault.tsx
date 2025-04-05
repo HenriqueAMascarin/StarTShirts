@@ -16,7 +16,7 @@ export default function InputDefault(inputProps: propsInput) {
             <TextInput
                 {...inputProps}
                 style={[stylesGlobal.defaultInput, inputProps.style]}
-                placeholderTextColor={appColors.black}
+                placeholderTextColor={appColors.gray}
             />
 
            {<TextDefault style={stylesGlobal.error}>{inputProps?.errors?.message?.toString()}</TextDefault>}

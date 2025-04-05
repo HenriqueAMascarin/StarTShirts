@@ -34,9 +34,9 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
       <Stack.Navigator
         initialRouteName={initialRouteName}
         screenOptions={{
+          header: HeaderIndex,
           contentStyle: {
             backgroundColor: appColors.white,
-            flexGrow: 1,
           },
           animationTypeForReplace: 'push',
         }}>
@@ -48,7 +48,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
           <Stack.Screen name="password-reset" component={PasswordResetIndex} />
         </Stack.Group>
 
-        <Stack.Group screenOptions={{header: HeaderIndex}}>
+        <Stack.Group>
           <Stack.Screen name="home" component={HomeIndex} />
         </Stack.Group>
 

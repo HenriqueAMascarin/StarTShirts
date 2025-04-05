@@ -3,12 +3,18 @@ import { StyleSheet } from 'react-native';
 
 export const stylesHeaderIndex = StyleSheet.create({
   container: {
+    flex: 1,
+    minHeight: '100%',
+  },
+  headerContainer: {
     backgroundColor: appColors.black,
-    maxHeight: 50,
+    paddingVertical: 10,
   },
   searchInput: {
     borderColor: appColors.white,
     paddingLeft: 30,
+    minHeight: 29,
+    borderRadius: 10,
   },
   seachInputContainer: {
     display: 'flex',
@@ -18,7 +24,7 @@ export const stylesHeaderIndex = StyleSheet.create({
   },
   flexContainer: {
     display: 'flex',
-    gap: 2,
+    gap: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -29,9 +35,9 @@ export const stylesHeaderIndex = StyleSheet.create({
     flexDirection: 'column',
   },
   padsHamburguer: {
-    height: 3,
-    width: 26,
+    height: 3.2,
+    width: 25,
     backgroundColor: appColors.white,
-    borderRadius: 10,
+    borderRadius: 20,
   },
 });
