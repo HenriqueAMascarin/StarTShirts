@@ -13,12 +13,12 @@ export const stylesGlobalModal = StyleSheet.create({
         left: 0,
         backgroundColor: appColors.transparent,
     },
-    drawerContainer: {
-        display: 'flex',
-        backgroundColor: appColors.white,
-        maxWidth: 260,
-        flexGrow: 1,
-        alignSelf: 'stretch',
+    backgroundTouchable: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: 0,
     },
     bottomLine: {
         borderBottomWidth: 1.5,
@@ -30,7 +30,7 @@ export const stylesGlobalModal = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    headerPaddingContainer: {
+    paddingContainer: {
         paddingHorizontal: 10,
         paddingVertical: 3,
     },

@@ -3,7 +3,7 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import TextDefault from '@src/components/texts/TextDefault';
 import TextTitleH1 from '@src/components/texts/TextTitleH1';
 import { keysLocalStorage } from '@src/utils/localStorage';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 
 export default function HomeIndex() {
@@ -11,11 +11,13 @@ export default function HomeIndex() {
     const [logged, changeLogged] = useState<string | null>(null);
     const [resetRequests, changeResetRequests] = useState<string | null>(null);
 
-    (async () => {
-        changeUsers(await AsyncStorage.getItem(keysLocalStorage.usersKey));
-        changeLogged(await AsyncStorage.getItem(keysLocalStorage.loggedUserKey));
-        changeResetRequests(await AsyncStorage.getItem(keysLocalStorage.resetRequestsKey));
-    })();
+    useEffect(() => {
+        (async () => {
+            changeUsers(await AsyncStorage.getItem(keysLocalStorage.usersKey));
+            changeLogged(await AsyncStorage.getItem(keysLocalStorage.loggedUserKey));
+            changeResetRequests(await AsyncStorage.getItem(keysLocalStorage.resetRequestsKey));
+        })();
+    }, []);
 
     return (
         <ScrollView>
@@ -27,13 +29,13 @@ export default function HomeIndex() {
                 <TextDefault>
                     USERS: {users}
                 </TextDefault>
-                <TextDefault style={{marginTop: 5}}>
+                <TextDefault style={{ marginTop: 5 }}>
                     LOGGED USER: {logged}
                 </TextDefault>
-                <TextDefault style={{marginTop: 5}}>
+                <TextDefault style={{ marginTop: 5 }}>
                     RESET REQUESTS: {resetRequests}
                 </TextDefault>
             </PaddingContainer>
         </ScrollView>
-    )
+    );
 }

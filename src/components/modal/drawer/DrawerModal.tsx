@@ -1,8 +1,9 @@
-import { Animated, FlexStyle, TouchableOpacity, View } from 'react-native';
+import { Animated, FlexStyle, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
+import { drawerModalWidth, stylesDrawerModal } from '@src/components/modal/drawer/stylesDrawerModal';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import CloseSvg from '@src/assets/svgs/close.svg';
+import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 
 type TypeDefaultModal = {
     children?: ReactNode,
@@ -15,7 +16,7 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
 
     const animatedOpacity = useRef(new Animated.Value(0));
 
-    const transformInitialPos = position === 'flex-end' ? 200 : -200;
+    const transformInitialPos = position === 'flex-end' ? drawerModalWidth : -drawerModalWidth;
 
     const animatedTransform = useRef(new Animated.Value(transformInitialPos));
 
@@ -24,14 +25,14 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
             Animated.sequence([
                 Animated.timing(animatedOpacity.current, {
                     toValue: 1,
-                    delay: 4,
-                    duration: 100,
+                    delay: 0,
+                    duration: 200,
                     useNativeDriver: true,
                 }),
                 Animated.timing(animatedTransform.current, {
                     toValue: 0,
-                    delay: 4,
-                    duration: 100,
+                    delay: 0,
+                    duration: 200,
                     useNativeDriver: true,
                 }),
             ]).start();
@@ -42,14 +43,14 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
         Animated.sequence([
             Animated.timing(animatedTransform.current, {
                 toValue: transformInitialPos,
-                delay: 4,
-                duration: 100,
+                delay: 0,
+                duration: 200,
                 useNativeDriver: true,
             }),
             Animated.timing(animatedOpacity.current, {
                 toValue: 0,
-                delay: 50,
-                duration: 100,
+                delay: 0,
+                duration: 200,
                 useNativeDriver: true,
             }),
         ]).start(() => {
@@ -58,9 +59,11 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
     }
 
     return (
-        <Animated.View style={[stylesGlobalModal.container, { opacity: animatedOpacity.current, justifyContent: position, cursor: visibleStates.visible ? 'auto' : undefined }]}>
-            <Animated.View style={[stylesGlobalModal.drawerContainer, { transform: [{ translateX: animatedTransform.current }] }]}>
-                <View style={[stylesGlobalModal.titleContainer, stylesGlobalModal.bottomLine, stylesGlobalModal.headerPaddingContainer]}>
+        <Animated.View style={[stylesGlobalModal.container, { opacity: animatedOpacity.current, justifyContent: position }]}>
+            <TouchableWithoutFeedback onPressIn={closeDrawerModal} style={stylesGlobalModal.backgroundTouchable}><View style={stylesGlobalModal.backgroundTouchable}/></TouchableWithoutFeedback>
+
+            <Animated.View style={[stylesDrawerModal.drawerContainer, { transform: [{ translateX: animatedTransform.current }] }]}>
+                <View style={[stylesDrawerModal.titleContainer, stylesGlobalModal.bottomLine, stylesDrawerModal.headerPaddingContainer]}>
                     <TouchableOpacity onPressIn={closeDrawerModal}>
                         <CloseSvg width={23} height={23} />
                     </TouchableOpacity>
