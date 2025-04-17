@@ -26,13 +26,13 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
                 Animated.timing(animatedOpacity.current, {
                     toValue: 1,
                     delay: 0,
-                    duration: 200,
+                    duration: 150,
                     useNativeDriver: true,
                 }),
                 Animated.timing(animatedTransform.current, {
                     toValue: 0,
                     delay: 0,
-                    duration: 200,
+                    duration: 150,
                     useNativeDriver: true,
                 }),
             ]).start();
@@ -44,13 +44,13 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
             Animated.timing(animatedTransform.current, {
                 toValue: transformInitialPos,
                 delay: 0,
-                duration: 200,
+                duration: 150,
                 useNativeDriver: true,
             }),
             Animated.timing(animatedOpacity.current, {
                 toValue: 0,
                 delay: 0,
-                duration: 200,
+                duration: 150,
                 useNativeDriver: true,
             }),
         ]).start(() => {
@@ -63,7 +63,7 @@ export function DrawerModal({ children, visibleStates, title, position }: TypeDe
             <TouchableWithoutFeedback onPressIn={closeDrawerModal} style={stylesGlobalModal.backgroundTouchable}><View style={stylesGlobalModal.backgroundTouchable}/></TouchableWithoutFeedback>
 
             <Animated.View style={[stylesDrawerModal.drawerContainer, { transform: [{ translateX: animatedTransform.current }] }]}>
-                <View style={[stylesDrawerModal.titleContainer, stylesGlobalModal.bottomLine, stylesDrawerModal.headerPaddingContainer]}>
+                <View style={[stylesDrawerModal.titleContainer, stylesGlobalModal.bottomLine, stylesGlobalModal.paddingContainer]}>
                     <TouchableOpacity onPressIn={closeDrawerModal}>
                         <CloseSvg width={23} height={23} />
                     </TouchableOpacity>

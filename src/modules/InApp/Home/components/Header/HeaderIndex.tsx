@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
@@ -9,7 +9,10 @@ import { DrawerModal } from '@src/components/modal/drawer/DrawerModal';
 import TextDefault from '@src/components/texts/TextDefault';
 import { stylesMenuDrawerModal } from '@src/modules/InApp/Home/components/Header/stylesMenuDrawerModal';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '@src/routes/AppRoutes';
+import { keysLocalStorage } from '@src/utils/localStorage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TypeMenuDrawerModal = {
     stateDrawerModal: boolean,
@@ -18,42 +21,82 @@ type TypeMenuDrawerModal = {
 
 function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuDrawerModal) {
 
-    const { path } = useRoute();
+    const navigation = useNavigation();
 
     const links = [
-        { label: 'Home', active: path?.includes('home'), textAnimatedOpacity: new Animated.Value(0) },
-        { label: 'WishList', active: path?.includes('WishList'), textAnimatedOpacity: new Animated.Value(0) },
-        { label: 'Cart', active: path?.includes('Cart'), textAnimatedOpacity: new Animated.Value(0) },
-        { label: 'Purchases', active: path?.includes('Purchases'), textAnimatedOpacity: new Animated.Value(0) },
-        { label: 'Account', active: path?.includes('Account'), textAnimatedOpacity: new Animated.Value(0) },
+        { label: 'Home', routeName: 'home', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 0 },
+        { label: 'Wish List', routeName: 'wishList', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 1 },
+        { label: 'Cart', routeName: 'cart', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 2 },
+        { label: 'Purchases', routeName: 'purchases', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 3 },
+        { label: 'Account', routeName: 'account', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 4 },
     ];
 
-    const renderLinkMenu = ({ label, active, textAnimatedOpacity }: typeof links[0]) => {
+    function setupListenerNavigation() {
+        navigation.removeListener('state', () => { });
 
-        Animated.timing(textAnimatedOpacity, {
-            toValue: active ? 1 : 0,
-            delay: 0,
-            duration: 200,
-            useNativeDriver: true,
+        navigation.addListener('state', ({ data }) => {
+
+            if (data?.state?.routes) {
+                const currentlyRoute = data?.state?.routes?.[data?.state?.routes?.length - 1];
+
+                if (currentlyRoute) {
+                    for (let index = 0; index < links.length; index++) {
+                        Animated.timing(links[index].textAnimatedOpacity.current, {
+                            toValue: currentlyRoute?.name.includes(links[index].routeName) ? 1 : 0.6,
+                            delay: 0,
+                            duration: 200,
+                            useNativeDriver: true,
+                        }).start();
+                    }
+                }
+            }
         });
+    }
+    setupListenerNavigation();
+
+    const navigateFn = (route: string) => {
+        navigation.navigate(route);
+
+        changeStateDrawerModal(!stateDrawerModal);
+    };
+
+    const renderLinkMenu = ({ label, textAnimatedOpacity, routeName, keyItem }: typeof links[0]) => {
+
+        const onNavigate = () => {
+            navigateFn(routeName);
+        };
 
         return (
-            <TouchableOpacity style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]}>
-                <TextDefault style={[{ opacity: textAnimatedOpacity }]}>{label}</TextDefault>
+            <TouchableOpacity style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]} key={keyItem} onPressIn={onNavigate}>
+                <View style={stylesGlobalModal.paddingContainer}>
+                    <TextDefault style={[stylesMenuDrawerModal.textMenu, { opacity: textAnimatedOpacity.current }]}>{label}</TextDefault>
+                </View>
             </TouchableOpacity>
         );
     };
 
+    async function exitAccount() {
+        await AsyncStorage.removeItem(keysLocalStorage.loggedUserKey);
+
+        navigateFn('register');
+    }
+
     return (
         <>
-            {stateDrawerModal &&
+            {stateDrawerModal ?
                 <DrawerModal title={'Menu'} position="flex-end" visibleStates={{ visible: stateDrawerModal, changeVisibleState: changeStateDrawerModal }}>
                     <View style={stylesMenuDrawerModal.flexContainer}>
-                        {links.map(renderLinkMenu)};
+                        {links ? links.map(renderLinkMenu) : null}
 
-                        <TouchableOpacity style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]}><TextDefault style={stylesMenuDrawerModal.exitText}>Sign Out</TextDefault></TouchableOpacity>
+                        <TouchableOpacity style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]} onPressIn={exitAccount}>
+                            <View style={stylesGlobalModal.paddingContainer}>
+                                <TextDefault style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>Sign Out</TextDefault>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </DrawerModal>
+                :
+                null
             }
         </>
     );

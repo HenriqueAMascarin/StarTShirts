@@ -18,8 +18,4 @@ export const stylesDrawerModal = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
     },
-    headerPaddingContainer: {
-        paddingHorizontal: 10,
-        paddingVertical: 3,
-    },
 });

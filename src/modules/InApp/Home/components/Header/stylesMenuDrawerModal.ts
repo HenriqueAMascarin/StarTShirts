@@ -8,10 +8,13 @@ export const stylesMenuDrawerModal = StyleSheet.create({
   },
   touchableBtn: {
     display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   exitText: {
     color: appColors.red,
+  },
+  textMenu: {
+    fontSize: 22,
   },
 });

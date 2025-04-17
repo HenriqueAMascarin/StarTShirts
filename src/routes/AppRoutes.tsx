@@ -14,7 +14,9 @@ export type RootStackParamList = {
   login: undefined,
   'request-reset': undefined,
   'password-reset': { generatedUrl: string },
+
   home: undefined,
+  wishList: undefined
 };
 
 declare global {
@@ -38,7 +40,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
           contentStyle: {
             backgroundColor: appColors.white,
           },
-          animationTypeForReplace: 'push',
+          animation: 'slide_from_right',
         }}>
 
         <Stack.Group screenOptions={{ headerShown: false }}>
@@ -50,6 +52,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
         <Stack.Group>
           <Stack.Screen name="home" component={HomeIndex} />
+          <Stack.Screen name="wishList" component={HomeIndex} />
         </Stack.Group>
 
       </Stack.Navigator>
