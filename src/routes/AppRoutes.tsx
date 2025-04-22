@@ -16,7 +16,10 @@ export type RootStackParamList = {
   'password-reset': { generatedUrl: string },
 
   home: undefined,
-  wishList: undefined
+  wishList: undefined,
+  cart: undefined,
+  purchases: undefined,
+  account: undefined,
 };
 
 declare global {
@@ -53,6 +56,9 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
         <Stack.Group>
           <Stack.Screen name="home" component={HomeIndex} />
           <Stack.Screen name="wishList" component={HomeIndex} />
+          <Stack.Screen name="cart" component={HomeIndex} />
+          <Stack.Screen name="purchases" component={HomeIndex} />
+          <Stack.Screen name="account" component={HomeIndex} />
         </Stack.Group>
 
       </Stack.Navigator>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { MutableRefObject, useRef, useState } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
@@ -17,13 +17,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 type TypeMenuDrawerModal = {
     stateDrawerModal: boolean,
     changeStateDrawerModal: React.Dispatch<React.SetStateAction<boolean>>
-}
+};
+
+type TypeLinks = {
+    label: string;
+    routeName: keyof RootStackParamList;
+    textAnimatedOpacity: MutableRefObject<Animated.Value>;
+    keyItem: number;
+}[];
 
 function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuDrawerModal) {
 
     const navigation = useNavigation();
 
-    const links = [
+    const links: TypeLinks = [
         { label: 'Home', routeName: 'home', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 0 },
         { label: 'Wish List', routeName: 'wishList', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 1 },
         { label: 'Cart', routeName: 'cart', textAnimatedOpacity: useRef(new Animated.Value(0.6)), keyItem: 2 },
@@ -54,8 +61,8 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     }
     setupListenerNavigation();
 
-    const navigateFn = (route: string) => {
-        navigation.navigate(route);
+    const navigateFn = (route: keyof RootStackParamList) => {
+        navigation.navigate(route as never);
 
         changeStateDrawerModal(!stateDrawerModal);
     };
@@ -104,6 +111,8 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
 
 export default function HeaderIndex() {
 
+    const navigation = useNavigation();
+
     function onSearch() {
 
     }
@@ -114,13 +123,18 @@ export default function HeaderIndex() {
 
     const [drawerModalState, changeDrawerModalState] = useState(false);
 
+    function goToHomeRoute(){
+        navigation.navigate('home');
+    }
 
     return (
         <View style={stylesHeaderIndex.container}>
             <View style={stylesHeaderIndex.headerContainer}>
                 <PaddingContainer>
                     <View style={stylesHeaderIndex.flexContainer}>
-                        <MiniStarSVG width={'31'} height={'29'} />
+                        <TouchableOpacity onPressIn={goToHomeRoute}>
+                            <MiniStarSVG width={'31'} height={'29'} />
+                        </TouchableOpacity>
 
                         <View style={stylesHeaderIndex.seachInputContainer}>
                             <InputDefault placeholder="Search the best t-shirts" style={stylesHeaderIndex.searchInput} />
