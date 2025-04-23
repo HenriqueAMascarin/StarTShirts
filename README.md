@@ -1,4 +1,4 @@
-# Media Timer
+# Star T-Shirts
 
 Aplicativo para meu portfólio, procurando fazer um projeto real só que de apresentação e para aprendizado das tecnologias da área!
 
