@@ -16,7 +16,7 @@ import { getResetRequests } from '@src/services/user/passwordReset/methods/getRe
 import { resetRequestsDataType } from '@src/services/user/passwordReset/types/genericTypes';
 import { putUser } from '@src/services/user/methods/putUser';
 import { useNavigation } from '@react-navigation/native';
-import { setLoginData } from '@src/services/user/login/postLoginUser';
+import { setLoginData } from '@src/services/user/login/methods/postLoginUser';
 import BottomContainer from '@src/components/containers/BottomContainer';
 
 export type PropsPasswordResetIndex = NativeStackScreenProps<RootStackParamList, 'password-reset'>;

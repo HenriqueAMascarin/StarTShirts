@@ -3,11 +3,11 @@ import { Animated, TouchableOpacity, View } from 'react-native';
 import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
-import { stylesHeaderIndex } from '@src/modules/InApp/Home/components/Header/stylesHeaderIndex';
+import { stylesHeaderIndex } from '@src/modules/InApp/Header/styles/stylesHeaderIndex';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { DrawerModal } from '@src/components/modal/drawer/DrawerModal';
 import TextDefault from '@src/components/texts/TextDefault';
-import { stylesMenuDrawerModal } from '@src/modules/InApp/Home/components/Header/stylesMenuDrawerModal';
+import { stylesMenuDrawerModal } from '@src/modules/InApp/Header/styles/stylesMenuDrawerModal';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -85,7 +85,7 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     async function exitAccount() {
         await AsyncStorage.removeItem(keysLocalStorage.loggedUserKey);
 
-        navigateFn('register');
+        navigateFn('login');
     }
 
     return (

@@ -13,7 +13,7 @@ import LineWithText from '@src/components/objects/lines/LineWithText';
 
 import Checkbox from '@src/components/checkbox/Checkbox';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
-import { postLoginUser } from '@src/services/user/login/postLoginUser';
+import { postLoginUser } from '@src/services/user/login/methods/postLoginUser';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import BottomContainer from '@src/components/containers/BottomContainer';

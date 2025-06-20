@@ -5,7 +5,7 @@ export const stylesButtons = StyleSheet.create({
   defaultButton: {
     backgroundColor: appColors.black,
     borderRadius: 18,
-    justifyContent: "center",
+    justifyContent: 'center',
     height: 42,
   },
   title: {

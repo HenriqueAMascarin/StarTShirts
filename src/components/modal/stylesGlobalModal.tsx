@@ -21,7 +21,7 @@ export const stylesGlobalModal = StyleSheet.create({
         left: 0,
     },
     bottomLine: {
-        borderBottomWidth: 1.5,
+        borderBottomWidth: 1.2,
         borderColor: appColors.gray,
     },
     titleContainer: {
@@ -32,6 +32,6 @@ export const stylesGlobalModal = StyleSheet.create({
     },
     paddingContainer: {
         paddingHorizontal: 10,
-        paddingVertical: 3,
+        paddingVertical: 5,
     },
 });

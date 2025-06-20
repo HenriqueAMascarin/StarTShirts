@@ -7,7 +7,7 @@ import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequest
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
 import HomeIndex from '@src/modules/InApp/Home/HomeIndex';
 import React from 'react';
-import HeaderIndex from '@src/modules/InApp/Home/components/Header/HeaderIndex';
+import HeaderIndex from '@src/modules/InApp/Header/HeaderIndex';
 
 export type RootStackParamList = {
   register: undefined,
@@ -16,10 +16,11 @@ export type RootStackParamList = {
   'password-reset': { generatedUrl: string },
 
   home: undefined,
-  wishList: undefined,
-  cart: undefined,
-  purchases: undefined,
-  account: undefined,
+  'home/product': { id: number },
+  'home/wishList': undefined,
+  'home/cart': undefined,
+  'home/purchases': undefined,
+  'home/account': undefined,
 };
 
 declare global {
@@ -48,17 +49,28 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="register" component={RegisterIndex} />
+
           <Stack.Screen name="login" component={LoginIndex} />
+
           <Stack.Screen name="request-reset" component={ResetRequestIndex} />
+
           <Stack.Screen name="password-reset" component={PasswordResetIndex} />
         </Stack.Group>
 
         <Stack.Group>
           <Stack.Screen name="home" component={HomeIndex} />
-          <Stack.Screen name="wishList" component={HomeIndex} />
-          <Stack.Screen name="cart" component={HomeIndex} />
-          <Stack.Screen name="purchases" component={HomeIndex} />
-          <Stack.Screen name="account" component={HomeIndex} />
+
+          <Stack.Screen name="home/product" component={ProductIndex} />
+
+          <Stack.Screen name="home/wishList" component={HomeIndex} />
+
+          <Stack.Screen name="home/cart" component={HomeIndex} />
+
+          <Stack.Screen name="home/purchases" component={HomeIndex} />
+
+          <Stack.Screen name="home/account" component={HomeIndex} />
+
+
         </Stack.Group>
 
       </Stack.Navigator>

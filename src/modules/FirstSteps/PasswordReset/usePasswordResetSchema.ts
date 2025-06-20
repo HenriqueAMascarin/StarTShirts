@@ -6,10 +6,10 @@ export const usePasswordResetSchema = z
     confirmPassword: z.string().min(1, {message: 'Required'}),
   })
   .superRefine(({password, confirmPassword}, ctx) => {
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: `Passwords don' match`,
+        message: 'Passwords doesn’t match',
         path: ['confirmPassword'],
       });
     }
