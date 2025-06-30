@@ -1,7 +1,7 @@
-import { productObjectType } from '@src/services/product/dataProducts/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import { productsList } from '@src/services/product/dataProducts/data/productsList';
 
-type typeProductData = productObjectType[];
+type typeProductData = ProductObjectType[];
 
 export type getProductsByIdType = { id?: number };
 

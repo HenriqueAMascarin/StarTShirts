@@ -4,6 +4,7 @@ import { removeElement } from '@src/store/features/alertsInstantiable/alertsInst
 import { useDispatch } from 'react-redux';
 import { useMemo } from "react";
 import { stylesGeneratorAlert } from "@src/components/alert/stylesGeneratorAlert";
+import React from 'react';
 
 export function GeneratorAlert() {
     const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
@@ -14,7 +15,9 @@ export function GeneratorAlert() {
     }
 
     const alertsElements = useMemo(() => {
-        return alertsInstantiable.map(({Element, keyItem, props}) => {
+
+
+        return alertsInstantiable.map(({ Element, keyItem, props }) => {
 
             return (
                 <Element
@@ -24,7 +27,7 @@ export function GeneratorAlert() {
                 />
             )
         })
-    }, [alertsInstantiable])
+    }, [alertsInstantiable]);
 
     return (
         <View style={stylesGeneratorAlert.containerAlerts} >

@@ -1,8 +1,19 @@
-import { productObjectType } from 'src/services/product/dataProducts/types/genericTypes';
+import { ProductObjectType } from 'src/services/product/dataProducts/types/genericTypes';
 
-export const productsList: productObjectType[] = [{
-    id: 0,
-    price: 100.00,
+export const productsList: ProductObjectType[] = [
+  {
     title: 'Classic T-shirt',
-    colors: ['white', 'blue', 'red'],
-}];
+    price: 100.0,
+    colors: [
+      { color: 'white', urlImage: '@src/assets/tshirt/images/white_tshirt.webp' },
+      { color: 'blue', urlImage: '@src/assets/tshirt/images/blue_tshirt.webp' },
+      {color: 'red', urlImage: '@src/assets/tshirt/images/red_tshirt.webp'}
+    ],
+    id: 345225,
+    threeJsElement: '123213',
+    details: {
+      info: 'The Classic T-shirt is for the lovers of a good t-shirt that always want to be well-dressed.',
+      list: ['100% polyester', 'Imported'],
+    },
+  },
+];

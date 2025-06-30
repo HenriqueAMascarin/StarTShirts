@@ -1,16 +1,13 @@
-type productUrlImagesType = {
-  white?: string;
-  blue?: string;
-  red?: string;
-};
+export type ProductColorsType = 'white' | 'blue' | 'red';
 
-export type productColorsType = keyof productUrlImagesType;
-
-export type productObjectType = {
+export type ProductObjectType = {
   title: string;
   price: number;
-  colors: productColorsType[];
+  colors: {color: ProductColorsType, urlImage: string}[];
   id: number;
   threeJsElement: string;
-  urlImages: productUrlImagesType;
+  details: {
+    info: string,
+    list: string[]
+  }
 };

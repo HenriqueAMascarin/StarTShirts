@@ -17,11 +17,12 @@ function SloganTShirt() {
 }
 
 function MainContent() {
+    
     return (
         <View style={stylesMainContent.container}>
             <PaddingContainer>
                 <View>
-                    
+                    {}
                 </View>
             </PaddingContainer>
         </View>
