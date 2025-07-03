@@ -1,9 +1,12 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import TextDefault from '@src/components/texts/TextDefault';
-import React from 'react';
+import React, { Suspense, use } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { stylesSlogan } from '@src/modules/InApp/Home/styles/stylesSlogan';
 import { stylesMainContent } from '@src/modules/InApp/Home/styles/stylesMainContent';
+import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
+import ProductCard from '@src/modules/InApp/components/tshirt/ProductCard';
+import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 
 function SloganTShirt() {
 
@@ -16,15 +19,19 @@ function SloganTShirt() {
     );
 }
 
-function MainContent() {
-    
+function ProductsContent() {
+
+    const products = use(getProducts({}));
+
     return (
-        <View style={stylesMainContent.container}>
-            <PaddingContainer>
-                <View>
-                    {}
-                </View>
-            </PaddingContainer>
+        <View>
+            <Suspense fallback={<LoadingScreen />}>
+                {products.map((product) => {
+                    return (
+                        <ProductCard {...product} />
+                    );
+                })}
+            </Suspense>
         </View>
     );
 }
@@ -35,7 +42,12 @@ export default function HomeIndex() {
         <ScrollView>
             <SloganTShirt />
 
-            <MainContent />
+            <View style={stylesMainContent.container}>
+                <PaddingContainer>
+                    <ProductsContent />
+                </PaddingContainer>
+            </View>
+
         </ScrollView>
     );
 }

@@ -3,7 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePasswordResetSchema, typePasswordResetSchema } from '@src/modules/FirstSteps/PasswordReset/usePasswordResetSchema';
 import React from 'react';
-import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';

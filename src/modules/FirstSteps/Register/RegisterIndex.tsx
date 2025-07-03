@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useRegisterSchema, typeRegisterSchema } from '@src/modules/FirstSteps/Register/useRegisterSchema';
 import React from 'react';
-import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import InputPassword from '@src/components/inputs/Password/InputPassword';

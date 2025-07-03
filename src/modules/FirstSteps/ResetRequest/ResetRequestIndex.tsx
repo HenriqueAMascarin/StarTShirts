@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { typeResetRequestSchema, useResetRequestSchema } from '@src/modules/FirstSteps/ResetRequest/useResetRequestSchema';
 import React from 'react';
-import TextTitleH1 from '@src/components/texts/TextTitleH1';
+import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';

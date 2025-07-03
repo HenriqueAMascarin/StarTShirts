@@ -8,6 +8,7 @@ import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordRe
 import HomeIndex from '@src/modules/InApp/Home/HomeIndex';
 import React from 'react';
 import HeaderIndex from '@src/modules/InApp/Header/HeaderIndex';
+import ProductIndex from '@src/modules/InApp/Product/ProductIndex';
 
 export type RootStackParamList = {
   register: undefined,

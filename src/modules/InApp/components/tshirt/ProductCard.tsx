@@ -1,6 +1,6 @@
 import TextDefault from '@src/components/texts/TextDefault';
 import { Image, View } from 'react-native';
-import React, { useMemo } from 'react';
+import React from 'react';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import { useNavigation } from '@react-navigation/native';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
@@ -8,7 +8,7 @@ import { ProductObjectType } from '@src/services/product/dataProducts/types/gene
 import useColors from '@src/components/colorSwitchers/hooks/useColors';
 import useMemoSelectedImageColor from '@src/components/colorSwitchers/hooks/useMemoSelectedImageColor.tsx';
 
-export default function TShirtCard({ title, price, colors, id }: ProductObjectType) {
+export default function ProductCard({ title, price, colors, id }: ProductObjectType) {
 
     const navigation = useNavigation();
 
@@ -42,5 +42,5 @@ export default function TShirtCard({ title, price, colors, id }: ProductObjectTy
                 <ButtonDefault title="Check product" onPressIn={onCheckProduct} />
             </View>
         </View>
-    )
+    );
 }
