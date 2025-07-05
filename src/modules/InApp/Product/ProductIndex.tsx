@@ -1,4 +1,4 @@
-import React, { Suspense, use } from 'react';
+import React, { Suspense, use, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TextDefault from '@src/components/texts/TextDefault';
 import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
@@ -12,6 +12,8 @@ import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioCo
 import useColors from '@src/components/colorSwitchers/hooks/useColors';
 import useMemoSelectedImageColor from '@src/components/colorSwitchers/hooks/useMemoSelectedImageColor';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
+import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
+import SimpleModal from '@src/components/modal/simple/SimpleModal';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -21,6 +23,18 @@ async function getInitialProductResponse({ id }: { id: number }) {
     const product = products?.[0];
 
     return product;
+}
+
+function modal3DTShirt() {
+
+    const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
+
+
+    return (
+        <SimpleModal visibleStates={{visible: simpleModalState, changeVisibleState: changeSimpleModalState}}>
+
+        </SimpleModal>
+    )
 }
 
 export default function ProductIndex({ route }: PropsProductIndex) {
@@ -34,11 +48,17 @@ export default function ProductIndex({ route }: PropsProductIndex) {
 
     const { selectedImageColorMemo } = useMemoSelectedImageColor({ stateColors });
 
+    function open3DProductModal() {
+
+    }
+
     return (
         <Suspense fallback={<LoadingScreen />}>
+
+
             <View>
                 <View>
-                    <TouchableOpacity><TextDefault>3D</TextDefault></TouchableOpacity>
+                    <TouchableOpacity onPressIn={open3DProductModal}><TextDefault>3D</TextDefault></TouchableOpacity>
 
                     <Image width={300} height={200} alt={product.title} src={require(selectedImageColorMemo)} />
                 </View>

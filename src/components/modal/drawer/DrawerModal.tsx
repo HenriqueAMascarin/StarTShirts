@@ -12,7 +12,7 @@ type TypeDefaultModal = {
     position: Extract<FlexStyle['justifyContent'], 'flex-start' | 'flex-end'>
 }
 
-export function DrawerModal({ children, visibleStates, title, position }: TypeDefaultModal) {
+export default function DrawerModal({ children, visibleStates, title, position }: TypeDefaultModal) {
 
     const animatedOpacity = useRef(new Animated.Value(0));
 

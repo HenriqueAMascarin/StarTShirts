@@ -5,7 +5,7 @@ import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { stylesHeaderIndex } from '@src/modules/InApp/Header/styles/stylesHeaderIndex';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import { DrawerModal } from '@src/components/modal/drawer/DrawerModal';
+import DrawerModal from '@src/components/modal/drawer/DrawerModal';
 import TextDefault from '@src/components/texts/TextDefault';
 import { stylesMenuDrawerModal } from '@src/modules/InApp/Header/styles/stylesMenuDrawerModal';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import useDrawerModalHook from '@src/components/modal/drawer/hooks/useDrawerModalHook';
 
 type TypeMenuDrawerModal = {
     stateDrawerModal: boolean,
@@ -117,11 +118,12 @@ export default function HeaderIndex() {
 
     }
 
+    const {drawerModalState, changeDrawerModalState} = useDrawerModalHook();
+
     function openDrawerModal() {
         changeDrawerModalState(!drawerModalState);
     }
 
-    const [drawerModalState, changeDrawerModalState] = useState(false);
 
     function goToHomeRoute(){
         navigation.navigate('home');
