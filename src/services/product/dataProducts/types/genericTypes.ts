@@ -5,7 +5,7 @@ export type ProductObjectType = {
   price: number;
   colors: {color: ProductColorsType, urlImage: string}[];
   id: number;
-  threeJsElement: string;
+  element3DPath: string;
   details: {
     info: string,
     list: string[]

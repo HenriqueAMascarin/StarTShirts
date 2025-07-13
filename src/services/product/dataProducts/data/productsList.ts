@@ -10,7 +10,7 @@ export const productsList: ProductObjectType[] = [
       {color: 'red', urlImage: '@src/assets/tshirt/images/red_tshirt.webp'}
     ],
     id: 345225,
-    threeJsElement: '123213',
+    element3DPath: '@src/assets/3dProducts/archives/classicTShirt.glb',
     details: {
       info: 'The Classic T-shirt is for the lovers of a good t-shirt that always want to be well-dressed.',
       list: ['100% polyester', 'Imported'],

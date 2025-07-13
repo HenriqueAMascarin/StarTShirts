@@ -10,10 +10,14 @@ import SizesProduct from '@src/modules/InApp/Product/components/sizesChanger/Siz
 import useSizes from '@src/modules/InApp/Product/components/sizesChanger/hooks/useSizes';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
 import useColors from '@src/components/colorSwitchers/hooks/useColors';
-import useMemoSelectedImageColor from '@src/components/colorSwitchers/hooks/useMemoSelectedImageColor';
+import useMemoSelectedImageColor from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
+import { appColors } from '@src/utils/appColors';
+import TShirt3DModel, { TShirt3DModelType } from '@src/assets/3dProducts/SimpleTShirt3D';
+import { Canvas } from '@react-three/fiber/native'
+import { OrbitControls } from '@react-three/drei/native';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -25,15 +29,20 @@ async function getInitialProductResponse({ id }: { id: number }) {
     return product;
 }
 
-function modal3DTShirt() {
-
-    const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
-
+function TShirt3DScene(props: TShirt3DModelType) {
 
     return (
-        <SimpleModal visibleStates={{visible: simpleModalState, changeVisibleState: changeSimpleModalState}}>
+        <Canvas>
+            <Suspense fallback={<LoadingScreen />}>
+                <group>
+                    <ambientLight intensity={0.1}/>
 
-        </SimpleModal>
+                    <TShirt3DModel {...props} />
+
+                    <OrbitControls enablePan={false} />
+                </group>
+            </Suspense>
+        </Canvas>
     )
 }
 
@@ -46,21 +55,25 @@ export default function ProductIndex({ route }: PropsProductIndex) {
 
     const { stateColors, changeStateColors } = useColors({ colors: product.colors });
 
-    const { selectedImageColorMemo } = useMemoSelectedImageColor({ stateColors });
+    const { selectedColorMemoData } = useMemoSelectedImageColor({ stateColors });
+
+    const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
 
     function open3DProductModal() {
-
+        changeSimpleModalState(true);
     }
 
     return (
         <Suspense fallback={<LoadingScreen />}>
-
+            <SimpleModal visibleStates={{ visible: simpleModalState, changeVisibleState: changeSimpleModalState }} backgroundModalColor={appColors.yellow}>
+                <TShirt3DScene color={selectedColorMemoData?.color} />
+            </SimpleModal>
 
             <View>
                 <View>
                     <TouchableOpacity onPressIn={open3DProductModal}><TextDefault>3D</TextDefault></TouchableOpacity>
 
-                    <Image width={300} height={200} alt={product.title} src={require(selectedImageColorMemo)} />
+                    <Image width={300} height={200} alt={product.title} src={require(selectedColorMemoData?.urlImage)} />
                 </View>
 
                 <View>

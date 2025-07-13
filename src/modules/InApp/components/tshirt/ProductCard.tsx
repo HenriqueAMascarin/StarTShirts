@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import useColors from '@src/components/colorSwitchers/hooks/useColors';
-import useMemoSelectedImageColor from '@src/components/colorSwitchers/hooks/useMemoSelectedImageColor.tsx';
+import useMemoSelectedColorData from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
 
 export default function ProductCard({ title, price, colors, id }: ProductObjectType) {
 
@@ -20,12 +20,12 @@ export default function ProductCard({ title, price, colors, id }: ProductObjectT
 
     const { stateColors, changeStateColors } = useColors({ colors });
 
-    const { selectedImageColorMemo } = useMemoSelectedImageColor({ stateColors });
+    const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
 
     return (
         <View>
             <View>
-                <Image width={300} height={200} alt={title} src={require(selectedImageColorMemo)} />
+                <Image width={300} height={200} alt={title} src={require(selectedColorMemoData?.urlImage)} />
             </View>
 
             <View>
