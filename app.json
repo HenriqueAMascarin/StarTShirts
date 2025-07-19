@@ -1,4 +1,7 @@
 {
   "name": "StarTShirts",
-  "displayName": "Star T-Shirts"
+  "displayName": "Star T-Shirts",
+  "android": {
+    "package": "com.henriqueam.startshirts"
+  }
 }

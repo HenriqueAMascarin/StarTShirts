@@ -7,24 +7,24 @@ const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
  * @type {import('@react-native/metro-config').MetroConfig}
  */
 
-module.exports = function (baseConfig) {
-  const defaultConfig = mergeConfig(baseConfig, getDefaultConfig(__dirname));
+const defaultConfig = getDefaultConfig(__dirname);
 
-  const {
-    resolver: { assetExts, sourceExts },
-  } = defaultConfig;
+const {
+  resolver: { assetExts, sourceExts },
+} = defaultConfig;
 
-  const newAssetExts = [...assetExts.filter((ext) => ext !== 'svg'), 'glb', 'gltf', 'png', 'jpg'];
+const newAssetExts = [...assetExts.filter((ext) => ext !== 'svg'), 'glb', 'gltf', 'png', 'jpg'];
 
-  const newSourceExts = [...sourceExts, 'svg', 'js', 'jsx', 'json', 'ts', 'tsx', 'cjs', 'mjs'];
+const newSourceExts = [...sourceExts, 'svg', 'js', 'jsx', 'json', 'ts', 'tsx', 'cjs', 'mjs'];
 
-  return mergeConfig(defaultConfig, {
-    transformer: {
-      babelTransformerPath: require.resolve('react-native-svg-transformer/react-native'),
-    },
-    resolver: {
-      assetExts: newAssetExts,
-      sourceExts: newSourceExts,
-    },
-  });
+const config = {
+  transformer: {
+    babelTransformerPath: require.resolve('react-native-svg-transformer/react-native'),
+  },
+  resolver: {
+    assetExts: newAssetExts,
+    sourceExts: newSourceExts,
+  },
 };
+
+module.exports = mergeConfig(defaultConfig, config);

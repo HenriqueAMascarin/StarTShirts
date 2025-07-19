@@ -25,7 +25,8 @@ export default function ProductCard({ title, price, colors, id }: ProductObjectT
     return (
         <View>
             <View>
-                <Image width={300} height={200} alt={title} src={require(selectedColorMemoData?.urlImage)} />
+                {/* src={require(selectedColorMemoData?.urlImage)} */}
+                <Image width={300} height={200} alt={title} />
             </View>
 
             <View>

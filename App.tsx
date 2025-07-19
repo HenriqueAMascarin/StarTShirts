@@ -32,18 +32,19 @@ function App() {
   const [bootStateData, changeBootStateData] = useState<Awaited<ReturnType<typeof getBootData>> | null>(null);
 
   useEffect(() => {
+    console.log('213123')
     if (!bootStateData) {
       (async () => {
         const bootData = await getBootData();
         changeBootStateData(bootData);
       })();
     } else {
-      SplashScreenModule.changeActiveSplashScreen(false);
+      setTimeout(() => {
+        console.log('entrou')
+
+        SplashScreenModule.changeActiveSplashScreen(false);
+      }, 4000);
     }
-  }, [bootStateData]);
-
-  useEffect(() => {
-
   }, [bootStateData]);
 
   return (

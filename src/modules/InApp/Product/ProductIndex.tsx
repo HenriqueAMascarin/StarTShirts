@@ -15,9 +15,9 @@ import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import { appColors } from '@src/utils/appColors';
-import TShirt3DModel, { TShirt3DModelType } from '@src/assets/3dProducts/SimpleTShirt3D';
+// import TShirt3DModel, { TShirt3DModelType } from '@src/assets/3dProducts/SimpleTShirt3D';
 import { Canvas } from '@react-three/fiber/native'
-import { OrbitControls } from '@react-three/drei/native';
+// import { OrbitControls } from '@react-three/drei/native';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -29,22 +29,22 @@ async function getInitialProductResponse({ id }: { id: number }) {
     return product;
 }
 
-function TShirt3DScene(props: TShirt3DModelType) {
+// function TShirt3DScene(props: TShirt3DModelType) {
 
-    return (
-        <Canvas>
-            <Suspense fallback={<LoadingScreen />}>
-                <group>
-                    <ambientLight intensity={0.1}/>
+//     return (
+//         <Canvas>
+//             <Suspense fallback={<LoadingScreen />}>
+//                 <group>
+//                     <ambientLight intensity={0.1}/>
 
-                    <TShirt3DModel {...props} />
+//                     <TShirt3DModel {...props} />
 
-                    <OrbitControls enablePan={false} />
-                </group>
-            </Suspense>
-        </Canvas>
-    )
-}
+//                     <OrbitControls enablePan={false} />
+//                 </group>
+//             </Suspense>
+//         </Canvas>
+//     )
+// }
 
 export default function ProductIndex({ route }: PropsProductIndex) {
     const { id } = route.params;
@@ -66,14 +66,14 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     return (
         <Suspense fallback={<LoadingScreen />}>
             <SimpleModal visibleStates={{ visible: simpleModalState, changeVisibleState: changeSimpleModalState }} backgroundModalColor={appColors.yellow}>
-                <TShirt3DScene color={selectedColorMemoData?.color} />
+                {/* <TShirt3DScene color={selectedColorMemoData?.color} /> */}
             </SimpleModal>
 
             <View>
                 <View>
                     <TouchableOpacity onPressIn={open3DProductModal}><TextDefault>3D</TextDefault></TouchableOpacity>
-
-                    <Image width={300} height={200} alt={product.title} src={require(selectedColorMemoData?.urlImage)} />
+                    {/* src={require(selectedColorMemoData?.urlImage)} */}
+                    <Image width={300} height={200} alt={product.title}  />
                 </View>
 
                 <View>
