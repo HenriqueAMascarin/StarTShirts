@@ -37,14 +37,14 @@ export default function SizesProduct({ stateSizes, changeStateSizes }: SizesProd
             <TextDefault>Sizes</TextDefault>
 
             <View>
-                {stateSizes.map((state) => {
+                {stateSizes.map((state, keySize) => {
 
                     const backgroundColor = state.isSelected ? appColors.black : appColors.white;
 
                     const textColor = state.isSelected ? appColors.white : appColors.black;
 
                     return (
-                        <TouchableOpacity style={{ backgroundColor }} onPressIn={() => onChangeSize(state.text)} >
+                        <TouchableOpacity style={{ backgroundColor }} onPressIn={() => onChangeSize(state.text)} key={keySize}>
                             <TextDefault style={{ color: textColor }}>{state.text}</TextDefault>
                         </TouchableOpacity>
                     );

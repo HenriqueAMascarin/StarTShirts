@@ -29,7 +29,7 @@ export default function RadioColorSwitcher({ stateColors, changeStateColors }: S
 
     return (
         <View>
-            {stateColors.map((element) => {
+            {stateColors.map((element, keyItem) => {
                 const circleBackgroundColor = element.color;
 
                 const borderColor = element.isSelected ? appColors.black : appColors.gray;
@@ -39,7 +39,7 @@ export default function RadioColorSwitcher({ stateColors, changeStateColors }: S
                 }
 
                 return (
-                    <TouchableOpacity style={{ borderColor: borderColor, borderWidth: 2 }} onPressIn={onPressBtn}>
+                    <TouchableOpacity style={{ borderColor: borderColor, borderWidth: 2 }} onPressIn={onPressBtn} key={keyItem}>
                         <View style={{ backgroundColor: circleBackgroundColor }} />
                     </TouchableOpacity>
                 )

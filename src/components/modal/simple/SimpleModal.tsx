@@ -48,7 +48,7 @@ export default function SimpleModal({ children, visibleStates, hasCloseIcon = tr
         <Animated.View style={[stylesGlobalModal.container, { opacity: animatedOpacity.current }]}>
             <TouchableWithoutFeedback onPressIn={closeDrawerModal} style={stylesGlobalModal.backgroundTouchable}><View style={stylesGlobalModal.backgroundTouchable} /></TouchableWithoutFeedback>
 
-            <Animated.View style={{ backgroundColor: backgroundModalColor }}>
+            <Animated.View style={[{ backgroundColor: backgroundModalColor }, stylesGlobalModal.modalContainer]}>
                 {hasCloseIcon &&
                     <TouchableOpacity onPressIn={closeDrawerModal}>
                         <CloseSvg width={23} height={23} />

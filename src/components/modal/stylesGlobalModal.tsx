@@ -12,6 +12,18 @@ export const stylesGlobalModal = StyleSheet.create({
         right: 0,
         left: 0,
         backgroundColor: appColors.transparent,
+        width: '100%',
+        height: '100%',
+        zIndex: 999
+    },
+    modalContainer: {
+        display: 'flex',
+        backgroundColor: appColors.white,
+        width: '100%',
+        height: '100%',
+        flexGrow: 1,
+        alignSelf: 'stretch',
+        zIndex: 1,
     },
     backgroundTouchable: {
         position: 'absolute',

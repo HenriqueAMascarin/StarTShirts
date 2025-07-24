@@ -1,6 +1,6 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import TextDefault from '@src/components/texts/TextDefault';
-import React, { Suspense, use } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Image, ScrollView, View } from 'react-native';
 import { stylesSlogan } from '@src/modules/InApp/Home/styles/stylesSlogan';
 import { stylesMainContent } from '@src/modules/InApp/Home/styles/stylesMainContent';
@@ -21,14 +21,22 @@ function SloganTShirt() {
 
 function ProductsContent() {
 
-    const products = use(getProducts({}));
+    const [products, changeProducts] = useState<null | Awaited<ReturnType<typeof getProducts>>>(null);
+
+    useEffect(() => {
+        (async () => {
+            const newProducts = await getProducts({});
+
+            changeProducts(newProducts)
+        })();
+    }, [])
 
     return (
         <View>
             <Suspense fallback={<LoadingScreen />}>
-                {products.map((product) => {
+                {products && products.map((product, keyProduct) => {
                     return (
-                        <ProductCard {...product} />
+                        <ProductCard {...product} key={keyProduct} />
                     );
                 })}
             </Suspense>
