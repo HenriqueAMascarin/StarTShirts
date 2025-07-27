@@ -47,7 +47,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
         const requestsData = resetRequestData.current?.[0];
 
         if (requestsData) {
-            let payload = { password: formValues.password, id: requestsData.userId };
+            const payload = { password: formValues.password, id: requestsData.userId };
 
             const responseEditUser = await putUser(payload);
 
@@ -87,7 +87,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
                                         value={value}
                                         label="Password"
                                         errors={passwordResetErrors.password}
-                                        testID='passwordInput'
+                                        testID="passwordInput"
                                     />
                                 )}
                             />
@@ -102,7 +102,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
                                         value={value}
                                         label="Confirm password"
                                         errors={passwordResetErrors.confirmPassword}
-                                        testID='confirmPasswordInput'
+                                        testID="confirmPasswordInput"
                                     />
                                 )}
                             />

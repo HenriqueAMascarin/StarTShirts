@@ -9,7 +9,7 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
-import LineWithText from '@src/components/objects/lines/LineWithText';
+import LineWithText from '@src/components/lines/LineWithText';
 import { postUser } from '@src/services/user/methods/postUser';
 import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
@@ -25,7 +25,7 @@ export default function RegisterIndex() {
     const navigation = useNavigation();
 
     async function onRegisterSubmit(formValues: typeRegisterSchema) {
-        let payload = { ...formValues };
+        const payload = { ...formValues };
 
         const userResponse = await postUser({
             email: payload.email,

@@ -6,7 +6,7 @@ export const stylesCheckbox = StyleSheet.create({
     display: 'flex',
     gap: 5,
     alignItems: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   checkboxContainer: {
     display: 'flex',
@@ -20,7 +20,7 @@ export const stylesCheckbox = StyleSheet.create({
   },
   label: {
     color: appColors.black,
-    fontSize: 16
+    fontSize: 16,
   },
   activeContainerCheckbox: {
     backgroundColor: appColors.blue,

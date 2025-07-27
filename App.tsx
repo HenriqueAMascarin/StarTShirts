@@ -1,11 +1,12 @@
 import {
   NativeModules,
+  SafeAreaView
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { globalStore } from '@src/store/globalStore';
 import AppRoutes, { RootStackParamList } from '@src/routes/AppRoutes';
-import { SafeAreaView } from 'react-native';
+
 import { GeneratorAlert } from '@src/components/alert/GeneratorAlert';
 import { getLoggedUser } from '@src/services/user/login/methods/getLoggedUser';
 

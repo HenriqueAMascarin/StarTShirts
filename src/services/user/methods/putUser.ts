@@ -12,18 +12,18 @@ type putUserType = {
 export const putUser = async (userData: putUserType) => {
   const userResponseAll = await getUsers({});
 
-  let userDataById = userResponseAll.find((user) => user.id === userData.id);
+  const userDataById = userResponseAll.find((user) => user.id === userData.id);
 
   let status: genericStatus = { messageSuccess: null };
 
   let data: userResponseObjectType | null = null;
 
   if (userDataById) {
-    let newUserEditedData = { ...userDataById, ...userData };
+    const newUserEditedData = { ...userDataById, ...userData };
 
     const indexUserById = userResponseAll.findIndex((user) => user.id === newUserEditedData.id);
 
-    let newUserPayloadAll = userResponseAll;
+    const newUserPayloadAll = userResponseAll;
 
     newUserPayloadAll[indexUserById] = newUserEditedData;
 

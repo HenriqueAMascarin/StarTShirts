@@ -16,8 +16,9 @@ import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModa
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import { appColors } from '@src/utils/appColors';
 import TShirt3DModel, { TShirt3DModelType } from '@src/assets/products3D/tshirt/SimpleTShirt3D';
-import { Canvas } from '@react-three/fiber/native'
+import { Canvas } from '@react-three/fiber/native';
 import { OrbitControls } from '@react-three/drei/native';
+import MainContainer from '@src/modules/InApp/components/MainContainer';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -43,7 +44,7 @@ function TShirt3DScene(props: TShirt3DModelType) {
                 </group>
             </Suspense>
         </Canvas>
-    )
+    );
 }
 
 export default function ProductIndex({ route }: PropsProductIndex) {
@@ -55,9 +56,9 @@ export default function ProductIndex({ route }: PropsProductIndex) {
         (async () => {
             const newProduct = await getInitialProductResponse({ id });
 
-            changeProduct(newProduct)
+            changeProduct(newProduct);
         })();
-    }, [])
+    }, []);
 
     const { stateSizes, changeStateSizes } = useSizes();
 
@@ -72,53 +73,55 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     }
 
     return (
-        <Suspense fallback={<LoadingScreen />}>
+        <MainContainer>
+            <Suspense fallback={<LoadingScreen />}>
 
-            <SimpleModal visibleStates={{ visible: simpleModalState, changeVisibleState: changeSimpleModalState }} backgroundModalColor={appColors.yellow}>
-                <TShirt3DScene color={'red'} />
-            </SimpleModal>
-
-            <View>
-                <View style={{position: 'relative'}}>
-                    <TouchableOpacity onPressIn={open3DProductModal}><TextDefault>3D</TextDefault></TouchableOpacity>
-                    {/* src={require(selectedColorMemoData?.urlImage)} */}
-                    <Image width={300} height={200} alt={product?.title} />
-                </View>
+                <SimpleModal visibleStates={{ visible: simpleModalState, changeVisibleState: changeSimpleModalState }} backgroundModalColor={appColors.yellow}>
+                    <TShirt3DScene color={'red'} />
+                </SimpleModal>
 
                 <View>
-                    <TextTitleH1>{product?.title}</TextTitleH1>
-                    <TextDefault>{product?.price}</TextDefault>
-                </View>
-
-                <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
-
-                <View>
-                    <RadioColorSwitcher stateColors={stateColors} changeStateColors={changeStateColors} />
-                </View>
-
-                <View>
-                    <ButtonDefault title="Purchase" />
-
-                    <ButtonDefault title="Add to Wish List" />
-                </View>
-
-                <View>
-                    <TextDefault>Details & care</TextDefault>
-
-                    <TextDefault>{product?.details.info}</TextDefault>
+                    <View style={{ position: 'relative' }}>
+                        <TouchableOpacity onPressIn={open3DProductModal}><TextDefault>3D</TextDefault></TouchableOpacity>
+                        {/* src={require(selectedColorMemoData?.urlImage)} */}
+                        <Image width={300} height={200} alt={product?.title} />
+                    </View>
 
                     <View>
-                        {product?.details.list.map((detail, keyDetail) => {
-                            return (
-                                <TextDefault key={keyDetail}>
-                                    {`\u2022 ${detail}`}
-                                </TextDefault>
-                            );
-                        })}
+                        <TextTitleH1>{product?.title}</TextTitleH1>
+                        <TextDefault>{product?.price}</TextDefault>
+                    </View>
+
+                    <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+
+                    <View>
+                        <RadioColorSwitcher stateColors={stateColors} changeStateColors={changeStateColors} />
+                    </View>
+
+                    <View>
+                        <ButtonDefault title="Purchase" />
+
+                        <ButtonDefault title="Add to Wish List" />
+                    </View>
+
+                    <View>
+                        <TextDefault>Details & care</TextDefault>
+
+                        <TextDefault>{product?.details.info}</TextDefault>
+
+                        <View>
+                            {product?.details.list.map((detail, keyDetail) => {
+                                return (
+                                    <TextDefault key={keyDetail}>
+                                        {`\u2022 ${detail}`}
+                                    </TextDefault>
+                                );
+                            })}
+                        </View>
                     </View>
                 </View>
-            </View>
 
-        </Suspense>
+            </Suspense>
+        </MainContainer>
     );
 }

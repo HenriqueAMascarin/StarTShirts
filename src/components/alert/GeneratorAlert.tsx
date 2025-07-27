@@ -1,9 +1,9 @@
-import { View } from "react-native";
+import { View } from 'react-native';
 import { useAppSelector } from '@src/store/reduxHookCustom';
 import { removeElement } from '@src/store/features/alertsInstantiable/alertsInstantiable-slice';
 import { useDispatch } from 'react-redux';
-import { useMemo } from "react";
-import { stylesGeneratorAlert } from "@src/components/alert/stylesGeneratorAlert";
+import { useMemo } from 'react';
+import { stylesGeneratorAlert } from '@src/components/alert/stylesGeneratorAlert';
 import React from 'react';
 
 export function GeneratorAlert() {
@@ -25,13 +25,13 @@ export function GeneratorAlert() {
                     key={keyItem}
                     {...props}
                 />
-            )
-        })
+            );
+        });
     }, [alertsInstantiable]);
 
     return (
         <View style={stylesGeneratorAlert.containerAlerts} >
             {alertsElements}
         </View >
-    )
+    );
 }

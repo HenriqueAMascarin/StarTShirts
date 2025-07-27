@@ -19,7 +19,7 @@ export default function TShirt3DModel({ color = 'white' }: TShirt3DModelType) {
         scale={[0.006, 0.072, 0.073]}
       />
     </group>
-  )
+  );
 }
 
 useGLTF.preload(Element);

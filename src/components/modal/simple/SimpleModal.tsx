@@ -11,7 +11,7 @@ type TypeDefaultModal = {
     hasCloseIcon?: boolean
 }
 
-export default function SimpleModal({ children, visibleStates, hasCloseIcon = true, backgroundModalColor = appColors.white, }: TypeDefaultModal) {
+export default function SimpleModal({ children, visibleStates, hasCloseIcon = true, backgroundModalColor = appColors.white }: TypeDefaultModal) {
 
     const animatedOpacity = useRef(new Animated.Value(0));
 

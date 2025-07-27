@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { typeAlerts } from '@src/components/alert/components/AlertItem/AlertItem';
 
-type typeProps = Omit<typeAlerts, "onHideFn">;
+type typeProps = Omit<typeAlerts, 'onHideFn'>;
 
 export type typeElement = {
   Element: ({ }: typeAlerts) => React.ReactElement,
@@ -18,7 +18,7 @@ export const alertsInstantiableSlice = createSlice({
     addElement: (state, action: PayloadAction<typeElement>) => {
       return [...state, action.payload];
     },
-    removeElement: (state, action: PayloadAction<typeElement["keyItem"]>) => {
+    removeElement: (state, action: PayloadAction<typeElement['keyItem']>) => {
       return state.filter((instantiable) => instantiable.keyItem !== action.payload);
     },
   },

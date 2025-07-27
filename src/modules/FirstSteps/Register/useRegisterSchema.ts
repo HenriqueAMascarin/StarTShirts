@@ -11,7 +11,7 @@ export const useRegisterSchema = z
     if (password != confirmPassword) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: `Passwords don't match`,
+        message: 'Passwords don\'t match',
         path: ['confirmPassword'],
       });
     }

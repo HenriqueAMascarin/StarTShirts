@@ -14,7 +14,7 @@ export const stylesGlobalModal = StyleSheet.create({
         backgroundColor: appColors.transparent,
         width: '100%',
         height: '100%',
-        zIndex: 999
+        zIndex: 999,
     },
     modalContainer: {
         display: 'flex',

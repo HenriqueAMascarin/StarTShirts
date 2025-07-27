@@ -7,19 +7,19 @@ export const stylesLines = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 26
+        paddingVertical: 26,
     },
     line: {
         height: 2,
         backgroundColor: appColors.gray,
         alignSelf: 'stretch',
-    }, 
+    },
     text: {
         fontSize: 16,
         color: appColors.black,
         backgroundColor: appColors.white,
         position: 'absolute',
         zIndex: 1,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
 });

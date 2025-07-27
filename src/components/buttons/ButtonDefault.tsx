@@ -11,5 +11,5 @@ export default function ButtonDefault(buttonProps: buttonTypes) {
         <TouchableOpacity {...buttonProps} style={[stylesButtons.defaultButton, buttonProps.borderType && stylesButtons.borderButton, buttonProps.style]}>
             <TextDefault style={[stylesButtons.title, buttonProps.borderType && stylesButtons.borderTitle]}>{buttonProps.title}</TextDefault>
         </TouchableOpacity >
-    )
-};
+    );
+}

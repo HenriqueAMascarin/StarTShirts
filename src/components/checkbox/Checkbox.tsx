@@ -27,5 +27,5 @@ export default function Checkbox({ stateValue, changeStateValueFn, label, style 
             </View>
             <TextDefault style={stylesCheckbox.label}>{label}</TextDefault>
         </TouchableOpacity>
-    )
+    );
 }

@@ -9,7 +9,7 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
-import LineWithText from '@src/components/objects/lines/LineWithText';
+import LineWithText from '@src/components/lines/LineWithText';
 
 import Checkbox from '@src/components/checkbox/Checkbox';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
@@ -30,7 +30,7 @@ export default function LoginIndex() {
     const [checkboxState, changeCheckboxState] = useState(true);
 
     async function onLoginSubmit(formValues: typeLoginSchema) {
-        let payload = { ...formValues, rememberMe: checkboxState };
+        const payload = { ...formValues, rememberMe: checkboxState };
 
         const response = await postLoginUser(payload);
 
@@ -109,5 +109,5 @@ export default function LoginIndex() {
                 </BottomContainer>
             </PaddingContainer>
         </ScrollView>
-    )
+    );
 }

@@ -17,7 +17,7 @@ export async function apiManagement(response: genericStatus) {
       }
     ));
   } else {
-    for (let key in response.errors) {
+    for (const key in response.errors) {
       globalStore.dispatch(addElement(
         {
           Element: AlertItem,

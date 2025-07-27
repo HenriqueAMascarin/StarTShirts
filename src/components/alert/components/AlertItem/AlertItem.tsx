@@ -1,9 +1,9 @@
-import TextDefault from "@src/components/texts/TextDefault";
-import React, { useEffect, useMemo, useRef } from "react";
-import { Animated } from "react-native";
-import { stylesAlertItem } from "@src/components/alert/components/AlertItem/stylesAlertItem";
-import ErrorIcon from "@src/assets/svgs/error_icon.svg";
-import SuccessIcon from "@src/assets/svgs/success_icon.svg";
+import TextDefault from '@src/components/texts/TextDefault';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { Animated } from 'react-native';
+import { stylesAlertItem } from '@src/components/alert/components/AlertItem/stylesAlertItem';
+import ErrorIcon from '@src/assets/svgs/error_icon.svg';
+import SuccessIcon from '@src/assets/svgs/success_icon.svg';
 
 type typeStatus = 'success' | 'error';
 
@@ -22,13 +22,13 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
     const translateYAnimated = opacityValue.interpolate({
         inputRange: [0, 1],
         outputRange: [-20, 0],
-        extrapolate: "clamp"
+        extrapolate: 'clamp',
     });
 
     const alertProperties = useMemo(() => {
         const statusObjects: typeStatusObjects = [
             { Icon: <ErrorIcon />, containerClass: stylesAlertItem.errorContainer, status: 'error' },
-            { Icon: <SuccessIcon />, containerClass: stylesAlertItem.successContainer, status: 'success' }
+            { Icon: <SuccessIcon />, containerClass: stylesAlertItem.successContainer, status: 'success' },
         ];
 
         return statusObjects.find((properties) => properties.status == type);
@@ -50,12 +50,12 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
                 duration: 300,
                 delay: 20,
                 useNativeDriver: false,
-            })
+            }),
         ]
         ).start(() => {
             onHideFn();
         });
-    }, [])
+    }, []);
 
     return (
         <Animated.View style={[stylesAlertItem.defaultAlertContainer,
@@ -65,5 +65,5 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
             {alertProperties?.Icon}
             <TextDefault style={stylesAlertItem.defaultAlertText}>{message}</TextDefault>
         </Animated.View>
-    )
+    );
 }

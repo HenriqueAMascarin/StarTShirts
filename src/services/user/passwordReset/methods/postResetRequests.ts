@@ -20,7 +20,7 @@ export const postResetRequests = async (emailData: postResetRequestType) => {
   const existentUserData = userResponseAll?.find((user) => user.email === emailData.email);
 
   if (existentUserData) {
-    let resetRequestsData = await getResetRequests();
+    const resetRequestsData = await getResetRequests();
 
     const generatedUrl = 'STPRURL' + (resetRequestsData?.length ?? 1);
 

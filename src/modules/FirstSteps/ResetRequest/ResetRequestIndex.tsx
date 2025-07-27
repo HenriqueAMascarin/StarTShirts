@@ -8,7 +8,7 @@ import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
-import LineWithText from '@src/components/objects/lines/LineWithText';
+import LineWithText from '@src/components/lines/LineWithText';
 import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { postResetRequests } from '@src/services/user/passwordReset/methods/postResetRequests';
@@ -25,7 +25,7 @@ export default function ResetRequestIndex() {
     const navigation = useNavigation();
 
     async function onResetSubmit(formValues: typeResetRequestSchema) {
-        let payload = { ...formValues };
+        const payload = { ...formValues };
 
         const response = await postResetRequests(payload);
 

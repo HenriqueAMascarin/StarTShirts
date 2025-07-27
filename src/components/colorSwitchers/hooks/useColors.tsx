@@ -1,7 +1,7 @@
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import { useState } from 'react';
 
-export type UseColorsType = { colors: ProductObjectType['colors'] };
+type UseColorsType = { colors: ProductObjectType['colors'] };
 
 export default function useColors({ colors }: UseColorsType) {
     function makeColorsArray() {
@@ -14,5 +14,5 @@ export default function useColors({ colors }: UseColorsType) {
 
     const [stateColors, changeStateColors] = useState(makeColorsArray());
 
-    return {stateColors, changeStateColors};
+    return { stateColors, changeStateColors };
 }

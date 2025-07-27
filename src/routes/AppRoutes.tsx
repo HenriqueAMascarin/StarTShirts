@@ -59,7 +59,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
         </Stack.Group>
 
         <Stack.Group>
-          <Stack.Screen name="home" component={HomeIndex} />
+          <Stack.Screen name="home" component={HomeIndex}/>
 
           <Stack.Screen name="home/product" component={ProductIndex} />
 
@@ -70,8 +70,6 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
           <Stack.Screen name="home/purchases" component={HomeIndex} />
 
           <Stack.Screen name="home/account" component={HomeIndex} />
-
-
         </Stack.Group>
 
       </Stack.Navigator>

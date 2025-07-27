@@ -53,5 +53,5 @@ export default function InputPassword(inputProps: propsInput) {
                 }
             </View>
         </View>
-    )
+    );
 }
