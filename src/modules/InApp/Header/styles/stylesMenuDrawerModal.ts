@@ -5,6 +5,8 @@ export const stylesMenuDrawerModal = StyleSheet.create({
   flexContainer: {
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor: appColors.white,
+    minHeight: '100%',
   },
   touchableBtn: {
     display: 'flex',

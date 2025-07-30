@@ -1,4 +1,7 @@
 import { ProductObjectType } from 'src/services/product/dataProducts/types/genericTypes';
+import whiteTShirtImg from '@src/assets/tshirt/images/white_tshirt.webp';
+import blueTShirtImg from '@src/assets/tshirt/images/blue_tshirt.webp';
+import redTShirtImg from '@src/assets/tshirt/images/red_tshirt.webp';
 
 export const productsList: ProductObjectType[] = [
   {
@@ -7,17 +10,17 @@ export const productsList: ProductObjectType[] = [
     colors: [
       {
         color: 'white',
-        urlImage: require('@src/assets/tshirt/images/white_tshirt.webp'),
+        urlImage: whiteTShirtImg,
         isSelected: false,
       },
       {
         color: 'blue',
-        urlImage: require('@src/assets/tshirt/images/blue_tshirt.webp'),
+        urlImage: blueTShirtImg,
         isSelected: false,
       },
       {
         color: 'red',
-        urlImage: require('@src/assets/tshirt/images/red_tshirt.webp'),
+        urlImage: redTShirtImg,
         isSelected: false,
       },
     ],

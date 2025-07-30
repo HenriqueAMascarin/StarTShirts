@@ -2,10 +2,6 @@ import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
 export const stylesHeaderIndex = StyleSheet.create({
-  container: {
-    flex: 1,
-    minHeight: '100%',
-  },
   headerContainer: {
     backgroundColor: appColors.black,
     paddingVertical: 10,

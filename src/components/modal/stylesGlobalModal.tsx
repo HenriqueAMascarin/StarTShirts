@@ -12,8 +12,9 @@ export const stylesGlobalModal = StyleSheet.create({
         right: 0,
         left: 0,
         backgroundColor: appColors.transparent,
-        width: '100%',
-        height: '100%',
+        minWidth: '100%',
+        minHeight: '100%',
+        flex: 1,
         zIndex: 999,
     },
     modalContainer: {

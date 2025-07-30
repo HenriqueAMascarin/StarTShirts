@@ -1,80 +1,117 @@
-import { Animated, FlexStyle, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Animated,
+  FlexStyle,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { drawerModalWidth, stylesDrawerModal } from '@src/components/modal/drawer/stylesDrawerModal';
+import {
+  drawerModalWidth,
+  stylesDrawerModal,
+} from '@src/components/modal/drawer/stylesDrawerModal';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import CloseSvg from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 
 type TypeDefaultModal = {
-    children?: ReactNode,
-    visibleStates: { visible: boolean, changeVisibleState: React.Dispatch<React.SetStateAction<boolean>> }
-    title: string,
-    position: Extract<FlexStyle['justifyContent'], 'flex-start' | 'flex-end'>
-}
+  children?: ReactNode;
+  visibleStates: {
+    visible: boolean;
+    changeVisibleState: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  title: string;
+  position: Extract<FlexStyle['justifyContent'], 'flex-start' | 'flex-end'>;
+};
 
-export default function DrawerModal({ children, visibleStates, title, position }: TypeDefaultModal) {
+export default function DrawerModal({
+  children,
+  visibleStates,
+  title,
+  position,
+}: TypeDefaultModal) {
+  const animatedOpacity = useRef(new Animated.Value(0));
 
-    const animatedOpacity = useRef(new Animated.Value(0));
+  const transformInitialPos = position === 'flex-end' ? drawerModalWidth : -drawerModalWidth;
 
-    const transformInitialPos = position === 'flex-end' ? drawerModalWidth : -drawerModalWidth;
+  const animatedTransform = useRef(new Animated.Value(transformInitialPos));
 
-    const animatedTransform = useRef(new Animated.Value(transformInitialPos));
-
-    useEffect(() => {
-        if (visibleStates.visible) {
-            Animated.sequence([
-                Animated.timing(animatedOpacity.current, {
-                    toValue: 1,
-                    delay: 0,
-                    duration: 150,
-                    useNativeDriver: true,
-                }),
-                Animated.timing(animatedTransform.current, {
-                    toValue: 0,
-                    delay: 0,
-                    duration: 150,
-                    useNativeDriver: true,
-                }),
-            ]).start();
-        }
-    }, [visibleStates.visible]);
-
-    function closeDrawerModal() {
-        Animated.sequence([
-            Animated.timing(animatedTransform.current, {
-                toValue: transformInitialPos,
-                delay: 0,
-                duration: 150,
-                useNativeDriver: true,
-            }),
-            Animated.timing(animatedOpacity.current, {
-                toValue: 0,
-                delay: 0,
-                duration: 150,
-                useNativeDriver: true,
-            }),
-        ]).start(() => {
-            visibleStates.changeVisibleState(!visibleStates.visible);
-        });
+  useEffect(() => {
+    if (visibleStates.visible) {
+      Animated.sequence([
+        Animated.timing(animatedOpacity.current, {
+          toValue: 1,
+          delay: 0,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+        Animated.timing(animatedTransform.current, {
+          toValue: 0,
+          delay: 0,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+      ]).start();
     }
+  }, [visibleStates.visible]);
 
-    return (
-        <Animated.View style={[stylesGlobalModal.container, { opacity: animatedOpacity.current, justifyContent: position }]}>
-            <TouchableWithoutFeedback onPressIn={closeDrawerModal} style={stylesGlobalModal.backgroundTouchable}><View style={stylesGlobalModal.backgroundTouchable}/></TouchableWithoutFeedback>
+  function closeDrawerModal() {
+    Animated.sequence([
+      Animated.timing(animatedTransform.current, {
+        toValue: transformInitialPos,
+        delay: 0,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animatedOpacity.current, {
+        toValue: 0,
+        delay: 0,
+        duration: 150,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      visibleStates.changeVisibleState(!visibleStates.visible);
+    });
+  }
 
-            <Animated.View style={[stylesDrawerModal.drawerContainer, { transform: [{ translateX: animatedTransform.current }] }]}>
-                <View style={[stylesDrawerModal.titleContainer, stylesGlobalModal.bottomLine, stylesGlobalModal.paddingContainer]}>
-                    <TouchableOpacity onPressIn={closeDrawerModal}>
-                        <CloseSvg width={23} height={23} />
-                    </TouchableOpacity>
+  return (
+    <View style={{position: 'relative', flex: 1, minHeight: '100%', height: '100%', zIndex: 999}}>
+      <Animated.View
+        style={[
+          stylesGlobalModal.container,
+          { opacity: animatedOpacity.current, justifyContent: position },
+        ]}
+      >
+        <TouchableWithoutFeedback
+          onPressIn={closeDrawerModal}
+          style={stylesGlobalModal.backgroundTouchable}
+        >
+          <View style={stylesGlobalModal.backgroundTouchable} />
+        </TouchableWithoutFeedback>
 
-                    <TextTitleH2>
-                        {title}
-                    </TextTitleH2>
-                </View>
+        <Animated.View
+          style={[
+            stylesDrawerModal.drawerContainer,
+            { transform: [{ translateX: animatedTransform.current }] },
+          ]}
+        >
+          <View
+            style={[
+              stylesDrawerModal.titleContainer,
+              stylesGlobalModal.bottomLine,
+              stylesGlobalModal.paddingContainer,
+            ]}
+          >
+            <TouchableOpacity onPressIn={closeDrawerModal}>
+              <CloseSvg width={23} height={23} />
+            </TouchableOpacity>
 
-                {children}
-            </Animated.View>
+            <TextTitleH2>{title}</TextTitleH2>
+          </View>
+
+          {children}
         </Animated.View>
-    );
+      </Animated.View>
+    </View>
+  );
 }

@@ -3,25 +3,29 @@ import { StyleSheet } from 'react-native';
 
 export const stylesSlogan = StyleSheet.create({
   container: {
-    marginTop: 0,
     maxHeight: 310,
     width: '100%',
     backgroundColor: appColors.yellow,
-    paddingVertical: 30,
+    paddingVertical: 20,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    position: 'relative',
+    gap: 20,
   },
   image: {
-    width: 100,
-    height: 160,
-    position: 'relative',
+    maxWidth: 165,
+    maxHeight: 175,
+  },
+  textsContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'column',
   },
   text: {
     textShadowColor: appColors.white,
-
+    fontSize: 30,
     textShadowRadius: 10,
     textTransform: 'uppercase',
     color: appColors.black,

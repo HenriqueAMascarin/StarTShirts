@@ -6,7 +6,6 @@ Aplicativo para meu portfólio, procurando fazer um projeto real só que de apre
 
 - [Sobre](#Sobre)
   - [Review](#review)
-  - [Aprendizado](#Aprendizado)
   - [Futuro](#Futuro)
   - [Links](#links)
   - [Tecnologias usadas](#Tecnologias-usadas)
@@ -17,9 +16,6 @@ Aplicativo para meu portfólio, procurando fazer um projeto real só que de apre
 
 ![](/src/assets/readme/feature.jpg)
 
-### Aprendizado
-
-Aperfeiçoei minha lógica de programação e melhorei em tais tecnologias, passando por diversos desafios. Assim, Aprendendo a usar o React Native no dia a dia.
 
 ### Futuro
 

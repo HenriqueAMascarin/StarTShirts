@@ -32,7 +32,6 @@ module.exports = {
     'react-native/no-raw-text': 0,
     'react-native/no-single-element-style-arrays': 2,
     'react/no-unescaped-entities': 0,
-    'ft-flow/boolean-style': [2, 'boolean'],
     '@typescript-eslint/func-call-spacing': 0,
   },
   overrides: [

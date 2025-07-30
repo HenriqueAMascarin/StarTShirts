@@ -5,7 +5,7 @@ export type ProductColorsType = 'white' | 'blue' | 'red';
 export type ProductObjectType = {
   title: string;
   price: number;
-  colors: {color: ProductColorsType, urlImage: ImageURISource, isSelected: boolean}[];
+  colors: {color: ProductColorsType, urlImage: ImageURISource | null, isSelected: boolean}[];
   id: number;
   element3DPath: string;
   details: {

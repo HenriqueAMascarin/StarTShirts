@@ -6,7 +6,7 @@ type UseMemoSelectedImageColorType = { stateColors: ProductObjectType['colors'] 
 export default function useMemoSelectedColorData({ stateColors }: UseMemoSelectedImageColorType) {
 
     const selectedColorMemoData = useMemo(() => {
-        const selected: UseMemoSelectedImageColorType['stateColors'][0] = stateColors.find((element) => element.isSelected) ?? { color: 'white', isSelected: false, urlImage: require('') };
+        const selected: UseMemoSelectedImageColorType['stateColors'][0] = stateColors.find((element) => element.isSelected) ?? { color: 'white', isSelected: false, urlImage: null };
 
         return selected;
     }, [stateColors]);
