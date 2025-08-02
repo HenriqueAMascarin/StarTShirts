@@ -1,5 +1,5 @@
 import { TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
-import TextDefault from '@src/components/texts/TextDefault';
+import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesButtons } from '@src/components/buttons/stylesButtons';
 import React from 'react';
 

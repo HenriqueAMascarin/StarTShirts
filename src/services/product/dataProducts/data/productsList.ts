@@ -6,7 +6,7 @@ import redTShirtImg from '@src/assets/tshirt/images/red_tshirt.webp';
 export const productsList: ProductObjectType[] = [
   {
     title: 'Classic T-shirt',
-    price: 100.0,
+    price: 100.00,
     colors: [
       {
         color: 'white',

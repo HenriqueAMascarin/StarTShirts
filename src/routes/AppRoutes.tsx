@@ -5,10 +5,10 @@ import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
 import LoginIndex from '@src/modules/FirstSteps/Login/LoginIndex';
 import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequestIndex';
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
-import HomeIndex from '@src/modules/InApp/Home/HomeIndex';
+import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 import React from 'react';
-import HeaderIndex from '@src/modules/InApp/Header/HeaderIndex';
-import ProductIndex from '@src/modules/InApp/Product/ProductIndex';
+import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
+import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 
 export type RootStackParamList = {
   register: undefined,

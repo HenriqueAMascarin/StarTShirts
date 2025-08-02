@@ -24,12 +24,7 @@ type TypeDefaultModal = {
   position: Extract<FlexStyle['justifyContent'], 'flex-start' | 'flex-end'>;
 };
 
-export default function DrawerModal({
-  children,
-  visibleStates,
-  title,
-  position,
-}: TypeDefaultModal) {
+function ContentDrawerModal({ children, visibleStates, title, position }: TypeDefaultModal) {
   const animatedOpacity = useRef(new Animated.Value(0));
 
   const transformInitialPos = position === 'flex-end' ? drawerModalWidth : -drawerModalWidth;
@@ -75,43 +70,56 @@ export default function DrawerModal({
   }
 
   return (
-    <View style={{position: 'relative', flex: 1, minHeight: '100%', height: '100%', zIndex: 999}}>
+    <Animated.View
+      style={[
+        stylesGlobalModal.container,
+        { opacity: animatedOpacity.current, justifyContent: position },
+      ]}
+    >
+      <TouchableWithoutFeedback
+        onPressIn={closeDrawerModal}
+        style={stylesGlobalModal.backgroundTouchable}
+      >
+        <View style={stylesGlobalModal.backgroundTouchable} />
+      </TouchableWithoutFeedback>
+
       <Animated.View
         style={[
-          stylesGlobalModal.container,
-          { opacity: animatedOpacity.current, justifyContent: position },
+          stylesDrawerModal.drawerContainer,
+          { transform: [{ translateX: animatedTransform.current }] },
         ]}
       >
-        <TouchableWithoutFeedback
-          onPressIn={closeDrawerModal}
-          style={stylesGlobalModal.backgroundTouchable}
-        >
-          <View style={stylesGlobalModal.backgroundTouchable} />
-        </TouchableWithoutFeedback>
-
-        <Animated.View
+        <View
           style={[
-            stylesDrawerModal.drawerContainer,
-            { transform: [{ translateX: animatedTransform.current }] },
+            stylesDrawerModal.titleContainer,
+            stylesGlobalModal.bottomLine,
+            stylesGlobalModal.paddingContainer,
           ]}
         >
-          <View
-            style={[
-              stylesDrawerModal.titleContainer,
-              stylesGlobalModal.bottomLine,
-              stylesGlobalModal.paddingContainer,
-            ]}
-          >
-            <TouchableOpacity onPressIn={closeDrawerModal}>
-              <CloseSvg width={23} height={23} />
-            </TouchableOpacity>
+          <TouchableOpacity onPressIn={closeDrawerModal}>
+            <CloseSvg width={23} height={23} />
+          </TouchableOpacity>
 
-            <TextTitleH2>{title}</TextTitleH2>
-          </View>
+          <TextTitleH2>{title}</TextTitleH2>
+        </View>
 
-          {children}
-        </Animated.View>
+        {children}
       </Animated.View>
-    </View>
+    </Animated.View>
+  );
+}
+
+export default function DrawerModal({
+  children,
+  visibleStates,
+  title,
+  position,
+}: TypeDefaultModal) {
+  return (
+    <>
+      {visibleStates.visible && (
+        <ContentDrawerModal {...{ children, visibleStates, title, position }} />
+      )}
+    </>
   );
 }

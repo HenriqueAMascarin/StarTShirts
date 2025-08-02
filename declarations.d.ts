@@ -13,7 +13,7 @@ declare module '*.glb' {
 }
 
 declare module '*.webp' {
-  import { ImageSourcePropType } from 'react-native';
+  import { ImageURISource } from 'react-native';
 
   const content: ImageURISource;
   export default content;

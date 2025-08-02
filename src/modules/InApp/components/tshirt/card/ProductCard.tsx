@@ -1,4 +1,4 @@
-import TextDefault from '@src/components/texts/TextDefault';
+import TextDefault from '@src/components/texts/default/TextDefault';
 import { Image, View } from 'react-native';
 import React from 'react';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
@@ -28,8 +28,8 @@ export default function ProductCard({ title, price, colors, id }: ProductObjectT
         {selectedColorMemoData?.urlImage != null && (
           <Image
             alt={title}
-            width={100}
-            height={160}
+            width={125}
+            height={135}
             source={selectedColorMemoData.urlImage}
             style={stylesProductCard.image}
           />

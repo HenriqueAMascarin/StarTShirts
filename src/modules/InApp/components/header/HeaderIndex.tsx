@@ -1,19 +1,19 @@
-import React, { MutableRefObject, useRef, useState } from 'react';
+import React, { MutableRefObject, useMemo, useRef } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
-import { stylesHeaderIndex } from '@src/modules/InApp/Header/styles/stylesHeaderIndex';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import DrawerModal from '@src/components/modal/drawer/DrawerModal';
-import TextDefault from '@src/components/texts/TextDefault';
-import { stylesMenuDrawerModal } from '@src/modules/InApp/Header/styles/stylesMenuDrawerModal';
+import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import useDrawerModalHook from '@src/components/modal/drawer/hooks/useDrawerModalHook';
+import { stylesMenuDrawerModal } from '@src/modules/InApp/components/header/styles/stylesMenuDrawerModal';
+import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
 
 type TypeMenuDrawerModal = {
   stateDrawerModal: boolean;
@@ -26,6 +26,8 @@ type TypeLinks = {
   textAnimatedOpacity: MutableRefObject<Animated.Value>;
   keyItem: number;
 }[];
+
+export const headerHeight = 49;
 
 function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuDrawerModal) {
   const navigation = useNavigation();
@@ -126,30 +128,26 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
 
   return (
     <>
-      {stateDrawerModal ? (
-        <DrawerModal
-          title={'Menu'}
-          position="flex-end"
-          visibleStates={{ visible: stateDrawerModal, changeVisibleState: changeStateDrawerModal }}
-        >
-          <View style={stylesMenuDrawerModal.flexContainer}>
-            {links ? links.map(renderLinkMenu) : null}
+      <DrawerModal
+        title={'Menu'}
+        position="flex-end"
+        visibleStates={{ visible: stateDrawerModal, changeVisibleState: changeStateDrawerModal }}
+      >
+        <View style={stylesMenuDrawerModal.flexContainer}>
+          {links ? links.map(renderLinkMenu) : null}
 
-            <TouchableOpacity
-              style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]}
-              onPressIn={exitAccount}
-            >
-              <View style={stylesGlobalModal.paddingContainer}>
-                <TextDefault
-                  style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}
-                >
-                  Sign Out
-                </TextDefault>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </DrawerModal>
-      ) : null}
+          <TouchableOpacity
+            style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]}
+            onPressIn={exitAccount}
+          >
+            <View style={stylesGlobalModal.paddingContainer}>
+              <TextDefault style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>
+                Sign Out
+              </TextDefault>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </DrawerModal>
     </>
   );
 }
@@ -169,39 +167,49 @@ export default function HeaderIndex() {
     navigation.navigate('home');
   }
 
+  const minHeightHeaderMemo = useMemo(
+    () => (drawerModalState ? '100%' : headerHeight),
+    [drawerModalState],
+  );
+
   return (
     <>
-      <View style={stylesHeaderIndex.headerContainer}>
-        <PaddingContainer>
-          <View style={stylesHeaderIndex.flexContainer}>
-            <TouchableOpacity onPressIn={goToHomeRoute}>
-              <MiniStarSVG width={'31'} height={'29'} />
-            </TouchableOpacity>
+      <View style={[stylesHeaderIndex.container, { minHeight: minHeightHeaderMemo }]}>
+        <View style={stylesHeaderIndex.headerContainer}>
+          <PaddingContainer>
+            <View style={stylesHeaderIndex.flexContainer}>
+              <TouchableOpacity onPressIn={goToHomeRoute}>
+                <MiniStarSVG width={'31'} height={'29'} />
+              </TouchableOpacity>
 
-            <View style={stylesHeaderIndex.seachInputContainer}>
-              <InputDefault
-                placeholder="Search the best t-shirts"
-                style={stylesHeaderIndex.searchInput}
-              />
+              <View style={stylesHeaderIndex.seachInputContainer}>
+                <InputDefault
+                  placeholder="Search the best t-shirts"
+                  style={stylesHeaderIndex.searchInput}
+                />
 
-              <TouchableOpacity style={{ position: 'absolute', left: 10 }} onPressIn={onSearch}>
-                <SearchSVG width={'16'} height={'15'} />
+                <TouchableOpacity style={{ position: 'absolute', left: 10 }} onPressIn={onSearch}>
+                  <SearchSVG width={'16'} height={'15'} />
+                </TouchableOpacity>
+              </View>
+
+              <TouchableOpacity
+                style={stylesHeaderIndex.flexHamburguer}
+                onPressIn={openDrawerModal}
+              >
+                <View style={stylesHeaderIndex.padsHamburguer} />
+                <View style={stylesHeaderIndex.padsHamburguer} />
+                <View style={stylesHeaderIndex.padsHamburguer} />
               </TouchableOpacity>
             </View>
+          </PaddingContainer>
+        </View>
 
-            <TouchableOpacity style={stylesHeaderIndex.flexHamburguer} onPressIn={openDrawerModal}>
-              <View style={stylesHeaderIndex.padsHamburguer} />
-              <View style={stylesHeaderIndex.padsHamburguer} />
-              <View style={stylesHeaderIndex.padsHamburguer} />
-            </TouchableOpacity>
-          </View>
-        </PaddingContainer>
+        <MenuDrawerModal
+          stateDrawerModal={drawerModalState}
+          changeStateDrawerModal={changeDrawerModalState}
+        />
       </View>
-
-      <MenuDrawerModal
-        stateDrawerModal={drawerModalState}
-        changeStateDrawerModal={changeDrawerModalState}
-      />
     </>
   );
 }

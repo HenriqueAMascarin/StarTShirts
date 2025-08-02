@@ -33,6 +33,9 @@ module.exports = {
     'react-native/no-single-element-style-arrays': 2,
     'react/no-unescaped-entities': 0,
     '@typescript-eslint/func-call-spacing': 0,
+    'no-types-missing-file-annotation': 0,
+    'ft-flow/no-types-missing-file-annotation': 0,
+    '@typescript-eslint/no-namespace': 0,
   },
   overrides: [
     {

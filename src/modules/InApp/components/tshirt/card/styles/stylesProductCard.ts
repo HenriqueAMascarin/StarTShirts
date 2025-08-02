@@ -9,7 +9,6 @@ export const stylesProductCard = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    gap: 20,
     borderRadius: 20,
     outlineWidth: 1.5,
     outlineColor: appColors.black,
@@ -34,8 +33,7 @@ export const stylesProductCard = StyleSheet.create({
     display: 'flex',
     alignItems: 'stretch',
     justifyContent: 'flex-start',
-    paddingHorizontal: 10,
-    paddingBottom: 10,
+    padding: 10,
   },
   infoBtn: {
     marginTop: 20,
