@@ -11,7 +11,7 @@ import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
-import LineWithText from '@src/components/lines/LineWithText';
+import LineObject from '@src/components/objects/line/LineObject';
 import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { postResetRequests } from '@src/services/user/passwordReset/methods/postResetRequests';
@@ -83,7 +83,7 @@ export default function ResetRequestIndex() {
                 onPressIn={resetRequestHandleSubmit(onResetSubmit)}
               />
 
-              <LineWithText text="or" />
+              <LineObject text="or" />
 
               <ButtonDefault title="Login" onPressIn={changeBtnMethod} borderType={true} />
             </View>

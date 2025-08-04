@@ -2,6 +2,7 @@ import React from 'react';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { TouchableOpacity, View } from 'react-native';
 import { appColors } from '@src/utils/appColors';
+import { stylesSizesProduct } from '@src/modules/InApp/Product/components/sizesChanger/styles/stylesSizesProduct';
 
 type StateSizesType = {
   text: string;
@@ -35,10 +36,10 @@ export default function SizesProduct({ stateSizes, changeStateSizes }: SizesProd
   }
 
   return (
-    <View>
-      <TextDefault>Sizes</TextDefault>
+    <View style={stylesSizesProduct.container}>
+      <TextDefault style={stylesSizesProduct.textTitle}>Sizes</TextDefault>
 
-      <View>
+      <View style={stylesSizesProduct.containerBtn}>
         {stateSizes.map((state, keySize) => {
           const backgroundColor = state.isSelected ? appColors.black : appColors.white;
 
@@ -46,7 +47,7 @@ export default function SizesProduct({ stateSizes, changeStateSizes }: SizesProd
 
           return (
             <TouchableOpacity
-              style={{ backgroundColor }}
+              style={[stylesSizesProduct.sizeBtn, { backgroundColor }]}
               onPressIn={() => onChangeSize(state.text)}
               key={keySize}
             >

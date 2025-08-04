@@ -9,7 +9,7 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import ButtonDefault from '@src/components/buttons/ButtonDefault';
-import LineWithText from '@src/components/lines/LineWithText';
+import LineObject from '@src/components/objects/line/LineObject';
 
 import Checkbox from '@src/components/checkbox/Checkbox';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
@@ -19,95 +19,99 @@ import { useState } from 'react';
 import BottomContainer from '@src/components/containers/BottomContainer';
 
 export default function LoginIndex() {
-    const {
-        control: loginControl,
-        handleSubmit: loginHandleSubmit,
-        formState: { errors: loginErrors },
-    } = useForm<typeLoginSchema>({ resolver: zodResolver(useLoginSchema), mode: 'onSubmit' });
+  const {
+    control: loginControl,
+    handleSubmit: loginHandleSubmit,
+    formState: { errors: loginErrors },
+  } = useForm<typeLoginSchema>({ resolver: zodResolver(useLoginSchema), mode: 'onSubmit' });
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    const [checkboxState, changeCheckboxState] = useState(true);
+  const [checkboxState, changeCheckboxState] = useState(true);
 
-    async function onLoginSubmit(formValues: typeLoginSchema) {
-        const payload = { ...formValues, rememberMe: checkboxState };
+  async function onLoginSubmit(formValues: typeLoginSchema) {
+    const payload = { ...formValues, rememberMe: checkboxState };
 
-        const response = await postLoginUser(payload);
+    const response = await postLoginUser(payload);
 
-        if (response.messageSuccess) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'home' }],
-            });
-        }
+    if (response.messageSuccess) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'home' }],
+      });
     }
+  }
 
-    function changeBtnMethod() {
-        navigation.navigate('register');
-    }
+  function changeBtnMethod() {
+    navigation.navigate('register');
+  }
 
-    function forgotPasswordFunction() {
-        navigation.navigate('request-reset');
-    }
+  function forgotPasswordFunction() {
+    navigation.navigate('request-reset');
+  }
 
-    return (
-        <ScrollView>
-            <StarIconTopIndex />
+  return (
+    <ScrollView>
+      <StarIconTopIndex />
 
-            <PaddingContainer>
-                <BottomContainer>
-                    <View style={{ marginBottom: 20 }}>
-                        <TextTitleH1>Welcome back</TextTitleH1>
-                    </View>
+      <PaddingContainer>
+        <BottomContainer>
+          <View style={{ marginBottom: 20 }}>
+            <TextTitleH1>Welcome back</TextTitleH1>
+          </View>
 
-                    <View>
-                        <View style={globalStyles.containerInputs}>
-                            <Controller
-                                control={loginControl}
-                                name="email"
-                                render={({ field: { onChange, onBlur, value } }) => (
-                                    <InputDefault
-                                        onBlur={onBlur}
-                                        onChangeText={onChange}
-                                        value={value}
-                                        label="E-mail"
-                                        inputMode="email"
-                                        errors={loginErrors.email}
-                                        testID="emailInput"
-                                    />
-                                )}
-                            />
+          <View>
+            <View style={globalStyles.containerInputs}>
+              <Controller
+                control={loginControl}
+                name="email"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputDefault
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="E-mail"
+                    inputMode="email"
+                    errors={loginErrors.email}
+                    testID="emailInput"
+                  />
+                )}
+              />
 
-                            <Controller
-                                control={loginControl}
-                                name="password"
-                                render={({ field: { onChange, onBlur, value } }) => (
-                                    <InputPassword
-                                        onBlur={onBlur}
-                                        onChangeText={onChange}
-                                        value={value}
-                                        label="Password"
-                                        errors={loginErrors.password}
-                                        forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
-                                        testID="passwordInput"
-                                    />
-                                )}
-                            />
-                        </View>
+              <Controller
+                control={loginControl}
+                name="password"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputPassword
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="Password"
+                    errors={loginErrors.password}
+                    forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
+                    testID="passwordInput"
+                  />
+                )}
+              />
+            </View>
 
+            <View style={{ marginTop: 10 }}>
+              <Checkbox
+                stateValue={checkboxState}
+                changeStateValueFn={changeCheckboxState}
+                label="Remember me"
+                style={{ marginBottom: 8 }}
+              />
 
-                        <View style={{ marginTop: 10 }}>
-                            <Checkbox stateValue={checkboxState} changeStateValueFn={changeCheckboxState} label="Remember me" style={{ marginBottom: 8 }} />
+              <ButtonDefault title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
 
-                            <ButtonDefault title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
+              <LineObject text="or" />
 
-                            <LineWithText text="or" />
-
-                            <ButtonDefault title="Create account" onPressIn={changeBtnMethod} borderType={true} />
-                        </View>
-                    </View>
-                </BottomContainer>
-            </PaddingContainer>
-        </ScrollView>
-    );
+              <ButtonDefault title="Create account" onPressIn={changeBtnMethod} borderType={true} />
+            </View>
+          </View>
+        </BottomContainer>
+      </PaddingContainer>
+    </ScrollView>
+  );
 }

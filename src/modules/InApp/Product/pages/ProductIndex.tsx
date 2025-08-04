@@ -22,6 +22,7 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { stylesProductIndex } from '@src/modules/InApp/Product/styles/stylesProductIndex';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
+import LineObject from '@src/components/objects/line/LineObject';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -93,21 +94,32 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
 
         <View style={stylesProductIndex.infoSection}>
           <PaddingContainer>
-            <View style={stylesProductIndex.titleSection}>
-              <TextTitleH2>{productItem?.title}</TextTitleH2>
-              <TextDefault>${productItem?.price.toFixed(2)}</TextDefault>
-            </View>
+            <View style={stylesProductIndex.flexContainerInfos}>
+              <View style={stylesProductIndex.titleSection}>
+                <TextTitleH2>{productItem?.title}</TextTitleH2>
+                <TextDefault style={stylesProductIndex.textPrice}>
+                  ${productItem?.price.toFixed(2)}
+                </TextDefault>
+              </View>
 
-            <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+              <LineObject />
 
-            <View>
-              <RadioColorSwitcher stateColors={stateColors} changeStateColors={changeStateColors} />
-            </View>
+              <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
 
-            <View>
-              <ButtonDefault title="Purchase" />
+              <View>
+                <RadioColorSwitcher
+                  stateColors={stateColors}
+                  changeStateColors={changeStateColors}
+                />
+              </View>
 
-              <ButtonDefault title="Add to Wish List" />
+              <LineObject />
+
+              <View>
+                <ButtonDefault title="Purchase" />
+
+                <ButtonDefault title="Add to Wish List" />
+              </View>
             </View>
           </PaddingContainer>
 

@@ -36,4 +36,13 @@ export const stylesProductIndex = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  textPrice: {
+    fontSize: 22,
+    fontFamily: 'InterSemiBold',
+  },
+  flexContainerInfos: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'stretch',
+  },
 });
