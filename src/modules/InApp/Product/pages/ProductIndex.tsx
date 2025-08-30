@@ -4,7 +4,6 @@ import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
 import { TouchableOpacity, View, Image } from 'react-native';
-import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import SizesProduct from '@src/modules/InApp/Product/components/sizesChanger/SizesProduct';
 import useSizes from '@src/modules/InApp/Product/components/sizesChanger/hooks/useSizes';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
@@ -23,6 +22,9 @@ import { stylesProductIndex } from '@src/modules/InApp/Product/styles/stylesProd
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import LineObject from '@src/components/objects/line/LineObject';
+import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
+import BorderButton from '@src/components/buttons/border/BorderButton';
+import DefaultButton from '@src/components/buttons/default/DefaultButton';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -78,7 +80,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
       <View>
         <View style={stylesProductIndex.containerImage}>
           <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
-            <TextTitleH2 style={stylesProductIndex.btn3DText}>3D</TextTitleH2>
+            <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
           </TouchableOpacity>
 
           {selectedColorMemoData.urlImage && (
@@ -97,6 +99,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
             <View style={stylesProductIndex.flexContainerInfos}>
               <View style={stylesProductIndex.titleSection}>
                 <TextTitleH2>{productItem?.title}</TextTitleH2>
+
                 <TextDefault style={stylesProductIndex.textPrice}>
                   ${productItem?.price.toFixed(2)}
                 </TextDefault>
@@ -104,35 +107,53 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
 
               <LineObject />
 
-              <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+              <View style={stylesProductIndex.optionsContainer}>
+                <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
 
-              <View>
-                <RadioColorSwitcher
-                  stateColors={stateColors}
-                  changeStateColors={changeStateColors}
-                />
+                <View style={stylesProductIndex.colorContainer}>
+                  <TextDefault style={stylesProductIndex.colorTitle}>
+                    Color:
+                    <TextDefault style={stylesProductIndex.colorTitleCurrent}>
+                      {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
+                    </TextDefault>
+                  </TextDefault>
+
+                  <RadioColorSwitcher
+                    stateColors={stateColors}
+                    changeStateColors={changeStateColors}
+                  />
+                </View>
               </View>
 
               <LineObject />
 
-              <View>
-                <ButtonDefault title="Purchase" />
+              <View style={stylesProductIndex.buttonsContainer}>
+                <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
 
-                <ButtonDefault title="Add to Wish List" />
+                <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
               </View>
             </View>
           </PaddingContainer>
 
-          <View>
-            <TextDefault>Details & care</TextDefault>
+          <View style={stylesProductIndex.detailsContainer}>
+            <PaddingContainer>
+              <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
 
-            <TextDefault>{productItem?.details.info}</TextDefault>
+              <TextDefault style={stylesProductIndex.detailsInfo}>
+                {productItem?.details.info}
+              </TextDefault>
 
-            <View>
-              {productItem?.details.list.map((detail, keyDetail) => {
-                return <TextDefault key={keyDetail}>{`\u2022 ${detail}`}</TextDefault>;
-              })}
-            </View>
+              <View>
+                {productItem?.details.list.map((detail, keyDetail) => {
+                  return (
+                    <TextDefault key={keyDetail}>
+                      <TextDefault style={stylesProductIndex.detailsBulletText}>{'\u2022'}</TextDefault>
+                      {detail}
+                    </TextDefault>
+                  );
+                })}
+              </View>
+            </PaddingContainer>
           </View>
         </View>
       </View>

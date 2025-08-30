@@ -11,12 +11,13 @@ import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
-import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import LineObject from '@src/components/objects/line/LineObject';
 import { postUser } from '@src/services/user/methods/postUser';
 import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import BottomContainer from '@src/components/containers/BottomContainer';
+import BorderButton from '@src/components/buttons/border/BorderButton';
+import DefaultButton from '@src/components/buttons/default/DefaultButton';
 
 export default function RegisterIndex() {
   const {
@@ -139,14 +140,14 @@ export default function RegisterIndex() {
             </View>
 
             <View style={{ marginTop: 10 }}>
-              <ButtonDefault
+              <DefaultButton
                 title="Create account"
                 onPressIn={registerHandleSubmit(onRegisterSubmit)}
               />
 
               <LineObject text="or" />
 
-              <ButtonDefault title="Login" onPressIn={changeBtnMethod} borderType={true} />
+              <BorderButton title="Login" onPressIn={changeBtnMethod}/>
             </View>
           </View>
         </BottomContainer>

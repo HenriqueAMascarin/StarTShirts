@@ -1,12 +1,14 @@
 import { ScrollView, View } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePasswordResetSchema, typePasswordResetSchema } from '@src/modules/FirstSteps/PasswordReset/usePasswordResetSchema';
+import {
+  usePasswordResetSchema,
+  typePasswordResetSchema,
+} from '@src/modules/FirstSteps/PasswordReset/usePasswordResetSchema';
 import React from 'react';
 import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
-import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -18,104 +20,112 @@ import { putUser } from '@src/services/user/methods/putUser';
 import { useNavigation } from '@react-navigation/native';
 import { setLoginData } from '@src/services/user/login/methods/postLoginUser';
 import BottomContainer from '@src/components/containers/BottomContainer';
+import DefaultButton from '@src/components/buttons/default/DefaultButton';
 
 export type PropsPasswordResetIndex = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
 export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
+  const { generatedUrl } = route.params;
 
-    const { generatedUrl } = route.params;
+  const navigation = useNavigation();
 
-    const navigation = useNavigation();
+  const resetRequestData = useRef<resetRequestsDataType>(undefined);
 
-    const resetRequestData = useRef<resetRequestsDataType>(undefined);
+  useEffect(() => {
+    (async () => {
+      const resetRequestResponse = await getResetRequests(generatedUrl);
 
-    useEffect(() => {
-        (async () => {
-            const resetRequestResponse = await getResetRequests(generatedUrl);
+      resetRequestData.current = resetRequestResponse;
+    })();
+  }, [generatedUrl]);
 
-            resetRequestData.current = resetRequestResponse;
-        })();
-    }, [generatedUrl]);
+  const {
+    control: passwordResetControl,
+    handleSubmit: passwordResetHandleSubmit,
+    formState: { errors: passwordResetErrors },
+  } = useForm<typePasswordResetSchema>({
+    resolver: zodResolver(usePasswordResetSchema),
+    mode: 'onSubmit',
+  });
 
-    const {
-        control: passwordResetControl,
-        handleSubmit: passwordResetHandleSubmit,
-        formState: { errors: passwordResetErrors },
-    } = useForm<typePasswordResetSchema>({ resolver: zodResolver(usePasswordResetSchema), mode: 'onSubmit' });
+  async function onPasswordReset(formValues: typePasswordResetSchema) {
+    const requestsData = resetRequestData.current?.[0];
 
-    async function onPasswordReset(formValues: typePasswordResetSchema) {
-        const requestsData = resetRequestData.current?.[0];
+    if (requestsData) {
+      const payload = { password: formValues.password, id: requestsData.userId };
 
-        if (requestsData) {
-            const payload = { password: formValues.password, id: requestsData.userId };
+      const responseEditUser = await putUser(payload);
 
-            const responseEditUser = await putUser(payload);
+      const dataEditUser = responseEditUser.data;
 
-            const dataEditUser = responseEditUser.data;
+      if (
+        responseEditUser.messageSuccess &&
+        dataEditUser &&
+        typeof dataEditUser.id !== 'undefined'
+      ) {
+        await setLoginData({ ...dataEditUser });
 
-            if (responseEditUser.messageSuccess && dataEditUser && typeof dataEditUser.id !== 'undefined') {
-                await setLoginData({ ...dataEditUser });
-
-                navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'home' }],
-                });
-            }
-        }
-
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'home' }],
+        });
+      }
     }
+  }
 
-    return (
-        <ScrollView>
-            <StarIconTopIndex />
+  return (
+    <ScrollView>
+      <StarIconTopIndex />
 
-            <PaddingContainer>
-                <BottomContainer>
-                    <View style={{ marginBottom: 20 }}>
-                        <TextTitleH1>Reset password</TextTitleH1>
-                    </View>
+      <PaddingContainer>
+        <BottomContainer>
+          <View style={{ marginBottom: 20 }}>
+            <TextTitleH1>Reset password</TextTitleH1>
+          </View>
 
-                    <View>
-                        <View style={globalStyles.containerInputs}>
-                            <Controller
-                                control={passwordResetControl}
-                                name="password"
-                                render={({ field: { onChange, onBlur, value } }) => (
-                                    <InputPassword
-                                        onBlur={onBlur}
-                                        onChangeText={onChange}
-                                        value={value}
-                                        label="Password"
-                                        errors={passwordResetErrors.password}
-                                        testID="passwordInput"
-                                    />
-                                )}
-                            />
+          <View>
+            <View style={globalStyles.containerInputs}>
+              <Controller
+                control={passwordResetControl}
+                name="password"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputPassword
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="Password"
+                    errors={passwordResetErrors.password}
+                    testID="passwordInput"
+                  />
+                )}
+              />
 
-                            <Controller
-                                control={passwordResetControl}
-                                name="confirmPassword"
-                                render={({ field: { onChange, onBlur, value } }) => (
-                                    <InputPassword
-                                        onBlur={onBlur}
-                                        onChangeText={onChange}
-                                        value={value}
-                                        label="Confirm password"
-                                        errors={passwordResetErrors.confirmPassword}
-                                        testID="confirmPasswordInput"
-                                    />
-                                )}
-                            />
-                        </View>
+              <Controller
+                control={passwordResetControl}
+                name="confirmPassword"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputPassword
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="Confirm password"
+                    errors={passwordResetErrors.confirmPassword}
+                    testID="confirmPasswordInput"
+                  />
+                )}
+              />
+            </View>
 
-
-                        <View style={{ marginTop: 10 }}>
-                            <ButtonDefault title="Reset password" onPressIn={passwordResetHandleSubmit(onPasswordReset)} testID="resetBtn" />
-                        </View>
-
-                    </View>
-                </BottomContainer>
-            </PaddingContainer>
-        </ScrollView>
-    );
+            <View style={{ marginTop: 10 }}>
+              <DefaultButton
+                title="Reset password"
+                onPressIn={passwordResetHandleSubmit(onPasswordReset)}
+                testID="resetBtn"
+              />
+            </View>
+          </View>
+        </BottomContainer>
+      </PaddingContainer>
+    </ScrollView>
+  );
 }

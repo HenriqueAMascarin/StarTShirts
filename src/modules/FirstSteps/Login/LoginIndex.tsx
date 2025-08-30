@@ -8,15 +8,15 @@ import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
-import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import LineObject from '@src/components/objects/line/LineObject';
-
 import Checkbox from '@src/components/checkbox/Checkbox';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { postLoginUser } from '@src/services/user/login/methods/postLoginUser';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import BottomContainer from '@src/components/containers/BottomContainer';
+import BorderButton from '@src/components/buttons/border/BorderButton';
+import DefaultButton from '@src/components/buttons/default/DefaultButton';
 
 export default function LoginIndex() {
   const {
@@ -103,11 +103,11 @@ export default function LoginIndex() {
                 style={{ marginBottom: 8 }}
               />
 
-              <ButtonDefault title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
+              <DefaultButton title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
 
               <LineObject text="or" />
 
-              <ButtonDefault title="Create account" onPressIn={changeBtnMethod} borderType={true} />
+              <BorderButton title="Create account" onPressIn={changeBtnMethod}/>
             </View>
           </View>
         </BottomContainer>

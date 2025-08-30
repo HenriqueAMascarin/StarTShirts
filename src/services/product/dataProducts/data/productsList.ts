@@ -1,4 +1,4 @@
-import { ProductObjectType } from 'src/services/product/dataProducts/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import whiteTShirtImg from '@src/assets/tshirt/images/white_tshirt.webp';
 import blueTShirtImg from '@src/assets/tshirt/images/blue_tshirt.webp';
 import redTShirtImg from '@src/assets/tshirt/images/red_tshirt.webp';
@@ -28,7 +28,7 @@ export const productsList: ProductObjectType[] = [
     element3DPath: '@src/assets/products3D/archives/classicTShirt.glb',
     details: {
       info: 'The Classic T-shirt is for the lovers of a good t-shirt that always want to be well-dressed.',
-      list: ['100% polyester', 'Imported'],
+      list: ['100% polyester', 'Imported', 'item #345225'],
     },
   },
 ];

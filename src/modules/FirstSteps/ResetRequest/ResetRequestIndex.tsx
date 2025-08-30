@@ -10,13 +10,14 @@ import React from 'react';
 import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { globalStyles } from '@src/modules/FirstSteps/globalStyles';
-import ButtonDefault from '@src/components/buttons/ButtonDefault';
 import LineObject from '@src/components/objects/line/LineObject';
 import { useNavigation } from '@react-navigation/native';
 import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/StarIconTopIndex';
 import { postResetRequests } from '@src/services/user/passwordReset/methods/postResetRequests';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import BottomContainer from '@src/components/containers/BottomContainer';
+import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import BorderButton from '@src/components/buttons/border/BorderButton';
 
 export default function ResetRequestIndex() {
   const {
@@ -78,14 +79,14 @@ export default function ResetRequestIndex() {
             </View>
 
             <View style={{ marginTop: 10 }}>
-              <ButtonDefault
+              <DefaultButton
                 title="Send e-mail"
                 onPressIn={resetRequestHandleSubmit(onResetSubmit)}
               />
 
               <LineObject text="or" />
 
-              <ButtonDefault title="Login" onPressIn={changeBtnMethod} borderType={true} />
+              <BorderButton title="Login" onPressIn={changeBtnMethod} />
             </View>
           </View>
         </BottomContainer>

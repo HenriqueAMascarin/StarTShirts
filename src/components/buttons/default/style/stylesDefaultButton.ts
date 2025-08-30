@@ -1,7 +1,7 @@
 import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
-export const stylesButtons = StyleSheet.create({
+export const stylesDefaultButton = StyleSheet.create({
   defaultButton: {
     backgroundColor: appColors.black,
     borderRadius: 18,
@@ -12,13 +12,5 @@ export const stylesButtons = StyleSheet.create({
     color: appColors.white,
     textAlign: 'center',
     fontSize: 18,
-  },
-  borderButton: {
-    backgroundColor: appColors.white,
-    borderColor: appColors.black,
-    borderWidth: 1,
-  },
-  borderTitle: {
-    color: appColors.black,
   },
 });

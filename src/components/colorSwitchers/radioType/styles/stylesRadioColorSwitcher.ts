@@ -7,8 +7,7 @@ export const stylesRadioColorSwitcher = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-
-    gap: 5,
+    gap: 10,
   },
   toggleBtn: {
     width: 25,

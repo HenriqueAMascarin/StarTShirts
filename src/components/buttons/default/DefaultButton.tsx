@@ -1,29 +1,25 @@
 import { TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import TextDefault from '@src/components/texts/default/TextDefault';
-import { stylesButtons } from '@src/components/buttons/stylesButtons';
+import { stylesDefaultButton } from '@src/components/buttons/default/style/stylesDefaultButton';
 import React from 'react';
 
 type buttonTypes = TouchableOpacityProps & {
   title?: string;
-  borderType?: boolean;
   textProps?: TextProps;
 };
 
-// TODO SEPARAR 2 BOTOES UM DE BORDA E OUTRO SEM
-export default function ButtonDefault(buttonProps: buttonTypes) {
+export default function DefaultButton(buttonProps: buttonTypes) {
   return (
     <TouchableOpacity
       {...buttonProps}
       style={[
-        stylesButtons.defaultButton,
-        buttonProps.borderType && stylesButtons.borderButton,
-        buttonProps.style,
+        stylesDefaultButton.defaultButton,
+        buttonProps?.style,
       ]}
     >
       <TextDefault
         style={[
-          stylesButtons.title,
-          buttonProps.borderType && stylesButtons.borderTitle,
+          stylesDefaultButton.title,
           buttonProps.textProps?.style,
         ]}
       >

@@ -51,7 +51,7 @@ export default function SizesProduct({ stateSizes, changeStateSizes }: SizesProd
               onPressIn={() => onChangeSize(state.text)}
               key={keySize}
             >
-              <TextDefault style={{ color: textColor }}>{state.text}</TextDefault>
+              <TextDefault style={[stylesSizesProduct.sizeBtnText,{ color: textColor }]}>{state.text}</TextDefault>
             </TouchableOpacity>
           );
         })}
