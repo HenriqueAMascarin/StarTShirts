@@ -11,22 +11,22 @@ import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
 import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 
 export type RootStackParamList = {
-  register: undefined,
-  login: undefined,
-  'request-reset': undefined,
-  'password-reset': { generatedUrl: string },
+  register: undefined;
+  login: undefined;
+  'request-reset': undefined;
+  'password-reset': { generatedUrl: string };
 
-  home: undefined,
-  'home/product': { id: number },
-  'home/wishList': undefined,
-  'home/cart': undefined,
-  'home/purchases': undefined,
-  'home/account': undefined,
+  home: undefined;
+  'home/product': { id: number };
+  'home/wishList': undefined;
+  'home/cart': undefined;
+  'home/purchases': undefined;
+  'home/account': undefined;
 };
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList { }
+    interface RootParamList extends RootStackParamList {}
   }
 }
 
@@ -35,7 +35,6 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 type AppRoutesType = { initialRouteName: keyof RootStackParamList };
 
 export default function AppRoutes({ initialRouteName }: AppRoutesType) {
-
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -46,8 +45,8 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
             backgroundColor: appColors.white,
           },
           animation: 'slide_from_right',
-        }}>
-
+        }}
+      >
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="register" component={RegisterIndex} />
 
@@ -59,7 +58,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
         </Stack.Group>
 
         <Stack.Group>
-          <Stack.Screen name="home" component={HomeIndex}/>
+          <Stack.Screen name="home" component={HomeIndex} />
 
           <Stack.Screen name="home/product" component={ProductIndex} />
 
@@ -71,7 +70,6 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
           <Stack.Screen name="home/account" component={HomeIndex} />
         </Stack.Group>
-
       </Stack.Navigator>
     </NavigationContainer>
   );

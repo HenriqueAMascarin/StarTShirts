@@ -4,7 +4,8 @@ import { StyleSheet } from 'react-native';
 export const stylesGlobalModal = StyleSheet.create({
   container: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
     flexDirection: 'row',
     position: 'absolute',
     top: 0,
@@ -13,17 +14,13 @@ export const stylesGlobalModal = StyleSheet.create({
     left: 0,
     backgroundColor: appColors.transparent,
     width: '100%',
-    height: '100%',
     zIndex: 999,
   },
-  modalContainer: {
-    display: 'flex',
-    backgroundColor: appColors.white,
-    width: '100%',
-    height: '100%',
-    flexGrow: 1,
-    alignSelf: 'stretch',
-    zIndex: 1,
+  modalContainerShadow: {
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    shadowRadius: 20,
+    elevation: 20,
   },
   backgroundTouchable: {
     position: 'absolute',

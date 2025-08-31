@@ -52,34 +52,24 @@ function TShirt3DScene(props: TShirt3DModelType) {
   );
 }
 
-function ProductContent({ productItem }: { productItem: ProductObjectType }) {
+function ProductContent({
+  productItem,
+  open3DModalFn,
+}: {
+  productItem: ProductObjectType;
+  open3DModalFn: () => void;
+}) {
   const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
 
   const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
 
   const { stateSizes, changeStateSizes } = useSizes();
 
-  const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
-
-  function open3DProductModal() {
-    changeSimpleModalState(true);
-  }
-
   return (
     <>
-      <SimpleModal
-        visibleStates={{
-          visible: simpleModalState,
-          changeVisibleState: changeSimpleModalState,
-        }}
-        backgroundModalColor={appColors.yellow}
-      >
-        <TShirt3DScene color={'red'} />
-      </SimpleModal>
-
       <View>
         <View style={stylesProductIndex.containerImage}>
-          <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
+          <TouchableOpacity onPressIn={open3DModalFn} style={stylesProductIndex.btn3D}>
             <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
           </TouchableOpacity>
 
@@ -147,7 +137,9 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
                 {productItem?.details.list.map((detail, keyDetail) => {
                   return (
                     <TextDefault key={keyDetail}>
-                      <TextDefault style={stylesProductIndex.detailsBulletText}>{'\u2022'}</TextDefault>
+                      <TextDefault style={stylesProductIndex.detailsBulletText}>
+                        {'\u2022'}
+                      </TextDefault>
                       {detail}
                     </TextDefault>
                   );
@@ -174,11 +166,31 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     changeProductData(newProduct);
   })();
 
+  const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
+
+  function open3DProductModal() {
+    changeSimpleModalState(true);
+  }
+
   return (
-    <MainContainer>
-      <Suspense fallback={<LoadingScreen />}>
-        {productData && <ProductContent productItem={productData} />}
-      </Suspense>
-    </MainContainer>
+    <>
+      <SimpleModal
+        visibleStates={{
+          visible: simpleModalState,
+          changeVisibleState: changeSimpleModalState,
+        }}
+        backgroundModalColor={appColors.yellow}
+      >
+        <TShirt3DScene color={'red'} />
+      </SimpleModal>
+
+      <MainContainer>
+        <Suspense fallback={<LoadingScreen />}>
+          {productData && (
+            <ProductContent productItem={productData} open3DModalFn={open3DProductModal} />
+          )}
+        </Suspense>
+      </MainContainer>
+    </>
   );
 }

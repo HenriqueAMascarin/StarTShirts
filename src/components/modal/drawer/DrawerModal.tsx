@@ -9,7 +9,7 @@ import React, { ReactNode, useEffect, useRef } from 'react';
 import {
   drawerModalWidth,
   stylesDrawerModal,
-} from '@src/components/modal/drawer/stylesDrawerModal';
+} from '@src/components/modal/drawer/styles/stylesDrawerModal';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import CloseSvg from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
@@ -54,13 +54,13 @@ function ContentDrawerModal({ children, visibleStates, title, position }: TypeDe
     Animated.sequence([
       Animated.timing(animatedTransform.current, {
         toValue: transformInitialPos,
-        delay: 0,
+        delay: 1,
         duration: 150,
         useNativeDriver: true,
       }),
       Animated.timing(animatedOpacity.current, {
         toValue: 0,
-        delay: 0,
+        delay: 1,
         duration: 150,
         useNativeDriver: true,
       }),
@@ -86,7 +86,11 @@ function ContentDrawerModal({ children, visibleStates, title, position }: TypeDe
       <Animated.View
         style={[
           stylesDrawerModal.drawerContainer,
-          { transform: [{ translateX: animatedTransform.current }] },
+          stylesGlobalModal.modalContainerShadow,
+          {
+            transform: [{ translateX: animatedTransform.current }],
+            opacity: animatedOpacity.current,
+          },
         ]}
       >
         <View

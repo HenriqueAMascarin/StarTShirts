@@ -3,6 +3,7 @@ import React, { ReactNode, useEffect, useRef } from 'react';
 import CloseSvg from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { appColors } from '@src/utils/appColors';
+import { stylesSimpleModal } from '@src/components/modal/simple/styles/stylesSimpleModal';
 
 type TypeDefaultModal = {
   children?: ReactNode;
@@ -27,8 +28,8 @@ function ContentSimpleModal({
       Animated.sequence([
         Animated.timing(animatedOpacity.current, {
           toValue: 1,
-          delay: 0,
-          duration: 150,
+          delay: 1,
+          duration: 250,
           useNativeDriver: true,
         }),
       ]).start();
@@ -36,18 +37,16 @@ function ContentSimpleModal({
   }, [visibleStates.visible]);
 
   function closeSimpleModal() {
-    if (hasCloseIcon) {
-      Animated.sequence([
-        Animated.timing(animatedOpacity.current, {
-          toValue: 0,
-          delay: 0,
-          duration: 150,
-          useNativeDriver: true,
-        }),
-      ]).start(() => {
-        visibleStates.changeVisibleState(!visibleStates.visible);
-      });
-    }
+    Animated.sequence([
+      Animated.timing(animatedOpacity.current, {
+        toValue: 0,
+        delay: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      visibleStates.changeVisibleState(!visibleStates.visible);
+    });
   }
 
   return (
@@ -60,10 +59,14 @@ function ContentSimpleModal({
       </TouchableWithoutFeedback>
 
       <Animated.View
-        style={[{ backgroundColor: backgroundModalColor }, stylesGlobalModal.modalContainer]}
+        style={[
+          { backgroundColor: backgroundModalColor, opacity: animatedOpacity.current },
+          stylesSimpleModal.modalContainer,
+          stylesGlobalModal.modalContainerShadow,
+        ]}
       >
         {hasCloseIcon && (
-          <TouchableOpacity onPressIn={closeSimpleModal}>
+          <TouchableOpacity onPressIn={closeSimpleModal} style={stylesSimpleModal.closeBtn}>
             <CloseSvg width={23} height={23} />
           </TouchableOpacity>
         )}
