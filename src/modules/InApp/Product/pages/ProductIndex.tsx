@@ -13,7 +13,7 @@ import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import { appColors } from '@src/utils/appColors';
-import TShirt3DModel, { TShirt3DModelType } from '@src/assets/products3D/tshirt/SimpleTShirt3D';
+import Product3DModel, { Product3DModelType } from '@src/assets/products3D/Product3DModel';
 import { Canvas } from '@react-three/fiber/native';
 import { OrbitControls } from '@react-three/drei/native';
 import MainContainer from '@src/modules/InApp/components/MainContainer';
@@ -25,6 +25,7 @@ import LineObject from '@src/components/objects/line/LineObject';
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import * as THREE from 'three';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -36,119 +37,143 @@ async function getInitialProductResponse({ id }: { id: number }) {
   return product;
 }
 
-function TShirt3DScene(props: TShirt3DModelType) {
+function TShirt3DScene(props: Product3DModelType) {
   return (
     <Canvas>
+      <color attach="background" args={[appColors.yellow]} />
+
       <Suspense>
         <group>
-          <ambientLight intensity={0.1} />
+          <ambientLight intensity={0.5} />
 
-          <TShirt3DModel {...props} />
+          <directionalLight position={[5, 5, 5]} intensity={1} />
 
-          <OrbitControls enablePan={false} />
+          <directionalLight position={[5, 10, 15]} intensity={1} />
+
+          <directionalLight position={[5, 10, -15]} intensity={1} />
+
+          <directionalLight position={[-10, 10, -15]} intensity={2} />
+
+          <directionalLight position={[-10, 10, 15]} intensity={2} />
+
+          <Product3DModel ElementPath={props.ElementPath} color={props.color} />
+
+          <OrbitControls enablePan={false} enableZoom={false} />
         </group>
       </Suspense>
     </Canvas>
   );
 }
 
-function ProductContent({
-  productItem,
-  open3DModalFn,
-}: {
-  productItem: ProductObjectType;
-  open3DModalFn: () => void;
-}) {
+function ProductContent({ productItem }: { productItem: ProductObjectType }) {
   const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
 
   const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
 
   const { stateSizes, changeStateSizes } = useSizes();
 
+  const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
+
+  function open3DProductModal() {
+    changeSimpleModalState(true);
+  }
+
   return (
     <>
-      <View>
-        <View style={stylesProductIndex.containerImage}>
-          <TouchableOpacity onPressIn={open3DModalFn} style={stylesProductIndex.btn3D}>
-            <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
-          </TouchableOpacity>
+      <SimpleModal
+        visibleStates={{
+          visible: simpleModalState,
+          changeVisibleState: changeSimpleModalState,
+        }}
+        backgroundModalColor={appColors.yellow}
+      >
+        <TShirt3DScene ElementPath={productItem.element3DPath} color={'red'} />
+      </SimpleModal>
 
-          {selectedColorMemoData.urlImage && (
-            <Image
-              alt={productItem?.title}
-              width={255}
-              height={265}
-              source={selectedColorMemoData.urlImage}
-              style={stylesProductIndex.image}
-            />
-          )}
-        </View>
+      <MainContainer>
+        <View>
+          <View style={stylesProductIndex.containerImage}>
+            <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
+              <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
+            </TouchableOpacity>
 
-        <View style={stylesProductIndex.infoSection}>
-          <PaddingContainer>
-            <View style={stylesProductIndex.flexContainerInfos}>
-              <View style={stylesProductIndex.titleSection}>
-                <TextTitleH2>{productItem?.title}</TextTitleH2>
+            {selectedColorMemoData.urlImage && (
+              <Image
+                alt={productItem?.title}
+                width={255}
+                height={265}
+                source={selectedColorMemoData.urlImage}
+                style={stylesProductIndex.image}
+              />
+            )}
+          </View>
 
-                <TextDefault style={stylesProductIndex.textPrice}>
-                  ${productItem?.price.toFixed(2)}
-                </TextDefault>
-              </View>
+          <View style={stylesProductIndex.infoSection}>
+            <PaddingContainer>
+              <View style={stylesProductIndex.flexContainerInfos}>
+                <View style={stylesProductIndex.titleSection}>
+                  <TextTitleH2>{productItem?.title}</TextTitleH2>
 
-              <LineObject />
-
-              <View style={stylesProductIndex.optionsContainer}>
-                <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
-
-                <View style={stylesProductIndex.colorContainer}>
-                  <TextDefault style={stylesProductIndex.colorTitle}>
-                    Color:
-                    <TextDefault style={stylesProductIndex.colorTitleCurrent}>
-                      {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
-                    </TextDefault>
+                  <TextDefault style={stylesProductIndex.textPrice}>
+                    ${productItem?.price.toFixed(2)}
                   </TextDefault>
+                </View>
 
-                  <RadioColorSwitcher
-                    stateColors={stateColors}
-                    changeStateColors={changeStateColors}
-                  />
+                <LineObject />
+
+                <View style={stylesProductIndex.optionsContainer}>
+                  <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+
+                  <View style={stylesProductIndex.colorContainer}>
+                    <TextDefault style={stylesProductIndex.colorTitle}>
+                      Color:
+                      <TextDefault style={stylesProductIndex.colorTitleCurrent}>
+                        {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
+                      </TextDefault>
+                    </TextDefault>
+
+                    <RadioColorSwitcher
+                      stateColors={stateColors}
+                      changeStateColors={changeStateColors}
+                    />
+                  </View>
+                </View>
+
+                <LineObject />
+
+                <View style={stylesProductIndex.buttonsContainer}>
+                  <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
+
+                  <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
                 </View>
               </View>
-
-              <LineObject />
-
-              <View style={stylesProductIndex.buttonsContainer}>
-                <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
-
-                <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
-              </View>
-            </View>
-          </PaddingContainer>
-
-          <View style={stylesProductIndex.detailsContainer}>
-            <PaddingContainer>
-              <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
-
-              <TextDefault style={stylesProductIndex.detailsInfo}>
-                {productItem?.details.info}
-              </TextDefault>
-
-              <View>
-                {productItem?.details.list.map((detail, keyDetail) => {
-                  return (
-                    <TextDefault key={keyDetail}>
-                      <TextDefault style={stylesProductIndex.detailsBulletText}>
-                        {'\u2022'}
-                      </TextDefault>
-                      {detail}
-                    </TextDefault>
-                  );
-                })}
-              </View>
             </PaddingContainer>
+
+            <View style={stylesProductIndex.detailsContainer}>
+              <PaddingContainer>
+                <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
+
+                <TextDefault style={stylesProductIndex.detailsInfo}>
+                  {productItem?.details.info}
+                </TextDefault>
+
+                <View>
+                  {productItem?.details.list.map((detail, keyDetail) => {
+                    return (
+                      <TextDefault key={keyDetail}>
+                        <TextDefault style={stylesProductIndex.detailsBulletText}>
+                          {'\u2022'}
+                        </TextDefault>
+                        {detail}
+                      </TextDefault>
+                    );
+                  })}
+                </View>
+              </PaddingContainer>
+            </View>
           </View>
         </View>
-      </View>
+      </MainContainer>
     </>
   );
 }
@@ -166,31 +191,11 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     changeProductData(newProduct);
   })();
 
-  const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
-
-  function open3DProductModal() {
-    changeSimpleModalState(true);
-  }
-
   return (
     <>
-      <SimpleModal
-        visibleStates={{
-          visible: simpleModalState,
-          changeVisibleState: changeSimpleModalState,
-        }}
-        backgroundModalColor={appColors.yellow}
-      >
-        <TShirt3DScene color={'red'} />
-      </SimpleModal>
-
-      <MainContainer>
-        <Suspense fallback={<LoadingScreen />}>
-          {productData && (
-            <ProductContent productItem={productData} open3DModalFn={open3DProductModal} />
-          )}
-        </Suspense>
-      </MainContainer>
+      <Suspense fallback={<LoadingScreen />}>
+        {productData != null && <>{productData && <ProductContent productItem={productData} />}</>}
+      </Suspense>
     </>
   );
 }

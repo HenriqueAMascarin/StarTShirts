@@ -3,10 +3,12 @@ import whiteTShirtImg from '@src/assets/tshirt/images/white_tshirt.webp';
 import blueTShirtImg from '@src/assets/tshirt/images/blue_tshirt.webp';
 import redTShirtImg from '@src/assets/tshirt/images/red_tshirt.webp';
 
+import tShirtElement from '@src/assets/products3D/glbModels/simpleTShirt/tShirtElement.glb';
+
 export const productsList: ProductObjectType[] = [
   {
     title: 'Classic T-shirt',
-    price: 100.00,
+    price: 100.0,
     colors: [
       {
         color: 'white',
@@ -25,7 +27,7 @@ export const productsList: ProductObjectType[] = [
       },
     ],
     id: 345225,
-    element3DPath: '@src/assets/products3D/archives/classicTShirt.glb',
+    element3DPath: tShirtElement,
     details: {
       info: 'The Classic T-shirt is for the lovers of a good t-shirt that always want to be well-dressed.',
       list: ['100% polyester', 'Imported', 'item #345225'],

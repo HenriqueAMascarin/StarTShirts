@@ -60,9 +60,9 @@ function ContentSimpleModal({
 
       <Animated.View
         style={[
-          { backgroundColor: backgroundModalColor, opacity: animatedOpacity.current },
           stylesSimpleModal.modalContainer,
           stylesGlobalModal.modalContainerShadow,
+          { backgroundColor: backgroundModalColor, opacity: animatedOpacity.current },
         ]}
       >
         {hasCloseIcon && (

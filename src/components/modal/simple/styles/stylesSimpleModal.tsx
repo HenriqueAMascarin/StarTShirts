@@ -11,6 +11,7 @@ export const stylesSimpleModal = StyleSheet.create({
     flexGrow: 1,
     zIndex: 1,
     borderRadius: 20,
+    padding: 10,
   },
   closeBtn: {
     position: 'absolute',
