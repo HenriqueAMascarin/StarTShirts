@@ -13,7 +13,7 @@ import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import { appColors } from '@src/utils/appColors';
-import Product3DModel, { Product3DModelType } from '@src/assets/products3D/Product3DModel';
+import ClassicTShirt, { Product3DModelType } from '@src/assets/products3D/glbModels/simpleTShirt/ClassicTShirt';
 import { Canvas } from '@react-three/fiber/native';
 import { OrbitControls } from '@react-three/drei/native';
 import MainContainer from '@src/modules/InApp/components/MainContainer';
@@ -25,7 +25,6 @@ import LineObject from '@src/components/objects/line/LineObject';
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import * as THREE from 'three';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -37,7 +36,7 @@ async function getInitialProductResponse({ id }: { id: number }) {
   return product;
 }
 
-function TShirt3DScene(props: Product3DModelType) {
+function Product3DScene(props: Product3DModelType) {
   return (
     <Canvas>
       <color attach="background" args={[appColors.yellow]} />
@@ -56,7 +55,7 @@ function TShirt3DScene(props: Product3DModelType) {
 
           <directionalLight position={[-10, 10, 15]} intensity={2} />
 
-          <Product3DModel ElementPath={props.ElementPath} color={props.color} />
+          <ClassicTShirt color={props.color} />
 
           <OrbitControls enablePan={false} enableZoom={false} />
         </group>
@@ -87,7 +86,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
         }}
         backgroundModalColor={appColors.yellow}
       >
-        <TShirt3DScene ElementPath={productItem.element3DPath} color={'red'} />
+        <Product3DScene color={selectedColorMemoData.color} />
       </SimpleModal>
 
       <MainContainer>

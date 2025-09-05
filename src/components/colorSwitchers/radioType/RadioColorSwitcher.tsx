@@ -14,7 +14,7 @@ type SizesProductType = {
 export default function RadioColorSwitcher({ stateColors, changeStateColors }: SizesProductType) {
   function onToggleColor(pressedColor: string) {
     const rawColorsArray = [...stateColors];
-    console.log(rawColorsArray);
+
     const isPressedColorActive = rawColorsArray.some(
       (element) => element.color === pressedColor && element.isSelected,
     );

@@ -3,7 +3,7 @@ import whiteTShirtImg from '@src/assets/tshirt/images/white_tshirt.webp';
 import blueTShirtImg from '@src/assets/tshirt/images/blue_tshirt.webp';
 import redTShirtImg from '@src/assets/tshirt/images/red_tshirt.webp';
 
-import tShirtElement from '@src/assets/products3D/glbModels/simpleTShirt/tShirtElement.glb';
+import tShirtElement from '@src/assets/products3D/glbModels/simpleTShirt/classicTShirtRaw.glb';
 
 export const productsList: ProductObjectType[] = [
   {
