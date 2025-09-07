@@ -10,10 +10,11 @@ type buttonTypes = TouchableOpacityProps & {
 
 export default function BorderButton(buttonProps: buttonTypes) {
   return (
-    <TouchableOpacity {...buttonProps} style={[stylesBorderButton.borderButton, buttonProps?.style]}>
-      <TextDefault
-        style={[stylesBorderButton.borderTitle, buttonProps.textProps?.style]}
-      >
+    <TouchableOpacity
+      {...buttonProps}
+      style={[stylesBorderButton.borderButton, buttonProps?.style]}
+    >
+      <TextDefault style={[stylesBorderButton.borderTitle, buttonProps.textProps?.style]}>
         {buttonProps.title}
       </TextDefault>
     </TouchableOpacity>

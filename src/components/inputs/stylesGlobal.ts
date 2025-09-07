@@ -13,6 +13,7 @@ export const stylesGlobal = StyleSheet.create({
     paddingTop: 0,
     paddingBottom: 0,
     backgroundColor: appColors.white,
+    color: appColors.black,
   },
   container: {
     alignSelf: 'stretch',

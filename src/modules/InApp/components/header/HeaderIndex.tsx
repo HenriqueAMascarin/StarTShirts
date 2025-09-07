@@ -39,30 +39,30 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
       textAnimatedOpacity: useRef(new Animated.Value(0.6)),
       keyItem: 0,
     },
-    {
-      label: 'Wish List',
-      routeName: 'home/wishList',
-      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-      keyItem: 1,
-    },
-    {
-      label: 'Cart',
-      routeName: 'home/cart',
-      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-      keyItem: 2,
-    },
-    {
-      label: 'Purchases',
-      routeName: 'home/purchases',
-      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-      keyItem: 3,
-    },
-    {
-      label: 'Account',
-      routeName: 'home/account',
-      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-      keyItem: 4,
-    },
+    // {
+    //   label: 'Wish List',
+    //   routeName: 'home/wishList',
+    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+    //   keyItem: 1,
+    // },
+    // {
+    //   label: 'Cart',
+    //   routeName: 'home/cart',
+    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+    //   keyItem: 2,
+    // },
+    // {
+    //   label: 'Purchases',
+    //   routeName: 'home/purchases',
+    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+    //   keyItem: 3,
+    // },
+    // {
+    //   label: 'Account',
+    //   routeName: 'home/account',
+    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+    //   keyItem: 4,
+    // },
   ];
 
   function setupListenerNavigation() {

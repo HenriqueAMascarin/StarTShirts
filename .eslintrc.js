@@ -37,6 +37,7 @@ module.exports = {
     'ft-flow/no-types-missing-file-annotation': 0,
     '@typescript-eslint/no-namespace': 0,
     'react/no-unknown-property': 0,
+    '@typescript-eslint/no-unsafe-function-type': 0,
   },
   overrides: [
     {

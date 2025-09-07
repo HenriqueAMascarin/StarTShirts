@@ -1,12 +1,12 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import React, { Suspense, useState } from 'react';
-import { Image, ScrollView, View } from 'react-native';
+import { Image, View } from 'react-native';
 import { stylesSlogan } from '@src/modules/InApp/Home/styles/stylesSlogan';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
 import ProductCard from '@src/modules/InApp/components/tshirt/card/ProductCard';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
-import MainContainer from '@src/modules/InApp/components/MainContainer';
-import whiteTShirtImg from '@src/assets/tshirt/images/white_tshirt.webp';
+import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
+import whiteTShirtImg from '@src/assets/products/classicTShirt/images/white_tshirt.webp';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesProductsContent } from '@src/modules/InApp/Home/styles/stylesProductsContent';
 

@@ -13,10 +13,9 @@ import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import { appColors } from '@src/utils/appColors';
-import ClassicTShirt, { Product3DModelType } from '@src/assets/products3D/glbModels/simpleTShirt/ClassicTShirt';
 import { Canvas } from '@react-three/fiber/native';
 import { OrbitControls } from '@react-three/drei/native';
-import MainContainer from '@src/modules/InApp/components/MainContainer';
+import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { stylesProductIndex } from '@src/modules/InApp/Product/styles/stylesProductIndex';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
@@ -25,6 +24,9 @@ import LineObject from '@src/components/objects/line/LineObject';
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import Selected3DProductByType, {
+  typeSelected3DProductByType,
+} from '@src/modules/InApp/Product/components/product3D/Selected3DProductByType';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -36,12 +38,18 @@ async function getInitialProductResponse({ id }: { id: number }) {
   return product;
 }
 
-function Product3DScene(props: Product3DModelType) {
+function Product3DScene(props: typeSelected3DProductByType) {
+  const [isLoading, changeIsLoading] = useState(true);
+
+  function manageOnCreatedCanvas() {
+    console.log('lol');
+  }
+
   return (
     <Canvas>
-      <color attach="background" args={[appColors.yellow]} />
-
       <Suspense>
+        <color attach="background" args={[appColors.yellow]} />
+
         <group>
           <ambientLight intensity={0.5} />
 
@@ -55,7 +63,7 @@ function Product3DScene(props: Product3DModelType) {
 
           <directionalLight position={[-10, 10, 15]} intensity={2} />
 
-          <ClassicTShirt color={props.color} />
+          <Selected3DProductByType type={props.type} colorElement={props.colorElement} />
 
           <OrbitControls enablePan={false} enableZoom={false} />
         </group>
@@ -86,7 +94,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
         }}
         backgroundModalColor={appColors.yellow}
       >
-        <Product3DScene color={selectedColorMemoData.color} />
+        <Product3DScene type={productItem.type} colorElement={selectedColorMemoData.color} />
       </SimpleModal>
 
       <MainContainer>

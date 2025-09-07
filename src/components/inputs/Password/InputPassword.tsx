@@ -10,7 +10,7 @@ import { appColors } from '@src/utils/appColors';
 
 type propsInput = TextInputProps & {
   label?: string;
-  errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+  errors?: FieldError | Merge<FieldError, FieldErrorsImpl> | undefined;
   forgotPassword?: { hasForgotBtn: boolean; function: Function };
 };
 
@@ -19,6 +19,10 @@ export default function InputPassword(inputProps: propsInput) {
 
   function onPressVisible() {
     changeVisible(!visible);
+  }
+
+  function onForgotPassword() {
+    inputProps.forgotPassword?.function();
   }
 
   return (
@@ -45,7 +49,7 @@ export default function InputPassword(inputProps: propsInput) {
         </TextDefault>
 
         {inputProps.forgotPassword?.hasForgotBtn && (
-          <TouchableOpacity onPressIn={() => inputProps.forgotPassword?.function()}>
+          <TouchableOpacity onPressIn={onForgotPassword}>
             <TextDefault style={stylesInputPassword.forgotPasswordText}>
               Forgot password?
             </TextDefault>

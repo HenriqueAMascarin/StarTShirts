@@ -11,6 +11,12 @@ type SizesProductType = {
   changeStateColors: React.Dispatch<React.SetStateAction<StateColorsType>>;
 };
 
+const productColors = {
+  white: '#FFFFFF',
+  red: '#EC6262',
+  blue: '#6291EC',
+};
+
 export default function RadioColorSwitcher({ stateColors, changeStateColors }: SizesProductType) {
   function onToggleColor(pressedColor: string) {
     const rawColorsArray = [...stateColors];
@@ -31,7 +37,7 @@ export default function RadioColorSwitcher({ stateColors, changeStateColors }: S
   return (
     <View style={stylesRadioColorSwitcher.containerBtns}>
       {stateColors.map((element, keyItem) => {
-        const circleBackgroundColor = element.color;
+        const circleBackgroundColor = productColors?.[element.color];
 
         const borderColor = element.isSelected ? appColors.black : appColors.gray;
 

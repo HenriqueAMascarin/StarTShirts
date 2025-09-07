@@ -26,8 +26,9 @@ export const stylesSlogan = StyleSheet.create({
   text: {
     textShadowColor: appColors.white,
     fontSize: 30,
-    textShadowRadius: 10,
     textTransform: 'uppercase',
     color: appColors.black,
+    textShadowOffset: { width: -1, height: 1 }, // deslocamento da sombra
+    textShadowRadius: 1, // espalhamento da sombra
   },
 });
