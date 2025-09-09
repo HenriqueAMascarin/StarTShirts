@@ -11,10 +11,6 @@ import useColors from '@src/components/colorSwitchers/hooks/useColors';
 import useMemoSelectedColorData from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
-import SimpleModal from '@src/components/modal/simple/SimpleModal';
-import { appColors } from '@src/utils/appColors';
-import { Canvas } from '@react-three/fiber/native';
-import { OrbitControls } from '@react-three/drei/native';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import { stylesProductIndex } from '@src/modules/InApp/Product/styles/stylesProductIndex';
@@ -24,9 +20,7 @@ import LineObject from '@src/components/objects/line/LineObject';
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import Selected3DProductByType, {
-  typeSelected3DProductByType,
-} from '@src/modules/InApp/Product/components/product3D/Selected3DProductByType';
+import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -36,40 +30,6 @@ async function getInitialProductResponse({ id }: { id: number }) {
   const product = products?.[0];
 
   return product;
-}
-
-function Product3DScene(props: typeSelected3DProductByType) {
-  const [isLoading, changeIsLoading] = useState(true);
-
-  function manageOnCreatedCanvas() {
-    console.log('lol');
-  }
-
-  return (
-    <Canvas>
-      <Suspense>
-        <color attach="background" args={[appColors.yellow]} />
-
-        <group>
-          <ambientLight intensity={0.5} />
-
-          <directionalLight position={[5, 5, 5]} intensity={1} />
-
-          <directionalLight position={[5, 10, 15]} intensity={1} />
-
-          <directionalLight position={[5, 10, -15]} intensity={1} />
-
-          <directionalLight position={[-10, 10, -15]} intensity={2} />
-
-          <directionalLight position={[-10, 10, 15]} intensity={2} />
-
-          <Selected3DProductByType type={props.type} colorElement={props.colorElement} />
-
-          <OrbitControls enablePan={false} enableZoom={false} />
-        </group>
-      </Suspense>
-    </Canvas>
-  );
 }
 
 function ProductContent({ productItem }: { productItem: ProductObjectType }) {
@@ -87,15 +47,11 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
 
   return (
     <>
-      <SimpleModal
-        visibleStates={{
-          visible: simpleModalState,
-          changeVisibleState: changeSimpleModalState,
-        }}
-        backgroundModalColor={appColors.yellow}
-      >
-        <Product3DScene type={productItem.type} colorElement={selectedColorMemoData.color} />
-      </SimpleModal>
+      <ModalProduct3D
+        statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
+        colorProduct={selectedColorMemoData.color}
+        typeProduct={productItem.type}
+      />
 
       <MainContainer>
         <View>
@@ -201,7 +157,7 @@ export default function ProductIndex({ route }: PropsProductIndex) {
   return (
     <>
       <Suspense fallback={<LoadingScreen />}>
-        {productData != null && <>{productData && <ProductContent productItem={productData} />}</>}
+        {productData != null && <ProductContent productItem={productData} />}
       </Suspense>
     </>
   );

@@ -38,6 +38,8 @@ module.exports = {
     '@typescript-eslint/no-namespace': 0,
     'react/no-unknown-property': 0,
     '@typescript-eslint/no-unsafe-function-type': 0,
+    'react-hooks/exhaustive-deps': 0,
+    'no-empty-pattern': 0,
   },
   overrides: [
     {

@@ -4,9 +4,9 @@ import { typeAlerts } from '@src/components/alert/components/AlertItem/AlertItem
 type typeProps = Omit<typeAlerts, 'onHideFn'>;
 
 export type typeElement = {
-  Element: ({ }: typeAlerts) => React.ReactElement,
-  props: typeProps,
-  keyItem: number
+  Element: ({}: typeAlerts) => React.ReactElement;
+  props: typeProps;
+  keyItem: number;
 };
 
 const initialState: typeElement[] = [];

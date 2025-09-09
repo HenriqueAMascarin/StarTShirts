@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 import { useGLTF, useTexture } from '@react-three/drei/native';
@@ -50,7 +50,6 @@ export default function ClassicTShirt({ color = 'white' }: Product3DModelType) {
 
   return (
     <group>
-      <Suspense>
         <mesh
           castShadow
           receiveShadow
@@ -71,7 +70,6 @@ export default function ClassicTShirt({ color = 'white' }: Product3DModelType) {
             metalness={0}
           />
         </mesh>
-      </Suspense>
     </group>
   );
 }

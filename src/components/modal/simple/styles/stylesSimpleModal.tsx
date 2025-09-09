@@ -5,6 +5,7 @@ export const stylesSimpleModal = StyleSheet.create({
   modalContainer: {
     display: 'flex',
     backgroundColor: appColors.white,
+    position: 'relative',
     width: '100%',
     maxWidth: 340,
     height: 450,
