@@ -53,90 +53,101 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
         typeProduct={productItem.type}
       />
 
-      <MainContainer>
-        <View>
-          <View style={stylesProductIndex.containerImage}>
-            <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
-              <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
-            </TouchableOpacity>
+      <Suspense
+        fallback={
+          <MainContainer>
+            <LoadingScreen />
+          </MainContainer>
+        }
+      >
+        <MainContainer>
+          <View>
+            <View style={stylesProductIndex.containerImage}>
+              <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
+                <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
+              </TouchableOpacity>
 
-            {selectedColorMemoData.urlImage && (
-              <Image
-                alt={productItem?.title}
-                width={255}
-                height={265}
-                source={selectedColorMemoData.urlImage}
-                style={stylesProductIndex.image}
-              />
-            )}
-          </View>
+              {selectedColorMemoData.urlImage && (
+                <Image
+                  alt={productItem?.title}
+                  width={255}
+                  height={265}
+                  source={selectedColorMemoData.urlImage}
+                  style={stylesProductIndex.image}
+                />
+              )}
+            </View>
 
-          <View style={stylesProductIndex.infoSection}>
-            <PaddingContainer>
-              <View style={stylesProductIndex.flexContainerInfos}>
-                <View style={stylesProductIndex.titleSection}>
-                  <TextTitleH2>{productItem?.title}</TextTitleH2>
+            <View style={stylesProductIndex.infoSection}>
+              <PaddingContainer>
+                <View style={stylesProductIndex.flexContainerInfos}>
+                  <View style={stylesProductIndex.titleSection}>
+                    <TextTitleH2>{productItem?.title}</TextTitleH2>
 
-                  <TextDefault style={stylesProductIndex.textPrice}>
-                    ${productItem?.price.toFixed(2)}
-                  </TextDefault>
-                </View>
-
-                <LineObject />
-
-                <View style={stylesProductIndex.optionsContainer}>
-                  <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
-
-                  <View style={stylesProductIndex.colorContainer}>
-                    <TextDefault style={stylesProductIndex.colorTitle}>
-                      Color:
-                      <TextDefault style={stylesProductIndex.colorTitleCurrent}>
-                        {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
-                      </TextDefault>
+                    <TextDefault style={stylesProductIndex.textPrice}>
+                      ${productItem?.price.toFixed(2)}
                     </TextDefault>
+                  </View>
 
-                    <RadioColorSwitcher
-                      stateColors={stateColors}
-                      changeStateColors={changeStateColors}
+                  <LineObject />
+
+                  <View style={stylesProductIndex.optionsContainer}>
+                    <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+
+                    <View style={stylesProductIndex.colorContainer}>
+                      <TextDefault style={stylesProductIndex.colorTitle}>
+                        Color:
+                        <TextDefault style={stylesProductIndex.colorTitleCurrent}>
+                          {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
+                        </TextDefault>
+                      </TextDefault>
+
+                      <RadioColorSwitcher
+                        stateColors={stateColors}
+                        changeStateColors={changeStateColors}
+                      />
+                    </View>
+                  </View>
+
+                  <LineObject />
+
+                  <View style={stylesProductIndex.buttonsContainer}>
+                    <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
+
+                    <BorderButton
+                      title="Add to Wish List"
+                      style={stylesProductIndex.buttonsStyles}
                     />
                   </View>
                 </View>
-
-                <LineObject />
-
-                <View style={stylesProductIndex.buttonsContainer}>
-                  <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
-
-                  <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
-                </View>
-              </View>
-            </PaddingContainer>
-
-            <View style={stylesProductIndex.detailsContainer}>
-              <PaddingContainer>
-                <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
-
-                <TextDefault style={stylesProductIndex.detailsInfo}>
-                  {productItem?.details.info}
-                </TextDefault>
-
-                <View>
-                  {productItem?.details.list.map((detail, keyDetail) => {
-                    return (
-                      <TextDefault key={keyDetail}>
-                        <TextDefault style={stylesProductIndex.detailsBulletText}>
-                          {'\u2022'}
-                        </TextDefault>
-                        {detail}
-                      </TextDefault>
-                    );
-                  })}
-                </View>
               </PaddingContainer>
+
+              <View style={stylesProductIndex.detailsContainer}>
+                <PaddingContainer>
+                  <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
+
+                  <TextDefault style={stylesProductIndex.detailsInfo}>
+                    {productItem?.details.info}
+                  </TextDefault>
+
+                  <View>
+                    {productItem?.details.list.map((detail, keyDetail) => {
+                      return (
+                        <TextDefault key={keyDetail}>
+                          <TextDefault style={stylesProductIndex.detailsBulletText}>
+                            {'\u2022'}
+                          </TextDefault>
+                          {detail}
+                        </TextDefault>
+                      );
+                    })}
+                  </View>
+                </PaddingContainer>
+              </View>
             </View>
           </View>
-        </View>
-      </MainContainer>
+        </MainContainer>
+      </Suspense>
     </>
   );
 }
@@ -154,11 +165,5 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     changeProductData(newProduct);
   })();
 
-  return (
-    <>
-      <Suspense fallback={<LoadingScreen />}>
-        {productData != null && <ProductContent productItem={productData} />}
-      </Suspense>
-    </>
-  );
+  return <>{productData && <ProductContent productItem={productData} />}</>;
 }

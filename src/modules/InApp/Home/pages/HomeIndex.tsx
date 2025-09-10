@@ -7,8 +7,9 @@ import ProductCard from '@src/modules/InApp/components/tshirt/card/ProductCard';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import whiteTShirtImg from '@src/assets/products/classicTShirt/images/white_tshirt.webp';
-import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesProductsContent } from '@src/modules/InApp/Home/styles/stylesProductsContent';
+import StrokeText from '@src/components/texts/stroke/StrokeText';
+import { appColors } from '@src/utils/appColors';
 
 function SloganTShirt() {
   return (
@@ -16,9 +17,9 @@ function SloganTShirt() {
       <Image style={stylesSlogan.image} source={whiteTShirtImg} />
 
       <View style={stylesSlogan.textsContainer}>
-        <TextDefault style={stylesSlogan.text}>Most</TextDefault>
-        <TextDefault style={stylesSlogan.text}>Purchased</TextDefault>
-        <TextDefault style={stylesSlogan.text}>T-shirt</TextDefault>
+        <StrokeText strokeColor={appColors.white} style={stylesSlogan.text}>Most</StrokeText>
+        <StrokeText strokeColor={appColors.white} style={stylesSlogan.text}>Purchased</StrokeText>
+        <StrokeText strokeColor={appColors.white} style={stylesSlogan.text}>T-shirt</StrokeText>
       </View>
     </View>
   );

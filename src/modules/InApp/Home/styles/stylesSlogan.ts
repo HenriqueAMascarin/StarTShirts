@@ -24,11 +24,7 @@ export const stylesSlogan = StyleSheet.create({
     flexDirection: 'column',
   },
   text: {
-    textShadowColor: appColors.white,
-    fontSize: 30,
     textTransform: 'uppercase',
     color: appColors.black,
-    textShadowOffset: { width: -1, height: 1 }, // deslocamento da sombra
-    textShadowRadius: 1, // espalhamento da sombra
   },
 });

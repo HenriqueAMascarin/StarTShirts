@@ -3,9 +3,9 @@ import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import { appColors } from '@src/utils/appColors';
 import { Canvas } from '@react-three/fiber/native';
 import { OrbitControls } from '@react-three/drei/native';
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
-import { Animated, View } from 'react-native';
+import { View } from 'react-native';
 import {
   ProductColorsType,
   TypeProducts,
@@ -29,26 +29,28 @@ export default function ModalProduct3D({
   const [isLoading, changeIsLoading] = useState(true);
 
   useEffect(() => {
-    
-  })
+    if (statesSimpleModal.simpleModalState === false) {
+      changeIsLoading(true);
+    }
+  }, [statesSimpleModal.simpleModalState]);
 
   return (
-    <SimpleModal
-      visibleStates={{
-        visible: statesSimpleModal.simpleModalState,
-        changeVisibleState: statesSimpleModal.changeSimpleModalState,
-      }}
-      backgroundModalColor={appColors.yellow}
-    >
-      {isLoading && (
-        <View style={stylesModalProduct3D.loadingContainer}>
-          <LoadingScreen />
-        </View>
-      )}
+    <>
+      {statesSimpleModal.simpleModalState ? (
+        <SimpleModal
+          visibleStates={{
+            visible: statesSimpleModal.simpleModalState,
+            changeVisibleState: statesSimpleModal.changeSimpleModalState,
+          }}
+          backgroundModalColor={appColors.yellow}
+        >
+          {isLoading && (
+            <View style={stylesModalProduct3D.loadingContainer}>
+              <LoadingScreen />
+            </View>
+          )}
 
-      <Animated.View>
-        <Canvas>
-          <Suspense>
+          <Canvas>
             <color attach="background" args={[appColors.yellow]} />
 
             <group>
@@ -72,9 +74,9 @@ export default function ModalProduct3D({
 
               <OrbitControls enablePan={false} enableZoom={false} />
             </group>
-          </Suspense>
-        </Canvas>
-      </Animated.View>
-    </SimpleModal>
+          </Canvas>
+        </SimpleModal>
+      ) : null}
+    </>
   );
 }
