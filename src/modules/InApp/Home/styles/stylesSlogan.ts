@@ -6,7 +6,7 @@ export const stylesSlogan = StyleSheet.create({
     maxHeight: 310,
     width: '100%',
     backgroundColor: appColors.yellow,
-    paddingVertical: 20,
+    paddingVertical: 22,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,8 +14,8 @@ export const stylesSlogan = StyleSheet.create({
     gap: 20,
   },
   image: {
-    maxWidth: 165,
-    maxHeight: 175,
+    maxWidth: 155,
+    maxHeight: 165,
   },
   textsContainer: {
     display: 'flex',

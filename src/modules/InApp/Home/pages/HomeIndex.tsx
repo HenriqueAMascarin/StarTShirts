@@ -8,19 +8,14 @@ import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import whiteTShirtImg from '@src/assets/products/classicTShirt/images/white_tshirt.webp';
 import { stylesProductsContent } from '@src/modules/InApp/Home/styles/stylesProductsContent';
-import StrokeText from '@src/components/texts/stroke/StrokeText';
-import { appColors } from '@src/utils/appColors';
+import SloganSVGText from '@src/assets/svgs/sloganText.svg';
 
 function SloganTShirt() {
   return (
     <View style={stylesSlogan.container}>
-      <Image style={stylesSlogan.image} source={whiteTShirtImg} />
+      <Image style={stylesSlogan.image} source={whiteTShirtImg} width={155} height={165}/>
 
-      <View style={stylesSlogan.textsContainer}>
-        <StrokeText strokeColor={appColors.white} style={stylesSlogan.text}>Most</StrokeText>
-        <StrokeText strokeColor={appColors.white} style={stylesSlogan.text}>Purchased</StrokeText>
-        <StrokeText strokeColor={appColors.white} style={stylesSlogan.text}>T-shirt</StrokeText>
-      </View>
+      <SloganSVGText accessibilityLabel="Most purchased t-shirt" width="204" height="109"/>
     </View>
   );
 }
