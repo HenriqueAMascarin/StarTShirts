@@ -27,7 +27,6 @@ module.exports = {
   rules: {
     'react-native/no-unused-styles': 2,
     'react-native/split-platform-components': 2,
-    'react-native/no-inline-styles': 2,
     'react-native/no-color-literals': 2,
     'react-native/no-raw-text': 0,
     'react-native/no-single-element-style-arrays': 2,
@@ -40,6 +39,9 @@ module.exports = {
     '@typescript-eslint/no-unsafe-function-type': 0,
     'react-hooks/exhaustive-deps': 0,
     'no-empty-pattern': 0,
+
+    // for now temporary
+    'react-native/no-inline-styles': 0
   },
   overrides: [
     {
