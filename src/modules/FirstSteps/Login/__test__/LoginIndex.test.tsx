@@ -5,47 +5,57 @@ import { keysLocalStorage } from '@src/utils/localStorage';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootStackParamList } from '@src/routes/AppRoutes';
+import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 
 const responseMock = {
-    firstName: 'Henrique',
-    lastName: 'Test',
-    email: 'test@gmail.com',
-    password: '123',
-    id: 0,
-    rememberMe: true,
+  firstName: 'Henrique',
+  lastName: 'Test',
+  email: 'test@gmail.com',
+  password: '123',
+  id: 0,
+  rememberMe: true,
 };
 
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
 describe('LoginIndex', () => {
+  it('Should have a USER REGISTERED', async () => {
+    const userArray = [responseMock];
 
-    it('Should have a USER REGISTERED', async () => {
-        const userArray = [responseMock];
+    await AsyncStorageMock.setItem(keysLocalStorage.usersKey, JSON.stringify(userArray));
 
-        await AsyncStorageMock.setItem(keysLocalStorage.usersKey, JSON.stringify(userArray));
+    const dataRawUsers = await getDataLocalStorageMock({ keyStorage: 'usersKey' });
 
-        const dataRawUsers = await getDataLocalStorageMock({ keyStorage: 'usersKey' });
+    expect(dataRawUsers).toEqual(userArray);
+  });
 
-        expect(dataRawUsers).toEqual(userArray);
-    });
+  it('Should do a LOGIN', async () => {
+    render(
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={'login'}>
+          <Stack.Screen name="login" component={LoginIndex} />
 
-    it('Should do a LOGIN', async () => {
+          <Stack.Screen name="home" component={HomeIndex} />
+        </Stack.Navigator>
+      </NavigationContainer>,
+    );
 
-        render(<NavigationContainer><LoginIndex /></NavigationContainer>);
+    const elementButton = screen.getByText('Login');
 
-        const elementButton = screen.getByText('Login');
+    const user = userEvent.setup();
 
-        const user = userEvent.setup();
+    const emailInput = screen.getByTestId('emailInput');
+    const passwordInput = screen.getByTestId('passwordInput');
 
-        const emailInput = screen.getByTestId('emailInput');
-        const passwordInput = screen.getByTestId('passwordInput');
+    await user.type(emailInput, responseMock.email);
+    await user.type(passwordInput, responseMock.password);
 
-        await user.type(emailInput, responseMock.email);
-        await user.type(passwordInput, responseMock.password);
+    await user.press(elementButton);
 
-        await user.press(elementButton);
+    const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
 
-        const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
-
-        expect(dataLoggedUser).toEqual(responseMock);
-
-    });
+    expect(dataLoggedUser).toEqual(responseMock);
+  });
 });

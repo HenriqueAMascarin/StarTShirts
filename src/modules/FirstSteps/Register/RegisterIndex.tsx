@@ -143,11 +143,12 @@ export default function RegisterIndex() {
               <DefaultButton
                 title="Create account"
                 onPressIn={registerHandleSubmit(onRegisterSubmit)}
+                testID="registerButton"
               />
 
               <LineObject text="or" />
 
-              <BorderButton title="Login" onPressIn={changeBtnMethod}/>
+              <BorderButton title="Login" onPressIn={changeBtnMethod} />
             </View>
           </View>
         </BottomContainer>
