@@ -5,26 +5,25 @@ import { globalStore } from '@src/store/globalStore';
 import { randomValue } from '@src/utils/randomValue';
 
 export async function apiManagement(response: genericStatus) {
-
   const randomKey = randomValue();
 
   if (response.messageSuccess) {
-    globalStore.dispatch(addElement(
-      {
+    globalStore.dispatch(
+      addElement({
         Element: AlertItem,
         props: { type: 'success', message: response.messageSuccess },
         keyItem: randomKey,
-      }
-    ));
+      }),
+    );
   } else {
     for (const key in response.errors) {
-      globalStore.dispatch(addElement(
-        {
+      globalStore.dispatch(
+        addElement({
           Element: AlertItem,
           props: { type: 'error', message: response.errors?.[key] },
           keyItem: randomKey,
-        }
-      ));
+        }),
+      );
     }
   }
 }

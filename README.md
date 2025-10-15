@@ -24,6 +24,8 @@ Viso adquirir novos conhecimentos, me aperfeiçoar e aprofundar no React Native.
 
 ### Links
 
+- Download do APK atual (prévia): [clique aqui](https://drive.usercontent.google.com/download?id=12nIzKjuS6h15XFeZxMPoprDts2TCNAXM&export=download&authuser=0)
+
 - Figma Design: [clique aqui](https://www.figma.com/design/mLpUBhQRfv9QpXPP34KxPt/star-t-shirts?node-id=0-1&t=dUN9eJek8hwS2S8K-1).
 
 - Portfolio: [clique aqui](https://henriqueamascarin.vercel.app).
@@ -39,4 +41,5 @@ Viso adquirir novos conhecimentos, me aperfeiçoar e aprofundar no React Native.
 - Zod
 - React Hook Form
 - Jest
+- React Native Testing Library
 - React Native Testing Library
