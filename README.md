@@ -42,4 +42,6 @@ Viso adquirir novos conhecimentos, me aperfeiçoar e aprofundar no React Native.
 - React Hook Form
 - Jest
 - React Native Testing Library
-- React Native Testing Library
+- Three.js
+- React Three Drei
+- React Three Fiber
