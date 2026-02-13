@@ -58,6 +58,11 @@ react {
     entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", rootDir.getAbsoluteFile().getParentFile().getAbsolutePath(), "android", "absolute"].execute(null, rootDir).text.trim())
     cliFile = new File(["node", "--print", "require.resolve('@expo/cli')"].execute(null, rootDir).text.trim())
     bundleCommand = "export:embed"
+    //
+    // Added by install-expo-modules
+    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", rootDir.getAbsoluteFile().getParentFile().getAbsolutePath(), "android", "absolute"].execute(null, rootDir).text.trim())
+    cliFile = new File(["node", "--print", "require.resolve('@expo/cli')"].execute(null, rootDir).text.trim())
+    bundleCommand = "export:embed"
 }
 
 /**
@@ -117,16 +122,15 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 
-    implementation("androidx.core:core-splashscreen:1.0.1")
-
-    implementation("androidx.core:core-ktx:1.15.0" )
-    implementation("androidx.appcompat:appcompat:1.7.0" )
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("androidx.compose.ui:ui:1.7.5" )
-    implementation("androidx.compose.material:material:1.7.5" )
-    implementation("androidx.compose.ui:ui-tooling-preview:1.7.5")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
-    implementation("androidx.activity:activity-compose:1.9.3")
+    implementation("androidx.core:core-splashscreen:1.2.0")
+    implementation("androidx.core:core-ktx:1.17.0" )
+    implementation("androidx.appcompat:appcompat:1.7.1" )
+    implementation("com.google.android.material:material:1.13.0")
+    implementation("androidx.compose.ui:ui:1.10.2" )
+    implementation("androidx.compose.material:material:1.10.2" )
+    implementation("androidx.compose.ui:ui-tooling-preview:1.10.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
+    implementation("androidx.activity:activity-compose:1.12.3")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

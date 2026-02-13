@@ -1,7 +1,4 @@
-import {
-  NativeModules,
-  SafeAreaView
-} from 'react-native';
+import { NativeModules, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { globalStore } from '@src/store/globalStore';
@@ -29,8 +26,9 @@ async function getBootData() {
 }
 
 function App() {
-
-  const [bootStateData, changeBootStateData] = useState<Awaited<ReturnType<typeof getBootData>> | null>(null);
+  const [bootStateData, changeBootStateData] = useState<Awaited<
+    ReturnType<typeof getBootData>
+  > | null>(null);
 
   useEffect(() => {
     if (!bootStateData) {
@@ -45,13 +43,13 @@ function App() {
 
   return (
     <Provider store={globalStore}>
-      {bootStateData &&
-        <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+      {bootStateData && (
+        <View style={{ flex: 1, position: 'relative' }}>
           <GeneratorAlert />
 
           <AppRoutes initialRouteName={bootStateData.initialRoute} />
-        </SafeAreaView>
-      }
+        </View>
+      )}
     </Provider>
   );
 }

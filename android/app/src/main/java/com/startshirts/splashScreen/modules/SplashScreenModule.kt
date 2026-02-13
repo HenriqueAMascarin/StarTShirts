@@ -9,8 +9,8 @@ class SplashScreenModule(reactContext: ReactApplicationContext) : ReactContextBa
     override fun getName() = "SplashScreenModule"
 
     @ReactMethod fun changeActiveSplashScreen(newStatus: Boolean) {
-        val activity = currentActivity as? MainActivity
+        val activity = reactApplicationContext.currentActivity as? MainActivity
 
-        activity?.statusViewModel?.changeStatusActiveSplashScreen(newStatus)
+        activity?.runOnUiThread { activity?.statusViewModel?.changeStatusActiveSplashScreen(newStatus) }
     }
 }
