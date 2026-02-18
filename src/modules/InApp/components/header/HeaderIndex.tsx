@@ -57,12 +57,12 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
     //   keyItem: 3,
     // },
-    // {
-    //   label: 'Account',
-    //   routeName: 'home/account',
-    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-    //   keyItem: 4,
-    // },
+    {
+      label: 'Account',
+      routeName: 'home/account',
+      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+      keyItem: 4,
+    },
   ];
 
   function setupListenerNavigation() {
@@ -71,11 +71,11 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     navigation.addListener('state', ({ data }) => {
       if (data?.state?.routes) {
         const currentlyRoute = data?.state?.routes?.[data?.state?.routes?.length - 1];
-
+        console.log(currentlyRoute);
         if (currentlyRoute) {
           for (let index = 0; index < links.length; index++) {
             Animated.timing(links[index].textAnimatedOpacity.current, {
-              toValue: currentlyRoute?.name.includes(links[index].routeName) ? 1 : 0.6,
+              toValue: currentlyRoute?.name == links[index].routeName ? 1 : 0.6,
               delay: 0,
               duration: 200,
               useNativeDriver: true,

@@ -9,6 +9,7 @@ import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 import React from 'react';
 import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
 import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
+import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
 
 export type RootStackParamList = {
   register: undefined;
@@ -68,7 +69,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
           <Stack.Screen name="home/purchases" component={HomeIndex} />
 
-          <Stack.Screen name="home/account" component={HomeIndex} />
+          <Stack.Screen name="home/account" component={AccountIndex} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

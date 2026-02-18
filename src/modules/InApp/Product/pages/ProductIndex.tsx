@@ -9,7 +9,6 @@ import useSizes from '@src/modules/InApp/Product/components/sizesChanger/hooks/u
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
 import useColors from '@src/components/colorSwitchers/hooks/useColors';
 import useMemoSelectedColorData from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
-import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
@@ -21,6 +20,7 @@ import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
+import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -53,13 +53,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
         typeProduct={productItem.type}
       />
 
-      <Suspense
-        fallback={
-          <MainContainer>
-            <LoadingScreen />
-          </MainContainer>
-        }
-      >
+      <Suspense fallback={<LoadingPageScreen />}>
         <MainContainer>
           <View>
             <View style={stylesProductIndex.containerImage}>

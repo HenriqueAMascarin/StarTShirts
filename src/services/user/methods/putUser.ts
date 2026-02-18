@@ -19,23 +19,27 @@ export const putUser = async (userData: putUserType) => {
   let data: userResponseObjectType | null = null;
 
   if (userDataById) {
-    const newUserEditedData = { ...userDataById, ...userData };
+    if (userData.currentPassword && userData.currentPassword != userDataById?.password) {
+      status = { ...status, errors: { email: "Incorrect password" } };
+    } else {
+      const newUserEditedData = { ...userDataById, ...userData };
 
-    const indexUserById = userResponseAll.findIndex((user) => user.id === newUserEditedData.id);
+      const indexUserById = userResponseAll.findIndex((user) => user.id === newUserEditedData.id);
 
-    const newUserPayloadAll = userResponseAll;
+      const newUserPayloadAll = userResponseAll;
 
-    newUserPayloadAll[indexUserById] = newUserEditedData;
+      newUserPayloadAll[indexUserById] = newUserEditedData;
 
-    const arrayToConvertJson = newUserPayloadAll;
+      const arrayToConvertJson = newUserPayloadAll;
 
-    const jsonValue = JSON.stringify(arrayToConvertJson);
+      const jsonValue = JSON.stringify(arrayToConvertJson);
 
-    await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
+      await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
 
-    status.messageSuccess = 'User has been edited!';
+      status.messageSuccess = 'User has been edited!';
 
-    data = newUserEditedData;
+      data = newUserEditedData;
+    }
   } else {
     status = { ...status, errors: { email: "User doesn't exist" } };
   }

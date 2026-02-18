@@ -8,7 +8,7 @@ export const usePasswordResetSchema = z
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: 'custom',
         message: 'Passwords doesn’t match',
         path: ['confirmPassword'],
       });
