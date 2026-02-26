@@ -36,13 +36,13 @@ export default function ModalProduct3D({
 
   return (
     <>
-      {statesSimpleModal.simpleModalState ? (
+      {statesSimpleModal.simpleModalState && (
         <SimpleModal
           visibleStates={{
             visible: statesSimpleModal.simpleModalState,
             changeVisibleState: statesSimpleModal.changeSimpleModalState,
           }}
-          backgroundModalColor={appColors.yellow}
+          customModalContainerStyles={stylesModalProduct3D.customModalContainer}
         >
           {isLoading && (
             <View style={stylesModalProduct3D.loadingContainer}>
@@ -76,7 +76,7 @@ export default function ModalProduct3D({
             </group>
           </Canvas>
         </SimpleModal>
-      ) : null}
+      )}
     </>
   );
 }

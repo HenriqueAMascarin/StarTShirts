@@ -17,7 +17,7 @@ export const stylesSimpleModal = StyleSheet.create({
   closeBtn: {
     position: 'absolute',
     zIndex: 1,
-    right: 10,
-    top: 10,
+    right: 13,
+    top: 13,
   },
 });

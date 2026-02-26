@@ -1,3 +1,4 @@
+import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
 export const stylesModalProduct3D = StyleSheet.create({
@@ -9,5 +10,8 @@ export const stylesModalProduct3D = StyleSheet.create({
     right: 0,
     display: 'flex',
     justifyContent: 'center',
+  },
+  customModalContainer: {
+    backgroundColor: appColors.yellow,
   },
 });

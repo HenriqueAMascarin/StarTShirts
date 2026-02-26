@@ -14,18 +14,45 @@ import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModa
 import ModalChangeEmail from '@src/modules/InApp/Account/components/changeEmail/ModalChangeEmail';
 import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
 import { stylesAccountIndex } from '@src/modules/InApp/Account/styles/stylesAccountIndex';
+import { signOutAccount } from '@src/utils/signOutAccount';
+import { useNavigation } from '@react-navigation/native';
 
 function AccountContent(accountData: UserLoggedType) {
   const userName = useMemo(() => `${accountData?.firstName}'s account`, [accountData?.firstName]);
+
+  const navigation = useNavigation();
 
   const {
     simpleModalState: simpleEmailModalState,
     changeSimpleModalState: changeEmailSimpleModalState,
   } = useSimpleModalHook();
 
+  const {
+    simpleModalState: simplePasswordModalState,
+    changeSimpleModalState: changePasswordSimpleModalState,
+  } = useSimpleModalHook();
+
+  const {
+    simpleModalState: simpleFullNameModalState,
+    changeSimpleModalState: changeFullNameSimpleModalState,
+  } = useSimpleModalHook();
+
   function onOpenModalChangeEmail() {
     changeEmailSimpleModalState(true);
   }
+
+  function onOpenModalChangePassword() {
+    changePasswordSimpleModalState(true);
+  }
+
+  function onOpenModalChangeFullName() {
+    changeFullNameSimpleModalState(true);
+  }
+
+  const fullName = useMemo(
+    () => accountData?.firstName + accountData?.lastName,
+    [accountData?.firstName, accountData?.lastName],
+  );
 
   return (
     <>
@@ -48,7 +75,7 @@ function AccountContent(accountData: UserLoggedType) {
             <View>
               <TextTitleH3>Sign-in info</TextTitleH3>
 
-              <View>
+              <View style={stylesAccountIndex.containersInfo}>
                 <TextDefault>E-mail</TextDefault>
 
                 <TextDefault>{accountData?.email}</TextDefault>
@@ -56,36 +83,45 @@ function AccountContent(accountData: UserLoggedType) {
                 <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
               </View>
 
-              <View>
+              <View style={stylesAccountIndex.containersInfo}>
                 <TextTitleH3>Password</TextTitleH3>
 
-                <UnderlineTextButton title="Change password" />
+                <UnderlineTextButton
+                  title="Change password"
+                  onPressIn={onOpenModalChangePassword}
+                />
               </View>
             </View>
 
-            <LineObject />
+            <LineObject customPaddingVertical={10} />
 
             <View>
               <TextTitleH3>Personal info</TextTitleH3>
 
-              <View>
-                <TextDefault>Name</TextDefault>
+              <View style={stylesAccountIndex.containersInfo}>
+                <TextDefault>Full name</TextDefault>
 
-                <TextDefault>{accountData?.firstName}</TextDefault>
+                <TextDefault>{fullName}</TextDefault>
 
-                <UnderlineTextButton title="Change name" />
+                <UnderlineTextButton
+                  title="Change full name"
+                  onPressIn={onOpenModalChangeFullName}
+                />
               </View>
             </View>
 
-            <LineObject />
+            <LineObject customPaddingVertical={10} />
 
-            <View>
+            <View style={stylesAccountIndex.containerSecurity}>
               <TextTitleH3>Security</TextTitleH3>
 
-              <View>
+              <View style={stylesAccountIndex.containersInfo}>
                 <TextDefault>Log out of your account</TextDefault>
 
-                <UnderlineTextButton title="Sign out" />
+                <UnderlineTextButton
+                  title="Sign out"
+                  onPressIn={async () => await signOutAccount(navigation.navigate)}
+                />
               </View>
             </View>
           </PaddingContainer>

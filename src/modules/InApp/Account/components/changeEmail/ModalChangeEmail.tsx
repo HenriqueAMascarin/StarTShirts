@@ -1,6 +1,5 @@
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import React from 'react';
-import TextTitleH1 from '@src/components/texts/h1/TextTitleH1';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useForm, Controller } from 'react-hook-form';
 import {
@@ -11,6 +10,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { putUser } from '@src/services/user/methods/putUser';
+import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
+import { View } from 'react-native';
+import { stylesGeneralAccountComponents } from '@src/modules/InApp/Account/components/generalStyles/stylesGeneralAccountComponents';
 
 type typeModalChangeEmail = {
   statesSimpleModal: {
@@ -19,7 +21,7 @@ type typeModalChangeEmail = {
   };
 };
 
-export default function ModalChangeEmail({statesSimpleModal}: typeModalChangeEmail) {
+export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeEmail) {
   const {
     control: emailFormControl,
     handleSubmit: emailFormHandleSubmit,
@@ -29,25 +31,25 @@ export default function ModalChangeEmail({statesSimpleModal}: typeModalChangeEma
     mode: 'onSubmit',
   });
 
-async function onChangeEmail(formValues: typeChangeEmailSchema) {
+  async function onChangeEmail(formValues: typeChangeEmailSchema) {
     const payload = { ...formValues };
 
     const response = await putUser(payload);
 
     if (response.messageSuccess) {
-      statesSimpleModal.changeSimpleModalState(false)
+      statesSimpleModal.changeSimpleModalState(false);
     }
   }
 
   return (
-    <>
-      <SimpleModal
-        visibleStates={{
-          visible: statesSimpleModal.simpleModalState,
-          changeVisibleState: statesSimpleModal.changeSimpleModalState,
-        }}
-      >
-        <TextTitleH1>Change e-mail</TextTitleH1>
+    <SimpleModal
+      visibleStates={{
+        visible: statesSimpleModal.simpleModalState,
+        changeVisibleState: statesSimpleModal.changeSimpleModalState,
+      }}
+    >
+      <View style={stylesGeneralAccountComponents.containerForm}>
+        <TextTitleH3>Change e-mail</TextTitleH3>
 
         <Controller
           control={emailFormControl}
@@ -91,8 +93,8 @@ async function onChangeEmail(formValues: typeChangeEmailSchema) {
           )}
         />
 
-        <DefaultButton title="Change e-mail" onPressIn={emailFormHandleSubmit(onChangeEmail)} />
-      </SimpleModal>
-    </>
+        <DefaultButton title="Change e-mail" onPressIn={emailFormHandleSubmit(onChangeEmail)} style={stylesGeneralAccountComponents.submitFormBtn}/>
+      </View>
+    </SimpleModal>
   );
 }

@@ -45,7 +45,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
           contentStyle: {
             backgroundColor: appColors.white,
           },
-          animation: 'slide_from_right',
+          animation: 'none',
         }}
       >
         <Stack.Group screenOptions={{ headerShown: false }}>

@@ -1,4 +1,11 @@
-import { Animated, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  Animated,
+  StyleProp,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React, { ReactNode, useEffect, useRef } from 'react';
 import CloseSvg from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
@@ -11,15 +18,15 @@ type TypeDefaultModal = {
     visible: boolean;
     changeVisibleState: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  backgroundModalColor?: string;
   hasCloseIcon?: boolean;
+  customModalContainerStyles?: StyleProp<ViewStyle>;
 };
 
 function ContentSimpleModal({
   children,
   visibleStates,
   hasCloseIcon,
-  backgroundModalColor,
+  customModalContainerStyles,
 }: TypeDefaultModal) {
   const animatedOpacity = useRef(new Animated.Value(0));
 
@@ -62,7 +69,8 @@ function ContentSimpleModal({
         style={[
           stylesSimpleModal.modalContainer,
           stylesGlobalModal.modalContainerShadow,
-          { backgroundColor: backgroundModalColor, opacity: animatedOpacity.current },
+          { opacity: animatedOpacity.current },
+          customModalContainerStyles,
         ]}
       >
         {hasCloseIcon && (
@@ -81,12 +89,14 @@ export default function SimpleModal({
   children,
   visibleStates,
   hasCloseIcon = true,
-  backgroundModalColor = appColors.white,
+  customModalContainerStyles,
 }: TypeDefaultModal) {
   return (
     <>
       {visibleStates.visible && (
-        <ContentSimpleModal {...{ children, visibleStates, hasCloseIcon, backgroundModalColor }} />
+        <ContentSimpleModal
+          {...{ children, visibleStates, hasCloseIcon, customModalContainerStyles }}
+        />
       )}
     </>
   );

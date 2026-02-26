@@ -9,11 +9,10 @@ import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/routes/AppRoutes';
-import { keysLocalStorage } from '@src/utils/localStorage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import useDrawerModalHook from '@src/components/modal/drawer/hooks/useDrawerModalHook';
 import { stylesMenuDrawerModal } from '@src/modules/InApp/components/header/styles/stylesMenuDrawerModal';
 import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
+import { signOutAccount } from '@src/utils/signOutAccount';
 
 type TypeMenuDrawerModal = {
   stateDrawerModal: boolean;
@@ -71,7 +70,7 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     navigation.addListener('state', ({ data }) => {
       if (data?.state?.routes) {
         const currentlyRoute = data?.state?.routes?.[data?.state?.routes?.length - 1];
-        console.log(currentlyRoute);
+
         if (currentlyRoute) {
           for (let index = 0; index < links.length; index++) {
             Animated.timing(links[index].textAnimatedOpacity.current, {
@@ -120,12 +119,6 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     );
   };
 
-  async function exitAccount() {
-    await AsyncStorage.removeItem(keysLocalStorage.loggedUserKey);
-
-    navigateFn('login');
-  }
-
   return (
     <>
       <DrawerModal
@@ -138,7 +131,7 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
 
           <TouchableOpacity
             style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]}
-            onPressIn={exitAccount}
+            onPressIn={async () => await signOutAccount(navigateFn)}
           >
             <View style={stylesGlobalModal.paddingContainer}>
               <TextDefault style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>

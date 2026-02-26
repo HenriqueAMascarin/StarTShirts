@@ -47,11 +47,13 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
 
   return (
     <>
-      <ModalProduct3D
-        statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
-        colorProduct={selectedColorMemoData.color}
-        typeProduct={productItem.type}
-      />
+      {simpleModalState && (
+        <ModalProduct3D
+          statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
+          colorProduct={selectedColorMemoData.color}
+          typeProduct={productItem.type}
+        />
+      )}
 
       <Suspense fallback={<LoadingPageScreen />}>
         <MainContainer>
