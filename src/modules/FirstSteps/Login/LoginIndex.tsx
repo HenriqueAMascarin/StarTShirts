@@ -74,6 +74,7 @@ export default function LoginIndex() {
                     inputMode="email"
                     errors={loginErrors.email}
                     testID="emailInput"
+                    required
                   />
                 )}
               />
@@ -90,6 +91,7 @@ export default function LoginIndex() {
                     errors={loginErrors.password}
                     forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
                     testID="passwordInput"
+                    required
                   />
                 )}
               />

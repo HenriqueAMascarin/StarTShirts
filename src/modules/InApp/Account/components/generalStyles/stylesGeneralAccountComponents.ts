@@ -1,16 +1,18 @@
-import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
 export const stylesGeneralAccountComponents = StyleSheet.create({
   containerForm: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    flexGrow: 1,
     alignItems: 'stretch',
-    gap: 2,
+    gap: 20,
     marginTop: 15,
-    marginBottom: 30,
   },
   submitFormBtn: {
-    marginTop: 20,
+    marginTop: 15,
+  },
+  customModalContainerStyles: {
+    height: 400
   }
 });

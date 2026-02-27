@@ -73,6 +73,7 @@ export default function ResetRequestIndex() {
                     inputMode="email"
                     errors={resetRequestErrors.email}
                     testID="emailInput"
+                    required
                   />
                 )}
               />

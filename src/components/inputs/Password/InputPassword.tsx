@@ -12,6 +12,7 @@ type propsInput = TextInputProps & {
   label?: string;
   errors?: FieldError | Merge<FieldError, FieldErrorsImpl> | undefined;
   forgotPassword?: { hasForgotBtn: boolean; function: Function };
+  required?: boolean,
 };
 
 export default function InputPassword(inputProps: propsInput) {
@@ -27,7 +28,10 @@ export default function InputPassword(inputProps: propsInput) {
 
   return (
     <View>
-      <TextDefault style={stylesGlobal.label}>{inputProps.label}</TextDefault>
+      <TextDefault style={stylesGlobal.label}>
+        {inputProps.label}
+        {inputProps.required && <TextDefault style={stylesGlobal.requiredSymbol}>*</TextDefault>}
+      </TextDefault>
 
       <View style={stylesGlobal.inputContainer}>
         <TextInput

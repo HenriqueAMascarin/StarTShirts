@@ -24,7 +24,11 @@ export default function RegisterIndex() {
     control: registerControl,
     handleSubmit: registerHandleSubmit,
     formState: { errors: registerErrors },
-  } = useForm<typeRegisterSchema>({ resolver: zodResolver(useRegisterSchema), mode: 'onSubmit' });
+  } = useForm<typeRegisterSchema>({
+    resolver: zodResolver(useRegisterSchema),
+    mode: 'onSubmit',
+    defaultValues: {},
+  });
 
   const navigation = useNavigation();
 
@@ -73,6 +77,7 @@ export default function RegisterIndex() {
                     label="First name"
                     errors={registerErrors.firstName}
                     testID="firstNameInput"
+                    required
                   />
                 )}
               />
@@ -88,6 +93,7 @@ export default function RegisterIndex() {
                     label="Last name"
                     errors={registerErrors.lastName}
                     testID="lastNameInput"
+                    required
                   />
                 )}
               />
@@ -104,6 +110,7 @@ export default function RegisterIndex() {
                     inputMode="email"
                     errors={registerErrors.email}
                     testID="emailInput"
+                    required
                   />
                 )}
               />
@@ -119,6 +126,7 @@ export default function RegisterIndex() {
                     label="Password"
                     errors={registerErrors.password}
                     testID="passwordInput"
+                    required
                   />
                 )}
               />
@@ -134,6 +142,7 @@ export default function RegisterIndex() {
                     label="Confirm password"
                     errors={registerErrors.confirmPassword}
                     testID="confirmPasswordInput"
+                    required
                   />
                 )}
               />

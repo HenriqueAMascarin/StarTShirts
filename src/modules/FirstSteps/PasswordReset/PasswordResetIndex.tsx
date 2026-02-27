@@ -96,6 +96,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
                     label="Password"
                     errors={passwordResetErrors.password}
                     testID="passwordInput"
+                    required
                   />
                 )}
               />
@@ -111,6 +112,7 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
                     label="Confirm password"
                     errors={passwordResetErrors.confirmPassword}
                     testID="confirmPasswordInput"
+                    required
                   />
                 )}
               />

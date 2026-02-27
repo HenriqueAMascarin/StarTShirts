@@ -36,7 +36,7 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
 
     const response = await putUser(payload);
 
-    if (response.messageSuccess) {
+    if (response?.messageSuccess) {
       statesSimpleModal.changeSimpleModalState(false);
     }
   }
@@ -47,10 +47,11 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
         visible: statesSimpleModal.simpleModalState,
         changeVisibleState: statesSimpleModal.changeSimpleModalState,
       }}
+      customModalContainerStyles={stylesGeneralAccountComponents.customModalContainerStyles}
     >
       <View style={stylesGeneralAccountComponents.containerForm}>
         <TextTitleH3>Change e-mail</TextTitleH3>
-
+        
         <Controller
           control={emailFormControl}
           name="email"
@@ -61,6 +62,7 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
               value={value}
               label="New e-mail"
               errors={emailFormErrors.email}
+              required
             />
           )}
         />
@@ -75,6 +77,7 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
               value={value}
               label="Confirm new e-mail"
               errors={emailFormErrors.confirmEmail}
+              required
             />
           )}
         />
@@ -89,11 +92,16 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
               value={value}
               label="Current password"
               errors={emailFormErrors.currentPassword}
+              required
             />
           )}
         />
 
-        <DefaultButton title="Change e-mail" onPressIn={emailFormHandleSubmit(onChangeEmail)} style={stylesGeneralAccountComponents.submitFormBtn}/>
+        <DefaultButton
+          title="Change e-mail"
+          onPressIn={emailFormHandleSubmit(onChangeEmail)}
+          style={stylesGeneralAccountComponents.submitFormBtn}
+        />
       </View>
     </SimpleModal>
   );
