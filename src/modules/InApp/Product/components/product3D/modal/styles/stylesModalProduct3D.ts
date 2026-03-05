@@ -13,5 +13,6 @@ export const stylesModalProduct3D = StyleSheet.create({
   },
   customModalContainer: {
     backgroundColor: appColors.yellow,
+    maxHeight: 450,
   },
 });

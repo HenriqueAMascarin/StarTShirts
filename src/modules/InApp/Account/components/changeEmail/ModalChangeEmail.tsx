@@ -47,10 +47,9 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
         visible: statesSimpleModal.simpleModalState,
         changeVisibleState: statesSimpleModal.changeSimpleModalState,
       }}
-      customModalContainerStyles={stylesGeneralAccountComponents.customModalContainerStyles}
     >
       <View style={stylesGeneralAccountComponents.containerForm}>
-        <TextTitleH3>Change e-mail</TextTitleH3>
+        <TextTitleH3 style={stylesGeneralAccountComponents.title}>Change e-mail</TextTitleH3>
         
         <Controller
           control={emailFormControl}

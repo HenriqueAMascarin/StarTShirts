@@ -27,7 +27,7 @@ export default function InputPassword(inputProps: propsInput) {
   }
 
   return (
-    <View>
+    <View style={stylesGlobal.container}>
       <TextDefault style={stylesGlobal.label}>
         {inputProps.label}
         {inputProps.required && <TextDefault style={stylesGlobal.requiredSymbol}>*</TextDefault>}

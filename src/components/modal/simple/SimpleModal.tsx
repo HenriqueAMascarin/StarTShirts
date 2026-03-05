@@ -9,7 +9,6 @@ import {
 import React, { ReactNode, useEffect, useRef } from 'react';
 import CloseSvg from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
-import { appColors } from '@src/utils/appColors';
 import { stylesSimpleModal } from '@src/components/modal/simple/styles/stylesSimpleModal';
 
 type TypeDefaultModal = {

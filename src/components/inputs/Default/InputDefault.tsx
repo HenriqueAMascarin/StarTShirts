@@ -27,10 +27,12 @@ export default function InputDefault(inputProps: propsInput) {
         style={[stylesGlobal.defaultInput, inputProps.style]}
         placeholderTextColor={appColors.gray}
       />
-      
-      <TextDefault style={stylesGlobal.error}>
-        {inputProps?.errors?.message?.toString()}
-      </TextDefault>
+
+      {inputProps.required && (
+        <TextDefault style={stylesGlobal.error}>
+          {inputProps?.errors?.message?.toString()}
+        </TextDefault>
+      )}
     </View>
   );
 }

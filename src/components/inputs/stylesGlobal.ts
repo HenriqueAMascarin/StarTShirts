@@ -32,7 +32,7 @@ export const stylesGlobal = StyleSheet.create({
     paddingLeft: 5,
     color: appColors.red,
     alignSelf: 'flex-start',
-    flex: 1,
+    flexGrow: 1,
   },
   requiredSymbol: {
     color: appColors.red,
