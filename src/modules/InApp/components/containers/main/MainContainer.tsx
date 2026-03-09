@@ -3,15 +3,24 @@ import { ScrollView, View } from 'react-native';
 import { headerHeight } from '@src/modules/InApp/components/header/HeaderIndex';
 import FooterIndex from '@src/modules/InApp/components/footer/FooterIndex';
 import { stylesMainContainer } from '@src/modules/InApp/components/containers/main/styles/stylesMainContainer';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function MainContainer({ children }: { children: ReactNode }) {
   return (
-    <View style={{ marginTop: headerHeight }}>
-      <ScrollView style={stylesMainContainer.container}>
-        {children}
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <ScrollView
+          contentContainerStyle={[
+            stylesMainContainer.contentContainer,
+            { paddingTop: headerHeight },
+          ]}
+          style={stylesMainContainer.container}
+        >
+          <View style={stylesMainContainer.childrenContainer}>{children}</View>
 
-        <FooterIndex />
-      </ScrollView>
-    </View>
+          <FooterIndex />
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

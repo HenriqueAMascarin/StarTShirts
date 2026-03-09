@@ -21,6 +21,7 @@ import { useNavigation } from '@react-navigation/native';
 import { setLoginData } from '@src/services/user/login/methods/postLoginUser';
 import BottomContainer from '@src/components/containers/BottomContainer';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export type PropsPasswordResetIndex = NativeStackScreenProps<RootStackParamList, 'password-reset'>;
 
@@ -74,60 +75,64 @@ export default function PasswordResetIndex({ route }: PropsPasswordResetIndex) {
   }
 
   return (
-    <ScrollView>
-      <StarIconTopIndex />
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <ScrollView>
+          <StarIconTopIndex />
 
-      <PaddingContainer>
-        <BottomContainer>
-          <View style={{ marginBottom: 20 }}>
-            <TextTitleH1>Reset password</TextTitleH1>
-          </View>
+          <PaddingContainer>
+            <BottomContainer>
+              <View style={{ marginBottom: 20 }}>
+                <TextTitleH1>Reset password</TextTitleH1>
+              </View>
 
-          <View>
-            <View style={globalStyles.containerInputs}>
-              <Controller
-                control={passwordResetControl}
-                name="password"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputPassword
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    label="Password"
-                    errors={passwordResetErrors.password}
-                    testID="passwordInput"
-                    required
+              <View>
+                <View style={globalStyles.containerInputs}>
+                  <Controller
+                    control={passwordResetControl}
+                    name="password"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputPassword
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        label="Password"
+                        errors={passwordResetErrors.password}
+                        testID="passwordInput"
+                        required
+                      />
+                    )}
                   />
-                )}
-              />
 
-              <Controller
-                control={passwordResetControl}
-                name="confirmPassword"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputPassword
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    label="Confirm password"
-                    errors={passwordResetErrors.confirmPassword}
-                    testID="confirmPasswordInput"
-                    required
+                  <Controller
+                    control={passwordResetControl}
+                    name="confirmPassword"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputPassword
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        label="Confirm password"
+                        errors={passwordResetErrors.confirmPassword}
+                        testID="confirmPasswordInput"
+                        required
+                      />
+                    )}
                   />
-                )}
-              />
-            </View>
+                </View>
 
-            <View style={{ marginTop: 10 }}>
-              <DefaultButton
-                title="Reset password"
-                onPressIn={passwordResetHandleSubmit(onPasswordReset)}
-                testID="resetBtn"
-              />
-            </View>
-          </View>
-        </BottomContainer>
-      </PaddingContainer>
-    </ScrollView>
+                <View style={{ marginTop: 10 }}>
+                  <DefaultButton
+                    title="Reset password"
+                    onPressIn={passwordResetHandleSubmit(onPasswordReset)}
+                    testID="resetBtn"
+                  />
+                </View>
+              </View>
+            </BottomContainer>
+          </PaddingContainer>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

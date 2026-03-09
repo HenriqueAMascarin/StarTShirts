@@ -17,6 +17,7 @@ import { useState } from 'react';
 import BottomContainer from '@src/components/containers/BottomContainer';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function LoginIndex() {
   const {
@@ -51,69 +52,73 @@ export default function LoginIndex() {
   }
 
   return (
-    <ScrollView>
-      <StarIconTopIndex />
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <ScrollView>
+          <StarIconTopIndex />
 
-      <PaddingContainer>
-        <BottomContainer>
-          <View style={{ marginBottom: 20 }}>
-            <TextTitleH1>Welcome back</TextTitleH1>
-          </View>
+          <PaddingContainer>
+            <BottomContainer>
+              <View style={{ marginBottom: 20 }}>
+                <TextTitleH1>Welcome back</TextTitleH1>
+              </View>
 
-          <View>
-            <View style={globalStyles.containerInputs}>
-              <Controller
-                control={loginControl}
-                name="email"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputDefault
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    label="E-mail"
-                    inputMode="email"
-                    errors={loginErrors.email}
-                    testID="emailInput"
-                    required
+              <View>
+                <View style={globalStyles.containerInputs}>
+                  <Controller
+                    control={loginControl}
+                    name="email"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputDefault
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        label="E-mail"
+                        inputMode="email"
+                        errors={loginErrors.email}
+                        testID="emailInput"
+                        required
+                      />
+                    )}
                   />
-                )}
-              />
 
-              <Controller
-                control={loginControl}
-                name="password"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputPassword
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    label="Password"
-                    errors={loginErrors.password}
-                    forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
-                    testID="passwordInput"
-                    required
+                  <Controller
+                    control={loginControl}
+                    name="password"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputPassword
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        label="Password"
+                        errors={loginErrors.password}
+                        forgotPassword={{ hasForgotBtn: true, function: forgotPasswordFunction }}
+                        testID="passwordInput"
+                        required
+                      />
+                    )}
                   />
-                )}
-              />
-            </View>
+                </View>
 
-            <View style={{ marginTop: 10 }}>
-              <Checkbox
-                stateValue={checkboxState}
-                changeStateValueFn={changeCheckboxState}
-                label="Remember me"
-                style={{ marginBottom: 8 }}
-              />
+                <View style={{ marginTop: 10 }}>
+                  <Checkbox
+                    stateValue={checkboxState}
+                    changeStateValueFn={changeCheckboxState}
+                    label="Remember me"
+                    style={{ marginBottom: 8 }}
+                  />
 
-              <DefaultButton title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
+                  <DefaultButton title="Login" onPressIn={loginHandleSubmit(onLoginSubmit)} />
 
-              <LineObject text="or" />
+                  <LineObject text="or" />
 
-              <BorderButton title="Create account" onPressIn={changeBtnMethod}/>
-            </View>
-          </View>
-        </BottomContainer>
-      </PaddingContainer>
-    </ScrollView>
+                  <BorderButton title="Create account" onPressIn={changeBtnMethod} />
+                </View>
+              </View>
+            </BottomContainer>
+          </PaddingContainer>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

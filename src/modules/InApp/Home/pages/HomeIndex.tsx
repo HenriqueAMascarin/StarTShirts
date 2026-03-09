@@ -13,9 +13,9 @@ import SloganSVGText from '@src/assets/svgs/sloganText.svg';
 function SloganTShirt() {
   return (
     <View style={stylesSlogan.container}>
-      <Image style={stylesSlogan.image} source={whiteTShirtImg} width={155} height={165}/>
+      <Image style={stylesSlogan.image} source={whiteTShirtImg} width={155} height={165} />
 
-      <SloganSVGText accessibilityLabel="Most purchased t-shirt" width="204" height="109"/>
+      <SloganSVGText accessibilityLabel="Most purchased t-shirt" width="204" height="109" />
     </View>
   );
 }
@@ -31,12 +31,13 @@ function ProductsContent() {
 
   return (
     <View style={stylesProductsContent.container}>
-      <Suspense fallback={<LoadingScreen />}>
-        {products &&
-          products.map((product, keyProduct) => {
-            return <ProductCard {...product} key={keyProduct} />;
-          })}
-      </Suspense>
+      {products ? (
+        products.map((product, keyProduct) => {
+          return <ProductCard {...product} key={keyProduct} />;
+        })
+      ) : (
+        <LoadingScreen />
+      )}
     </View>
   );
 }

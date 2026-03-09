@@ -3,12 +3,8 @@ import { StyleSheet } from 'react-native';
 
 export const stylesFooterIndex = StyleSheet.create({
   container: {
-    flex: 1,
-    minHeight: '100%',
-    maxHeight: 300,
     backgroundColor: appColors.black,
     paddingVertical: 30,
-    marginTop: 'auto',
   },
   logoContainer: {
     display: 'flex',

@@ -19,9 +19,10 @@ type typeModalChangeEmail = {
     simpleModalState: boolean;
     changeSimpleModalState: React.Dispatch<React.SetStateAction<boolean>>;
   };
+  userId: number,
 };
 
-export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeEmail) {
+export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModalChangeEmail) {
   const {
     control: emailFormControl,
     handleSubmit: emailFormHandleSubmit,
@@ -32,7 +33,7 @@ export default function ModalChangeEmail({ statesSimpleModal }: typeModalChangeE
   });
 
   async function onChangeEmail(formValues: typeChangeEmailSchema) {
-    const payload = { ...formValues };
+    const payload = { ...formValues, id: userId };
 
     const response = await putUser(payload);
 

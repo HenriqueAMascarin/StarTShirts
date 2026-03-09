@@ -18,6 +18,7 @@ import TextDefault from '@src/components/texts/default/TextDefault';
 import BottomContainer from '@src/components/containers/BottomContainer';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import BorderButton from '@src/components/buttons/border/BorderButton';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function ResetRequestIndex() {
   const {
@@ -46,52 +47,56 @@ export default function ResetRequestIndex() {
   }
 
   return (
-    <ScrollView>
-      <StarIconTopIndex />
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <ScrollView>
+          <StarIconTopIndex />
 
-      <PaddingContainer>
-        <BottomContainer>
-          <View style={{ marginBottom: 20 }}>
-            <TextTitleH1>Reset password</TextTitleH1>
+          <PaddingContainer>
+            <BottomContainer>
+              <View style={{ marginBottom: 20 }}>
+                <TextTitleH1>Reset password</TextTitleH1>
 
-            <TextDefault>
-              Please enter your e-mail and we will send a link to reset your password.
-            </TextDefault>
-          </View>
+                <TextDefault>
+                  Please enter your e-mail and we will send a link to reset your password.
+                </TextDefault>
+              </View>
 
-          <View>
-            <View style={globalStyles.containerInputs}>
-              <Controller
-                control={resetRequestControl}
-                name="email"
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <InputDefault
-                    onBlur={onBlur}
-                    onChangeText={onChange}
-                    value={value}
-                    label="E-mail"
-                    inputMode="email"
-                    errors={resetRequestErrors.email}
-                    testID="emailInput"
-                    required
+              <View>
+                <View style={globalStyles.containerInputs}>
+                  <Controller
+                    control={resetRequestControl}
+                    name="email"
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <InputDefault
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        label="E-mail"
+                        inputMode="email"
+                        errors={resetRequestErrors.email}
+                        testID="emailInput"
+                        required
+                      />
+                    )}
                   />
-                )}
-              />
-            </View>
+                </View>
 
-            <View style={{ marginTop: 10 }}>
-              <DefaultButton
-                title="Send e-mail"
-                onPressIn={resetRequestHandleSubmit(onResetSubmit)}
-              />
+                <View style={{ marginTop: 10 }}>
+                  <DefaultButton
+                    title="Send e-mail"
+                    onPressIn={resetRequestHandleSubmit(onResetSubmit)}
+                  />
 
-              <LineObject text="or" />
+                  <LineObject text="or" />
 
-              <BorderButton title="Login" onPressIn={changeBtnMethod} />
-            </View>
-          </View>
-        </BottomContainer>
-      </PaddingContainer>
-    </ScrollView>
+                  <BorderButton title="Login" onPressIn={changeBtnMethod} />
+                </View>
+              </View>
+            </BottomContainer>
+          </PaddingContainer>
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

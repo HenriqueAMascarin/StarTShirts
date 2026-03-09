@@ -61,72 +61,65 @@ function AccountContent(accountData: UserLoggedType) {
           simpleModalState: simpleEmailModalState,
           changeSimpleModalState: changeEmailSimpleModalState,
         }}
+        userId={accountData.id}
       />
 
-      <Suspense fallback={<LoadingPageScreen />}>
-        <MainContainer>
-          <PaddingContainer>
-            <View style={stylesAccountIndex.containerUserPicture}>
-              <UserSVG width={'170'} height={'170'} />
+      <MainContainer>
+        <PaddingContainer>
+          <View style={stylesAccountIndex.containerUserPicture}>
+            <UserSVG width={'170'} height={'170'} />
 
-              <TextTitleH2>{userName}</TextTitleH2>
+            <TextTitleH2>{userName}</TextTitleH2>
+          </View>
+
+          <View>
+            <TextTitleH3>Sign-in info</TextTitleH3>
+
+            <View style={stylesAccountIndex.containersInfo}>
+              <TextDefault>E-mail</TextDefault>
+
+              <TextDefault>{accountData?.email}</TextDefault>
+
+              <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
             </View>
 
-            <View>
-              <TextTitleH3>Sign-in info</TextTitleH3>
+            <View style={stylesAccountIndex.containersInfo}>
+              <TextTitleH3>Password</TextTitleH3>
 
-              <View style={stylesAccountIndex.containersInfo}>
-                <TextDefault>E-mail</TextDefault>
-
-                <TextDefault>{accountData?.email}</TextDefault>
-
-                <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
-              </View>
-
-              <View style={stylesAccountIndex.containersInfo}>
-                <TextTitleH3>Password</TextTitleH3>
-
-                <UnderlineTextButton
-                  title="Change password"
-                  onPressIn={onOpenModalChangePassword}
-                />
-              </View>
+              <UnderlineTextButton title="Change password" onPressIn={onOpenModalChangePassword} />
             </View>
+          </View>
 
-            <LineObject customPaddingVertical={10} />
+          <LineObject customPaddingVertical={10} />
 
-            <View>
-              <TextTitleH3>Personal info</TextTitleH3>
+          <View>
+            <TextTitleH3>Personal info</TextTitleH3>
 
-              <View style={stylesAccountIndex.containersInfo}>
-                <TextDefault>Full name</TextDefault>
+            <View style={stylesAccountIndex.containersInfo}>
+              <TextDefault>Full name</TextDefault>
 
-                <TextDefault>{fullName}</TextDefault>
+              <TextDefault>{fullName}</TextDefault>
 
-                <UnderlineTextButton
-                  title="Change full name"
-                  onPressIn={onOpenModalChangeFullName}
-                />
-              </View>
+              <UnderlineTextButton title="Change full name" onPressIn={onOpenModalChangeFullName} />
             </View>
+          </View>
 
-            <LineObject customPaddingVertical={10} />
+          <LineObject customPaddingVertical={10} />
 
-            <View style={stylesAccountIndex.containerSecurity}>
-              <TextTitleH3>Security</TextTitleH3>
+          <View style={stylesAccountIndex.containerSecurity}>
+            <TextTitleH3>Security</TextTitleH3>
 
-              <View style={stylesAccountIndex.containersInfo}>
-                <TextDefault>Log out of your account</TextDefault>
+            <View style={stylesAccountIndex.containersInfo}>
+              <TextDefault>Log out of your account</TextDefault>
 
-                <UnderlineTextButton
-                  title="Sign out"
-                  onPressIn={async () => await signOutAccount(navigation.navigate)}
-                />
-              </View>
+              <UnderlineTextButton
+                title="Sign out"
+                onPressIn={async () => await signOutAccount(navigation.navigate)}
+              />
             </View>
-          </PaddingContainer>
-        </MainContainer>
-      </Suspense>
+          </View>
+        </PaddingContainer>
+      </MainContainer>
     </>
   );
 }
@@ -142,5 +135,5 @@ export default function AccountIndex() {
     changeAccountData(accountData);
   })();
 
-  return <>{accountData && <AccountContent {...accountData} />}</>;
+  return <>{accountData ? <AccountContent {...accountData} /> : <LoadingPageScreen />}</>;
 }
