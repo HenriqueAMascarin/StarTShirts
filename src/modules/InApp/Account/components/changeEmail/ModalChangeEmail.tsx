@@ -5,7 +5,7 @@ import { useForm, Controller } from 'react-hook-form';
 import {
   typeChangeEmailSchema,
   useChangeEmailSchema,
-} from '@src/modules/InApp/Account/components/changeEmail/useChangeEmailSchema';
+} from '@src/modules/InApp/Account/components/changeEmail/schema/useChangeEmailSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
@@ -13,16 +13,38 @@ import { putUser } from '@src/services/user/methods/putUser';
 import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
 import { View } from 'react-native';
 import { stylesGeneralAccountComponents } from '@src/modules/InApp/Account/components/generalStyles/stylesGeneralAccountComponents';
+import { signOutAccount } from '@src/utils/signOutAccount';
+import { useNavigation } from '@react-navigation/native';
 
 type typeModalChangeEmail = {
   statesSimpleModal: {
     simpleModalState: boolean;
     changeSimpleModalState: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  userId: number,
+  userId: number;
 };
 
 export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModalChangeEmail) {
+  const navigation = useNavigation();
+
+  async function onChangeEmail(formValues: typeChangeEmailSchema) {
+    const rawFormValues = { ...formValues };
+
+    let payload = {
+      id: userId,
+      currentPassword: rawFormValues.currentPassword,
+      email: rawFormValues.email,
+    };
+
+    const response = await putUser(payload);
+
+    if (response?.messageSuccess) {
+      statesSimpleModal.changeSimpleModalState(false);
+
+      signOutAccount(navigation?.navigate);
+    }
+  }
+
   const {
     control: emailFormControl,
     handleSubmit: emailFormHandleSubmit,
@@ -31,16 +53,6 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
     resolver: zodResolver(useChangeEmailSchema),
     mode: 'onSubmit',
   });
-
-  async function onChangeEmail(formValues: typeChangeEmailSchema) {
-    const payload = { ...formValues, id: userId };
-
-    const response = await putUser(payload);
-
-    if (response?.messageSuccess) {
-      statesSimpleModal.changeSimpleModalState(false);
-    }
-  }
 
   return (
     <SimpleModal
@@ -51,7 +63,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
     >
       <View style={stylesGeneralAccountComponents.containerForm}>
         <TextTitleH3 style={stylesGeneralAccountComponents.title}>Change e-mail</TextTitleH3>
-        
+
         <Controller
           control={emailFormControl}
           name="email"
@@ -62,6 +74,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
               value={value}
               label="New e-mail"
               errors={emailFormErrors.email}
+              testID="emailInput"
               required
             />
           )}
@@ -77,6 +90,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
               value={value}
               label="Confirm new e-mail"
               errors={emailFormErrors.confirmEmail}
+              testID="confirmEmailInput"
               required
             />
           )}
@@ -92,6 +106,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
               value={value}
               label="Current password"
               errors={emailFormErrors.currentPassword}
+              testID="currentPasswordInput"
               required
             />
           )}
@@ -101,6 +116,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
           title="Change e-mail"
           onPressIn={emailFormHandleSubmit(onChangeEmail)}
           style={stylesGeneralAccountComponents.submitFormBtn}
+          testID="changeEmailBtn"
         />
       </View>
     </SimpleModal>

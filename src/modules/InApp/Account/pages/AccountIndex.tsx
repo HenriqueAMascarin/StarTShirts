@@ -114,7 +114,7 @@ function AccountContent(accountData: UserLoggedType) {
 
               <UnderlineTextButton
                 title="Sign out"
-                onPressIn={async () => await signOutAccount(navigation.navigate)}
+                onPressIn={() => signOutAccount(navigation.navigate)}
               />
             </View>
           </View>

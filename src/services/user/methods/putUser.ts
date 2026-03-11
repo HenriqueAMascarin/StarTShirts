@@ -22,6 +22,8 @@ export const putUser = async (userData: putUserType) => {
     if (userData.currentPassword && userData.currentPassword != userDataById?.password) {
       status = { ...status, errors: { email: "Incorrect password" } };
     } else {
+      delete userData.currentPassword;
+
       const newUserEditedData = { ...userDataById, ...userData };
 
       const indexUserById = userResponseAll.findIndex((user) => user.id === newUserEditedData.id);
