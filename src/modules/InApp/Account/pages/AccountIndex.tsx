@@ -16,6 +16,7 @@ import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
 import { stylesAccountIndex } from '@src/modules/InApp/Account/styles/stylesAccountIndex';
 import { signOutAccount } from '@src/utils/signOutAccount';
 import { useNavigation } from '@react-navigation/native';
+import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
 
 function AccountContent(accountData: UserLoggedType) {
   const userName = useMemo(() => `${accountData?.firstName}'s account`, [accountData?.firstName]);
@@ -60,6 +61,14 @@ function AccountContent(accountData: UserLoggedType) {
         statesSimpleModal={{
           simpleModalState: simpleEmailModalState,
           changeSimpleModalState: changeEmailSimpleModalState,
+        }}
+        userId={accountData.id}
+      />
+
+      <ModalChangePassword
+        statesSimpleModal={{
+          simpleModalState: simplePasswordModalState,
+          changeSimpleModalState: changePasswordSimpleModalState,
         }}
         userId={accountData.id}
       />

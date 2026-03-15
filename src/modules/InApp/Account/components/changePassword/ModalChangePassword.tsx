@@ -15,18 +15,22 @@ import { View } from 'react-native';
 import { stylesGeneralAccountComponents } from '@src/modules/InApp/Account/components/generalStyles/stylesGeneralAccountComponents';
 import { signOutAccount } from '@src/utils/signOutAccount';
 import { useNavigation } from '@react-navigation/native';
+import {
+  typeChangePasswordSchema,
+  useChangePasswordSchema,
+} from '@src/modules/InApp/Account/components/changePassword/schema/useChangePasswordSchema';
 import { typeModalChanges } from '@src/modules/InApp/Account/components/utils/typeModalChanges';
 
 export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModalChanges) {
   const navigation = useNavigation();
 
-  async function onChangeEmail(formValues: typeChangeEmailSchema) {
+  async function onChangePassword(formValues: typeChangePasswordSchema) {
     const rawFormValues = { ...formValues };
 
     let payload = {
       id: userId,
       currentPassword: rawFormValues.currentPassword,
-      email: rawFormValues.email,
+      password: formValues.password,
     };
 
     const response = await putUser(payload);
@@ -41,11 +45,11 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
   }
 
   const {
-    control: emailFormControl,
-    handleSubmit: emailFormHandleSubmit,
-    formState: { errors: emailFormErrors },
-  } = useForm<typeChangeEmailSchema>({
-    resolver: zodResolver(useChangeEmailSchema),
+    control: passwordFormControl,
+    handleSubmit: passwordFormHandleSubmit,
+    formState: { errors: passwordFormErrors },
+  } = useForm<typeChangePasswordSchema>({
+    resolver: zodResolver(useChangePasswordSchema),
     mode: 'onSubmit',
   });
 
@@ -57,42 +61,42 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
       }}
     >
       <View style={stylesGeneralAccountComponents.containerForm}>
-        <TextTitleH3 style={stylesGeneralAccountComponents.title}>Change e-mail</TextTitleH3>
+        <TextTitleH3 style={stylesGeneralAccountComponents.title}>Change password</TextTitleH3>
 
         <Controller
-          control={emailFormControl}
-          name="email"
+          control={passwordFormControl}
+          name="password"
           render={({ field: { onChange, onBlur, value } }) => (
-            <InputDefault
+            <InputPassword
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              label="New e-mail"
-              errors={emailFormErrors.email}
-              testID="newEmailInput"
+              label="New password"
+              errors={passwordFormErrors.password}
+              testID="newPasswordInput"
               required
             />
           )}
         />
 
         <Controller
-          control={emailFormControl}
-          name="confirmEmail"
+          control={passwordFormControl}
+          name="confirmPassword"
           render={({ field: { onChange, onBlur, value } }) => (
-            <InputDefault
+            <InputPassword
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              label="Confirm new e-mail"
-              errors={emailFormErrors.confirmEmail}
-              testID="confirmEmailInput"
+              label="Confirm password"
+              errors={passwordFormErrors.confirmPassword}
+              testID="confirmPasswordInput"
               required
             />
           )}
         />
 
         <Controller
-          control={emailFormControl}
+          control={passwordFormControl}
           name="currentPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <InputPassword
@@ -100,7 +104,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
               onChangeText={onChange}
               value={value}
               label="Current password"
-              errors={emailFormErrors.currentPassword}
+              errors={passwordFormErrors.currentPassword}
               testID="currentPasswordInput"
               required
             />
@@ -108,10 +112,10 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
         />
 
         <DefaultButton
-          title="Change e-mail"
-          onPressIn={emailFormHandleSubmit(onChangeEmail)}
+          title="Change password"
+          onPressIn={passwordFormHandleSubmit(onChangePassword)}
           style={stylesGeneralAccountComponents.submitFormBtn}
-          testID="changeEmailBtn"
+          testID="changePasswordBtn"
         />
       </View>
     </SimpleModal>

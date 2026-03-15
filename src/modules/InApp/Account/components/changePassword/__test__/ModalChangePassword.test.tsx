@@ -3,7 +3,7 @@ import React from 'react';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
-import ModalChangeEmail from '@src/modules/InApp/Account/components/changeEmail/ModalChangeEmail';
+import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
 import { responseUserMock } from '@src/utils/test/responseUserMock';
 
 const mockedNavigate = jest.fn();
@@ -12,12 +12,12 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: mockedNavigate }),
 }));
 
-const changeEmailPayload = {
+const changePasswordPayload = {
   ...responseUserMock,
-  email: 'newTestEmail@gmail.com',
+  password: 'NewPassword123!',
 };
 
-describe('ModalChangeEmail', () => {
+describe('ModalChangePassword', () => {
   it('Should have a USER REGISTERED', async () => {
     const userArray = [responseUserMock];
 
@@ -28,10 +28,10 @@ describe('ModalChangeEmail', () => {
     expect(dataRawUsers).toEqual(userArray);
   });
 
-  it('Should CHANGE EMAIL', async () => {
+  it('Should CHANGE PASSWORD', async () => {
     render(
-      <ModalChangeEmail
-        userId={changeEmailPayload.id}
+      <ModalChangePassword
+        userId={changePasswordPayload.id}
         statesSimpleModal={{
           simpleModalState: true,
           changeSimpleModalState: () => {},
@@ -39,26 +39,26 @@ describe('ModalChangeEmail', () => {
       />,
     );
 
-    const elementButton = screen.getByTestId('changeEmailBtn');
+    const elementButton = screen.getByTestId('changePasswordBtn');
 
-    const newEmailInput = screen.getByTestId('newEmailInput');
+    const newPasswordInput = screen.getByTestId('newPasswordInput');
 
-    const confirmEmailInput = screen.getByTestId('confirmEmailInput');
+    const confirmPasswordInput = screen.getByTestId('confirmPasswordInput');
 
     const currentPasswordInput = screen.getByTestId('currentPasswordInput');
 
     const user = userEvent.setup();
 
-    await user.type(newEmailInput, changeEmailPayload.email);
+    await user.type(newPasswordInput, changePasswordPayload.password);
 
-    await user.type(confirmEmailInput, changeEmailPayload.email);
+    await user.type(confirmPasswordInput, changePasswordPayload.password);
 
-    await user.type(currentPasswordInput, changeEmailPayload.password);
+    await user.type(currentPasswordInput, responseUserMock.password);
 
     await user.press(elementButton);
 
     const dataResetRequests = await getDataLocalStorageMock({ keyStorage: 'usersKey' });
 
-    expect(dataResetRequests[0]).toEqual(changeEmailPayload);
+    expect(dataResetRequests[0]).toEqual(changePasswordPayload);
   });
 });

@@ -6,24 +6,16 @@ import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
-
-// min 8 characters for password (see the schema of register)
-const responseMock = {
-  firstName: 'Henrique',
-  lastName: 'Test',
-  email: 'test@gmail.com',
-  password: 'testPassword',
-  id: 0,
-};
+import { responseUserMock } from '@src/utils/test/responseUserMock';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 describe('RegisterIndex', () => {
   it('Should do a REGISTRATION', async () => {
     const mockFormData = {
-      ...responseMock,
+      ...responseUserMock,
       id: undefined,
-      confirmPassword: responseMock.password,
+      confirmPassword: responseUserMock.password,
     };
 
     render(
@@ -56,11 +48,11 @@ describe('RegisterIndex', () => {
 
     const dataUsers = await getDataLocalStorageMock({ keyStorage: 'usersKey' });
 
-    expect(dataUsers[0]).toEqual(responseMock);
+    expect(dataUsers[0]).toEqual(responseUserMock);
   });
 
   it('Should LOGIN after registration', async () => {
-    const responseLoggedUser = { ...responseMock, rememberMe: true };
+    const responseLoggedUser = { ...responseUserMock, rememberMe: true };
 
     const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
 

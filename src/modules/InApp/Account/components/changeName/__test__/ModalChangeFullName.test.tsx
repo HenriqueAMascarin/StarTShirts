@@ -3,7 +3,7 @@ import React from 'react';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
-import ModalChangeEmail from '@src/modules/InApp/Account/components/changeEmail/ModalChangeEmail';
+import ModalChangeFullName from '@src/modules/InApp/Account/components/changeName/ModalChangeFullName.tsx';
 import { responseUserMock } from '@src/utils/test/responseUserMock';
 
 const mockedNavigate = jest.fn();
@@ -12,9 +12,10 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ navigate: mockedNavigate }),
 }));
 
-const changeEmailPayload = {
+const changeFullNamePayload = {
   ...responseUserMock,
-  email: 'newTestEmail@gmail.com',
+  firstName: 'NewFirstName',
+  lastName: 'NewLastName'
 };
 
 describe('ModalChangeEmail', () => {
@@ -28,10 +29,10 @@ describe('ModalChangeEmail', () => {
     expect(dataRawUsers).toEqual(userArray);
   });
 
-  it('Should CHANGE EMAIL', async () => {
+  it('Should CHANGE FULL NAME', async () => {
     render(
-      <ModalChangeEmail
-        userId={changeEmailPayload.id}
+      <ModalChangeFullName
+        userId={changeFullNamePayload.id}
         statesSimpleModal={{
           simpleModalState: true,
           changeSimpleModalState: () => {},
@@ -39,26 +40,26 @@ describe('ModalChangeEmail', () => {
       />,
     );
 
-    const elementButton = screen.getByTestId('changeEmailBtn');
+    const elementButton = screen.getByTestId('changeFullNameBtn');
 
-    const newEmailInput = screen.getByTestId('newEmailInput');
+    const newfirstNameInput = screen.getByTestId('newfirstNameInput');
 
-    const confirmEmailInput = screen.getByTestId('confirmEmailInput');
+    const newLastNameInput = screen.getByTestId('newLastNameInput');
 
     const currentPasswordInput = screen.getByTestId('currentPasswordInput');
 
     const user = userEvent.setup();
 
-    await user.type(newEmailInput, changeEmailPayload.email);
+    await user.type(newfirstNameInput, changeFullNamePayload.firstName);
 
-    await user.type(confirmEmailInput, changeEmailPayload.email);
+    await user.type(newLastNameInput, changeFullNamePayload.lastName);
 
-    await user.type(currentPasswordInput, changeEmailPayload.password);
+    await user.type(currentPasswordInput, changeFullNamePayload.password);
 
     await user.press(elementButton);
 
     const dataResetRequests = await getDataLocalStorageMock({ keyStorage: 'usersKey' });
 
-    expect(dataResetRequests[0]).toEqual(changeEmailPayload);
+    expect(dataResetRequests[0]).toEqual(changeFullNamePayload);
   });
 });

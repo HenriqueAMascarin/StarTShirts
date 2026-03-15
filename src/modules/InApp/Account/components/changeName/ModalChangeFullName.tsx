@@ -2,10 +2,6 @@ import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import React from 'react';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useForm, Controller } from 'react-hook-form';
-import {
-  typeChangeEmailSchema,
-  useChangeEmailSchema,
-} from '@src/modules/InApp/Account/components/changeEmail/schema/useChangeEmailSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
@@ -16,17 +12,22 @@ import { stylesGeneralAccountComponents } from '@src/modules/InApp/Account/compo
 import { signOutAccount } from '@src/utils/signOutAccount';
 import { useNavigation } from '@react-navigation/native';
 import { typeModalChanges } from '@src/modules/InApp/Account/components/utils/typeModalChanges';
+import {
+  typeChangeFullNameSchema,
+  useChangeFullNameSchema,
+} from '@src/modules/InApp/Account/components/changeName/schema/useChangeFullNameSchema';
 
 export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModalChanges) {
   const navigation = useNavigation();
 
-  async function onChangeEmail(formValues: typeChangeEmailSchema) {
+  async function onChangeFullName(formValues: typeChangeFullNameSchema) {
     const rawFormValues = { ...formValues };
 
     let payload = {
       id: userId,
+      firstName: rawFormValues.firstName,
+      lastName: rawFormValues.lastName,
       currentPassword: rawFormValues.currentPassword,
-      email: rawFormValues.email,
     };
 
     const response = await putUser(payload);
@@ -41,11 +42,11 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
   }
 
   const {
-    control: emailFormControl,
-    handleSubmit: emailFormHandleSubmit,
-    formState: { errors: emailFormErrors },
-  } = useForm<typeChangeEmailSchema>({
-    resolver: zodResolver(useChangeEmailSchema),
+    control: fullNameFormControl,
+    handleSubmit: fullNameFormHandleSubmit,
+    formState: { errors: fullNameFormErrors },
+  } = useForm<typeChangeFullNameSchema>({
+    resolver: zodResolver(useChangeFullNameSchema),
     mode: 'onSubmit',
   });
 
@@ -57,42 +58,42 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
       }}
     >
       <View style={stylesGeneralAccountComponents.containerForm}>
-        <TextTitleH3 style={stylesGeneralAccountComponents.title}>Change e-mail</TextTitleH3>
+        <TextTitleH3 style={stylesGeneralAccountComponents.title}>Change full name</TextTitleH3>
 
         <Controller
-          control={emailFormControl}
-          name="email"
+          control={fullNameFormControl}
+          name="firstName"
           render={({ field: { onChange, onBlur, value } }) => (
             <InputDefault
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              label="New e-mail"
-              errors={emailFormErrors.email}
-              testID="newEmailInput"
+              label="New first name"
+              errors={fullNameFormErrors.firstName}
+              testID="newfirstNameInput"
               required
             />
           )}
         />
 
         <Controller
-          control={emailFormControl}
-          name="confirmEmail"
+          control={fullNameFormControl}
+          name="lastName"
           render={({ field: { onChange, onBlur, value } }) => (
             <InputDefault
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
-              label="Confirm new e-mail"
-              errors={emailFormErrors.confirmEmail}
-              testID="confirmEmailInput"
+              label="New last name"
+              errors={fullNameFormErrors.lastName}
+              testID="newLastNameInput"
               required
             />
           )}
         />
 
         <Controller
-          control={emailFormControl}
+          control={fullNameFormControl}
           name="currentPassword"
           render={({ field: { onChange, onBlur, value } }) => (
             <InputPassword
@@ -100,7 +101,7 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
               onChangeText={onChange}
               value={value}
               label="Current password"
-              errors={emailFormErrors.currentPassword}
+              errors={fullNameFormErrors.currentPassword}
               testID="currentPasswordInput"
               required
             />
@@ -108,10 +109,10 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
         />
 
         <DefaultButton
-          title="Change e-mail"
-          onPressIn={emailFormHandleSubmit(onChangeEmail)}
+          title="Change full name"
+          onPressIn={fullNameFormHandleSubmit(onChangeFullName)}
           style={stylesGeneralAccountComponents.submitFormBtn}
-          testID="changeEmailBtn"
+          testID="changeFullNameBtn"
         />
       </View>
     </SimpleModal>
