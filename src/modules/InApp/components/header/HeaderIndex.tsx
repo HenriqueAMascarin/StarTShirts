@@ -13,6 +13,7 @@ import useDrawerModalHook from '@src/components/modal/drawer/hooks/useDrawerModa
 import { stylesMenuDrawerModal } from '@src/modules/InApp/components/header/styles/stylesMenuDrawerModal';
 import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
 import { signOutAccount } from '@src/utils/signOutAccount';
+import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
 
 type TypeMenuDrawerModal = {
   stateDrawerModal: boolean;
@@ -109,11 +110,11 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
         onPressIn={onNavigate}
       >
         <View style={stylesGlobalModal.paddingContainer}>
-          <TextDefault
+          <TextTitleH4
             style={[stylesMenuDrawerModal.textMenu, { opacity: textAnimatedOpacity.current }]}
           >
             {label}
-          </TextDefault>
+          </TextTitleH4>
         </View>
       </TouchableOpacity>
     );
@@ -134,9 +135,9 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
             onPressIn={async () => await signOutAccount(navigateFn)}
           >
             <View style={stylesGlobalModal.paddingContainer}>
-              <TextDefault style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>
+              <TextTitleH4 style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>
                 Sign Out
-              </TextDefault>
+              </TextTitleH4>
             </View>
           </TouchableOpacity>
         </View>
