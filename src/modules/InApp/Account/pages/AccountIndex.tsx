@@ -18,6 +18,7 @@ import { signOutAccount } from '@src/utils/signOutAccount';
 import { useNavigation } from '@react-navigation/native';
 import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
 import ModalChangeFullName from '@src/modules/InApp/Account/components/changeName/ModalChangeFullName';
+import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
 
 function AccountContent(accountData: UserLoggedType) {
   const userName = useMemo(() => {
@@ -61,7 +62,7 @@ function AccountContent(accountData: UserLoggedType) {
   }
 
   const fullName = useMemo(
-    () => accountData?.firstName + accountData?.lastName,
+    () => `${accountData?.firstName} ${accountData?.lastName}`,
     [accountData?.firstName, accountData?.lastName],
   );
 
@@ -100,30 +101,35 @@ function AccountContent(accountData: UserLoggedType) {
           </View>
 
           <View>
-            <TextTitleH3>Sign-in info</TextTitleH3>
+            <TextTitleH3 style={stylesAccountIndex.titleSection}>Sign-in info</TextTitleH3>
 
-            <View style={stylesAccountIndex.containersInfo}>
-              <TextDefault>E-mail</TextDefault>
+            <View style={stylesAccountIndex.containersFlexInfo}>
+              <View style={stylesAccountIndex.containersInfo}>
+                <TextTitleH4>E-mail</TextTitleH4>
 
-              <TextDefault>{accountData?.email}</TextDefault>
+                <TextDefault>{accountData?.email}</TextDefault>
 
-              <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
-            </View>
+                <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
+              </View>
 
-            <View style={stylesAccountIndex.containersInfo}>
-              <TextTitleH3>Password</TextTitleH3>
+              <View style={stylesAccountIndex.containersInfo}>
+                <TextTitleH4>Password</TextTitleH4>
 
-              <UnderlineTextButton title="Change password" onPressIn={onOpenModalChangePassword} />
+                <UnderlineTextButton
+                  title="Change password"
+                  onPressIn={onOpenModalChangePassword}
+                />
+              </View>
             </View>
           </View>
 
           <LineObject customPaddingVertical={10} />
 
           <View>
-            <TextTitleH3>Personal info</TextTitleH3>
+            <TextTitleH3 style={stylesAccountIndex.titleSection}>Personal info</TextTitleH3>
 
             <View style={stylesAccountIndex.containersInfo}>
-              <TextDefault>Full name</TextDefault>
+              <TextTitleH4>Full name</TextTitleH4>
 
               <TextDefault>{fullName}</TextDefault>
 
@@ -134,10 +140,10 @@ function AccountContent(accountData: UserLoggedType) {
           <LineObject customPaddingVertical={10} />
 
           <View style={stylesAccountIndex.containerSecurity}>
-            <TextTitleH3>Security</TextTitleH3>
+            <TextTitleH3 style={stylesAccountIndex.titleSection}>Security</TextTitleH3>
 
             <View style={stylesAccountIndex.containersInfo}>
-              <TextDefault>Log out of your account</TextDefault>
+              <TextTitleH4>Log out of your account</TextTitleH4>
 
               <UnderlineTextButton
                 title="Sign out"
