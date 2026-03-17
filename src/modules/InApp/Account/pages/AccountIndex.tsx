@@ -12,14 +12,24 @@ import LineObject from '@src/components/objects/line/LineObject';
 import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import ModalChangeEmail from '@src/modules/InApp/Account/components/changeEmail/ModalChangeEmail';
-import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
+import TextTitleH3 from '@src/components/texts/h3/TextTitleH3';
 import { stylesAccountIndex } from '@src/modules/InApp/Account/styles/stylesAccountIndex';
 import { signOutAccount } from '@src/utils/signOutAccount';
 import { useNavigation } from '@react-navigation/native';
 import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
+import ModalChangeFullName from '@src/modules/InApp/Account/components/changeName/ModalChangeFullName';
 
 function AccountContent(accountData: UserLoggedType) {
-  const userName = useMemo(() => `${accountData?.firstName}'s account`, [accountData?.firstName]);
+  const userName = useMemo(() => {
+    const newFirstName =
+      accountData?.firstName?.length > 10
+        ? accountData?.firstName?.slice(0, 10) + '...'
+        : accountData?.firstName;
+
+    const title = `${newFirstName}'s account`;
+
+    return title;
+  }, [accountData?.firstName]);
 
   const navigation = useNavigation();
 
@@ -69,6 +79,14 @@ function AccountContent(accountData: UserLoggedType) {
         statesSimpleModal={{
           simpleModalState: simplePasswordModalState,
           changeSimpleModalState: changePasswordSimpleModalState,
+        }}
+        userId={accountData.id}
+      />
+
+      <ModalChangeFullName
+        statesSimpleModal={{
+          simpleModalState: simpleFullNameModalState,
+          changeSimpleModalState: changeFullNameSimpleModalState,
         }}
         userId={accountData.id}
       />

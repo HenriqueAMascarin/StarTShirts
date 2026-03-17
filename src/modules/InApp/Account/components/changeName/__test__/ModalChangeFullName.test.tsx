@@ -18,7 +18,7 @@ const changeFullNamePayload = {
   lastName: 'NewLastName'
 };
 
-describe('ModalChangeEmail', () => {
+describe('ModalChangeFullName', () => {
   it('Should have a USER REGISTERED', async () => {
     const userArray = [responseUserMock];
 
@@ -42,7 +42,7 @@ describe('ModalChangeEmail', () => {
 
     const elementButton = screen.getByTestId('changeFullNameBtn');
 
-    const newfirstNameInput = screen.getByTestId('newfirstNameInput');
+    const newFirstNameInput = screen.getByTestId('newFirstNameInput');
 
     const newLastNameInput = screen.getByTestId('newLastNameInput');
 
@@ -50,7 +50,7 @@ describe('ModalChangeEmail', () => {
 
     const user = userEvent.setup();
 
-    await user.type(newfirstNameInput, changeFullNamePayload.firstName);
+    await user.type(newFirstNameInput, changeFullNamePayload.firstName);
 
     await user.type(newLastNameInput, changeFullNamePayload.lastName);
 

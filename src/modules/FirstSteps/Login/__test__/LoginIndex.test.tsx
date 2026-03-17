@@ -10,6 +10,8 @@ import { RootStackParamList } from '@src/routes/AppRoutes';
 import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 import { responseUserMock } from '@src/utils/test/responseUserMock';
 
+const responseLoggedUserMock = { ...responseUserMock, rememberMe: true };
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 describe('LoginIndex', () => {
@@ -48,6 +50,6 @@ describe('LoginIndex', () => {
 
     const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
 
-    expect(dataLoggedUser).toEqual(responseUserMock);
+    expect(dataLoggedUser).toEqual(responseLoggedUserMock);
   });
 });

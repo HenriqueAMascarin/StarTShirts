@@ -1,16 +1,11 @@
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
 import React from 'react';
-import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useForm, Controller } from 'react-hook-form';
-import {
-  typeChangeEmailSchema,
-  useChangeEmailSchema,
-} from '@src/modules/InApp/Account/components/changeEmail/schema/useChangeEmailSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { putUser } from '@src/services/user/methods/putUser';
-import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
+import TextTitleH3 from '@src/components/texts/h3/TextTitleH3';
 import { View } from 'react-native';
 import { stylesGeneralAccountComponents } from '@src/modules/InApp/Account/components/generalStyles/stylesGeneralAccountComponents';
 import { signOutAccount } from '@src/utils/signOutAccount';
@@ -21,7 +16,7 @@ import {
 } from '@src/modules/InApp/Account/components/changePassword/schema/useChangePasswordSchema';
 import { typeModalChanges } from '@src/modules/InApp/Account/components/utils/typeModalChanges';
 
-export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModalChanges) {
+export default function ModalChangePassword({ statesSimpleModal, userId }: typeModalChanges) {
   const navigation = useNavigation();
 
   async function onChangePassword(formValues: typeChangePasswordSchema) {

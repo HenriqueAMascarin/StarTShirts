@@ -5,7 +5,6 @@ export const stylesUnderlineButton = StyleSheet.create({
   defaultButton: {
     borderRadius: 18,
     justifyContent: 'center',
-    height: 42,
   },
   title: {
     color: appColors.black,

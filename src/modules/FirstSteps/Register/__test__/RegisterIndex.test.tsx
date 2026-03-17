@@ -33,15 +33,23 @@ describe('RegisterIndex', () => {
     const user = userEvent.setup();
 
     const firstNameInput = screen.getByTestId('firstNameInput');
+
     const lastNameInput = screen.getByTestId('lastNameInput');
+
     const emailInput = screen.getByTestId('emailInput');
+
     const passwordInput = screen.getByTestId('passwordInput');
+
     const confirmPasswordInput = screen.getByTestId('confirmPasswordInput');
 
     await user.type(firstNameInput, mockFormData.firstName);
+
     await user.type(lastNameInput, mockFormData.lastName);
+
     await user.type(emailInput, mockFormData.email);
+
     await user.type(passwordInput, mockFormData.password);
+    
     await user.type(confirmPasswordInput, mockFormData.confirmPassword);
 
     await user.press(elementButton);

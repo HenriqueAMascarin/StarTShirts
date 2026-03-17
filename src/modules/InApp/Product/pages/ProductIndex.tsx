@@ -127,8 +127,9 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
                     return (
                       <TextDefault key={keyDetail}>
                         <TextDefault style={stylesProductIndex.detailsBulletText}>
-                          {'\u2022'}
+                          {'\u2022' + ' '}
                         </TextDefault>
+
                         {detail}
                       </TextDefault>
                     );

@@ -20,7 +20,7 @@ export const putUser = async (userData: putUserType) => {
 
   if (userDataById) {
     if (userData.currentPassword && userData.currentPassword != userDataById?.password) {
-      status = { ...status, errors: { email: "Incorrect password" } };
+      status = { ...status, errors: { email: 'Incorrect password' } };
     } else {
       delete userData.currentPassword;
 
@@ -28,14 +28,14 @@ export const putUser = async (userData: putUserType) => {
 
       const indexUserById = userResponseAll.findIndex((user) => user.id === newUserEditedData.id);
 
-      const newUserPayloadAll = userResponseAll;
+      const newUserPayloadAll = [...userResponseAll];
 
       newUserPayloadAll[indexUserById] = newUserEditedData;
 
       const arrayToConvertJson = newUserPayloadAll;
 
       const jsonValue = JSON.stringify(arrayToConvertJson);
-
+    
       await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
 
       status.messageSuccess = 'User has been edited!';
@@ -48,5 +48,5 @@ export const putUser = async (userData: putUserType) => {
 
   await apiManagement(status);
 
-  return { ...status, data: data };
+  return { ...status, data };
 };

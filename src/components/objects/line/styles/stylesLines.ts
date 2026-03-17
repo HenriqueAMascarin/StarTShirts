@@ -10,7 +10,7 @@ export const stylesLines = StyleSheet.create({
         paddingVertical: 26,
     },
     line: {
-        height: 2,
+        height: 1.2,
         backgroundColor: appColors.gray,
         alignSelf: 'stretch',
     },

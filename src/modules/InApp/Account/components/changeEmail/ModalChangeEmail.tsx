@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { putUser } from '@src/services/user/methods/putUser';
-import TextTitleH3 from '@src/components/texts/h3/TextTitleH2';
+import TextTitleH3 from '@src/components/texts/h3/TextTitleH3';
 import { View } from 'react-native';
 import { stylesGeneralAccountComponents } from '@src/modules/InApp/Account/components/generalStyles/stylesGeneralAccountComponents';
 import { signOutAccount } from '@src/utils/signOutAccount';
