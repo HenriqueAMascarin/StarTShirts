@@ -8,15 +8,7 @@ import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
-
-const responseUserMock = {
-  firstName: 'Henrique',
-  lastName: 'Test',
-  email: 'test@gmail.com',
-  password: '123',
-  id: 0,
-  rememberMe: true,
-};
+import { responseUserMock } from '@src/utils/test/responseUserMock';
 
 const responseRequestMock = {
   email: responseUserMock.email,

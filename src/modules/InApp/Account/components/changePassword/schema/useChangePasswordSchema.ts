@@ -1,0 +1,23 @@
+import * as z from 'zod';
+
+export const useChangePasswordSchema = z
+  .object({
+    password: z
+      .string('Use 8 characters or more for your password')
+      .min(8, 'Use 8 characters or more for your password'),
+    confirmPassword: z
+      .string('Use 8 characters or more for your password')
+      .min(8, 'Use 8 characters or more for your password'),
+    currentPassword: z.string('The field is required').min(1, 'The field is required'),
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Passwords doesn’t match',
+        path: ['confirmPassword'],
+      });
+    }
+  });
+
+export type typeChangePasswordSchema = z.infer<typeof useChangePasswordSchema>;

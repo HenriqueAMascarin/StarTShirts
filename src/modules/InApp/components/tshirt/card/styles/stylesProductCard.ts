@@ -31,9 +31,8 @@ export const stylesProductCard = StyleSheet.create({
   infoContainer: {
     minWidth: '100%',
     display: 'flex',
-    alignItems: 'stretch',
     justifyContent: 'flex-start',
-    padding: 10,
+    padding: 9,
   },
   infoBtn: {
     marginTop: 20,
@@ -42,4 +41,14 @@ export const stylesProductCard = StyleSheet.create({
   infoBtnText: {
     fontSize: 16,
   },
+  titleText: {
+    fontFamily: 'InterMedium',
+    fontSize: 17
+  },
+  priceText: {
+    fontFamily: 'InterMedium',
+    color: appColors.grayish,
+    fontSize: 17,
+     marginBottom: 4,
+  }
 });

@@ -1,19 +1,18 @@
-import React, { MutableRefObject, useMemo, useRef } from 'react';
+import React, { RefObject, useMemo, useRef } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import DrawerModal from '@src/components/modal/drawer/DrawerModal';
-import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/routes/AppRoutes';
-import { keysLocalStorage } from '@src/utils/localStorage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import useDrawerModalHook from '@src/components/modal/drawer/hooks/useDrawerModalHook';
 import { stylesMenuDrawerModal } from '@src/modules/InApp/components/header/styles/stylesMenuDrawerModal';
 import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
+import { signOutAccount } from '@src/utils/signOutAccount';
+import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
 
 type TypeMenuDrawerModal = {
   stateDrawerModal: boolean;
@@ -23,7 +22,7 @@ type TypeMenuDrawerModal = {
 type TypeLinks = {
   label: string;
   routeName: keyof RootStackParamList;
-  textAnimatedOpacity: MutableRefObject<Animated.Value>;
+  textAnimatedOpacity: RefObject<Animated.Value>;
   keyItem: number;
 }[];
 
@@ -57,12 +56,12 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
     //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
     //   keyItem: 3,
     // },
-    // {
-    //   label: 'Account',
-    //   routeName: 'home/account',
-    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-    //   keyItem: 4,
-    // },
+    {
+      label: 'Account',
+      routeName: 'home/account',
+      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+      keyItem: 4,
+    },
   ];
 
   function setupListenerNavigation() {
@@ -75,7 +74,7 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
         if (currentlyRoute) {
           for (let index = 0; index < links.length; index++) {
             Animated.timing(links[index].textAnimatedOpacity.current, {
-              toValue: currentlyRoute?.name.includes(links[index].routeName) ? 1 : 0.6,
+              toValue: currentlyRoute?.name == links[index].routeName ? 1 : 0.6,
               delay: 0,
               duration: 200,
               useNativeDriver: true,
@@ -110,21 +109,15 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
         onPressIn={onNavigate}
       >
         <View style={stylesGlobalModal.paddingContainer}>
-          <TextDefault
+          <TextTitleH4
             style={[stylesMenuDrawerModal.textMenu, { opacity: textAnimatedOpacity.current }]}
           >
             {label}
-          </TextDefault>
+          </TextTitleH4>
         </View>
       </TouchableOpacity>
     );
   };
-
-  async function exitAccount() {
-    await AsyncStorage.removeItem(keysLocalStorage.loggedUserKey);
-
-    navigateFn('login');
-  }
 
   return (
     <>
@@ -138,12 +131,12 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
 
           <TouchableOpacity
             style={[stylesMenuDrawerModal.touchableBtn, stylesGlobalModal.bottomLine]}
-            onPressIn={exitAccount}
+            onPressIn={async () => await signOutAccount(navigateFn)}
           >
             <View style={stylesGlobalModal.paddingContainer}>
-              <TextDefault style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>
+              <TextTitleH4 style={[stylesMenuDrawerModal.exitText, stylesMenuDrawerModal.textMenu]}>
                 Sign Out
-              </TextDefault>
+              </TextTitleH4>
             </View>
           </TouchableOpacity>
         </View>

@@ -1,5 +1,5 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import React, { Suspense, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, View } from 'react-native';
 import { stylesSlogan } from '@src/modules/InApp/Home/styles/stylesSlogan';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
@@ -13,9 +13,9 @@ import SloganSVGText from '@src/assets/svgs/sloganText.svg';
 function SloganTShirt() {
   return (
     <View style={stylesSlogan.container}>
-      <Image style={stylesSlogan.image} source={whiteTShirtImg} width={155} height={165}/>
+      <Image style={stylesSlogan.image} source={whiteTShirtImg} width={155} height={165} />
 
-      <SloganSVGText accessibilityLabel="Most purchased t-shirt" width="204" height="109"/>
+      <SloganSVGText accessibilityLabel="Most purchased t-shirt" width="204" height="109" />
     </View>
   );
 }
@@ -23,20 +23,25 @@ function SloganTShirt() {
 function ProductsContent() {
   const [products, changeProducts] = useState<null | Awaited<ReturnType<typeof getProducts>>>(null);
 
-  (async () => {
+  async function getInitialProducts() {
     const newProducts = await getProducts({});
 
     changeProducts(newProducts);
-  })();
+  }
+
+  useEffect(() => {
+    getInitialProducts();
+  }, []);
 
   return (
     <View style={stylesProductsContent.container}>
-      <Suspense fallback={<LoadingScreen />}>
-        {products &&
-          products.map((product, keyProduct) => {
-            return <ProductCard {...product} key={keyProduct} />;
-          })}
-      </Suspense>
+      {products ? (
+        products.map((product, keyProduct) => {
+          return <ProductCard {...product} key={keyProduct} />;
+        })
+      ) : (
+        <LoadingScreen />
+      )}
     </View>
   );
 }

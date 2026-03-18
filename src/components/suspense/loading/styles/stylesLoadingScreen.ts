@@ -6,6 +6,8 @@ export const stylesLoadingScreen = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 30,
+    flex: 1,
+    marginHorizontal: 'auto'
   },
   text: {
     fontSize: 26,

@@ -6,7 +6,7 @@ export default function TextDefault(textProps: TextProps) {
   return (
     <Animated.Text
       {...textProps}
-      style={[{ fontSize: 16, fontFamily: 'InterMedium', color: appColors.black }, textProps.style]}
+      style={[{ fontSize: 16, fontFamily: 'InterRegular', color: appColors.black }, textProps.style]}
     />
   );
 }

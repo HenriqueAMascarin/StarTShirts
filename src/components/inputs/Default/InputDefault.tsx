@@ -9,12 +9,18 @@ type propsInput = TextInputProps & {
   label?: string;
   errors?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
   children?: ReactNode;
+  required?: boolean;
 };
 
 export default function InputDefault(inputProps: propsInput) {
   return (
     <View style={stylesGlobal.container}>
-      {inputProps.label && <TextDefault style={stylesGlobal.label}>{inputProps.label}</TextDefault>}
+      {inputProps.label && (
+        <TextDefault style={stylesGlobal.label}>
+          {inputProps.label}
+          {inputProps.required && <TextDefault style={stylesGlobal.requiredSymbol}>*</TextDefault>}
+        </TextDefault>
+      )}
 
       <TextInput
         {...inputProps}
@@ -22,11 +28,11 @@ export default function InputDefault(inputProps: propsInput) {
         placeholderTextColor={appColors.gray}
       />
 
-      {
+      {inputProps.required && (
         <TextDefault style={stylesGlobal.error}>
           {inputProps?.errors?.message?.toString()}
         </TextDefault>
-      }
+      )}
     </View>
   );
 }

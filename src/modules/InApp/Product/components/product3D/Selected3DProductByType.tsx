@@ -3,7 +3,7 @@ import {
   ProductColorsType,
   TypeProducts,
 } from '@src/services/product/dataProducts/types/genericTypes';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 export type typeSelected3DProductByType = {
   type: TypeProducts;
@@ -20,11 +20,15 @@ export default function Selected3DProductByType({
     changeIsLoadingState(false);
   }, []);
 
-  switch (type) {
-    case 'tShirt':
-      return <ClassicTShirt color={colorElement} />;
+  const element = useMemo(() => {
+    switch (type) {
+      case 'tShirt':
+        return <ClassicTShirt color={colorElement} />;
 
-    default:
-      return <ClassicTShirt color="white" />;
-  }
+      default:
+        return <ClassicTShirt color="white" />;
+    }
+  }, []);
+
+  return element;
 }

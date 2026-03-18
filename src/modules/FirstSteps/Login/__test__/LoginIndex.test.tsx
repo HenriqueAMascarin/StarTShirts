@@ -8,21 +8,15 @@ import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
+import { responseUserMock } from '@src/utils/test/responseUserMock';
 
-const responseMock = {
-  firstName: 'Henrique',
-  lastName: 'Test',
-  email: 'test@gmail.com',
-  password: '123',
-  id: 0,
-  rememberMe: true,
-};
+const responseLoggedUserMock = { ...responseUserMock, rememberMe: true };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 describe('LoginIndex', () => {
   it('Should have a USER REGISTERED', async () => {
-    const userArray = [responseMock];
+    const userArray = [responseUserMock];
 
     await AsyncStorageMock.setItem(keysLocalStorage.usersKey, JSON.stringify(userArray));
 
@@ -49,13 +43,13 @@ describe('LoginIndex', () => {
     const emailInput = screen.getByTestId('emailInput');
     const passwordInput = screen.getByTestId('passwordInput');
 
-    await user.type(emailInput, responseMock.email);
-    await user.type(passwordInput, responseMock.password);
+    await user.type(emailInput, responseUserMock.email);
+    await user.type(passwordInput, responseUserMock.password);
 
     await user.press(elementButton);
 
     const dataLoggedUser = await getDataLocalStorageMock({ keyStorage: 'loggedUserKey' });
 
-    expect(dataLoggedUser).toEqual(responseMock);
+    expect(dataLoggedUser).toEqual(responseLoggedUserMock);
   });
 });

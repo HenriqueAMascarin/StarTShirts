@@ -16,7 +16,7 @@ export const stylesSizesProduct = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    gap: 8,
   },
   sizeBtn: {
     borderColor: appColors.black,

@@ -1,6 +1,6 @@
   {
   "extends": "@react-native/typescript-config",
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "__mocks__/@react-native-svg-transformer/svgMock.js", "__mocks__/@react-navigation/native/navigationMock.js", "__mocks__/@react-native-async-storage/async-storage.js"],
   "exclude": ["**/node_modules", "**/Pods"],
   "compilerOptions": {
     "baseUrl": ".",

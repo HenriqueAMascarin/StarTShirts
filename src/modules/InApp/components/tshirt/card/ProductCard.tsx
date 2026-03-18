@@ -37,11 +37,11 @@ export default function ProductCard({ title, price, colors, id }: ProductObjectT
       </View>
 
       <View style={stylesProductCard.infoContainer}>
+        <TextDefault style={stylesProductCard.titleText}>{title}</TextDefault>
+
+        <TextDefault style={stylesProductCard.priceText}>{realPrice}</TextDefault>
+
         <RadioColorSwitcher stateColors={stateColors} changeStateColors={changeStateColors} />
-
-        <TextDefault>{title}</TextDefault>
-
-        <TextDefault>{realPrice}</TextDefault>
 
         <DefaultButton
           title="Check product"

@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -9,7 +9,6 @@ import useSizes from '@src/modules/InApp/Product/components/sizesChanger/hooks/u
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
 import useColors from '@src/components/colorSwitchers/hooks/useColors';
 import useMemoSelectedColorData from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
-import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
@@ -21,6 +20,7 @@ import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
+import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -53,101 +53,91 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
         typeProduct={productItem.type}
       />
 
-      <Suspense
-        fallback={
-          <MainContainer>
-            <LoadingScreen />
-          </MainContainer>
-        }
-      >
-        <MainContainer>
-          <View>
-            <View style={stylesProductIndex.containerImage}>
-              <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
-                <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
-              </TouchableOpacity>
+      <MainContainer>
+        <View>
+          <View style={stylesProductIndex.containerImage}>
+            <TouchableOpacity onPressIn={open3DProductModal} style={stylesProductIndex.btn3D}>
+              <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
+            </TouchableOpacity>
 
-              {selectedColorMemoData.urlImage && (
-                <Image
-                  alt={productItem?.title}
-                  width={255}
-                  height={265}
-                  source={selectedColorMemoData.urlImage}
-                  style={stylesProductIndex.image}
-                />
-              )}
-            </View>
+            {selectedColorMemoData.urlImage && (
+              <Image
+                alt={productItem?.title}
+                width={255}
+                height={265}
+                source={selectedColorMemoData.urlImage}
+                style={stylesProductIndex.image}
+              />
+            )}
+          </View>
 
-            <View style={stylesProductIndex.infoSection}>
-              <PaddingContainer>
-                <View style={stylesProductIndex.flexContainerInfos}>
-                  <View style={stylesProductIndex.titleSection}>
-                    <TextTitleH2>{productItem?.title}</TextTitleH2>
+          <View style={stylesProductIndex.infoSection}>
+            <PaddingContainer>
+              <View style={stylesProductIndex.flexContainerInfos}>
+                <View style={stylesProductIndex.titleSection}>
+                  <TextTitleH2>{productItem?.title}</TextTitleH2>
 
-                    <TextDefault style={stylesProductIndex.textPrice}>
-                      ${productItem?.price.toFixed(2)}
-                    </TextDefault>
-                  </View>
+                  <TextDefault style={stylesProductIndex.textPrice}>
+                    ${productItem?.price.toFixed(2)}
+                  </TextDefault>
+                </View>
 
-                  <LineObject />
+                <LineObject />
 
-                  <View style={stylesProductIndex.optionsContainer}>
-                    <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+                <View style={stylesProductIndex.optionsContainer}>
+                  <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
 
-                    <View style={stylesProductIndex.colorContainer}>
-                      <TextDefault style={stylesProductIndex.colorTitle}>
-                        Color:
-                        <TextDefault style={stylesProductIndex.colorTitleCurrent}>
-                          {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
-                        </TextDefault>
+                  <View style={stylesProductIndex.colorContainer}>
+                    <TextDefault style={stylesProductIndex.colorTitle}>
+                      Color:
+                      <TextDefault style={stylesProductIndex.colorTitleCurrent}>
+                        {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
                       </TextDefault>
+                    </TextDefault>
 
-                      <RadioColorSwitcher
-                        stateColors={stateColors}
-                        changeStateColors={changeStateColors}
-                      />
-                    </View>
-                  </View>
-
-                  <LineObject />
-
-                  <View style={stylesProductIndex.buttonsContainer}>
-                    <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
-
-                    <BorderButton
-                      title="Add to Wish List"
-                      style={stylesProductIndex.buttonsStyles}
+                    <RadioColorSwitcher
+                      stateColors={stateColors}
+                      changeStateColors={changeStateColors}
                     />
                   </View>
                 </View>
-              </PaddingContainer>
 
-              <View style={stylesProductIndex.detailsContainer}>
-                <PaddingContainer>
-                  <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
+                <LineObject />
 
-                  <TextDefault style={stylesProductIndex.detailsInfo}>
-                    {productItem?.details.info}
-                  </TextDefault>
+                <View style={stylesProductIndex.buttonsContainer}>
+                  <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
 
-                  <View>
-                    {productItem?.details.list.map((detail, keyDetail) => {
-                      return (
-                        <TextDefault key={keyDetail}>
-                          <TextDefault style={stylesProductIndex.detailsBulletText}>
-                            {'\u2022'}
-                          </TextDefault>
-                          {detail}
-                        </TextDefault>
-                      );
-                    })}
-                  </View>
-                </PaddingContainer>
+                  <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
+                </View>
               </View>
+            </PaddingContainer>
+
+            <View style={stylesProductIndex.detailsContainer}>
+              <PaddingContainer>
+                <TextDefault style={stylesProductIndex.detailsTitle}>Details & care</TextDefault>
+
+                <TextDefault style={stylesProductIndex.detailsInfo}>
+                  {productItem?.details.info}
+                </TextDefault>
+
+                <View>
+                  {productItem?.details.list.map((detail, keyDetail) => {
+                    return (
+                      <TextDefault key={keyDetail}>
+                        <TextDefault style={stylesProductIndex.detailsBulletText}>
+                          {'\u2022' + ' '}
+                        </TextDefault>
+
+                        {detail}
+                      </TextDefault>
+                    );
+                  })}
+                </View>
+              </PaddingContainer>
             </View>
           </View>
-        </MainContainer>
-      </Suspense>
+        </View>
+      </MainContainer>
     </>
   );
 }
@@ -159,11 +149,15 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     ReturnType<typeof getInitialProductResponse>
   >>(null);
 
-  (async function setEditData() {
+  async function setEditData() {
     const newProduct = await getInitialProductResponse({ id });
 
     changeProductData(newProduct);
-  })();
+  }
 
-  return <>{productData && <ProductContent productItem={productData} />}</>;
+  useEffect(() => {
+    setEditData();
+  }, []);
+
+  return <>{productData ? <ProductContent productItem={productData} /> : <LoadingPageScreen />}</>;
 }

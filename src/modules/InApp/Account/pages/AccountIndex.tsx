@@ -1,0 +1,176 @@
+import UserSVG from '@src/assets/svgs/user.svg';
+import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
+import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
+import { getLoggedUser } from '@src/services/user/login/methods/getLoggedUser';
+import { UserLoggedType } from '@src/services/user/login/types/genericTypes';
+import { useEffect, useMemo, useState } from 'react';
+import { View } from 'react-native';
+import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
+import PaddingContainer from '@src/components/containers/PaddingContainer';
+import TextDefault from '@src/components/texts/default/TextDefault';
+import LineObject from '@src/components/objects/line/LineObject';
+import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
+import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
+import ModalChangeEmail from '@src/modules/InApp/Account/components/changeEmail/ModalChangeEmail';
+import TextTitleH3 from '@src/components/texts/h3/TextTitleH3';
+import { stylesAccountIndex } from '@src/modules/InApp/Account/styles/stylesAccountIndex';
+import { signOutAccount } from '@src/utils/signOutAccount';
+import { useNavigation } from '@react-navigation/native';
+import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
+import ModalChangeFullName from '@src/modules/InApp/Account/components/changeName/ModalChangeFullName';
+import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
+
+function AccountContent(accountData: UserLoggedType) {
+  const userName = useMemo(() => {
+    const newFirstName =
+      accountData?.firstName?.length > 10
+        ? accountData?.firstName?.slice(0, 10) + '...'
+        : accountData?.firstName;
+
+    const title = `${newFirstName}'s account`;
+
+    return title;
+  }, [accountData?.firstName]);
+
+  const navigation = useNavigation();
+
+  const {
+    simpleModalState: simpleEmailModalState,
+    changeSimpleModalState: changeEmailSimpleModalState,
+  } = useSimpleModalHook();
+
+  const {
+    simpleModalState: simplePasswordModalState,
+    changeSimpleModalState: changePasswordSimpleModalState,
+  } = useSimpleModalHook();
+
+  const {
+    simpleModalState: simpleFullNameModalState,
+    changeSimpleModalState: changeFullNameSimpleModalState,
+  } = useSimpleModalHook();
+
+  function onOpenModalChangeEmail() {
+    changeEmailSimpleModalState(true);
+  }
+
+  function onOpenModalChangePassword() {
+    changePasswordSimpleModalState(true);
+  }
+
+  function onOpenModalChangeFullName() {
+    changeFullNameSimpleModalState(true);
+  }
+
+  const fullName = useMemo(
+    () => `${accountData?.firstName} ${accountData?.lastName}`,
+    [accountData?.firstName, accountData?.lastName],
+  );
+
+  return (
+    <>
+      <ModalChangeEmail
+        statesSimpleModal={{
+          simpleModalState: simpleEmailModalState,
+          changeSimpleModalState: changeEmailSimpleModalState,
+        }}
+        userId={accountData.id}
+      />
+
+      <ModalChangePassword
+        statesSimpleModal={{
+          simpleModalState: simplePasswordModalState,
+          changeSimpleModalState: changePasswordSimpleModalState,
+        }}
+        userId={accountData.id}
+      />
+
+      <ModalChangeFullName
+        statesSimpleModal={{
+          simpleModalState: simpleFullNameModalState,
+          changeSimpleModalState: changeFullNameSimpleModalState,
+        }}
+        userId={accountData.id}
+      />
+
+      <MainContainer>
+        <PaddingContainer>
+          <View style={stylesAccountIndex.containerUserPicture}>
+            <UserSVG width={'170'} height={'170'} />
+
+            <TextTitleH2>{userName}</TextTitleH2>
+          </View>
+
+          <View>
+            <TextTitleH3 style={stylesAccountIndex.titleSection}>Sign-in info</TextTitleH3>
+
+            <View style={stylesAccountIndex.containersFlexInfo}>
+              <View style={stylesAccountIndex.containersInfo}>
+                <TextTitleH4>E-mail</TextTitleH4>
+
+                <TextDefault>{accountData?.email}</TextDefault>
+
+                <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
+              </View>
+
+              <View style={stylesAccountIndex.containersInfo}>
+                <TextTitleH4>Password</TextTitleH4>
+
+                <UnderlineTextButton
+                  title="Change password"
+                  onPressIn={onOpenModalChangePassword}
+                />
+              </View>
+            </View>
+          </View>
+
+          <LineObject customPaddingVertical={10} />
+
+          <View>
+            <TextTitleH3 style={stylesAccountIndex.titleSection}>Personal info</TextTitleH3>
+
+            <View style={stylesAccountIndex.containersInfo}>
+              <TextTitleH4>Full name</TextTitleH4>
+
+              <TextDefault>{fullName}</TextDefault>
+
+              <UnderlineTextButton title="Change full name" onPressIn={onOpenModalChangeFullName} />
+            </View>
+          </View>
+
+          <LineObject customPaddingVertical={10} />
+
+          <View style={stylesAccountIndex.containerSecurity}>
+            <TextTitleH3 style={stylesAccountIndex.titleSection}>Security</TextTitleH3>
+
+            <View style={stylesAccountIndex.containersInfo}>
+              <TextTitleH4>Log out of your account</TextTitleH4>
+
+              <UnderlineTextButton
+                title="Sign out"
+                onPressIn={() => signOutAccount(navigation.navigate)}
+              />
+            </View>
+          </View>
+        </PaddingContainer>
+      </MainContainer>
+    </>
+  );
+}
+
+export default function AccountIndex() {
+  const [accountData, changeAccountData] = useState<null | Awaited<
+    ReturnType<typeof getLoggedUser>
+  >>(null);
+
+  async function setEditData() {
+    const accountData = await getLoggedUser();
+
+    changeAccountData(accountData);
+  }
+
+  useEffect(() => {
+    setEditData();
+  }, []);
+
+  return <>{accountData ? <AccountContent {...accountData} /> : <LoadingPageScreen />}</>;
+}
