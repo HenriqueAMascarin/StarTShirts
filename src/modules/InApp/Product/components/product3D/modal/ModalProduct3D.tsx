@@ -35,48 +35,44 @@ export default function ModalProduct3D({
   }, [statesSimpleModal.simpleModalState]);
 
   return (
-    <>
-      {statesSimpleModal.simpleModalState && (
-        <SimpleModal
-          visibleStates={{
-            visible: statesSimpleModal.simpleModalState,
-            changeVisibleState: statesSimpleModal.changeSimpleModalState,
-          }}
-          customModalContainerStyles={stylesModalProduct3D.customModalContainer}
-        >
-          {isLoading && (
-            <View style={stylesModalProduct3D.loadingContainer}>
-              <LoadingScreen />
-            </View>
-          )}
-
-          <Canvas>
-            <color attach="background" args={[appColors.yellow]} />
-
-            <group>
-              <ambientLight intensity={0.5} />
-
-              <directionalLight position={[5, 5, 5]} intensity={1} />
-
-              <directionalLight position={[5, 10, 15]} intensity={1} />
-
-              <directionalLight position={[5, 10, -15]} intensity={1} />
-
-              <directionalLight position={[-10, 10, -15]} intensity={2} />
-
-              <directionalLight position={[-10, 10, 15]} intensity={2} />
-
-              <Selected3DProductByType
-                type={typeProduct}
-                colorElement={colorProduct}
-                changeIsLoadingState={changeIsLoading}
-              />
-
-              <OrbitControls enablePan={false} enableZoom={false} />
-            </group>
-          </Canvas>
-        </SimpleModal>
+    <SimpleModal
+      visibleStates={{
+        visible: statesSimpleModal.simpleModalState,
+        changeVisibleState: statesSimpleModal.changeSimpleModalState,
+      }}
+      customModalContainerStyles={stylesModalProduct3D.customModalContainer}
+    >
+      {isLoading && (
+        <View style={stylesModalProduct3D.loadingContainer}>
+          <LoadingScreen />
+        </View>
       )}
-    </>
+
+      <Canvas>
+        <color attach="background" args={[appColors.yellow]} />
+
+        <group>
+          <ambientLight intensity={0.5} />
+
+          <directionalLight position={[5, 5, 5]} intensity={1} />
+
+          <directionalLight position={[5, 10, 15]} intensity={1} />
+
+          <directionalLight position={[5, 10, -15]} intensity={1} />
+
+          <directionalLight position={[-10, 10, -15]} intensity={2} />
+
+          <directionalLight position={[-10, 10, 15]} intensity={2} />
+
+          <Selected3DProductByType
+            type={typeProduct}
+            colorElement={colorProduct}
+            changeIsLoadingState={changeIsLoading}
+          />
+
+          <OrbitControls enablePan={false} enableZoom={false} />
+        </group>
+      </Canvas>
+    </SimpleModal>
   );
 }

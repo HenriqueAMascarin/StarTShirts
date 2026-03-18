@@ -1,5 +1,5 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import React, { Suspense, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, View } from 'react-native';
 import { stylesSlogan } from '@src/modules/InApp/Home/styles/stylesSlogan';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
@@ -23,11 +23,15 @@ function SloganTShirt() {
 function ProductsContent() {
   const [products, changeProducts] = useState<null | Awaited<ReturnType<typeof getProducts>>>(null);
 
-  (async () => {
+  async function getInitialProducts() {
     const newProducts = await getProducts({});
 
     changeProducts(newProducts);
-  })();
+  }
+
+  useEffect(() => {
+    getInitialProducts();
+  }, []);
 
   return (
     <View style={stylesProductsContent.container}>

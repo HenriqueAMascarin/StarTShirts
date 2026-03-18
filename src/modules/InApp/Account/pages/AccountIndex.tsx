@@ -3,7 +3,7 @@ import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScree
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import { getLoggedUser } from '@src/services/user/login/methods/getLoggedUser';
 import { UserLoggedType } from '@src/services/user/login/types/genericTypes';
-import { Suspense, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
@@ -162,11 +162,15 @@ export default function AccountIndex() {
     ReturnType<typeof getLoggedUser>
   >>(null);
 
-  (async function setEditData() {
+  async function setEditData() {
     const accountData = await getLoggedUser();
 
     changeAccountData(accountData);
-  })();
+  }
+
+  useEffect(() => {
+    setEditData();
+  }, []);
 
   return <>{accountData ? <AccountContent {...accountData} /> : <LoadingPageScreen />}</>;
 }

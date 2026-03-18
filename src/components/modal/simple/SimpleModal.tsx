@@ -93,9 +93,9 @@ export default function SimpleModal({
   return (
     <>
       {visibleStates.visible && (
-        <ContentSimpleModal
-          {...{ children, visibleStates, hasCloseIcon, customModalContainerStyles }}
-        />
+        <ContentSimpleModal {...{ visibleStates, hasCloseIcon, customModalContainerStyles }}>
+          {children}
+        </ContentSimpleModal>
       )}
     </>
   );

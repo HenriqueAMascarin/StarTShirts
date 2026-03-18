@@ -1,11 +1,10 @@
-import React, { MutableRefObject, useMemo, useRef } from 'react';
+import React, { RefObject, useMemo, useRef } from 'react';
 import { Animated, TouchableOpacity, View } from 'react-native';
 import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import DrawerModal from '@src/components/modal/drawer/DrawerModal';
-import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -23,7 +22,7 @@ type TypeMenuDrawerModal = {
 type TypeLinks = {
   label: string;
   routeName: keyof RootStackParamList;
-  textAnimatedOpacity: MutableRefObject<Animated.Value>;
+  textAnimatedOpacity: RefObject<Animated.Value>;
   keyItem: number;
 }[];
 

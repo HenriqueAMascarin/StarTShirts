@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -47,13 +47,11 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
 
   return (
     <>
-      {simpleModalState && (
-        <ModalProduct3D
-          statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
-          colorProduct={selectedColorMemoData.color}
-          typeProduct={productItem.type}
-        />
-      )}
+      <ModalProduct3D
+        statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
+        colorProduct={selectedColorMemoData.color}
+        typeProduct={productItem.type}
+      />
 
       <MainContainer>
         <View>
@@ -151,11 +149,15 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     ReturnType<typeof getInitialProductResponse>
   >>(null);
 
-  (async function setEditData() {
+  async function setEditData() {
     const newProduct = await getInitialProductResponse({ id });
 
     changeProductData(newProduct);
-  })();
+  }
+
+  useEffect(() => {
+    setEditData();
+  }, []);
 
   return <>{productData ? <ProductContent productItem={productData} /> : <LoadingPageScreen />}</>;
 }
