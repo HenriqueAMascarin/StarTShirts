@@ -1,5 +1,5 @@
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
-import React from 'react';
+import React, { useEffect } from 'react';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useForm, Controller } from 'react-hook-form';
 import {
@@ -44,10 +44,18 @@ export default function ModalChangeEmail({ statesSimpleModal, userId }: typeModa
     control: emailFormControl,
     handleSubmit: emailFormHandleSubmit,
     formState: { errors: emailFormErrors },
+    reset: emailFormReset,
   } = useForm<typeChangeEmailSchema>({
     resolver: zodResolver(useChangeEmailSchema),
     mode: 'onSubmit',
+    defaultValues: {},
   });
+
+    useEffect(() => {
+      if (!statesSimpleModal.simpleModalState) {
+        emailFormReset();
+      }
+    }, [statesSimpleModal.simpleModalState]);
 
   return (
     <SimpleModal

@@ -1,5 +1,5 @@
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputPassword from '@src/components/inputs/Password/InputPassword';
@@ -43,10 +43,18 @@ export default function ModalChangePassword({ statesSimpleModal, userId }: typeM
     control: passwordFormControl,
     handleSubmit: passwordFormHandleSubmit,
     formState: { errors: passwordFormErrors },
+    reset: passwordFormReset,
   } = useForm<typeChangePasswordSchema>({
     resolver: zodResolver(useChangePasswordSchema),
     mode: 'onSubmit',
+    defaultValues: {},
   });
+
+  useEffect(() => {
+    if (!statesSimpleModal.simpleModalState) {
+      passwordFormReset();
+    }
+  }, [statesSimpleModal.simpleModalState]);
 
   return (
     <SimpleModal

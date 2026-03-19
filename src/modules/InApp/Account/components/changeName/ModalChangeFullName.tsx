@@ -1,5 +1,5 @@
 import SimpleModal from '@src/components/modal/simple/SimpleModal';
-import React from 'react';
+import React, { useEffect } from 'react';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -45,10 +45,18 @@ export default function ModalChangeFullName({ statesSimpleModal, userId }: typeM
     control: fullNameFormControl,
     handleSubmit: fullNameFormHandleSubmit,
     formState: { errors: fullNameFormErrors },
+    reset: fullNameFormReset,
   } = useForm<typeChangeFullNameSchema>({
     resolver: zodResolver(useChangeFullNameSchema),
     mode: 'onSubmit',
+    defaultValues: {},
   });
+
+  useEffect(() => {
+    if (!statesSimpleModal.simpleModalState) {
+      fullNameFormReset();
+    }
+  }, [statesSimpleModal.simpleModalState]);
 
   return (
     <SimpleModal
