@@ -7,6 +7,7 @@ export type TypeProducts = 'tShirt';
 export type ProductObjectType = {
   title: string;
   price: number;
+  wishlisted: boolean,
   colors: {color: ProductColorsType, urlImage: ImageURISource | null, isSelected: boolean}[];
   id: number;
   type: TypeProducts

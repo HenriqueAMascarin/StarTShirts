@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import React, { ReactNode, useEffect, useRef } from 'react';
-import CloseSvg from '@src/assets/svgs/close.svg';
+import CloseSVG from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 import { stylesSimpleModal } from '@src/components/modal/simple/styles/stylesSimpleModal';
 
@@ -74,7 +74,7 @@ function ContentSimpleModal({
       >
         {hasCloseIcon && (
           <TouchableOpacity onPressIn={closeSimpleModal} style={stylesSimpleModal.closeBtn}>
-            <CloseSvg width={23} height={23} />
+            <CloseSVG width={23} height={23} />
           </TouchableOpacity>
         )}
 

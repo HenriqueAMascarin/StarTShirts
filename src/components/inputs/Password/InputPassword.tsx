@@ -2,8 +2,8 @@ import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { stylesGlobal } from '@src/components/inputs/stylesGlobal';
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
-import VisibilityOffSvg from '@src/assets/svgs/visibility_off.svg';
-import VisibilitySvg from '@src/assets/svgs/visibility.svg';
+import VisibilityOffSVG from '@src/assets/svgs/visibility_off.svg';
+import VisibilitySVG from '@src/assets/svgs/visibility.svg';
 import React, { useState } from 'react';
 import { stylesInputPassword } from '@src/components/inputs/Password/stylesInputPassword';
 import { appColors } from '@src/utils/appColors';
@@ -42,7 +42,7 @@ export default function InputPassword(inputProps: propsInput) {
         />
         <TouchableOpacity style={stylesInputPassword.passwordRevealBtn} onPressIn={onPressVisible}>
           <View style={{ paddingTop: visible ? 0 : 3 }}>
-            {visible ? <VisibilitySvg /> : <VisibilityOffSvg />}
+            {visible ? <VisibilitySVG /> : <VisibilityOffSVG />}
           </View>
         </TouchableOpacity>
       </View>

@@ -7,6 +7,7 @@ export const productsList: ProductObjectType[] = [
   {
     title: 'Classic T-shirt',
     price: 100.0,
+    wishlisted: false,
     colors: [
       {
         color: 'white',

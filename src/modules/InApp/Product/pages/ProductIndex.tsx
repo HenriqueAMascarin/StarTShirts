@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -21,18 +21,61 @@ import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
 import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
+import { putWishListProduct } from '@src/services/product/wishList/methods/putWishListProducts';
+import { getWishListProducts } from '@src/services/product/wishList/methods/getWishListProducts';
+import { WishListProductObjectType } from '@src/services/product/wishList/types/genericTypes';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
-async function getInitialProductResponse({ id }: { id: number }) {
-  const products = await getProducts({ id });
+type ProductType = WishListProductObjectType | ProductObjectType;
 
-  const product = products?.[0];
+async function getInitialProductResponse({ id }: { id: number }) {
+  let productsData = await getWishListProducts({ id });
+
+  if (productsData?.length < 1) {
+    productsData = await getProducts({ id });
+  }
+
+  const product = productsData.length > 0 ? productsData?.[0] : null;
 
   return product;
 }
 
-function ProductContent({ productItem }: { productItem: ProductObjectType }) {
+function WishListBtn({
+  id,
+  isInitialWishlisted,
+}: {
+  id: ProductType['id'];
+  isInitialWishlisted: boolean;
+}) {
+  const [isProductInWishList, changeIsProductInWishList] = useState(isInitialWishlisted);
+
+  async function handleOnWishList() {
+    const responseWishListProduct = await putWishListProduct({
+      id,
+      removeFromWishList: isProductInWishList,
+    });
+
+    if (responseWishListProduct?.messageSuccess) {
+      changeIsProductInWishList(!isProductInWishList);
+    }
+  }
+
+  const titleWishListBtn = useMemo(
+    () => (isProductInWishList ? 'Remove of wish list' : 'Add to wish list'),
+    [isProductInWishList],
+  );
+
+  return (
+    <BorderButton
+      title={titleWishListBtn}
+      style={stylesProductIndex.buttonsStyles}
+      onPressIn={handleOnWishList}
+    />
+  );
+}
+
+function ProductContent({ productItem }: { productItem: ProductType }) {
   const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
 
   const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
@@ -107,7 +150,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
                 <View style={stylesProductIndex.buttonsContainer}>
                   <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
 
-                  <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
+                  <WishListBtn id={productItem?.id} isInitialWishlisted={productItem?.wishlisted} />
                 </View>
               </View>
             </PaddingContainer>

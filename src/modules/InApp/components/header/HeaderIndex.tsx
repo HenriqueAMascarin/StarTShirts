@@ -38,12 +38,12 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
       textAnimatedOpacity: useRef(new Animated.Value(0.6)),
       keyItem: 0,
     },
-    // {
-    //   label: 'Wish List',
-    //   routeName: 'home/wishList',
-    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-    //   keyItem: 1,
-    // },
+    {
+      label: 'Wish List',
+      routeName: 'home/wishList',
+      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+      keyItem: 1,
+    },
     // {
     //   label: 'Cart',
     //   routeName: 'home/cart',
