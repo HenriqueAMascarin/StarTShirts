@@ -5,33 +5,21 @@ import { useDispatch } from 'react-redux';
 import { useMemo } from 'react';
 import { stylesGeneratorAlert } from '@src/components/alert/stylesGeneratorAlert';
 import React from 'react';
+import { AlertItem } from 'src/components/alert/components/AlertItem/AlertItem';
 
 export function GeneratorAlert() {
-    const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
-    const dispatch = useDispatch();
+  const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
+  const dispatch = useDispatch();
 
-    function hideFunction(keyItem: number) {
-        dispatch(removeElement(keyItem));
-    }
+  function hideFunction(keyItem: number) {
+    dispatch(removeElement(keyItem));
+  }
 
-    const alertsElements = useMemo(() => {
+  const alertsElements = useMemo(() => {
+    return alertsInstantiable.map(({ keyItem, props }) => {
+      return <AlertItem onHideFn={() => hideFunction(keyItem)} key={keyItem} {...props} />;
+    });
+  }, [alertsInstantiable]);
 
-
-        return alertsInstantiable.map(({ Element, keyItem, props }) => {
-
-            return (
-                <Element
-                    onHideFn={() => hideFunction(keyItem)}
-                    key={keyItem}
-                    {...props}
-                />
-            );
-        });
-    }, [alertsInstantiable]);
-
-    return (
-        <View style={stylesGeneratorAlert.containerAlerts} >
-            {alertsElements}
-        </View >
-    );
+  return <View style={stylesGeneratorAlert.containerAlerts}>{alertsElements}</View>;
 }

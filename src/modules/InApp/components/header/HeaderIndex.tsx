@@ -39,8 +39,8 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
       keyItem: 0,
     },
     {
-      label: 'Wish List',
-      routeName: 'home/wishList',
+      label: 'Wishlist',
+      routeName: 'home/wishlist',
       textAnimatedOpacity: useRef(new Animated.Value(0.6)),
       keyItem: 1,
     },

@@ -1,8 +1,8 @@
 import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
-export const stylesWishListButton = StyleSheet.create({
-  wishListButton: {
+export const stylesWishlistButton = StyleSheet.create({
+  wishlistButton: {
     backgroundColor: appColors.white,
     borderColor: appColors.black,
     borderWidth: 1,
@@ -10,7 +10,7 @@ export const stylesWishListButton = StyleSheet.create({
     justifyContent: 'center',
     height: 42,
   },
-  wishListTitle: {
+  wishlistTitle: {
     color: appColors.black,
     textAlign: 'center',
     fontSize: 18,

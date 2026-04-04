@@ -2,20 +2,20 @@ import PaddingContainer from '@src/components/containers/PaddingContainer';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
-import ProductCard from '@src/modules/InApp/components/tshirt/card/ProductCard';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import { stylesProductsContent } from '@src/modules/InApp/Home/styles/stylesProductsContent';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
-import { getWishListProducts } from '@src/services/product/wishList/methods/getWishListProducts';
+import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import WishlistProductCard from '@src/modules/InApp/Wishlist/components/wishlistProduct/WishlistProductCard';
 
 function ProductsContent() {
-  const [productsWishList, changeProductsWishList] = useState<null | Awaited<ReturnType<typeof getProducts>>>(null);
+  const [productsWishlist, changeProductsWishlist] = useState<null | Awaited<ReturnType<typeof getProducts>>>(null);
 
   async function getInitialProducts() {
-    const newProductsWishList = await getWishListProducts({});
+    const newProductsWishlist = await getWishlistProducts({});
 
-    changeProductsWishList(newProductsWishList);
+    changeProductsWishlist(newProductsWishlist);
   }
 
   useEffect(() => {
@@ -24,9 +24,9 @@ function ProductsContent() {
 
   return (
     <View style={stylesProductsContent.container}>
-      {productsWishList ? (
-        productsWishList.map((product, keyProduct) => {
-          return <ProductCard {...product} key={keyProduct} />;
+      {productsWishlist ? (
+        productsWishlist.map((product, keyProduct) => {
+          return <WishlistProductCard {...product} key={keyProduct} />;
         })
       ) : (
         <LoadingScreen />
@@ -35,11 +35,11 @@ function ProductsContent() {
   );
 }
 
-export default function WishListIndex() {
+export default function WishlistIndex() {
   return (
     <MainContainer>
       <PaddingContainer>
-        <TextTitleH2>Wish list</TextTitleH2>
+        <TextTitleH2>Wishlist</TextTitleH2>
 
         <ProductsContent />
       </PaddingContainer>

@@ -10,7 +10,7 @@ import React from 'react';
 import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
 import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
-import WishListIndex from '@src/modules/InApp/WishList/pages/WishListIndex';
+import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
 
 export type RootStackParamList = {
   register: undefined;
@@ -20,7 +20,7 @@ export type RootStackParamList = {
 
   home: undefined;
   'home/product': { id: number };
-  'home/wishList': undefined;
+  'home/wishlist': undefined;
   'home/cart': undefined;
   'home/purchases': undefined;
   'home/account': undefined;
@@ -64,7 +64,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
           <Stack.Screen name="home/product" component={ProductIndex} />
 
-          <Stack.Screen name="home/wishList" component={WishListIndex} />
+          <Stack.Screen name="home/wishlist" component={WishlistIndex} />
 
           <Stack.Screen name="home/cart" component={HomeIndex} />
 

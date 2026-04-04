@@ -3,5 +3,5 @@ export const keysLocalStorage = {
   loggedUserKey: 'local/loggedUser',
   resetRequestsKey: 'local/resetRequests',
   productsKey: 'local/products',
-  wishListProducts: 'local/wishListProducts',
+  wishlistProducts: 'local/wishlistProducts',
 };

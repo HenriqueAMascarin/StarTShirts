@@ -17,20 +17,20 @@ import { ProductObjectType } from '@src/services/product/dataProducts/types/gene
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import LineObject from '@src/components/objects/line/LineObject';
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
-import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
 import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
-import { putWishListProduct } from '@src/services/product/wishList/methods/putWishListProducts';
-import { getWishListProducts } from '@src/services/product/wishList/methods/getWishListProducts';
-import { WishListProductObjectType } from '@src/services/product/wishList/types/genericTypes';
+import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
+import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import { WishlistProductObjectType } from '@src/services/wishlist/types/genericTypes';
+import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
-type ProductType = WishListProductObjectType | ProductObjectType;
+type ProductType = WishlistProductObjectType | ProductObjectType;
 
 async function getInitialProductResponse({ id }: { id: number }) {
-  let productsData = await getWishListProducts({ id });
+  let productsData = await getWishlistProducts({ id });
 
   if (productsData?.length < 1) {
     productsData = await getProducts({ id });
@@ -41,36 +41,31 @@ async function getInitialProductResponse({ id }: { id: number }) {
   return product;
 }
 
-function WishListBtn({
+function WishlistBtn({
   id,
   isInitialWishlisted,
 }: {
   id: ProductType['id'];
   isInitialWishlisted: boolean;
 }) {
-  const [isProductInWishList, changeIsProductInWishList] = useState(isInitialWishlisted);
+  const [isProductInWishlist, changeIsProductInWishlist] = useState(isInitialWishlisted);
 
-  async function handleOnWishList() {
-    const responseWishListProduct = await putWishListProduct({
+  async function handleOnWishlist() {
+    const responseWishlistProduct = await putWishlistProduct({
       id,
-      removeFromWishList: isProductInWishList,
+      removeFromWishlist: isProductInWishlist,
     });
 
-    if (responseWishListProduct?.messageSuccess) {
-      changeIsProductInWishList(!isProductInWishList);
+    if (responseWishlistProduct?.messageSuccess) {
+      changeIsProductInWishlist(!isProductInWishlist);
     }
   }
 
-  const titleWishListBtn = useMemo(
-    () => (isProductInWishList ? 'Remove of wish list' : 'Add to wish list'),
-    [isProductInWishList],
-  );
-
   return (
-    <BorderButton
-      title={titleWishListBtn}
+    <WishlistButton
       style={stylesProductIndex.buttonsStyles}
-      onPressIn={handleOnWishList}
+      isWishlisted={isProductInWishlist}
+      onPressIn={handleOnWishlist}
     />
   );
 }
@@ -150,7 +145,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                 <View style={stylesProductIndex.buttonsContainer}>
                   <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
 
-                  <WishListBtn id={productItem?.id} isInitialWishlisted={productItem?.wishlisted} />
+                  <WishlistBtn id={productItem?.id} isInitialWishlisted={productItem?.wishlisted} />
                 </View>
               </View>
             </PaddingContainer>
