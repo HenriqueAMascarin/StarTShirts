@@ -6,7 +6,7 @@ import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { WishlistProductObjectType } from '@src/services/wishlist/types/genericTypes';
 import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
 import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
-import { stylesWishlistProductCard } from 'src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
+import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
 
 export default function WishlistProductCard({
   title,

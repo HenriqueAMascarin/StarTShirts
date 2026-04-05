@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useMemo } from 'react';
 import { stylesGeneratorAlert } from '@src/components/alert/stylesGeneratorAlert';
 import React from 'react';
-import { AlertItem } from 'src/components/alert/components/AlertItem/AlertItem';
+import { AlertItem } from '@src/components/alert/components/AlertItem/AlertItem';
 
 export function GeneratorAlert() {
   const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
