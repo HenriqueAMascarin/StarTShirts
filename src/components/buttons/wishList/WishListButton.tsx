@@ -26,7 +26,7 @@ export default function WishlistButton(buttonProps: buttonTypes) {
       {...buttonProps}
       style={[stylesWishlistButton.wishlistButton, buttonProps?.style]}
     >
-      <WishlistSVG width={28.24} height={24.47} color={wishlistSVGColor} />
+      <WishlistSVG width={28.24} height={24.47} fill={wishlistSVGColor} />
 
       <TextDefault style={[stylesWishlistButton.wishlistTitle, buttonProps.textProps?.style]}>
         {titleWishlistBtn}

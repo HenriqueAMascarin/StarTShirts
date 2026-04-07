@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
 import ModalChangeFullName from '@src/modules/InApp/Account/components/changeName/ModalChangeFullName';
 import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
+import ManagementPagesContainer from '@src/modules/InApp/components/containers/ManagementPages/ManagementPagesContainer';
 
 function AccountContent(accountData: UserLoggedType) {
   const userName = useMemo(() => {
@@ -94,63 +95,68 @@ function AccountContent(accountData: UserLoggedType) {
 
       <MainContainer>
         <PaddingContainer>
-          <View style={stylesAccountIndex.containerUserPicture}>
-            <UserSVG width={'170'} height={'170'} />
+          <ManagementPagesContainer>
+            <View style={stylesAccountIndex.containerUserPicture}>
+              <UserSVG width={'170'} height={'170'} />
 
-            <TextTitleH2>{userName}</TextTitleH2>
-          </View>
+              <TextTitleH2>{userName}</TextTitleH2>
+            </View>
 
-          <View>
-            <TextTitleH3 style={stylesAccountIndex.titleSection}>Sign-in info</TextTitleH3>
+            <View>
+              <TextTitleH3 style={stylesAccountIndex.titleSection}>Sign-in info</TextTitleH3>
 
-            <View style={stylesAccountIndex.containersFlexInfo}>
-              <View style={stylesAccountIndex.containersInfo}>
-                <TextTitleH4>E-mail</TextTitleH4>
+              <View style={stylesAccountIndex.containersFlexInfo}>
+                <View style={stylesAccountIndex.containersInfo}>
+                  <TextTitleH4>E-mail</TextTitleH4>
 
-                <TextDefault>{accountData?.email}</TextDefault>
+                  <TextDefault>{accountData?.email}</TextDefault>
 
-                <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
+                  <UnderlineTextButton title="Change e-mail" onPressIn={onOpenModalChangeEmail} />
+                </View>
+
+                <View style={stylesAccountIndex.containersInfo}>
+                  <TextTitleH4>Password</TextTitleH4>
+
+                  <UnderlineTextButton
+                    title="Change password"
+                    onPressIn={onOpenModalChangePassword}
+                  />
+                </View>
               </View>
+            </View>
+
+            <LineObject customPaddingVertical={10} />
+
+            <View>
+              <TextTitleH3 style={stylesAccountIndex.titleSection}>Personal info</TextTitleH3>
 
               <View style={stylesAccountIndex.containersInfo}>
-                <TextTitleH4>Password</TextTitleH4>
+                <TextTitleH4>Full name</TextTitleH4>
+
+                <TextDefault>{fullName}</TextDefault>
 
                 <UnderlineTextButton
-                  title="Change password"
-                  onPressIn={onOpenModalChangePassword}
+                  title="Change full name"
+                  onPressIn={onOpenModalChangeFullName}
                 />
               </View>
             </View>
-          </View>
 
-          <LineObject customPaddingVertical={10} />
+            <LineObject customPaddingVertical={10} />
 
-          <View>
-            <TextTitleH3 style={stylesAccountIndex.titleSection}>Personal info</TextTitleH3>
+            <View style={stylesAccountIndex.containerSecurity}>
+              <TextTitleH3 style={stylesAccountIndex.titleSection}>Security</TextTitleH3>
 
-            <View style={stylesAccountIndex.containersInfo}>
-              <TextTitleH4>Full name</TextTitleH4>
+              <View style={stylesAccountIndex.containersInfo}>
+                <TextTitleH4>Log out of your account</TextTitleH4>
 
-              <TextDefault>{fullName}</TextDefault>
-
-              <UnderlineTextButton title="Change full name" onPressIn={onOpenModalChangeFullName} />
+                <UnderlineTextButton
+                  title="Sign out"
+                  onPressIn={() => signOutAccount(navigation.navigate)}
+                />
+              </View>
             </View>
-          </View>
-
-          <LineObject customPaddingVertical={10} />
-
-          <View style={stylesAccountIndex.containerSecurity}>
-            <TextTitleH3 style={stylesAccountIndex.titleSection}>Security</TextTitleH3>
-
-            <View style={stylesAccountIndex.containersInfo}>
-              <TextTitleH4>Log out of your account</TextTitleH4>
-
-              <UnderlineTextButton
-                title="Sign out"
-                onPressIn={() => signOutAccount(navigation.navigate)}
-              />
-            </View>
-          </View>
+          </ManagementPagesContainer>
         </PaddingContainer>
       </MainContainer>
     </>

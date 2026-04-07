@@ -9,6 +9,10 @@ export const stylesWishlistButton = StyleSheet.create({
     borderRadius: 18,
     justifyContent: 'center',
     height: 42,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 6,
   },
   wishlistTitle: {
     color: appColors.black,
