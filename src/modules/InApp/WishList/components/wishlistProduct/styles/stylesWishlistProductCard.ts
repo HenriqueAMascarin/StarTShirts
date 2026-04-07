@@ -35,26 +35,25 @@ export const stylesWishlistProductCard = StyleSheet.create({
     padding: 9,
   },
   addCartBtn: {
-    marginTop: 20,
     height: 30,
-  },
-  addCartBtnText: {
-    fontSize: 16,
   },
   titleText: {
     fontFamily: 'InterMedium',
-    fontSize: 17
+    fontSize: 17,
   },
   priceText: {
     fontFamily: 'InterMedium',
     color: appColors.grayish,
     fontSize: 17,
-     marginBottom: 4,
   },
   infoBtnsContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    gap: 4
-  }
+    gap: 4,
+    marginTop: 20,
+  },
+  actionBtnText: {
+    fontSize: 16,
+  },
 });

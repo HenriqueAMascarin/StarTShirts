@@ -4,7 +4,7 @@ import {StyleSheet} from 'react-native';
 export const stylesAlertItem = StyleSheet.create({
   defaultAlertContainer: {
     backgroundColor: appColors.white,
-    paddingVertical: 15,
+    paddingVertical: 12,
     paddingHorizontal: 10,
     borderRadius: 15,
     width: 350,

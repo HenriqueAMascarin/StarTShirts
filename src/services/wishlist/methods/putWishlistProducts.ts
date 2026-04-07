@@ -37,7 +37,7 @@ export const putWishlistProduct = async ({ id, removeFromWishlist }: putWishlist
 
     await AsyncStorage.setItem(keysLocalStorage.wishlistProducts, jsonValue);
 
-    status.messageSuccess = 'Product has been added to your wishlist!';
+    status.messageSuccess = 'Product has added to wishlist!';
   } else if (productWishlist != null && removeFromWishlist) {
     const arrayWithoutProduct = wishlistProducts?.filter((item) => item?.id != productWishlist?.id);
 
@@ -47,12 +47,12 @@ export const putWishlistProduct = async ({ id, removeFromWishlist }: putWishlist
 
     await AsyncStorage.setItem(keysLocalStorage.wishlistProducts, jsonValue);
 
-    status.messageSuccess = 'Product has been removed from your wishlist!';
+    status.messageSuccess = 'Product has removed from wishlist!';
   } else if (productWishlist == null) {
     if (removeFromWishlist) {
-      status.errors = { product: 'Failed to remove the product from the wishlist' };
+      status.errors = { product: 'Failed to remove the product from wishlist' };
     } else {
-      status.errors = { product: 'Could not add the product to the wishlist' };
+      status.errors = { product: 'Could not add the product to wishlist' };
     }
   }
 

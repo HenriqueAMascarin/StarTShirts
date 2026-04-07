@@ -8,12 +8,17 @@ import UnderlineTextButton from '@src/components/buttons/underlineText/Underline
 import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
 import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
 
+interface WishlistProductCardType extends WishlistProductObjectType {
+  getWishlistProductsAndSet: Function;
+}
+
 export default function WishlistProductCard({
   title,
   price,
   id,
   colors,
-}: WishlistProductObjectType) {
+  getWishlistProductsAndSet,
+}: WishlistProductCardType) {
   const navigation = useNavigation();
 
   const realPrice = '$' + price;
@@ -23,10 +28,14 @@ export default function WishlistProductCard({
   }
 
   async function onRemoveFromWishlist() {
-    await putWishlistProduct({
+    const response = await putWishlistProduct({
       id,
       removeFromWishlist: true,
     });
+
+    if (response?.messageSuccess) {
+      await getWishlistProductsAndSet();
+    }
   }
 
   const productFirstUrlImage = useMemo(() => colors?.[0]?.urlImage, [colors]);
@@ -55,10 +64,14 @@ export default function WishlistProductCard({
             title="Add to cart"
             onPressIn={onAddCart}
             style={stylesWishlistProductCard.addCartBtn}
-            textProps={{ style: stylesWishlistProductCard.addCartBtnText }}
+            textProps={{ style: stylesWishlistProductCard.actionBtnText }}
           />
 
-          <UnderlineTextButton title="Remove" onPressIn={onRemoveFromWishlist} />
+          <UnderlineTextButton
+            title="Remove"
+            onPressIn={onRemoveFromWishlist}
+            textProps={{ style: stylesWishlistProductCard.actionBtnText }}
+          />
         </View>
       </View>
     </View>

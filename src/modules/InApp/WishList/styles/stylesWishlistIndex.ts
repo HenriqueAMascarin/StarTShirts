@@ -2,6 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export const stylesWishlistIndex = StyleSheet.create({
   title: {
-    marginBottom: 4,
+    marginBottom: 8,
   },
 });

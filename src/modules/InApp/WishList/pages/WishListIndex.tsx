@@ -41,24 +41,24 @@ function ListIsEmptyMessages() {
 
 function ProductsContent() {
   const [productsWishlist, changeProductsWishlist] = useState<null | Awaited<
-    ReturnType<typeof getProducts>
+    ReturnType<typeof getWishlistProducts>
   >>(null);
 
-  async function getInitialProducts() {
+  async function getWishlistProductsAndSetToState() {
     const newProductsWishlist = await getWishlistProducts({});
 
     changeProductsWishlist(newProductsWishlist);
   }
 
   useEffect(() => {
-    getInitialProducts();
+    getWishlistProductsAndSetToState();
   }, []);
 
   return (
     <View style={stylesWishlistProductsContent.container}>
       {productsWishlist != null && productsWishlist?.length > 0 ? (
         productsWishlist?.map((wishlistProduct, wishlistKeyProduct) => {
-          return <WishlistProductCard {...wishlistProduct} key={wishlistKeyProduct} />;
+          return <WishlistProductCard {...wishlistProduct} key={wishlistKeyProduct} getWishlistProductsAndSet={getWishlistProductsAndSetToState}/>;
         })
       ) : productsWishlist != null ? (
         <ListIsEmptyMessages />

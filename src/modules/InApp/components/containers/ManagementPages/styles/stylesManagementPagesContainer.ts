@@ -2,6 +2,6 @@ import { StyleSheet } from 'react-native';
 
 export const stylesManagementPagesContainer = StyleSheet.create({
   container: {
-    paddingTop: 30,
+    paddingTop: 20,
   },
 });
