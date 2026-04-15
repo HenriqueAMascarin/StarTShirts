@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 class StatusActiveSplashScreenViewModel: ViewModel() {
     private val _status = MutableStateFlow(true)
+
     val status: StateFlow<Boolean> = _status
 
     fun changeStatusActiveSplashScreen(newStatus: Boolean){

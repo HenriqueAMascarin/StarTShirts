@@ -18,7 +18,6 @@ import TextDefault from '@src/components/texts/default/TextDefault';
 import BottomContainer from '@src/components/containers/BottomContainer';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import BorderButton from '@src/components/buttons/border/BorderButton';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function ResetRequestIndex() {
   const {
@@ -47,8 +46,6 @@ export default function ResetRequestIndex() {
   }
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
         <ScrollView>
           <StarIconTopIndex />
 
@@ -96,7 +93,6 @@ export default function ResetRequestIndex() {
             </BottomContainer>
           </PaddingContainer>
         </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+
   );
 }

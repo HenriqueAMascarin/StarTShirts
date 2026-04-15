@@ -13,6 +13,7 @@ import { stylesMenuDrawerModal } from '@src/modules/InApp/components/header/styl
 import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
 import { signOutAccount } from '@src/utils/signOutAccount';
 import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 type TypeMenuDrawerModal = {
   stateDrawerModal: boolean;
@@ -166,7 +167,8 @@ export default function HeaderIndex() {
   );
 
   return (
-    <>
+    <SafeAreaProvider>
+      <SafeAreaView>
       <View style={[stylesHeaderIndex.container, { minHeight: minHeightHeaderMemo }]}>
         <View style={stylesHeaderIndex.headerContainer}>
           <PaddingContainer>
@@ -203,6 +205,7 @@ export default function HeaderIndex() {
           changeStateDrawerModal={changeDrawerModalState}
         />
       </View>
-    </>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

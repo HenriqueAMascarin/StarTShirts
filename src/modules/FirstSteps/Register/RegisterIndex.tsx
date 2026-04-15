@@ -18,7 +18,6 @@ import StarIconTopIndex from '@src/modules/FirstSteps/components/StarIconTop/Sta
 import BottomContainer from '@src/components/containers/BottomContainer';
 import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RegisterIndex() {
   const {
@@ -56,117 +55,113 @@ export default function RegisterIndex() {
   }
 
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <ScrollView>
-          <StarIconTopIndex />
+    <ScrollView>
+      <StarIconTopIndex />
 
-          <PaddingContainer>
-            <BottomContainer>
-              <View style={{ marginBottom: 20 }}>
-                <TextTitleH1>Sign up</TextTitleH1>
-              </View>
+      <PaddingContainer>
+        <BottomContainer>
+          <View style={{ marginBottom: 20 }}>
+            <TextTitleH1>Sign up</TextTitleH1>
+          </View>
 
-              <View>
-                <View style={globalStyles.containerInputs}>
-                  <Controller
-                    control={registerControl}
-                    name="firstName"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputDefault
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        label="First name"
-                        errors={registerErrors.firstName}
-                        testID="firstNameInput"
-                        required
-                      />
-                    )}
+          <View>
+            <View style={globalStyles.containerInputs}>
+              <Controller
+                control={registerControl}
+                name="firstName"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputDefault
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="First name"
+                    errors={registerErrors.firstName}
+                    testID="firstNameInput"
+                    required
                   />
+                )}
+              />
 
-                  <Controller
-                    control={registerControl}
-                    name="lastName"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputDefault
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        label="Last name"
-                        errors={registerErrors.lastName}
-                        testID="lastNameInput"
-                        required
-                      />
-                    )}
+              <Controller
+                control={registerControl}
+                name="lastName"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputDefault
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="Last name"
+                    errors={registerErrors.lastName}
+                    testID="lastNameInput"
+                    required
                   />
+                )}
+              />
 
-                  <Controller
-                    control={registerControl}
-                    name="email"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputDefault
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        label="E-mail"
-                        inputMode="email"
-                        errors={registerErrors.email}
-                        testID="emailInput"
-                        required
-                      />
-                    )}
+              <Controller
+                control={registerControl}
+                name="email"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputDefault
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="E-mail"
+                    inputMode="email"
+                    errors={registerErrors.email}
+                    testID="emailInput"
+                    required
                   />
+                )}
+              />
 
-                  <Controller
-                    control={registerControl}
-                    name="password"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputPassword
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        label="Password"
-                        errors={registerErrors.password}
-                        testID="passwordInput"
-                        required
-                      />
-                    )}
+              <Controller
+                control={registerControl}
+                name="password"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputPassword
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="Password"
+                    errors={registerErrors.password}
+                    testID="passwordInput"
+                    required
                   />
+                )}
+              />
 
-                  <Controller
-                    control={registerControl}
-                    name="confirmPassword"
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <InputPassword
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        label="Confirm password"
-                        errors={registerErrors.confirmPassword}
-                        testID="confirmPasswordInput"
-                        required
-                      />
-                    )}
+              <Controller
+                control={registerControl}
+                name="confirmPassword"
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <InputPassword
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    label="Confirm password"
+                    errors={registerErrors.confirmPassword}
+                    testID="confirmPasswordInput"
+                    required
                   />
-                </View>
+                )}
+              />
+            </View>
 
-                <View style={{ marginTop: 10 }}>
-                  <DefaultButton
-                    title="Create account"
-                    onPressIn={registerHandleSubmit(onRegisterSubmit)}
-                    testID="registerButton"
-                  />
+            <View style={{ marginTop: 10 }}>
+              <DefaultButton
+                title="Create account"
+                onPressIn={registerHandleSubmit(onRegisterSubmit)}
+                testID="registerButton"
+              />
 
-                  <LineObject text="or" />
+              <LineObject text="or" />
 
-                  <BorderButton title="Login" onPressIn={changeBtnMethod} />
-                </View>
-              </View>
-            </BottomContainer>
-          </PaddingContainer>
-        </ScrollView>
-      </SafeAreaView>
-    </SafeAreaProvider>
+              <BorderButton title="Login" onPressIn={changeBtnMethod} />
+            </View>
+          </View>
+        </BottomContainer>
+      </PaddingContainer>
+    </ScrollView>
   );
 }
