@@ -48,7 +48,7 @@ export default function ProductCard({ title, price, colors, id }: ProductObjectT
           onPressIn={onCheckProduct}
           style={stylesProductCard.infoBtn}
           textProps={{ style: stylesProductCard.infoBtnText }}
-          testID='productCardCheckBtn'
+          testID='productCardCheckBtnTestId'
         />
       </View>
     </View>

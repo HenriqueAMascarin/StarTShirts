@@ -21,12 +21,18 @@ export default function WishlistButton(buttonProps: buttonTypes) {
     [buttonProps?.isWishlisted],
   );
 
+    const testIdWishlistIconBtn = useMemo(
+    () => (buttonProps?.isWishlisted ? 'wishlistedIconTestId' : 'nonWishlistedIconTestId'),
+    [buttonProps?.isWishlisted],
+  );
+
   return (
     <TouchableOpacity
       {...buttonProps}
       style={[stylesWishlistButton.wishlistButton, buttonProps?.style]}
+      testID='wishlistBtnTestId'
     >
-      <WishlistSVG width={28.24} height={24.47} fill={wishlistSVGColor} />
+      <WishlistSVG width={28.24} height={24.47} fill={wishlistSVGColor} testID={testIdWishlistIconBtn}/>
 
       <TextDefault style={[stylesWishlistButton.wishlistTitle, buttonProps.textProps?.style]}>
         {titleWishlistBtn}

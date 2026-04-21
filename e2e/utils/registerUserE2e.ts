@@ -1,27 +1,29 @@
+import { element } from 'detox';
+
 export async function registerUserE2e() {
   const registerElements = {
-    firstNameInput: element(by.id('firstNameInput')),
+    firstNameInput: by.id('firstNameInput'),
 
-    lastNameInput: element(by.id('lastNameInput')),
+    lastNameInput: by.id('lastNameInput'),
 
-    emailInput: element(by.id('emailInput')),
+    emailInput: by.id('emailInput'),
 
-    passwordInput: element(by.id('passwordInput')),
+    passwordInput: by.id('passwordInput'),
 
-    confirmPasswordInput: element(by.id('confirmPasswordInput')),
+    confirmPasswordInput: by.id('confirmPasswordInput'),
 
-    registerBtn: element(by.id('registerButton')),
+    registerBtn: by.id('registerButton'),
   };
 
-  await registerElements.firstNameInput.typeText('Henrique');
+  await element(registerElements.firstNameInput).replaceText('Henrique');
 
-  await registerElements.lastNameInput.typeText('Testes');
+  await element(registerElements.lastNameInput).replaceText('Testes');
 
-  await registerElements.emailInput.typeText('testes@gmail.com');
+  await element(registerElements.emailInput).replaceText('testes@gmail.com');
 
-  await registerElements.passwordInput.typeText('Henrique!');
+  await element(registerElements.passwordInput).replaceText('Henrique!');
 
-  await registerElements.confirmPasswordInput.typeText('Henrique!');
+  await element(registerElements.confirmPasswordInput).replaceText('Henrique!');
 
-  await registerElements.registerBtn.tap();
+  await element(registerElements.registerBtn).tap();
 }
