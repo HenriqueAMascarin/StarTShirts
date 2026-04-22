@@ -9,7 +9,7 @@ export default function MainContainer({ children }: { children: ReactNode }) {
     <ScrollView
       contentContainerStyle={[stylesMainContainer.contentContainer, { paddingTop: headerHeight }]}
       style={stylesMainContainer.container}
-      testID='mainContainerScrollTestId'
+      testID="mainContainerScrollTestId"
     >
       <View style={stylesMainContainer.childrenContainer}>{children}</View>
 

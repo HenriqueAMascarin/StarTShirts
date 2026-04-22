@@ -13,7 +13,7 @@ import { stylesMenuDrawerModal } from '@src/modules/InApp/components/header/styl
 import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
 import { signOutAccount } from '@src/utils/signOutAccount';
 import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type TypeMenuDrawerModal = {
   stateDrawerModal: boolean;
@@ -149,6 +149,8 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
 export default function HeaderIndex() {
   const navigation = useNavigation();
 
+  const insets = useSafeAreaInsets();
+
   function onSearch() {}
 
   const { drawerModalState, changeDrawerModalState } = useDrawerModalHook();
@@ -167,45 +169,38 @@ export default function HeaderIndex() {
   );
 
   return (
-    <View style={[stylesHeaderIndex.container, { minHeight: minHeightHeaderMemo }]}>
-      <SafeAreaProvider>
-        <SafeAreaView>
-          <View style={stylesHeaderIndex.headerContainer}>
-            <PaddingContainer>
-              <View style={stylesHeaderIndex.flexContainer}>
-                <TouchableOpacity onPressIn={goToHomeRoute}>
-                  <MiniStarSVG width={'31'} height={'29'} />
-                </TouchableOpacity>
+    <View style={[stylesHeaderIndex.container, { minHeight: minHeightHeaderMemo, top: insets.top }]}>
+      <View style={stylesHeaderIndex.headerContainer}>
+        <PaddingContainer>
+          <View style={stylesHeaderIndex.flexContainer}>
+            <TouchableOpacity onPressIn={goToHomeRoute}>
+              <MiniStarSVG width={'31'} height={'29'} />
+            </TouchableOpacity>
 
-                <View style={stylesHeaderIndex.seachInputContainer}>
-                  <InputDefault
-                    placeholder="Search the best t-shirts"
-                    style={stylesHeaderIndex.searchInput}
-                  />
+            <View style={stylesHeaderIndex.seachInputContainer}>
+              <InputDefault
+                placeholder="Search the best t-shirts"
+                style={stylesHeaderIndex.searchInput}
+              />
 
-                  <TouchableOpacity style={{ position: 'absolute', left: 10 }} onPressIn={onSearch}>
-                    <SearchSVG width={'16'} height={'15'} />
-                  </TouchableOpacity>
-                </View>
+              <TouchableOpacity style={{ position: 'absolute', left: 10 }} onPressIn={onSearch}>
+                <SearchSVG width={'16'} height={'15'} />
+              </TouchableOpacity>
+            </View>
 
-                <TouchableOpacity
-                  style={stylesHeaderIndex.flexHamburguer}
-                  onPressIn={openDrawerModal}
-                >
-                  <View style={stylesHeaderIndex.padsHamburguer} />
-                  <View style={stylesHeaderIndex.padsHamburguer} />
-                  <View style={stylesHeaderIndex.padsHamburguer} />
-                </TouchableOpacity>
-              </View>
-            </PaddingContainer>
+            <TouchableOpacity style={stylesHeaderIndex.flexHamburguer} onPressIn={openDrawerModal}>
+              <View style={stylesHeaderIndex.padsHamburguer} />
+              <View style={stylesHeaderIndex.padsHamburguer} />
+              <View style={stylesHeaderIndex.padsHamburguer} />
+            </TouchableOpacity>
           </View>
+        </PaddingContainer>
+      </View>
 
-          <MenuDrawerModal
-            stateDrawerModal={drawerModalState}
-            changeStateDrawerModal={changeDrawerModalState}
-          />
-        </SafeAreaView>
-      </SafeAreaProvider>
+      <MenuDrawerModal
+        stateDrawerModal={drawerModalState}
+        changeStateDrawerModal={changeDrawerModalState}
+      />
     </View>
   );
 }
