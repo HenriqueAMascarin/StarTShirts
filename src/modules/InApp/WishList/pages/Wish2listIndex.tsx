@@ -1,7 +1,6 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';

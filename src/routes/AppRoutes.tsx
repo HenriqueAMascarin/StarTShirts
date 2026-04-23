@@ -10,7 +10,7 @@ import React from 'react';
 import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
 import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
-import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
+import WishlistIndex from '@src/modules/InApp/WishList/pages/Wish2listIndex';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
