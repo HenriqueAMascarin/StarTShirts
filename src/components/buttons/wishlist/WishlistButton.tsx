@@ -1,8 +1,8 @@
 import { TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import React, { useMemo } from 'react';
-import { stylesWishlistButton } from '@src/components/buttons/wish2list/style/stylesWish2listButton';
-import WishlistSVG from '@src/assets/svgs/wishlist.svg';
+import { stylesWishlistButton } from '@src/components/buttons/wishlist/style/stylesWishlistButton';
+import HeartSVG from '@src/assets/svgs/heart.svg';
 import { appColors } from '@src/utils/appColors';
 
 type buttonTypes = TouchableOpacityProps & {
@@ -11,7 +11,7 @@ type buttonTypes = TouchableOpacityProps & {
 };
 
 export default function WishlistButton(buttonProps: buttonTypes) {
-  const wishlistSVGColor = useMemo(
+  const heartSVGColor = useMemo(
     () => (buttonProps?.isWishlisted ? appColors.red : appColors.grayish),
     [buttonProps?.isWishlisted],
   );
@@ -32,7 +32,7 @@ export default function WishlistButton(buttonProps: buttonTypes) {
       style={[stylesWishlistButton.wishlistButton, buttonProps?.style]}
       testID='wishlistBtnTestId'
     >
-      <WishlistSVG width={28.24} height={24.47} fill={wishlistSVGColor} testID={testIdWishlistIconBtn}/>
+      <HeartSVG width={28.24} height={24.47} fill={heartSVGColor} testID={testIdWishlistIconBtn}/>
 
       <TextDefault style={[stylesWishlistButton.wishlistTitle, buttonProps.textProps?.style]}>
         {titleWishlistBtn}
