@@ -1,7 +1,7 @@
 import { TextProps, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import React, { useMemo } from 'react';
-import { stylesWishlistButton } from '@src/components/buttons/wishlist/style/stylesWishlistButton';
+import { stylesWishlistButton } from '@src/components/buttons/wish2list/style/stylesWish2listButton';
 import WishlistSVG from '@src/assets/svgs/wishlist.svg';
 import { appColors } from '@src/utils/appColors';
 

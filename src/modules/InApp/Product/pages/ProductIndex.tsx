@@ -23,7 +23,7 @@ import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScree
 import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
 import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
 import { WishlistProductObjectType } from '@src/services/wishlist/types/genericTypes';
-import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
+import WishlistButton from '@src/components/buttons/wish2list/Wish2listButton';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
