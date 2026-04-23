@@ -65,7 +65,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
         <Stack.Group
           screenLayout={(props) => {
-            return <View style={{ top: insets.top }}>{props.children}</View>;
+            return <View style={{ paddingTop: insets.top }}>{props.children}</View>;
           }}
         >
           <Stack.Screen name="home" component={HomeIndex} />
