@@ -12,7 +12,7 @@ import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
 import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
 import { View } from 'react-native';
-import {  useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export type RootStackParamList = {
   register: undefined;
