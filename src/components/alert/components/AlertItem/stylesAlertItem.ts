@@ -4,10 +4,10 @@ import {StyleSheet} from 'react-native';
 export const stylesAlertItem = StyleSheet.create({
   defaultAlertContainer: {
     backgroundColor: appColors.white,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 10,
-    width: 340,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+    width: 350,
     flex: 1,
     display: 'flex',
     flexDirection: 'row',

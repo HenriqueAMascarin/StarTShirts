@@ -4,18 +4,18 @@ import { userResponseObjectType } from '@src/services/user/types/genericTypes';
 
 type typeUserData = userResponseObjectType[];
 
-export type getUsersByIdType = { id?: number };
+type getUsersType = { id?: number };
 
-export const getUsers = async ({ id }: getUsersByIdType): Promise<typeUserData> => {
+export const getUsers = async ({ id }: getUsersType): Promise<typeUserData> => {
   const usersResponse = await AsyncStorage.getItem(keysLocalStorage.usersKey);
 
   let usersData: typeUserData = usersResponse ? JSON.parse(usersResponse) : [];
 
   if (id) {
-    const findById = usersData.find((request) => request.id === id);
+    const itemFindById = usersData.find((item) => item.id === id);
 
-    if (findById) {
-      usersData = [findById];
+    if (itemFindById) {
+      usersData = [itemFindById];
     }
   }
 

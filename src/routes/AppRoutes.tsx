@@ -10,6 +10,9 @@ import React from 'react';
 import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
 import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
+import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
+import { View } from 'react-native';
+import {  useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export type RootStackParamList = {
   register: undefined;
@@ -19,7 +22,7 @@ export type RootStackParamList = {
 
   home: undefined;
   'home/product': { id: number };
-  'home/wishList': undefined;
+  'home/wishlist': undefined;
   'home/cart': undefined;
   'home/purchases': undefined;
   'home/account': undefined;
@@ -36,6 +39,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 type AppRoutesType = { initialRouteName: keyof RootStackParamList };
 
 export default function AppRoutes({ initialRouteName }: AppRoutesType) {
+  const insets = useSafeAreaInsets();
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -58,12 +63,16 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
           <Stack.Screen name="password-reset" component={PasswordResetIndex} />
         </Stack.Group>
 
-        <Stack.Group>
+        <Stack.Group
+          screenLayout={(props) => {
+            return <View style={{ paddingTop: insets.top }}>{props.children}</View>;
+          }}
+        >
           <Stack.Screen name="home" component={HomeIndex} />
 
           <Stack.Screen name="home/product" component={ProductIndex} />
 
-          <Stack.Screen name="home/wishList" component={HomeIndex} />
+          <Stack.Screen name="home/wishlist" component={WishlistIndex} />
 
           <Stack.Screen name="home/cart" component={HomeIndex} />
 

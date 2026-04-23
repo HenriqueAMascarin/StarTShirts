@@ -4,5 +4,6 @@ module.exports = {
     '\\.svg': '<rootDir>/__mocks__/@react-native-svg-transformer/svgMock.js',
     '^__mocks__/(.*)$': '<rootDir>/__mocks__/$1',
   },
+  modulePathIgnorePatterns: ['e2e/'],
   transformIgnorePatterns: [],
 };

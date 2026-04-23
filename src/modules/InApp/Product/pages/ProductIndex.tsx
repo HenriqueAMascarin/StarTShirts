@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -17,22 +17,60 @@ import { ProductObjectType } from '@src/services/product/dataProducts/types/gene
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import LineObject from '@src/components/objects/line/LineObject';
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
-import BorderButton from '@src/components/buttons/border/BorderButton';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
 import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
+import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
+import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import { WishlistProductObjectType } from '@src/services/wishlist/types/genericTypes';
+import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
-async function getInitialProductResponse({ id }: { id: number }) {
-  const products = await getProducts({ id });
+type ProductType = WishlistProductObjectType | ProductObjectType;
 
-  const product = products?.[0];
+async function getInitialProductResponse({ id }: { id: number }) {
+  let productsData = await getWishlistProducts({ id });
+
+  if (productsData?.length < 1) {
+    productsData = await getProducts({ id });
+  }
+
+  const product = productsData.length > 0 ? productsData?.[0] : null;
 
   return product;
 }
 
-function ProductContent({ productItem }: { productItem: ProductObjectType }) {
+function WishlistBtn({
+  id,
+  isInitialWishlisted,
+}: {
+  id: ProductType['id'];
+  isInitialWishlisted: boolean;
+}) {
+  const [isProductInWishlist, changeIsProductInWishlist] = useState(isInitialWishlisted);
+
+  async function handleOnWishlist() {
+    const responseWishlistProduct = await putWishlistProduct({
+      id,
+      removeFromWishlist: isProductInWishlist,
+    });
+
+    if (responseWishlistProduct?.messageSuccess) {
+      changeIsProductInWishlist(!isProductInWishlist);
+    }
+  }
+
+  return (
+    <WishlistButton
+      style={stylesProductIndex.buttonsStyles}
+      isWishlisted={isProductInWishlist}
+      onPressIn={handleOnWishlist}
+    />
+  );
+}
+
+function ProductContent({ productItem }: { productItem: ProductType }) {
   const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
 
   const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
@@ -107,7 +145,7 @@ function ProductContent({ productItem }: { productItem: ProductObjectType }) {
                 <View style={stylesProductIndex.buttonsContainer}>
                   <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
 
-                  <BorderButton title="Add to Wish List" style={stylesProductIndex.buttonsStyles} />
+                  <WishlistBtn id={productItem?.id} isInitialWishlisted={productItem?.wishlisted} />
                 </View>
               </View>
             </PaddingContainer>

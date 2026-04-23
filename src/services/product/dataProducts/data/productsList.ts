@@ -7,6 +7,7 @@ export const productsList: ProductObjectType[] = [
   {
     title: 'Classic T-shirt',
     price: 100.0,
+    wishlisted: false,
     colors: [
       {
         color: 'white',
@@ -27,7 +28,7 @@ export const productsList: ProductObjectType[] = [
     id: 345225,
     type: 'tShirt',
     details: {
-      info: 'The Classic T-shirt is for the lovers of a good t-shirt that always want to be well-dressed.',
+      info: 'The Classic T-shirt is for the lovers of a good T-shirt that always want to be well-dressed.',
       list: ['100% polyester', 'Imported', 'item #345225'],
     },
   },

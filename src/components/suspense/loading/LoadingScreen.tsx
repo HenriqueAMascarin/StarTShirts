@@ -21,7 +21,7 @@ export default function LoadingScreen() {
   });
 
   return (
-    <View style={stylesLoadingScreen.container}>
+    <View style={stylesLoadingScreen.container} testID='loadingScreenTestId'>
       <Animated.View style={{ transform: [{ rotate: rotationAnimatedValue }] }}>
         <LoadingSVG width={150} height={149} />
       </Animated.View>

@@ -11,7 +11,7 @@ import {
   stylesDrawerModal,
 } from '@src/components/modal/drawer/styles/stylesDrawerModal';
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
-import CloseSvg from '@src/assets/svgs/close.svg';
+import CloseSVG from '@src/assets/svgs/close.svg';
 import { stylesGlobalModal } from '@src/components/modal/stylesGlobalModal';
 
 type TypeDefaultModal = {
@@ -101,7 +101,7 @@ function ContentDrawerModal({ children, visibleStates, title, position }: TypeDe
           ]}
         >
           <TouchableOpacity onPressIn={closeDrawerModal}>
-            <CloseSvg width={23} height={23} />
+            <CloseSVG width={23} height={23} />
           </TouchableOpacity>
 
           <TextTitleH2>{title}</TextTitleH2>

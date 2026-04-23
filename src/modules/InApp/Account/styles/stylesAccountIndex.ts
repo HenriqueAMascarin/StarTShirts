@@ -7,7 +7,6 @@ export const stylesAccountIndex = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 2,
-    marginTop: 30,
     marginBottom: 30,
   },
   containersFlexInfo: {

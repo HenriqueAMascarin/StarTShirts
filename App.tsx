@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { globalStore } from '@src/store/globalStore';
 import AppRoutes, { RootStackParamList } from '@src/routes/AppRoutes';
-
 import { GeneratorAlert } from '@src/components/alert/GeneratorAlert';
 import { getLoggedUser } from '@src/services/user/login/methods/getLoggedUser';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const { SplashScreenModule } = NativeModules;
 
@@ -42,15 +42,17 @@ function App() {
   }, [bootStateData]);
 
   return (
-    <Provider store={globalStore}>
-      {bootStateData && (
-        <View style={{ flex: 1, position: 'relative' }}>
-          <GeneratorAlert />
+    <SafeAreaProvider>
+      <Provider store={globalStore}>
+        {bootStateData && (
+          <View style={{ flex: 1, position: 'relative' }}>
+            <GeneratorAlert />
 
-          <AppRoutes initialRouteName={bootStateData.initialRoute} />
-        </View>
-      )}
-    </Provider>
+            <AppRoutes initialRouteName={bootStateData.initialRoute} />
+          </View>
+        )}
+      </Provider>
+    </SafeAreaProvider>
   );
 }
 

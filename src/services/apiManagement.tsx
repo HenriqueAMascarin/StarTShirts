@@ -10,7 +10,6 @@ export async function apiManagement(response: genericStatus) {
   if (response.messageSuccess) {
     globalStore.dispatch(
       addElement({
-        Element: AlertItem,
         props: { type: 'success', message: response.messageSuccess },
         keyItem: randomKey,
       }),
@@ -19,7 +18,6 @@ export async function apiManagement(response: genericStatus) {
     for (const key in response.errors) {
       globalStore.dispatch(
         addElement({
-          Element: AlertItem,
           props: { type: 'error', message: response.errors?.[key] },
           keyItem: randomKey,
         }),

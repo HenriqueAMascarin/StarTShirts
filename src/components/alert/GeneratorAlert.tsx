@@ -5,33 +5,34 @@ import { useDispatch } from 'react-redux';
 import { useMemo } from 'react';
 import { stylesGeneratorAlert } from '@src/components/alert/stylesGeneratorAlert';
 import React from 'react';
+import { AlertItem } from '@src/components/alert/components/AlertItem/AlertItem';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function GeneratorAlert() {
-    const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
-    const dispatch = useDispatch();
+  const alertsInstantiable = useAppSelector(({ alertsInstantiable }) => alertsInstantiable);
 
-    function hideFunction(keyItem: number) {
-        dispatch(removeElement(keyItem));
-    }
+  const dispatch = useDispatch();
 
-    const alertsElements = useMemo(() => {
+  const insets = useSafeAreaInsets();
 
+  function hideFunction(keyItem: number) {
+    dispatch(removeElement(keyItem));
+  }
 
-        return alertsInstantiable.map(({ Element, keyItem, props }) => {
+  const alertsElements = useMemo(() => {
+    return alertsInstantiable.map(({ keyItem, props }) => {
+      return <AlertItem onHideFn={() => hideFunction(keyItem)} key={keyItem} {...props} />;
+    });
+  }, [alertsInstantiable]);
 
-            return (
-                <Element
-                    onHideFn={() => hideFunction(keyItem)}
-                    key={keyItem}
-                    {...props}
-                />
-            );
-        });
-    }, [alertsInstantiable]);
+  const topPositionValue = useMemo(
+    () => insets.top + stylesGeneratorAlert.containerAlerts.top,
+    [insets.top],
+  );
 
-    return (
-        <View style={stylesGeneratorAlert.containerAlerts} >
-            {alertsElements}
-        </View >
-    );
+  return (
+    <View style={[stylesGeneratorAlert.containerAlerts, { top: topPositionValue }]}>
+      {alertsElements}
+    </View>
+  );
 }
