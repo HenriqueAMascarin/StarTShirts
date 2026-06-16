@@ -3,40 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
-import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
 import WishlistProductCard from '@src/modules/InApp/Wishlist/components/wishlistProduct/WishlistProductCard';
 import { stylesWishlistProductsContent } from '@src/modules/InApp/Wishlist/styles/stylesWishlistProductsContent';
-import TextDefault from '@src/components/texts/default/TextDefault';
-import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import { stylesWishlistIndex } from '@src/modules/InApp/Wishlist/styles/stylesWishlistIndex';
-import { stylesListIsEmptyMessages } from '@src/modules/InApp/Wishlist/styles/stylesListIsEmptyMessages';
-import ManagementPagesContainer from '@src/modules/InApp/components/containers/ManagementPages/ManagementPagesContainer';
-import { useNavigation } from '@react-navigation/native';
-
-function ListIsEmptyMessages() {
-  const navigation = useNavigation();
-
-  function onShopNow() {
-    navigation.navigate('home');
-  }
-
-  return (
-    <View style={stylesListIsEmptyMessages.container}>
-      <View>
-        <TextDefault>Your list is empty.</TextDefault>
-
-        <TextDefault>Add items to your list by shopping the site.</TextDefault>
-      </View>
-
-      <DefaultButton
-        title="Shop now"
-        style={stylesListIsEmptyMessages.shopBtn}
-        onPressIn={onShopNow}
-      />
-    </View>
-  );
-}
+import ManagementPagesContainerWithTitle from '@src/modules/InApp/components/containers/ManagementPagesWithTitle/ManagementPagesContainerWithTitle';
+import ListIsEmptyMessages from '@src/modules/InApp/components/emptyList/ListIsEmptyMessages';
 
 function ProductsContent() {
   const [productsWishlist, changeProductsWishlist] = useState<null | Awaited<
@@ -60,7 +31,7 @@ function ProductsContent() {
           return <WishlistProductCard {...wishlistProduct} key={wishlistKeyProduct} getWishlistProductsAndSet={getWishlistProductsAndSetToState}/>;
         })
       ) : productsWishlist != null ? (
-        <ListIsEmptyMessages />
+        <ListIsEmptyMessages title='Your list is empty.' subtitle='Add items to your list by shopping the site.'/>
       ) : (
         <LoadingScreen />
       )}
@@ -72,11 +43,9 @@ export default function WishlistIndex() {
   return (
     <MainContainer>
       <PaddingContainer>
-        <ManagementPagesContainer>
-          <TextTitleH2 style={stylesWishlistIndex.title}>Wishlist</TextTitleH2>
-
+        <ManagementPagesContainerWithTitle title={'Wishlist'}>
           <ProductsContent />
-        </ManagementPagesContainer>
+        </ManagementPagesContainerWithTitle>
       </PaddingContainer>
     </MainContainer>
   );

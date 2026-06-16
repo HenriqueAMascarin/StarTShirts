@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
@@ -41,36 +41,11 @@ async function getInitialProductResponse({ id }: { id: number }) {
   return product;
 }
 
-function WishlistBtn({
-  id,
-  isInitialWishlisted,
-}: {
-  id: ProductType['id'];
-  isInitialWishlisted: boolean;
-}) {
-  const [isProductInWishlist, changeIsProductInWishlist] = useState(isInitialWishlisted);
-
-  async function handleOnWishlist() {
-    const responseWishlistProduct = await putWishlistProduct({
-      id,
-      removeFromWishlist: isProductInWishlist,
-    });
-
-    if (responseWishlistProduct?.messageSuccess) {
-      changeIsProductInWishlist(!isProductInWishlist);
-    }
-  }
-
-  return (
-    <WishlistButton
-      style={stylesProductIndex.buttonsStyles}
-      isWishlisted={isProductInWishlist}
-      onPressIn={handleOnWishlist}
-    />
-  );
-}
-
 function ProductContent({ productItem }: { productItem: ProductType }) {
+  const productId = productItem?.id;
+
+  const [isProductInWishlist, changeIsProductInWishlist] = useState(productItem?.wishlisted);
+
   const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
 
   const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
@@ -81,6 +56,21 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
 
   function open3DProductModal() {
     changeSimpleModalState(true);
+  }
+
+  async function handleOnWishlist() {
+    const responseWishlistProduct = await putWishlistProduct({
+      id: productId,
+      removeFromWishlist: isProductInWishlist,
+    });
+
+    if (responseWishlistProduct?.messageSuccess) {
+      changeIsProductInWishlist(!isProductInWishlist);
+    }
+  }
+
+  async function handleOnCart(){
+    
   }
 
   return (
@@ -143,9 +133,17 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                 <LineObject />
 
                 <View style={stylesProductIndex.buttonsContainer}>
-                  <DefaultButton title="Purchase" style={stylesProductIndex.buttonsStyles} />
+                  <DefaultButton
+                    title="Put in your cart"
+                    style={stylesProductIndex.buttonsStyles}
+                    onPressIn={handleOnCart}
+                  />
 
-                  <WishlistBtn id={productItem?.id} isInitialWishlisted={productItem?.wishlisted} />
+                  <WishlistButton
+                    style={stylesProductIndex.buttonsStyles}
+                    isWishlisted={isProductInWishlist}
+                    onPressIn={handleOnWishlist}
+                  />
                 </View>
               </View>
             </PaddingContainer>
