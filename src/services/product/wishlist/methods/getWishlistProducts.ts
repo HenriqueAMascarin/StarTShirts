@@ -1,6 +1,6 @@
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { WishlistProductArrayType } from '@src/services/wishlist/types/genericTypes';
+import { WishlistProductArrayType } from '@src/services/product/wishlist/types/genericTypes';
 
 type getWishlistProductsType = { id?: number };
 

@@ -3,9 +3,9 @@ import { Image, View } from 'react-native';
 import React, { useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import { WishlistProductObjectType } from '@src/services/wishlist/types/genericTypes';
+import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
-import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
+import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
 import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
 
 interface WishlistProductCardType extends WishlistProductObjectType {

@@ -1,18 +1,18 @@
 import { genericStatus } from '@src/services/genericTypes';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
-import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiManagement } from '@src/services/apiManagement';
 import {
   WishlistProductArrayType,
   WishlistProductObjectType,
-} from '@src/services/wishlist/types/genericTypes';
+} from '@src/services/product/wishlist/types/genericTypes';
 
-type putWishlistProductType = { id: number; removeFromWishlist: boolean };
+type putWishlistProductType = { id: number; removeFromWishlist?: boolean };
 
 // Using id to be something like a real API
-export const putWishlistProduct = async ({ id, removeFromWishlist }: putWishlistProductType) => {
+export const putWishlistProduct = async ({ id, removeFromWishlist = false }: putWishlistProductType) => {
   const productByIdData = await getProducts({ id });
 
   const productWishlist = productByIdData?.[0];

@@ -20,10 +20,11 @@ import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/modal/ModalProduct3D';
 import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
-import { putWishlistProduct } from '@src/services/wishlist/methods/putWishlistProducts';
-import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
-import { WishlistProductObjectType } from '@src/services/wishlist/types/genericTypes';
+import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
+import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
+import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
+import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
@@ -70,7 +71,15 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
   }
 
   async function handleOnCart(){
-    
+    const responseCartProduct = await putCartProduct({
+      id: productId,
+      removeFromCart
+    });
+
+    if(responseCartProduct?.messageSuccess){
+      
+    }
+
   }
 
   return (

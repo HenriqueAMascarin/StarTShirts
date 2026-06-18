@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
-import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
 import WishlistProductCard from '@src/modules/InApp/Wishlist/components/wishlistProduct/WishlistProductCard';
 import { stylesWishlistProductsContent } from '@src/modules/InApp/Wishlist/styles/stylesWishlistProductsContent';
 import ManagementPagesContainerWithTitle from '@src/modules/InApp/components/containers/ManagementPagesWithTitle/ManagementPagesContainerWithTitle';

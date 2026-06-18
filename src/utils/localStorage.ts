@@ -4,4 +4,5 @@ export const keysLocalStorage = {
   resetRequestsKey: 'local/resetRequests',
   productsKey: 'local/products',
   wishlistProducts: 'local/wishlistProducts',
+  cartProducts: 'local/cartProducts',
 };

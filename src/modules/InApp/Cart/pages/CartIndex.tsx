@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
-import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
 import ManagementPagesContainerWithTitle from '@src/modules/InApp/components/containers/ManagementPagesWithTitle/ManagementPagesContainerWithTitle';
 import ListIsEmptyMessages from '@src/modules/InApp/components/emptyList/ListIsEmptyMessages';
 import { stylesCartProductsContent } from '@src/modules/InApp/Cart/styles/stylesCartProductsContent';
