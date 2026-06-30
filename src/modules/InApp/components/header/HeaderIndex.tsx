@@ -45,12 +45,12 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
       textAnimatedOpacity: useRef(new Animated.Value(0.6)),
       keyItem: 1,
     },
-    // {
-    //   label: 'Cart',
-    //   routeName: 'home/cart',
-    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-    //   keyItem: 2,
-    // },
+    {
+      label: 'Cart',
+      routeName: 'home/cart',
+      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+      keyItem: 2,
+    },
     // {
     //   label: 'Purchases',
     //   routeName: 'home/purchases',

@@ -25,19 +25,20 @@ import { getWishlistProducts } from '@src/services/product/wishlist/methods/getW
 import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
 import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
+import { set } from 'zod';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
 type ProductType = WishlistProductObjectType | ProductObjectType;
 
 async function getInitialProductResponse({ id }: { id: number }) {
-  let productsData = await getWishlistProducts({ id });
+  let responseProductsData = await getWishlistProducts({ id });
 
-  if (productsData?.length < 1) {
-    productsData = await getProducts({ id });
+  if (responseProductsData?.length < 1) {
+    responseProductsData = await getProducts({ id });
   }
 
-  const product = productsData.length > 0 ? productsData?.[0] : null;
+  const product = responseProductsData.length > 0 ? responseProductsData?.[0] : null;
 
   return product;
 }
@@ -46,6 +47,8 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
   const productId = productItem?.id;
 
   const [isProductInWishlist, changeIsProductInWishlist] = useState(productItem?.wishlisted);
+
+  const [cartProductTextBtn, changeCartProductTextBtn] = useState('Put in your cart');
 
   const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
 
@@ -70,16 +73,16 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
     }
   }
 
-  async function handleOnCart(){
+  async function handleOnCart() {
     const responseCartProduct = await putCartProduct({
       id: productId,
-      removeFromCart
     });
 
-    if(responseCartProduct?.messageSuccess){
-      
+    if (responseCartProduct?.messageSuccess) {
+      changeCartProductTextBtn('Added to cart');
+    } else {
+      changeCartProductTextBtn('Put in your cart');
     }
-
   }
 
   return (
@@ -143,7 +146,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
 
                 <View style={stylesProductIndex.buttonsContainer}>
                   <DefaultButton
-                    title="Put in your cart"
+                    title={cartProductTextBtn}
                     style={stylesProductIndex.buttonsStyles}
                     onPressIn={handleOnCart}
                   />

@@ -7,19 +7,19 @@ import ResetRequestIndex from '@src/modules/FirstSteps/ResetRequest/ResetRequest
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
 import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 import React from 'react';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import HeaderIndex from '@src/modules/InApp/components/header/HeaderIndex';
 import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
 import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
-import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import CartIndex from '@src/modules/InApp/Cart/pages/CartIndex';
 
 export type RootStackParamList = {
   register: undefined;
   login: undefined;
   'request-reset': undefined;
   'password-reset': { generatedUrl: string };
-
   home: undefined;
   'home/product': { id: number };
   'home/wishlist': undefined;
@@ -74,7 +74,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
           <Stack.Screen name="home/wishlist" component={WishlistIndex} />
 
-          <Stack.Screen name="home/cart" component={HomeIndex} />
+          <Stack.Screen name="home/cart" component={CartIndex} />
 
           <Stack.Screen name="home/purchases" component={HomeIndex} />
 

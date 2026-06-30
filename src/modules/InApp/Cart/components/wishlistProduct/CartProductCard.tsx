@@ -7,6 +7,7 @@ import { WishlistProductObjectType } from '@src/services/product/wishlist/types/
 import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
 import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
 import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
+import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
 
 interface CartProductCardType extends WishlistProductObjectType {
   getCartProductsAndSetToState: Function;
@@ -23,14 +24,20 @@ export default function CartProductCard({
 
   const realPrice = '$' + price;
 
-  function onAddCart() {
-    navigation.navigate('home/product', { id });
+  async function onAddCart() {
+    const response = await putCartProduct({
+      id,
+    });
+
+    if (response?.messageSuccess) {
+      await getCartProductsAndSetToState();
+    }
   }
 
   async function onRemoveFromWishlist() {
-    const response = await putWishlistProduct({
+    const response = await putCartProduct({
       id,
-      removeFromWishlist: true,
+      removeFromCart: true,
     });
 
     if (response?.messageSuccess) {
@@ -57,22 +64,15 @@ export default function CartProductCard({
       <View style={stylesWishlistProductCard.infoContainer}>
         <TextDefault style={stylesWishlistProductCard.titleText}>{title}</TextDefault>
 
+        <TextDefault style={stylesWishlistProductCard.titleText}>Color: {title}</TextDefault>
+
+        <TextDefault style={stylesWishlistProductCard.titleText}>Size: {title}</TextDefault>
+
+        <TextDefault style={stylesWishlistProductCard.titleText}>Quantity: {title}</TextDefault>
+      </View>
+
+      <View style={stylesWishlistProductCard.infoContainer}>
         <TextDefault style={stylesWishlistProductCard.priceText}>{realPrice}</TextDefault>
-
-        <View style={stylesWishlistProductCard.infoBtnsContainer}>
-          <DefaultButton
-            title="Add to cart"
-            onPressIn={onAddCart}
-            style={stylesWishlistProductCard.addCartBtn}
-            textProps={{ style: stylesWishlistProductCard.actionBtnText }}
-          />
-
-          <UnderlineTextButton
-            title="Remove"
-            onPressIn={onRemoveFromWishlist}
-            textProps={{ style: stylesWishlistProductCard.actionBtnText }}
-          />
-        </View>
       </View>
     </View>
   );

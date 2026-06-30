@@ -2,7 +2,7 @@ import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WishlistProductArrayType } from '@src/services/product/wishlist/types/genericTypes';
 
-type getWishlistProductsType = { id?: number };
+type getWishlistProductsType = { id?: string };
 
 export const getWishlistProducts = async ({ id }: getWishlistProductsType) => {
   const wishlistProductsResponse = await AsyncStorage.getItem(keysLocalStorage.wishlistProducts);

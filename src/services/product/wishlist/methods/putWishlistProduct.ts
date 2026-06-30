@@ -9,7 +9,7 @@ import {
   WishlistProductObjectType,
 } from '@src/services/product/wishlist/types/genericTypes';
 
-type putWishlistProductType = { id: number; removeFromWishlist?: boolean };
+type putWishlistProductType = { id: string; removeFromWishlist?: boolean };
 
 // Using id to be something like a real API
 export const putWishlistProduct = async ({ id, removeFromWishlist = false }: putWishlistProductType) => {

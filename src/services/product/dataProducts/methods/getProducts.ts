@@ -3,7 +3,7 @@ import { productsList } from '@src/services/product/dataProducts/data/productsLi
 
 type typeProductData = ProductObjectType[];
 
-export type getProductsByIdType = { id?: number };
+export type getProductsByIdType = { id?: string };
 
 export const getProducts = async ({ id }: getProductsByIdType): Promise<typeProductData> => {
   let productsData = productsList;
