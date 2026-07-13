@@ -24,7 +24,7 @@ function ProductsContent() {
   const [products, changeProducts] = useState<null | Awaited<ReturnType<typeof getProducts>>>(null);
 
   async function getInitialProducts() {
-    const newProducts = await getProducts({});
+    const newProducts = await getProducts({ onlyProductsToShowInSearch: true });
 
     changeProducts(newProducts);
   }

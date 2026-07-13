@@ -8,26 +8,32 @@ export type TypeProductWithColor = {
   color: ProductColorsType;
   urlImage: ImageURISource | null;
   colorId: string;
-}[];
+};
 
-export type TypeProductSizes = ['xs' | 's' | 'm' | 'l' | 'xl' | 'xxl'];
+type TypeProductWithColors = TypeProductWithColor[];
 
-export type TypeProductUniqueIds = {
+type TypeProductSizes = ('xs' | 's' | 'm' | 'l' | 'xl' | 'xxl')[];
+
+type TypeProductUniqueIds = {
   [key in TypeProductSizes[number]]: { [color in ProductColorsType]: string };
 };
 
 export type ProductObjectType = {
   title: string;
-  price: number;
+  price: string;
   wishlisted: boolean;
+  productToShowInSearch: boolean;
   productWithColor: TypeProductWithColor;
+  productWithAllColors: TypeProductWithColors;
   id: string;
   uniqueId: string;
-  size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
+  size: TypeProductSizes[number];
   type: TypeProducts;
   details: {
     info: string;
     list: string[];
   };
-  sizesIds: { xs?: '1'; s?: '2'; m?: '3'; l?: '4'; xl?: '5'; xxl?: '6' };
+  productWithUniqueIds: TypeProductUniqueIds;
+  sizes: TypeProductSizes;
+  colors: ProductColorsType[];
 };

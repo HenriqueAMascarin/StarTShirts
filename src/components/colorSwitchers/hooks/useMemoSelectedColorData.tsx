@@ -1,12 +1,12 @@
 import { useMemo } from 'react';
-import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
+import useColors from '@src/components/colorSwitchers/hooks/useColors';
 
-type UseMemoSelectedImageColorType = { stateColors: ProductObjectType['colors'] };
+type UseMemoSelectedImageColorType = { stateColors: ReturnType<typeof useColors>['stateColors'] };
 
 export default function useMemoSelectedColorData({ stateColors }: UseMemoSelectedImageColorType) {
 
     const selectedColorMemoData = useMemo(() => {
-        const selected: UseMemoSelectedImageColorType['stateColors'][0] = stateColors.find((element) => element.isSelected) ?? { color: 'white', isSelected: false, urlImage: null };
+        const selected = stateColors.find((element) => element.isSelected) ?? { color: 'white', urlImage: null };
 
         return selected;
     }, [stateColors]);

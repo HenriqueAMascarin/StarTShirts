@@ -21,7 +21,7 @@ export type RootStackParamList = {
   'request-reset': undefined;
   'password-reset': { generatedUrl: string };
   home: undefined;
-  'home/product': { id: number };
+  'home/product': { uniqueId: string };
   'home/wishlist': undefined;
   'home/cart': undefined;
   'home/purchases': undefined;

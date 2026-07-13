@@ -1,11 +1,11 @@
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import { useState } from 'react';
 
-type UseColorsType = { colors: ProductObjectType['colors'] };
+type UseColorsType = { productWithAllColors: ProductObjectType['productWithAllColors'] };
 
-export default function useColors({ colors }: UseColorsType) {
+export default function useColors({ productWithAllColors }: UseColorsType) {
     function makeColorsArray() {
-        const newColors = colors.map((element, index) => {
+        const newColors = productWithAllColors.map((element, index) => {
             return { color: element.color, isSelected: index === 0 ? true : false, urlImage: element.urlImage };
         });
 

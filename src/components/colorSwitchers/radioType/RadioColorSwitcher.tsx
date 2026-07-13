@@ -1,14 +1,12 @@
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import { appColors } from '@src/utils/appColors';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { stylesRadioColorSwitcher } from '@src/components/colorSwitchers/radioType/styles/stylesRadioColorSwitcher';
 
-type StateColorsType = ProductObjectType['colors'];
-
-type SizesProductType = {
-  stateColors: StateColorsType;
-  changeStateColors: React.Dispatch<React.SetStateAction<StateColorsType>>;
+type typeProduct = {
+  stateProductData: ProductObjectType;
+  changeStateProductData: React.Dispatch<React.SetStateAction<ProductObjectType>>;
 };
 
 const productColors = {
@@ -17,32 +15,35 @@ const productColors = {
   blue: '#6291EC',
 };
 
-export default function RadioColorSwitcher({ stateColors, changeStateColors }: SizesProductType) {
-  function onToggleColor(pressedColor: string) {
-    const rawColorsArray = [...stateColors];
+export default function RadioColorSwitcher({
+  stateProductData,
+  changeStateProductData,
+}: typeProduct) {
+  function onToggleColor(pressedColor: ProductObjectType['productWithColor']) {
+    let newProductData: typeof stateProductData = {
+      ...stateProductData,
+      productWithColor: pressedColor,
+    };
 
-    const isPressedColorActive = rawColorsArray.some(
-      (element) => element.color === pressedColor && element.isSelected,
-    );
+    const newUniqueId =
+      newProductData.productWithUniqueIds[newProductData.size][pressedColor.color];
 
-    if (!isPressedColorActive) {
-      for (let index = 0; index < rawColorsArray.length; index++) {
-        rawColorsArray[index].isSelected = rawColorsArray[index].color === pressedColor;
-      }
-    }
+    newProductData.uniqueId = newUniqueId;
 
-    changeStateColors(rawColorsArray);
+    changeStateProductData(newProductData);
   }
 
-  return (
-    <View style={stylesRadioColorSwitcher.containerBtns}>
-      {stateColors.map((element, keyItem) => {
+  const colorsMemo = useMemo(
+    () =>
+      stateProductData?.productWithAllColors?.map((element, keyItem) => {
         const circleBackgroundColor = productColors?.[element.color];
 
-        const borderColor = element.isSelected ? appColors.black : appColors.gray;
+        const isSelected = element.colorId == stateProductData?.productWithColor.colorId;
+
+        const borderColor = isSelected ? appColors.black : appColors.gray;
 
         function onPressBtn() {
-          onToggleColor(element.color);
+          onToggleColor(element);
         }
 
         return (
@@ -59,7 +60,9 @@ export default function RadioColorSwitcher({ stateColors, changeStateColors }: S
             />
           </TouchableOpacity>
         );
-      })}
-    </View>
+      }),
+    [stateProductData?.productWithAllColors, stateProductData?.productWithColor],
   );
+
+  return <View style={stylesRadioColorSwitcher.containerBtns}>{colorsMemo}</View>;
 }
