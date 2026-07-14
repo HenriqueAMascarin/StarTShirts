@@ -32,18 +32,20 @@ export default function RadioColorSwitcher({
     const newUniqueId =
       newProductData.productWithUniqueIds[newProductData.size][pressedColor.color];
 
-    if (shouldRedirectToPage) {
-      navigation.navigate('home/product', { uniqueId: newUniqueId });
-    } else if(changeStateProductData) {
-      newProductData.productWithColor = pressedColor;
+    if (newUniqueId) {
+      if (shouldRedirectToPage) {
+        navigation.navigate('home/product', { uniqueId: newUniqueId });
+      } else if (changeStateProductData) {
+        newProductData.productWithColor = pressedColor;
 
-      newProductData.uniqueId = newUniqueId;
+        newProductData.uniqueId = newUniqueId;
 
-      changeStateProductData(newProductData);
+        changeStateProductData(newProductData);
+      }
     }
   }
 
-  const colorsMemo = useMemo(
+  const colorElements = useMemo(
     () =>
       stateProductData?.productWithAllColors?.map((element, keyItem) => {
         const circleBackgroundColor = productColors?.[element.color];
@@ -74,5 +76,5 @@ export default function RadioColorSwitcher({
     [stateProductData?.productWithAllColors, stateProductData?.productWithColor],
   );
 
-  return <View style={stylesRadioColorSwitcher.containerBtns}>{colorsMemo}</View>;
+  return <View style={stylesRadioColorSwitcher.containerBtns}>{colorElements}</View>;
 }

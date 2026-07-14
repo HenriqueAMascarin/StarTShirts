@@ -5,7 +5,6 @@ import { RootStackParamList } from '@src/routes/AppRoutes';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
 import { TouchableOpacity, View, Image } from 'react-native';
 import SizesProduct from '@src/modules/InApp/Product/components/sizesChanger/SizesProduct';
-import useSizes from '@src/modules/InApp/Product/components/sizesChanger/hooks/useSizes';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
@@ -43,12 +42,9 @@ async function getInitialProductResponse(uniqueId: string) {
 }
 
 function ProductContent({ productItem }: { productItem: ProductType }) {
-
   const [isProductInWishlist, changeIsProductInWishlist] = useState(productItem?.wishlisted);
 
   const [cartProductTextBtn, changeCartProductTextBtn] = useState('Put in your cart');
-
-  const { stateSizes, changeStateSizes } = useSizes();
 
   const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
 
@@ -119,7 +115,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                 <LineObject />
 
                 <View style={stylesProductIndex.optionsContainer}>
-                  <SizesProduct stateSizes={stateSizes} changeStateSizes={changeStateSizes} />
+                  <SizesProduct productData={productItem} />
 
                   <View style={stylesProductIndex.colorContainer}>
                     <TextDefault style={stylesProductIndex.colorTitle}>
@@ -129,7 +125,10 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                       </TextDefault>
                     </TextDefault>
 
-                    <RadioColorSwitcher shouldRedirectToPage={true} stateProductData={productItem}/>
+                    <RadioColorSwitcher
+                      shouldRedirectToPage={true}
+                      stateProductData={productItem}
+                    />
                   </View>
                 </View>
 
