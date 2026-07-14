@@ -3,10 +3,12 @@ import { appColors } from '@src/utils/appColors';
 import React, { useMemo } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { stylesRadioColorSwitcher } from '@src/components/colorSwitchers/radioType/styles/stylesRadioColorSwitcher';
+import { useNavigation } from '@react-navigation/native';
 
 type typeProduct = {
   stateProductData: ProductObjectType;
-  changeStateProductData: React.Dispatch<React.SetStateAction<ProductObjectType>>;
+  changeStateProductData?: React.Dispatch<React.SetStateAction<ProductObjectType>>;
+  shouldRedirectToPage?: boolean;
 };
 
 const productColors = {
@@ -18,19 +20,27 @@ const productColors = {
 export default function RadioColorSwitcher({
   stateProductData,
   changeStateProductData,
+  shouldRedirectToPage,
 }: typeProduct) {
+  const navigation = useNavigation();
+
   function onToggleColor(pressedColor: ProductObjectType['productWithColor']) {
     let newProductData: typeof stateProductData = {
       ...stateProductData,
-      productWithColor: pressedColor,
     };
 
     const newUniqueId =
       newProductData.productWithUniqueIds[newProductData.size][pressedColor.color];
 
-    newProductData.uniqueId = newUniqueId;
+    if (shouldRedirectToPage) {
+      navigation.navigate('home/product', { uniqueId: newUniqueId });
+    } else if(changeStateProductData) {
+      newProductData.productWithColor = pressedColor;
 
-    changeStateProductData(newProductData);
+      newProductData.uniqueId = newUniqueId;
+
+      changeStateProductData(newProductData);
+    }
   }
 
   const colorsMemo = useMemo(

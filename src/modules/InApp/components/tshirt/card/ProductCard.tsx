@@ -12,7 +12,7 @@ export default function ProductCard(product: ProductObjectType) {
 
   const navigation = useNavigation();
 
-  const realPrice = '$' + productData.price;
+  const realPrice = '$' + stateProductData.price;
 
   function onCheckProduct() {
     navigation.navigate('home/product', { uniqueId: stateProductData.uniqueId });

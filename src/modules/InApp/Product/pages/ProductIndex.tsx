@@ -7,8 +7,6 @@ import { TouchableOpacity, View, Image } from 'react-native';
 import SizesProduct from '@src/modules/InApp/Product/components/sizesChanger/SizesProduct';
 import useSizes from '@src/modules/InApp/Product/components/sizesChanger/hooks/useSizes';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
-import useColors from '@src/components/colorSwitchers/hooks/useColors';
-import useMemoSelectedColorData from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
 import useSimpleModalHook from '@src/components/modal/simple/hooks/useSimpleModalHook';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
@@ -25,17 +23,18 @@ import { getWishlistProducts } from '@src/services/product/wishlist/methods/getW
 import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
 import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
-import { set } from 'zod';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
 type ProductType = WishlistProductObjectType | ProductObjectType;
 
-async function getInitialProductResponse({ id }: { id: number }) {
-  let responseProductsData = await getWishlistProducts({ id });
+async function getInitialProductResponse(uniqueId: string) {
+  let responseProductsData = await getWishlistProducts({ uniqueId });
 
   if (responseProductsData?.length < 1) {
-    responseProductsData = await getProducts({ id });
+    responseProductsData = await getProducts({ uniqueId });
+  } else {
+    responseProductsData[0].wishlisted = true;
   }
 
   const product = responseProductsData.length > 0 ? responseProductsData?.[0] : null;
@@ -44,15 +43,10 @@ async function getInitialProductResponse({ id }: { id: number }) {
 }
 
 function ProductContent({ productItem }: { productItem: ProductType }) {
-  const productId = productItem?.id;
 
   const [isProductInWishlist, changeIsProductInWishlist] = useState(productItem?.wishlisted);
 
   const [cartProductTextBtn, changeCartProductTextBtn] = useState('Put in your cart');
-
-  const { stateColors, changeStateColors } = useColors({ colors: productItem?.colors ?? [] });
-
-  const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
 
   const { stateSizes, changeStateSizes } = useSizes();
 
@@ -64,7 +58,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
 
   async function handleOnWishlist() {
     const responseWishlistProduct = await putWishlistProduct({
-      id: productId,
+      uniqueId: productItem?.uniqueId,
       removeFromWishlist: isProductInWishlist,
     });
 
@@ -75,7 +69,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
 
   async function handleOnCart() {
     const responseCartProduct = await putCartProduct({
-      id: productId,
+      uniqueId: productItem?.uniqueId,
     });
 
     if (responseCartProduct?.messageSuccess) {
@@ -89,7 +83,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
     <>
       <ModalProduct3D
         statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
-        colorProduct={selectedColorMemoData.color}
+        colorProduct={productItem?.productWithColor?.color}
         typeProduct={productItem.type}
       />
 
@@ -100,12 +94,12 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
               <TextDefault style={stylesProductIndex.btn3DText}>3D</TextDefault>
             </TouchableOpacity>
 
-            {selectedColorMemoData.urlImage && (
+            {productItem?.productWithColor?.urlImage && (
               <Image
                 alt={productItem?.title}
                 width={255}
                 height={265}
-                source={selectedColorMemoData.urlImage}
+                source={productItem?.productWithColor?.urlImage}
                 style={stylesProductIndex.image}
               />
             )}
@@ -118,7 +112,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                   <TextTitleH2>{productItem?.title}</TextTitleH2>
 
                   <TextDefault style={stylesProductIndex.textPrice}>
-                    ${productItem?.price.toFixed(2)}
+                    ${Number(productItem?.price).toFixed(2)}
                   </TextDefault>
                 </View>
 
@@ -131,14 +125,11 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                     <TextDefault style={stylesProductIndex.colorTitle}>
                       Color:
                       <TextDefault style={stylesProductIndex.colorTitleCurrent}>
-                        {' ' + firstLetterToUppercase(selectedColorMemoData.color)}
+                        {' ' + firstLetterToUppercase(productItem?.productWithColor?.color)}
                       </TextDefault>
                     </TextDefault>
 
-                    <RadioColorSwitcher
-                      stateColors={stateColors}
-                      changeStateColors={changeStateColors}
-                    />
+                    <RadioColorSwitcher shouldRedirectToPage={true} stateProductData={productItem}/>
                   </View>
                 </View>
 
@@ -191,14 +182,14 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
 }
 
 export default function ProductIndex({ route }: PropsProductIndex) {
-  const { id } = route.params;
+  const { uniqueId } = route.params;
 
   const [productData, changeProductData] = useState<null | Awaited<
     ReturnType<typeof getInitialProductResponse>
   >>(null);
 
   async function setEditData() {
-    const newProduct = await getInitialProductResponse({ id });
+    const newProduct = await getInitialProductResponse(uniqueId);
 
     changeProductData(newProduct);
   }

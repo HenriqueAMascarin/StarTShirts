@@ -3,16 +3,16 @@ import { productsList } from '@src/services/product/dataProducts/data/productsLi
 
 type typeProductData = ProductObjectType[];
 
-export type getProductsByIdType = { id?: string; onlyProductsToShowInSearch?: boolean };
+export type getProductsByIdType = { uniqueId?: string; onlyProductsToShowInSearch?: boolean };
 
 export const getProducts = async ({
-  id,
+  uniqueId,
   onlyProductsToShowInSearch,
 }: getProductsByIdType): Promise<typeProductData> => {
   let productsData = productsList;
 
-  if (id) {
-    const findById = productsData.find((request) => request.id === id);
+  if (uniqueId) {
+    const findById = productsData.find((request) => request.uniqueId === uniqueId);
 
     if (findById) {
       productsData = [findById];

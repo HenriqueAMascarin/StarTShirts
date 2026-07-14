@@ -9,11 +9,11 @@ import {
   WishlistProductObjectType,
 } from '@src/services/product/wishlist/types/genericTypes';
 
-type putWishlistProductType = { id: string; removeFromWishlist?: boolean };
+type putWishlistProductType = { uniqueId: string; removeFromWishlist?: boolean };
 
 // Using id to be something like a real API
-export const putWishlistProduct = async ({ id, removeFromWishlist = false }: putWishlistProductType) => {
-  const productByIdData = await getProducts({ id });
+export const putWishlistProduct = async ({ uniqueId, removeFromWishlist = false }: putWishlistProductType) => {
+  const productByIdData = await getProducts({ uniqueId });
 
   const productWishlist = productByIdData?.[0];
 
@@ -26,7 +26,6 @@ export const putWishlistProduct = async ({ id, removeFromWishlist = false }: put
   if (productWishlist != null && !removeFromWishlist) {
     const newWishlistProductData: WishlistProductObjectType = {
       ...productWishlist,
-      wishlisted: true,
     };
 
     const arrayToConvertJson = wishlistProducts
