@@ -38,7 +38,7 @@ export const putWishlistProduct = async ({ uniqueId, removeFromWishlist = false 
 
     status.messageSuccess = 'Product has added to wishlist!';
   } else if (productWishlist != null && removeFromWishlist) {
-    const arrayWithoutProduct = wishlistProducts?.filter((item) => item?.id != productWishlist?.id);
+    const arrayWithoutProduct = wishlistProducts?.filter((item) => item?.uniqueId != productWishlist?.uniqueId);
 
     const arrayToConvertJson = [...arrayWithoutProduct];
 

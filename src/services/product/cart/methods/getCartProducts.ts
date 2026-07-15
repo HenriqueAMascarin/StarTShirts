@@ -1,18 +1,19 @@
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { cartProductArrayType } from '@src/services/product/cart/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
-type getCartProductsType = { id?: number };
+type getCartProductsType = { uniqueId?: ProductObjectType['uniqueId'] };
 
-export const getCartProducts = async ({ id }: getCartProductsType) => {
+export const getCartProducts = async ({ uniqueId }: getCartProductsType) => {
   const cartProductsResponse = await AsyncStorage.getItem(keysLocalStorage.cartProducts);
 
   let cartProductsData: cartProductArrayType = cartProductsResponse
     ? JSON.parse(cartProductsResponse)
     : [];
 
-  if (id) {
-    const itemFindById = cartProductsData.find((item) => item.id === id);
+  if (uniqueId) {
+    const itemFindById = cartProductsData.find((item) => item?.uniqueId === uniqueId);
 
     if (itemFindById) {
       cartProductsData = [itemFindById];

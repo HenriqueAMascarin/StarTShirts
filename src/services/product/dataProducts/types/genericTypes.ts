@@ -25,7 +25,6 @@ export type ProductObjectType = {
   productToShowInSearch: boolean;
   productWithColor: TypeProductWithColor;
   productWithAllColors: TypeProductWithColors;
-  id: string;
   uniqueId: string;
   size: TypeProductSizes[number];
   type: TypeProducts;

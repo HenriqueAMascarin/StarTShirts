@@ -4,7 +4,6 @@ type typeMakeProductArray = {
   dataProduct: {
     productTitle: ProductObjectType['title'];
     productPrice: ProductObjectType['price'];
-    productId: ProductObjectType['id'];
     productType: ProductObjectType['type'];
     productDetails: ProductObjectType['details'];
   };
@@ -35,7 +34,6 @@ export function makeProductsArray({
           productToShowInSearch: indexColor == 1 && indexSize == 1,
           productWithColor,
           productWithAllColors,
-          id: dataProduct?.productId,
           uniqueId,
           size,
           type: dataProduct?.productType,

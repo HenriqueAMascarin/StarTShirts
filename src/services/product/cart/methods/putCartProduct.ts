@@ -8,8 +8,9 @@ import {
   cartProductArrayType,
   cartProductObjectType,
 } from '@src/services/product/cart/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
-type putCartProductType = { uniqueId: string; removeFromCart?: boolean };
+type putCartProductType = { uniqueId: ProductObjectType['uniqueId']; removeFromCart?: boolean };
 
 // Using id to be something like a real API
 export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCartProductType) => {
@@ -17,7 +18,7 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
 
   let data: cartProductArrayType | null = null;
 
-  const productByIdData = await getProducts({ id: uniqueId });
+  const productByIdData = await getProducts({ uniqueId });
 
   const productToBeInCart = productByIdData?.[0];
 
@@ -27,7 +28,7 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
 
   let newCartProducts = [...cartProducts];
 
-  const idProductAlreadyInCart = cartProducts?.find((product) => product?.id === productData?.id)?.id;
+  const idProductAlreadyInCart = cartProducts?.find((product) => product?.uniqueId === uniqueId)?.uniqueId;
 
   if (theProductExists && !removeFromCart) {
     let newCartProductData: cartProductObjectType | null = null;
@@ -54,7 +55,7 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
     newCartProducts[idProductAlreadyInCart].quantity -= 1;
 
     if (newCartProducts[idProductAlreadyInCart].quantity <= 0) {
-      newCartProducts = newCartProducts.filter((product) => product?.id !== id);
+      newCartProducts = newCartProducts.filter((product) => product?.uniqueId !== uniqueId);
     }
 
     const arrayToConvertJson = [...newCartProducts];

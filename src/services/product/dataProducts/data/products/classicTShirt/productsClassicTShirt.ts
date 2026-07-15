@@ -26,8 +26,6 @@ const productWithAllColors: ProductObjectType['productWithAllColors'] = [
   },
 ];
 
-const productId: ProductObjectType['id'] = '0001';
-
 const productType: ProductObjectType['type'] = 'tShirt';
 
 const productDetails: ProductObjectType['details'] = {
@@ -50,7 +48,6 @@ export const productsClassicTShirt = makeProductsArray({
   dataProduct: {
     productTitle,
     productPrice,
-    productId,
     productDetails,
     productType,
   },
