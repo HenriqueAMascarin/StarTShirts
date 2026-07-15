@@ -35,5 +35,4 @@ export type ProductObjectType = {
   };
   productWithUniqueIds: TypeProductUniqueIds;
   sizes: TypeProductSizes;
-  colors: ProductColorsType[];
 };

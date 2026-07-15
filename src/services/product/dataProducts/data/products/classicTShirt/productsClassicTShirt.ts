@@ -32,7 +32,7 @@ const productType: ProductObjectType['type'] = 'tShirt';
 
 const productDetails: ProductObjectType['details'] = {
   info: 'The Classic T-shirt is for the lovers of a good T-shirt that always want to be well-dressed.',
-  list: ['100% polyester', 'Imported', 'item #0001'],
+  list: ['100% polyester', 'Imported'],
 };
 
 const productSizes: ProductObjectType['sizes'] = ['xs', 's', 'm', 'l', 'xl', 'xxl'];
@@ -46,14 +46,11 @@ const productUniqueIds: ProductObjectType['productWithUniqueIds'] = {
   xxl: { white: '00010016', red: '00010026', blue: '00010036' },
 };
 
-const productColors: ProductObjectType['colors'] = ['white', 'blue', 'red'];
-
 export const productsClassicTShirt = makeProductsArray({
   dataProduct: {
     productTitle,
     productPrice,
     productId,
-    productColors,
     productDetails,
     productType,
   },

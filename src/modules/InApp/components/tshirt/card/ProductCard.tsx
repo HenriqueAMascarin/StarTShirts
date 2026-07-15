@@ -37,14 +37,17 @@ export default function ProductCard(product: ProductObjectType) {
 
         <TextDefault style={stylesProductCard.priceText}>{realPrice}</TextDefault>
 
-        <RadioColorSwitcher stateProductData={stateProductData} changeStateProductData={changeStateProductData} />
+        <RadioColorSwitcher
+          stateProductData={stateProductData}
+          changeStateProductData={changeStateProductData}
+        />
 
         <DefaultButton
           title="Check product"
           onPressIn={onCheckProduct}
           style={stylesProductCard.infoBtn}
           textProps={{ style: stylesProductCard.infoBtnText }}
-          testID='productCardCheckBtnTestId'
+          testID="productCardCheckBtnTestId"
         />
       </View>
     </View>

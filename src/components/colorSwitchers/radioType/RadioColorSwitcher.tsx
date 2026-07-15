@@ -48,9 +48,9 @@ export default function RadioColorSwitcher({
   const colorElements = useMemo(
     () =>
       stateProductData?.productWithAllColors?.map((element, keyItem) => {
-        const circleBackgroundColor = productColors?.[element.color];
+        const circleBackgroundColor = productColors?.[element?.color];
 
-        const isSelected = element.colorId == stateProductData?.productWithColor.colorId;
+        const isSelected = element?.colorId == stateProductData?.productWithColor?.colorId;
 
         const borderColor = isSelected ? appColors.black : appColors.gray;
 

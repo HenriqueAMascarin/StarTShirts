@@ -15,8 +15,8 @@ interface WishlistProductCardType extends WishlistProductObjectType {
 export default function WishlistProductCard({
   title,
   price,
-  id,
-  colors,
+  uniqueId,
+  productWithColor,
   getWishlistProductsAndSet,
 }: WishlistProductCardType) {
   const navigation = useNavigation();
@@ -24,12 +24,12 @@ export default function WishlistProductCard({
   const realPrice = '$' + price;
 
   function onAddCart() {
-    navigation.navigate('home/product', { id });
+    navigation.navigate('home/product', { uniqueId });
   }
 
   async function onRemoveFromWishlist() {
     const response = await putWishlistProduct({
-      id,
+      uniqueId,
       removeFromWishlist: true,
     });
 
@@ -38,17 +38,15 @@ export default function WishlistProductCard({
     }
   }
 
-  const productFirstUrlImage = useMemo(() => colors?.[0]?.urlImage, [colors]);
-
   return (
     <View style={stylesWishlistProductCard.container}>
       <View style={stylesWishlistProductCard.imageContainer}>
-        {productFirstUrlImage != null && (
+        {productWithColor?.urlImage != null && (
           <Image
             alt={title}
             width={125}
             height={135}
-            source={productFirstUrlImage}
+            source={productWithColor?.urlImage}
             style={stylesWishlistProductCard.image}
           />
         )}

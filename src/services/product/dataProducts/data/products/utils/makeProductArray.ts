@@ -7,7 +7,6 @@ type typeMakeProductArray = {
     productId: ProductObjectType['id'];
     productType: ProductObjectType['type'];
     productDetails: ProductObjectType['details'];
-    productColors: ProductObjectType['colors'];
   };
   productWithAllColors: ProductObjectType['productWithAllColors'];
   productSizes: ProductObjectType['sizes'];
@@ -20,28 +19,32 @@ export function makeProductsArray({
   productSizes,
   productUniqueIds,
 }: typeMakeProductArray) {
-  const productsArray: ProductObjectType[] = dataProduct.productColors
-    .map((color, indexColor) => {
+  const productsArray: ProductObjectType[] = productWithAllColors
+    .map((objectColor, indexColor) => {
       const newProductArray = productSizes.map((size, indexSize): ProductObjectType => {
         const productWithColor = productWithAllColors.find(
-          (productColor) => productColor.color === color,
+          (productColor) => productColor.color == objectColor.color,
         ) as ProductObjectType['productWithColor'];
 
+        const uniqueId = productUniqueIds?.[size]?.[productWithColor?.color];
+
         return {
-          title: dataProduct.productTitle,
-          price: dataProduct.productPrice,
+          title: dataProduct?.productTitle,
+          price: dataProduct?.productPrice,
           wishlisted: false,
           productToShowInSearch: indexColor == 1 && indexSize == 1,
           productWithColor,
           productWithAllColors,
-          id: dataProduct.productId,
-          uniqueId: productUniqueIds[size].white,
+          id: dataProduct?.productId,
+          uniqueId,
           size,
-          type: dataProduct.productType,
-          details: dataProduct.productDetails,
+          type: dataProduct?.productType,
+          details: {
+            ...dataProduct?.productDetails,
+            list: [...dataProduct?.productDetails?.list, `item ${uniqueId}`],
+          },
           productWithUniqueIds: productUniqueIds,
           sizes: productSizes,
-          colors: dataProduct.productColors,
         };
       });
 

@@ -28,10 +28,19 @@ function ProductsContent() {
     <View style={stylesWishlistProductsContent.container}>
       {productsWishlist != null && productsWishlist?.length > 0 ? (
         productsWishlist?.map((wishlistProduct, wishlistKeyProduct) => {
-          return <WishlistProductCard {...wishlistProduct} key={wishlistKeyProduct} getWishlistProductsAndSet={getWishlistProductsAndSetToState}/>;
+          return (
+            <WishlistProductCard
+              {...wishlistProduct}
+              key={wishlistKeyProduct}
+              getWishlistProductsAndSet={getWishlistProductsAndSetToState}
+            />
+          );
         })
       ) : productsWishlist != null ? (
-        <ListIsEmptyMessages title='Your list is empty.' subtitle='Add items to your list by shopping the site.'/>
+        <ListIsEmptyMessages
+          title="Your list is empty."
+          subtitle="Add items to your list by shopping the site."
+        />
       ) : (
         <LoadingScreen />
       )}
