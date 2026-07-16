@@ -6,7 +6,7 @@ import MainContainer from '@src/modules/InApp/components/containers/main/MainCon
 import ManagementPagesContainerWithTitle from '@src/modules/InApp/components/containers/ManagementPagesWithTitle/ManagementPagesContainerWithTitle';
 import ListIsEmptyMessages from '@src/modules/InApp/components/emptyList/ListIsEmptyMessages';
 import { stylesCartProductsContent } from '@src/modules/InApp/Cart/styles/stylesCartProductsContent';
-import CartProductCard from '@src/modules/InApp/Cart/components/wishlistProduct/CartProductCard';
+import CartProductCard from '@src/modules/InApp/Cart/components/cartProduct/CartProductCard';
 import { getCartProducts } from '@src/services/product/cart/methods/getCartProducts';
 
 function ProductsCartContent() {

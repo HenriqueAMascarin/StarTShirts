@@ -1,4 +1,4 @@
-import { ProductObjectType } from 'src/services/product/dataProducts/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
 type typeMakeProductArray = {
   dataProduct: {

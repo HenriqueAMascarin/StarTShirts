@@ -14,27 +14,27 @@ type putCartProductType = { uniqueId: ProductObjectType['uniqueId']; removeFromC
 
 // Using id to be something like a real API
 export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCartProductType) => {
-  let status: genericStatus = { messageSuccess: null };
-
-  let data: cartProductArrayType | null = null;
-
   const productByIdData = await getProducts({ uniqueId });
 
   const productToBeInCart = productByIdData?.[0];
-
-  const theProductExists = productToBeInCart != null;
 
   const cartProducts = await getCartProducts({});
 
   let newCartProducts = [...cartProducts];
 
-  const idProductAlreadyInCart = cartProducts?.find((product) => product?.uniqueId === uniqueId)?.uniqueId;
+  let status: genericStatus = { messageSuccess: null };
 
-  if (theProductExists && !removeFromCart) {
+  let data: cartProductArrayType | null = null;
+
+  const indexProductAlreadyInCart = cartProducts?.findIndex(
+    (product) => product?.uniqueId === uniqueId,
+  );
+
+  if (productToBeInCart && !removeFromCart) {
     let newCartProductData: cartProductObjectType | null = null;
 
-    if (idProductAlreadyInCart) {
-      newCartProducts[idProductAlreadyInCart].quantity += 1;
+    if (indexProductAlreadyInCart) {
+      newCartProducts[indexProductAlreadyInCart].quantity += 1;
     } else {
       newCartProductData = {
         ...productToBeInCart,
@@ -51,11 +51,11 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
     await AsyncStorage.setItem(keysLocalStorage.cartProducts, jsonValue);
 
     status.messageSuccess = 'Product has added to cart!';
-  } else if (productToBeInCart != null && removeFromCart && idProductAlreadyInCart) {
-    newCartProducts[idProductAlreadyInCart].quantity -= 1;
+  } else if (productToBeInCart && removeFromCart && indexProductAlreadyInCart) {
+    newCartProducts[indexProductAlreadyInCart].quantity -= 1;
 
-    if (newCartProducts[idProductAlreadyInCart].quantity <= 0) {
-      newCartProducts = newCartProducts.filter((product) => product?.uniqueId !== uniqueId);
+    if (newCartProducts[indexProductAlreadyInCart].quantity <= 0) {
+      newCartProducts = newCartProducts.filter((product) => product?.uniqueId != uniqueId);
     }
 
     const arrayToConvertJson = [...newCartProducts];
@@ -65,7 +65,7 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
     await AsyncStorage.setItem(keysLocalStorage.cartProducts, jsonValue);
 
     status.messageSuccess = 'Product has removed from cart!';
-  } else if (productToBeInCart == null) {
+  } else if (!productToBeInCart) {
     if (removeFromCart) {
       status.errors = { product: 'Failed to remove the product from cart' };
     } else {
@@ -75,5 +75,5 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
 
   await apiManagement(status);
 
-  return { ...status, data: data };
+  return { ...status, data };
 };

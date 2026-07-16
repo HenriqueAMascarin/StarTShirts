@@ -1,7 +1,7 @@
 import whiteTShirtImg from '@src/assets/products/classicTShirt/images/white_tshirt.webp';
 import blueTShirtImg from '@src/assets/products/classicTShirt/images/blue_tshirt.webp';
 import redTShirtImg from '@src/assets/products/classicTShirt/images/red_tshirt.webp';
-import { makeProductsArray } from 'src/services/product/dataProducts/data/products/utils/makeProductArray';
+import { makeProductsArray } from '@src/services/product/dataProducts/data/products/utils/makeProductArray';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
 const productTitle: ProductObjectType['title'] = 'Classic T-shirt';
