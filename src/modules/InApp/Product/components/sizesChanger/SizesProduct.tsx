@@ -15,44 +15,40 @@ export default function SizesProduct({ productData }: SizesProductType) {
 
   function onChangeSize(sizeToBeActive: ProductObjectType['size']) {
     const newUniqueId =
-      productData?.productWithUniqueIds?.[sizeToBeActive]?.[
-        productData?.productWithColor?.color
-      ];
+      productData?.productWithUniqueIds?.[sizeToBeActive]?.[productData?.productWithColor?.color];
 
     if (newUniqueId) {
-      navigation.navigate('home/product', { uniqueId: newUniqueId });
+      navigation.replaceParams({ uniqueId: newUniqueId });
     }
   }
 
-  const sizeElements = useMemo(
-    () =>
-      productData?.sizes?.map((size, keySize) => {
-        const isSelected = productData.size == size;
+  function sizeElements() {
+    return productData?.sizes?.map((size, keySize) => {
+      const isSelected = productData.size == size;
 
-        const backgroundColor = isSelected ? appColors.black : appColors.white;
+      const backgroundColor = isSelected ? appColors.black : appColors.white;
 
-        const textColor = isSelected ? appColors.white : appColors.black;
+      const textColor = isSelected ? appColors.white : appColors.black;
 
-        return (
-          <TouchableOpacity
-            style={[stylesSizesProduct.sizeBtn, { backgroundColor }]}
-            onPressIn={() => onChangeSize(size)}
-            key={keySize}
-          >
-            <TextDefault style={[stylesSizesProduct.sizeBtnText, { color: textColor }]}>
-              {size?.toUpperCase()}
-            </TextDefault>
-          </TouchableOpacity>
-        );
-      }),
-    [productData?.sizes],
-  );
+      return (
+        <TouchableOpacity
+          style={[stylesSizesProduct.sizeBtn, { backgroundColor }]}
+          onPressIn={() => onChangeSize(size)}
+          key={keySize}
+        >
+          <TextDefault style={[stylesSizesProduct.sizeBtnText, { color: textColor }]}>
+            {size?.toUpperCase()}
+          </TextDefault>
+        </TouchableOpacity>
+      );
+    });
+  }
 
   return (
     <View style={stylesSizesProduct.container}>
       <TextDefault style={stylesSizesProduct.textTitle}>Sizes</TextDefault>
 
-      <View style={stylesSizesProduct.containerBtn}>{sizeElements}</View>
+      <View style={stylesSizesProduct.containerBtn}>{sizeElements()}</View>
     </View>
   );
 }

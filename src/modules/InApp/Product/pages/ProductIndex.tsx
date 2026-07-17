@@ -80,7 +80,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
       <ModalProduct3D
         statesSimpleModal={{ simpleModalState, changeSimpleModalState }}
         colorProduct={productItem?.productWithColor?.color}
-        typeProduct={productItem.type}
+        typeProduct={productItem?.type}
       />
 
       <MainContainer>
@@ -195,7 +195,7 @@ export default function ProductIndex({ route }: PropsProductIndex) {
 
   useEffect(() => {
     setEditData();
-  }, []);
+  }, [uniqueId]);
 
   return <>{productData ? <ProductContent productItem={productData} /> : <LoadingPageScreen />}</>;
 }

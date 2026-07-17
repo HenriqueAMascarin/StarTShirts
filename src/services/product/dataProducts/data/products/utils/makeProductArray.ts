@@ -31,7 +31,7 @@ export function makeProductsArray({
           title: dataProduct?.productTitle,
           price: dataProduct?.productPrice,
           wishlisted: false,
-          productToShowInSearch: indexColor == 1 && indexSize == 1,
+          productToShowInSearch: indexColor == 0 && indexSize == 0,
           productWithColor,
           productWithAllColors,
           uniqueId,

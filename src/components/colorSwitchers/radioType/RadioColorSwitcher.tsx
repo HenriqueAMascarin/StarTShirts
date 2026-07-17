@@ -30,11 +30,11 @@ export default function RadioColorSwitcher({
     };
 
     const newUniqueId =
-      newProductData.productWithUniqueIds[newProductData.size][pressedColor.color];
+      newProductData?.productWithUniqueIds?.[newProductData?.size]?.[pressedColor?.color];
 
     if (newUniqueId) {
       if (shouldRedirectToPage) {
-        navigation.navigate('home/product', { uniqueId: newUniqueId });
+        navigation.replaceParams({ uniqueId: newUniqueId });
       } else if (changeStateProductData) {
         newProductData.productWithColor = pressedColor;
 
@@ -45,36 +45,34 @@ export default function RadioColorSwitcher({
     }
   }
 
-  const colorElements = useMemo(
-    () =>
-      stateProductData?.productWithAllColors?.map((element, keyItem) => {
-        const circleBackgroundColor = productColors?.[element?.color];
+  function colorElements() {
+    return stateProductData?.productWithAllColors?.map((element, keyItem) => {
+      const circleBackgroundColor = productColors?.[element?.color];
 
-        const isSelected = element?.colorId == stateProductData?.productWithColor?.colorId;
+      const isSelected = element?.colorId == stateProductData?.productWithColor?.colorId;
 
-        const borderColor = isSelected ? appColors.black : appColors.gray;
+      const borderColor = isSelected ? appColors.black : appColors.gray;
 
-        function onPressBtn() {
-          onToggleColor(element);
-        }
+      function onPressBtn() {
+        onToggleColor(element);
+      }
 
-        return (
-          <TouchableOpacity
-            style={[stylesRadioColorSwitcher.toggleBtn, { borderColor: borderColor }]}
-            onPressIn={onPressBtn}
-            key={keyItem}
-          >
-            <View
-              style={[
-                { backgroundColor: circleBackgroundColor },
-                stylesRadioColorSwitcher.toggleBtnCircle,
-              ]}
-            />
-          </TouchableOpacity>
-        );
-      }),
-    [stateProductData?.productWithAllColors, stateProductData?.productWithColor],
-  );
+      return (
+        <TouchableOpacity
+          style={[stylesRadioColorSwitcher.toggleBtn, { borderColor: borderColor }]}
+          onPressIn={onPressBtn}
+          key={keyItem}
+        >
+          <View
+            style={[
+              { backgroundColor: circleBackgroundColor },
+              stylesRadioColorSwitcher.toggleBtnCircle,
+            ]}
+          />
+        </TouchableOpacity>
+      );
+    });
+  }
 
-  return <View style={stylesRadioColorSwitcher.containerBtns}>{colorElements}</View>;
+  return <View style={stylesRadioColorSwitcher.containerBtns}>{colorElements()}</View>;
 }
