@@ -1,12 +1,12 @@
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { Image, View } from 'react-native';
-import React, { useMemo } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
 import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
 import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
+import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
 
 interface WishlistProductCardType extends WishlistProductObjectType {
   getWishlistProductsAndSet: Function;
@@ -16,15 +16,16 @@ export default function WishlistProductCard({
   title,
   price,
   uniqueId,
+  size,
   productWithColor,
   getWishlistProductsAndSet,
 }: WishlistProductCardType) {
-  const navigation = useNavigation();
-
   const realPrice = '$' + price;
 
-  function onAddCart() {
-    navigation.navigate('home/product', { uniqueId });
+  async function onAddCart() {
+    await putCartProduct({
+      uniqueId,
+    });
   }
 
   async function onRemoveFromWishlist() {
@@ -55,7 +56,11 @@ export default function WishlistProductCard({
       <View style={stylesWishlistProductCard.infoContainer}>
         <TextDefault style={stylesWishlistProductCard.titleText}>{title}</TextDefault>
 
-        <TextDefault style={stylesWishlistProductCard.priceText}>{realPrice}</TextDefault>
+        <TextDefault style={stylesWishlistProductCard.infoText}>
+          {productWithColor?.color} - {size}
+        </TextDefault>
+
+        <TextDefault style={stylesWishlistProductCard.infoText}>{realPrice}</TextDefault>
 
         <View style={stylesWishlistProductCard.infoBtnsContainer}>
           <DefaultButton

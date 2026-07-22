@@ -9,7 +9,7 @@ export const stylesWishlistProductCard = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    borderRadius: 20,
+    borderRadius: 4,
     outlineWidth: 1.5,
     outlineColor: appColors.black,
     outlineOffset: -1.2,
@@ -41,10 +41,9 @@ export const stylesWishlistProductCard = StyleSheet.create({
     fontFamily: 'InterMedium',
     fontSize: 17,
   },
-  priceText: {
+  infoText: {
     fontFamily: 'InterMedium',
-    color: appColors.grayish,
-    fontSize: 17,
+    fontSize: 16,
   },
   infoBtnsContainer: {
     display: 'flex',
