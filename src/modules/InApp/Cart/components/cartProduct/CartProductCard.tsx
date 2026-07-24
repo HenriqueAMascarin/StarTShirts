@@ -1,43 +1,38 @@
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { Image, View } from 'react-native';
-import React, { useMemo } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
-import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
-import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
-import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
+import React from 'react';
+import { stylesCartProductCard } from '@src/modules/InApp/Cart/components/cartProduct/styles/stylesCartProductCard.ts';
 import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
+import { cartProductObjectType } from '@src/services/product/cart/types/genericTypes';
+import {
+  QuantityChanger,
+  TypeQuantityChanger,
+} from '@src/modules/InApp/Cart/components/quantity/QuantityChanger.tsx';
 
-interface CartProductCardType extends WishlistProductObjectType {
+interface CartProductCardType extends cartProductObjectType {
   getCartProductsAndSetToState: Function;
 }
 
 export default function CartProductCard({
   title,
   price,
+  size,
   uniqueId,
+  quantityPrice,
+  quantity,
   productWithColor,
   getCartProductsAndSetToState,
 }: CartProductCardType) {
-  const navigation = useNavigation();
+  const realQuantityPrice = '$' + quantityPrice;
 
   const realPrice = '$' + price;
 
-  async function onAddCart() {
+  async function changeQuantityFn({
+    removeFromCart = false,
+  }: Parameters<TypeQuantityChanger['changeQuantityFn']>[0]) {
     const response = await putCartProduct({
       uniqueId,
-    });
-
-    if (response?.messageSuccess) {
-      await getCartProductsAndSetToState();
-    }
-  }
-
-  async function onRemoveFromWishlist() {
-    const response = await putCartProduct({
-      uniqueId,
-      removeFromCart: true,
+      removeFromCart,
     });
 
     if (response?.messageSuccess) {
@@ -46,31 +41,43 @@ export default function CartProductCard({
   }
 
   return (
-    <View style={stylesWishlistProductCard.container}>
-      <View style={stylesWishlistProductCard.imageContainer}>
+    <View style={stylesCartProductCard.container}>
+      <View style={stylesCartProductCard.imageContainer}>
         {productWithColor?.urlImage != null && (
           <Image
             alt={title}
             width={125}
             height={135}
             source={productWithColor?.urlImage}
-            style={stylesWishlistProductCard.image}
+            style={stylesCartProductCard.image}
           />
         )}
       </View>
 
-      <View style={stylesWishlistProductCard.infoContainer}>
-        <TextDefault style={stylesWishlistProductCard.titleText}>{title}</TextDefault>
+      <View style={stylesCartProductCard.infoContainer}>
+        <TextDefault style={stylesCartProductCard.normalText}>{title}</TextDefault>
 
-        <TextDefault style={stylesWishlistProductCard.titleText}>Color: {title}</TextDefault>
+        <TextDefault style={stylesCartProductCard.normalText}>
+          Color:{' '}
+          <TextDefault style={stylesCartProductCard.infoText}>
+            {productWithColor?.color}
+          </TextDefault>
+        </TextDefault>
 
-        <TextDefault style={stylesWishlistProductCard.titleText}>Size: {title}</TextDefault>
+        <TextDefault style={stylesCartProductCard.normalText}>
+          Size: <TextDefault style={stylesCartProductCard.infoText}>{size}</TextDefault>
+        </TextDefault>
 
-        <TextDefault style={stylesWishlistProductCard.titleText}>Quantity: {title}</TextDefault>
+        <QuantityChanger quantity={quantity} changeQuantityFn={changeQuantityFn} />
+
+        <TextDefault style={stylesCartProductCard.normalText}>
+          Quantity:{' '}
+          <TextDefault style={stylesCartProductCard.infoText}>{realQuantityPrice}</TextDefault>
+        </TextDefault>
       </View>
 
-      <View style={stylesWishlistProductCard.infoContainer}>
-        <TextDefault style={stylesWishlistProductCard.priceText}>{realPrice}</TextDefault>
+      <View style={stylesCartProductCard.infoContainer}>
+        <TextDefault style={stylesCartProductCard.normalText}>{realPrice}</TextDefault>
       </View>
     </View>
   );

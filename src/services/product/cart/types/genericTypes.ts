@@ -1,7 +1,8 @@
-import { ProductObjectType } from "@src/services/product/dataProducts/types/genericTypes";
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
 export interface cartProductObjectType extends ProductObjectType {
   quantity: number;
+  quantityPrice: number;
 }
 
 export type cartProductArrayType = cartProductObjectType[];

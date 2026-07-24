@@ -20,7 +20,7 @@ type TypeProductUniqueIds = {
 
 export type ProductObjectType = {
   title: string;
-  price: string;
+  price: number;
   wishlisted: boolean;
   productToShowInSearch: boolean;
   productWithColor: TypeProductWithColor;

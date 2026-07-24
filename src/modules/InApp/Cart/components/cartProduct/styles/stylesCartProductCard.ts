@@ -1,7 +1,7 @@
 import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
-export const stylesWishlistProductCard = StyleSheet.create({
+export const stylesCartProductCard = StyleSheet.create({
   container: {
     maxWidth: 145,
     backgroundColor: appColors.white,
@@ -37,11 +37,11 @@ export const stylesWishlistProductCard = StyleSheet.create({
   addCartBtn: {
     height: 30,
   },
-  titleText: {
+  normalText: {
     fontFamily: 'InterMedium',
     fontSize: 17,
   },
-  priceText: {
+  infoText: {
     fontFamily: 'InterMedium',
     color: appColors.grayish,
     fontSize: 17,

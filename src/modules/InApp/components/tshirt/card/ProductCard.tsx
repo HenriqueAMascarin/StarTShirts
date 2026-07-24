@@ -21,7 +21,7 @@ export default function ProductCard(product: ProductObjectType) {
   return (
     <View style={stylesProductCard.container}>
       <View style={stylesProductCard.imageContainer}>
-        {stateProductData.productWithColor?.urlImage != null && (
+        {stateProductData?.productWithColor?.urlImage != null && (
           <Image
             alt={stateProductData.title}
             width={125}
@@ -33,7 +33,7 @@ export default function ProductCard(product: ProductObjectType) {
       </View>
 
       <View style={stylesProductCard.infoContainer}>
-        <TextDefault style={stylesProductCard.titleText}>{stateProductData.title}</TextDefault>
+        <TextDefault style={stylesProductCard.titleText}>{stateProductData?.title}</TextDefault>
 
         <TextDefault style={stylesProductCard.priceText}>{realPrice}</TextDefault>
 

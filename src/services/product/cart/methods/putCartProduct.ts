@@ -12,6 +12,14 @@ import { ProductObjectType } from '@src/services/product/dataProducts/types/gene
 
 type putCartProductType = { uniqueId: ProductObjectType['uniqueId']; removeFromCart?: boolean };
 
+type changePriceType = { price: number; quantity: number };
+
+function returnChangePrice({ price, quantity }: changePriceType) {
+  const newPrice = Number(Number(price * quantity).toFixed(2));
+
+  return newPrice;
+}
+
 // Using id to be something like a real API
 export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCartProductType) => {
   const productByIdData = await getProducts({ uniqueId });
@@ -39,10 +47,16 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
       newCartProductData = {
         ...productToBeInCart,
         quantity: 1,
+        quantityPrice: productToBeInCart?.price,
       };
 
       newCartProducts = [...newCartProducts, newCartProductData];
     }
+
+    newCartProducts[indexProductAlreadyInCart].price = returnChangePrice({
+      price: newCartProducts?.[indexProductAlreadyInCart]?.quantityPrice,
+      quantity: newCartProducts?.[indexProductAlreadyInCart].quantity,
+    });
 
     const arrayToConvertJson = [...newCartProducts];
 
@@ -53,6 +67,11 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
     status.messageSuccess = 'Product has added to cart!';
   } else if (productToBeInCart && removeFromCart && indexProductAlreadyInCart) {
     newCartProducts[indexProductAlreadyInCart].quantity -= 1;
+
+    newCartProducts[indexProductAlreadyInCart].price = returnChangePrice({
+      price: newCartProducts?.[indexProductAlreadyInCart]?.quantityPrice,
+      quantity: newCartProducts?.[indexProductAlreadyInCart].quantity,
+    });
 
     if (newCartProducts[indexProductAlreadyInCart].quantity <= 0) {
       newCartProducts = newCartProducts.filter((product) => product?.uniqueId != uniqueId);
