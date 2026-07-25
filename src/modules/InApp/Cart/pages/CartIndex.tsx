@@ -8,6 +8,8 @@ import ListIsEmptyMessages from '@src/modules/InApp/components/emptyList/ListIsE
 import { stylesCartProductsContent } from '@src/modules/InApp/Cart/styles/stylesCartProductsContent';
 import CartProductCard from '@src/modules/InApp/Cart/components/cartProduct/CartProductCard';
 import { getCartProducts } from '@src/services/product/cart/methods/getCartProducts';
+import TextDefault from '@src/components/texts/default/TextDefault';
+import DefaultButton from '@src/components/buttons/default/DefaultButton';
 
 function ProductsCartContent() {
   const [cartProducts, changeCartProducts] = useState<null | Awaited<
@@ -15,7 +17,7 @@ function ProductsCartContent() {
   >>(null);
 
   async function getCartProductsAndSetToState() {
-    const reponseCartProductsData = await getCartProducts({});
+    const reponseCartProductsData = await getCartProducts();
 
     changeCartProducts(reponseCartProductsData);
   }
@@ -25,7 +27,7 @@ function ProductsCartContent() {
   }, []);
 
   const hasSomeCartProduct = useMemo(
-    () => cartProducts != null && cartProducts?.length > 0,
+    () => cartProducts?.cartWithProducts != null && cartProducts?.cartWithProducts?.length > 0,
     [cartProducts],
   );
 
@@ -33,7 +35,7 @@ function ProductsCartContent() {
     <View style={stylesCartProductsContent.container}>
       {hasSomeCartProduct ? (
         <View>
-          {cartProducts?.map((cartProduct, cartKeyProduct) => {
+          {cartProducts?.cartWithProducts?.map((cartProduct, cartKeyProduct) => {
             return (
               <CartProductCard
                 {...cartProduct}
@@ -42,6 +44,14 @@ function ProductsCartContent() {
               />
             );
           })}
+
+          <View style={stylesCartProductsContent.containerPrice}>
+            <TextDefault>Total</TextDefault>
+
+            <TextDefault>{cartProducts?.total}</TextDefault>
+          </View>
+
+          <DefaultButton title='Checkout' onPressIn={onCheckout}/>
         </View>
       ) : cartProducts != null ? (
         <ListIsEmptyMessages

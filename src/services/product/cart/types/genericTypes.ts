@@ -5,4 +5,4 @@ export interface cartProductObjectType extends ProductObjectType {
   quantityPrice: number;
 }
 
-export type cartProductArrayType = cartProductObjectType[];
+export type cartProductsType = { total: number; cartWithProducts: cartProductObjectType[] };

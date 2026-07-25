@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiManagement } from '@src/services/apiManagement';
 import { getCartProducts } from '@src/services/product/cart/methods/getCartProducts';
 import {
-  cartProductArrayType,
+  cartProductsType,
   cartProductObjectType,
 } from '@src/services/product/cart/types/genericTypes';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
@@ -20,21 +20,29 @@ function returnChangePrice({ price, quantity }: changePriceType) {
   return newPrice;
 }
 
+function returnTotal({ items }: { items: cartProductsType['cartWithProducts'] }) {
+  let total = 0;
+
+  items.forEach((item) => (total += item?.price));
+
+  return total;
+}
+
 // Using id to be something like a real API
 export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCartProductType) => {
   const productByIdData = await getProducts({ uniqueId });
 
   const productToBeInCart = productByIdData?.[0];
 
-  const cartProducts = await getCartProducts({});
+  const cartProducts = await getCartProducts();
 
-  let newCartProducts = [...cartProducts];
+  let newCartProducts = [...cartProducts?.cartWithProducts];
 
   let status: genericStatus = { messageSuccess: null };
 
-  let data: cartProductArrayType | null = null;
+  let data: cartProductsType | null = null;
 
-  const indexProductAlreadyInCart = cartProducts?.findIndex(
+  const indexProductAlreadyInCart = cartProducts?.cartWithProducts?.findIndex(
     (product) => product?.uniqueId === uniqueId,
   );
 
@@ -58,9 +66,9 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
       quantity: newCartProducts?.[indexProductAlreadyInCart].quantity,
     });
 
-    const arrayToConvertJson = [...newCartProducts];
+    data = { total: returnTotal({ items: newCartProducts }), cartWithProducts: newCartProducts };
 
-    const jsonValue = JSON.stringify(arrayToConvertJson);
+    const jsonValue = JSON.stringify(data);
 
     await AsyncStorage.setItem(keysLocalStorage.cartProducts, jsonValue);
 
@@ -77,9 +85,9 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
       newCartProducts = newCartProducts.filter((product) => product?.uniqueId != uniqueId);
     }
 
-    const arrayToConvertJson = [...newCartProducts];
+    data = { total: returnTotal({ items: newCartProducts }), cartWithProducts: newCartProducts };
 
-    const jsonValue = JSON.stringify(arrayToConvertJson);
+    const jsonValue = JSON.stringify(data);
 
     await AsyncStorage.setItem(keysLocalStorage.cartProducts, jsonValue);
 
