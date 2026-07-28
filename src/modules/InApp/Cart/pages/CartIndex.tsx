@@ -51,7 +51,7 @@ function ProductsCartContent() {
             <TextDefault>{cartProducts?.total}</TextDefault>
           </View>
 
-          <DefaultButton title='Checkout' onPressIn={onCheckout}/>
+          <DefaultButton title='Checkout'/>
         </View>
       ) : cartProducts != null ? (
         <ListIsEmptyMessages

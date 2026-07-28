@@ -6,7 +6,7 @@ import { ProductObjectType } from '@src/services/product/dataProducts/types/gene
 
 const productTitle: ProductObjectType['title'] = 'Classic T-shirt';
 
-const productPrice: ProductObjectType['price'] = '100.0';
+const productPrice: ProductObjectType['price'] = 100.0;
 
 const productWithAllColors: ProductObjectType['productWithAllColors'] = [
   {

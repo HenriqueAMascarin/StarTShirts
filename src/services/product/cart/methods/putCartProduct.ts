@@ -30,50 +30,63 @@ function returnTotal({ items }: { items: cartProductsType['cartWithProducts'] })
 
 // Using id to be something like a real API
 export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCartProductType) => {
+  let status: genericStatus = { messageSuccess: null };
+
+  let data: cartProductsType | null = null;
+
   const productByIdData = await getProducts({ uniqueId });
 
   const productToBeInCart = productByIdData?.[0];
 
   const cartProducts = await getCartProducts();
 
-  let newCartProducts = [...cartProducts?.cartWithProducts];
-
-  let status: genericStatus = { messageSuccess: null };
-
-  let data: cartProductsType | null = null;
+  let newCartProducts = cartProducts?.cartWithProducts ?? [];
 
   const indexProductAlreadyInCart = cartProducts?.cartWithProducts?.findIndex(
     (product) => product?.uniqueId === uniqueId,
   );
 
-  if (productToBeInCart && !removeFromCart) {
-    let newCartProductData: cartProductObjectType | null = null;
+  const hasProductAlreadyInCart = indexProductAlreadyInCart > -1;
 
-    if (indexProductAlreadyInCart) {
+  console.log(indexProductAlreadyInCart)
+  if (productToBeInCart && !removeFromCart) {
+    console.log('1');
+    if (hasProductAlreadyInCart) {
+      console.log('2');
+      const itemInCart = newCartProducts?.[indexProductAlreadyInCart];
+
       newCartProducts[indexProductAlreadyInCart].quantity += 1;
+
+      newCartProducts[indexProductAlreadyInCart].price = returnChangePrice({
+        price: itemInCart?.quantityPrice,
+        quantity: itemInCart?.quantity,
+      });
     } else {
-      newCartProductData = {
+      console.log('3');
+      let newCartProductData: cartProductObjectType = {
         ...productToBeInCart,
         quantity: 1,
         quantityPrice: productToBeInCart?.price,
       };
 
-      newCartProducts = [...newCartProducts, newCartProductData];
+      newCartProductData.price = returnChangePrice({
+        price: newCartProductData?.quantityPrice,
+        quantity: newCartProductData?.quantity,
+      });
+
+      console.log('4');
+      newCartProducts.push(newCartProductData);
+      console.log('5');
     }
-
-    newCartProducts[indexProductAlreadyInCart].price = returnChangePrice({
-      price: newCartProducts?.[indexProductAlreadyInCart]?.quantityPrice,
-      quantity: newCartProducts?.[indexProductAlreadyInCart].quantity,
-    });
-
+    console.log('6');
     data = { total: returnTotal({ items: newCartProducts }), cartWithProducts: newCartProducts };
-
+    console.log(data, '8');
     const jsonValue = JSON.stringify(data);
 
     await AsyncStorage.setItem(keysLocalStorage.cartProducts, jsonValue);
 
     status.messageSuccess = 'Product has added to cart!';
-  } else if (productToBeInCart && removeFromCart && indexProductAlreadyInCart) {
+  } else if (productToBeInCart && removeFromCart && hasProductAlreadyInCart) {
     newCartProducts[indexProductAlreadyInCart].quantity -= 1;
 
     newCartProducts[indexProductAlreadyInCart].price = returnChangePrice({
