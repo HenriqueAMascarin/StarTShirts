@@ -12,11 +12,7 @@ export const getWishlistProducts = async ({ uniqueId }: getWishlistProductsType)
     : [];
 
   if (uniqueId) {
-    const itemFindById = wishlistProductsData.find((item) => item.uniqueId === uniqueId);
-
-    if (itemFindById) {
-      wishlistProductsData = [itemFindById];
-    }
+    wishlistProductsData = wishlistProductsData?.filter((product) => product?.uniqueId == uniqueId);
   }
 
   return wishlistProductsData;

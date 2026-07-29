@@ -12,15 +12,11 @@ export const getProducts = async ({
   let productsData = productsList;
 
   if (uniqueId) {
-    const findById = productsData.find((request) => request.uniqueId === uniqueId);
-
-    if (findById) {
-      productsData = [findById];
-    }
+    productsData = productsData?.filter((product) => product?.uniqueId === uniqueId);
   }
 
   if (onlyProductsToShowInSearch) {
-    productsData = productsData.filter((product) => product.productToShowInSearch);
+    productsData = productsData?.filter((product) => product?.productToShowInSearch);
   }
 
   return productsData;

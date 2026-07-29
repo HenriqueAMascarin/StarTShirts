@@ -48,11 +48,8 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
 
   const hasProductAlreadyInCart = indexProductAlreadyInCart > -1;
 
-  console.log(indexProductAlreadyInCart)
   if (productToBeInCart && !removeFromCart) {
-    console.log('1');
     if (hasProductAlreadyInCart) {
-      console.log('2');
       const itemInCart = newCartProducts?.[indexProductAlreadyInCart];
 
       newCartProducts[indexProductAlreadyInCart].quantity += 1;
@@ -62,7 +59,6 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
         quantity: itemInCart?.quantity,
       });
     } else {
-      console.log('3');
       let newCartProductData: cartProductObjectType = {
         ...productToBeInCart,
         quantity: 1,
@@ -74,13 +70,11 @@ export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCa
         quantity: newCartProductData?.quantity,
       });
 
-      console.log('4');
       newCartProducts.push(newCartProductData);
-      console.log('5');
     }
-    console.log('6');
+
     data = { total: returnTotal({ items: newCartProducts }), cartWithProducts: newCartProducts };
-    console.log(data, '8');
+
     const jsonValue = JSON.stringify(data);
 
     await AsyncStorage.setItem(keysLocalStorage.cartProducts, jsonValue);

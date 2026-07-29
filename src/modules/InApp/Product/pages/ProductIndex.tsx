@@ -42,9 +42,9 @@ async function getInitialProductResponse(uniqueId: string) {
 }
 
 function ProductContent({ productItem }: { productItem: ProductType }) {
-  const [isProductInWishlist, changeIsProductInWishlist] = useState(productItem?.wishlisted);
-
-  const [cartProductTextBtn, changeCartProductTextBtn] = useState('Put in your cart');
+  const [isProductInWishlist, changeIsProductInWishlist] = useState(
+    productItem?.wishlisted ?? false,
+  );
 
   const { simpleModalState, changeSimpleModalState } = useSimpleModalHook();
 
@@ -64,16 +64,14 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
   }
 
   async function handleOnCart() {
-    const responseCartProduct = await putCartProduct({
+    await putCartProduct({
       uniqueId: productItem?.uniqueId,
     });
-
-    if (responseCartProduct?.messageSuccess) {
-      changeCartProductTextBtn('Added to cart');
-    } else {
-      changeCartProductTextBtn('Put in your cart');
-    }
   }
+
+  useEffect(() => {
+    changeIsProductInWishlist(productItem?.wishlisted ?? false);
+  }, [productItem]);
 
   return (
     <>
@@ -136,7 +134,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
 
                 <View style={stylesProductIndex.buttonsContainer}>
                   <DefaultButton
-                    title={cartProductTextBtn}
+                    title={'Put in your cart'}
                     style={stylesProductIndex.buttonsStyles}
                     onPressIn={handleOnCart}
                   />
