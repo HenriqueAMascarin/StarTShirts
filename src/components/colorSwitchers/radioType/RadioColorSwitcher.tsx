@@ -1,6 +1,6 @@
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import { appColors } from '@src/utils/appColors';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { stylesRadioColorSwitcher } from '@src/components/colorSwitchers/radioType/styles/stylesRadioColorSwitcher';
 import { useNavigation } from '@react-navigation/native';

@@ -106,7 +106,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                   <TextTitleH2>{productItem?.title}</TextTitleH2>
 
                   <TextDefault style={stylesProductIndex.textPrice}>
-                    ${Number(productItem?.price).toFixed(2)}
+                    ${productItem?.price?.toFixed(2)}
                   </TextDefault>
                 </View>
 

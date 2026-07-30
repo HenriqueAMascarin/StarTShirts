@@ -14,17 +14,21 @@ export const stylesWishlistProductCard = StyleSheet.create({
     outlineColor: appColors.black,
     outlineOffset: -1.2,
   },
+  imageContainerRounded: {
+    borderTopEndRadius: 4,
+    borderTopStartRadius: 4,
+  },
   imageContainer: {
     backgroundColor: appColors.black,
     minWidth: '100%',
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
   },
   image: {
+    marginTop: 8,
     width: 125,
     height: 135,
   },
@@ -54,5 +58,16 @@ export const stylesWishlistProductCard = StyleSheet.create({
   },
   actionBtnText: {
     fontSize: 16,
+  },
+  clickSVGContainer: {
+    position: 'absolute',
+    right: 6,
+    top: 6,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: appColors.white,
+    borderRadius: '100%',
   },
 });

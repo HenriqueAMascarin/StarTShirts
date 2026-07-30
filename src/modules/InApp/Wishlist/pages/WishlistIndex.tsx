@@ -27,15 +27,17 @@ function ProductsContent() {
   return (
     <View style={stylesWishlistProductsContent.container}>
       {productsWishlist != null && productsWishlist?.length > 0 ? (
-        productsWishlist?.map((wishlistProduct, wishlistKeyProduct) => {
-          return (
-            <WishlistProductCard
-              {...wishlistProduct}
-              key={wishlistKeyProduct}
-              getWishlistProductsAndSet={getWishlistProductsAndSetToState}
-            />
-          );
-        })
+        <View style={stylesWishlistProductsContent.productsContainer}>
+          {productsWishlist?.map((wishlistProduct, wishlistKeyProduct) => {
+            return (
+              <WishlistProductCard
+                {...wishlistProduct}
+                key={wishlistKeyProduct}
+                getWishlistProductsAndSet={getWishlistProductsAndSetToState}
+              />
+            );
+          })}
+        </View>
       ) : productsWishlist != null ? (
         <ListIsEmptyMessages
           title="Your list is empty."

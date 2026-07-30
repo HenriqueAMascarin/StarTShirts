@@ -1,5 +1,5 @@
 import TextDefault from '@src/components/texts/default/TextDefault';
-import { Image, View } from 'react-native';
+import { Image, TouchableHighlight, View } from 'react-native';
 import React from 'react';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
@@ -7,6 +7,9 @@ import UnderlineTextButton from '@src/components/buttons/underlineText/Underline
 import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
 import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
 import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
+import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
+import ClickSVG from '@src/assets/svgs/click.svg';
+import { useNavigation } from '@react-navigation/native';
 
 interface WishlistProductCardType extends WishlistProductObjectType {
   getWishlistProductsAndSet: Function;
@@ -20,7 +23,9 @@ export default function WishlistProductCard({
   productWithColor,
   getWishlistProductsAndSet,
 }: WishlistProductCardType) {
-  const realPrice = '$' + price;
+  const realPrice = '$' + price?.toFixed(2);
+
+  const navigation = useNavigation();
 
   async function onAddCart() {
     await putCartProduct({
@@ -39,25 +44,43 @@ export default function WishlistProductCard({
     }
   }
 
+  function onViewProduct() {
+    navigation.navigate('home/product', { uniqueId });
+  }
+
   return (
     <View style={stylesWishlistProductCard.container}>
-      <View style={stylesWishlistProductCard.imageContainer}>
-        {productWithColor?.urlImage != null && (
-          <Image
-            alt={title}
-            width={125}
-            height={135}
-            source={productWithColor?.urlImage}
-            style={stylesWishlistProductCard.image}
-          />
-        )}
-      </View>
+      <TouchableHighlight
+        onPressIn={onViewProduct}
+        style={stylesWishlistProductCard.imageContainerRounded}
+      >
+        <View
+          style={[
+            stylesWishlistProductCard.imageContainer,
+            stylesWishlistProductCard.imageContainerRounded,
+          ]}
+        >
+          <View style={stylesWishlistProductCard.clickSVGContainer}>
+            <ClickSVG width={15} height={15} />
+          </View>
+
+          {productWithColor?.urlImage != null && (
+            <Image
+              alt={title}
+              width={125}
+              height={135}
+              source={productWithColor?.urlImage}
+              style={stylesWishlistProductCard.image}
+            />
+          )}
+        </View>
+      </TouchableHighlight>
 
       <View style={stylesWishlistProductCard.infoContainer}>
         <TextDefault style={stylesWishlistProductCard.titleText}>{title}</TextDefault>
 
         <TextDefault style={stylesWishlistProductCard.infoText}>
-          {productWithColor?.color} - {size}
+          {firstLetterToUppercase(productWithColor?.color)} {size?.toUpperCase()}
         </TextDefault>
 
         <TextDefault style={stylesWishlistProductCard.infoText}>{realPrice}</TextDefault>
