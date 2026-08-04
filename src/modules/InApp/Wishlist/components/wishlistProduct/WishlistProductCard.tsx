@@ -10,6 +10,7 @@ import { putCartProduct } from '@src/services/product/cart/methods/putCartProduc
 import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import ClickSVG from '@src/assets/svgs/click.svg';
 import { useNavigation } from '@react-navigation/native';
+import { formatCurrency } from '@src/utils/formatCurrency';
 
 interface WishlistProductCardType extends WishlistProductObjectType {
   getWishlistProductsAndSet: Function;
@@ -23,9 +24,9 @@ export default function WishlistProductCard({
   productWithColor,
   getWishlistProductsAndSet,
 }: WishlistProductCardType) {
-  const realPrice = '$' + price?.toFixed(2);
-
   const navigation = useNavigation();
+
+  const realPrice = formatCurrency(price);
 
   async function onAddCart() {
     await putCartProduct({

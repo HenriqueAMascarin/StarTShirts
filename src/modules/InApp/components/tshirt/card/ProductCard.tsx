@@ -6,13 +6,14 @@ import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioCo
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 import { stylesProductCard } from '@src/modules/InApp/components/tshirt/card/styles/stylesProductCard';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import { formatCurrency } from '@src/utils/formatCurrency';
 
 export default function ProductCard(product: ProductObjectType) {
   const [stateProductData, changeStateProductData] = useState(product);
 
   const navigation = useNavigation();
 
-  const realPrice = '$' + stateProductData?.price?.toFixed(2);
+  const realPrice = formatCurrency(stateProductData?.price);
 
   function onCheckProduct() {
     navigation.navigate('home/product', { uniqueId: stateProductData.uniqueId });

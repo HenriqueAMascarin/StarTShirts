@@ -40,6 +40,7 @@ function ProductsCartContent() {
               <CartProductCard
                 {...cartProduct}
                 key={cartKeyProduct}
+                index={cartKeyProduct}
                 getCartProductsAndSetToState={getCartProductsAndSetToState}
               />
             );
@@ -51,7 +52,7 @@ function ProductsCartContent() {
             <TextDefault>{cartProducts?.total}</TextDefault>
           </View>
 
-          <DefaultButton title='Checkout'/>
+          <DefaultButton title="Checkout" />
         </View>
       ) : cartProducts != null ? (
         <ListIsEmptyMessages

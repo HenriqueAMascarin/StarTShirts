@@ -39,7 +39,7 @@ export function makeProductsArray({
           type: dataProduct?.productType,
           details: {
             ...dataProduct?.productDetails,
-            list: [...dataProduct?.productDetails?.list, `item ${uniqueId}`],
+            list: [...dataProduct?.productDetails?.list, `Item #${uniqueId}`],
           },
           productWithUniqueIds: productUniqueIds,
           sizes: productSizes,

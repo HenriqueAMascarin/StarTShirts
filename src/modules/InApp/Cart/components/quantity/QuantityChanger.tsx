@@ -11,13 +11,13 @@ export function QuantityChanger({ quantity, changeQuantityFn }: TypeQuantityChan
   return (
     <View style={stylesQuantityChanger.container}>
       <TouchableOpacity onPressIn={() => changeQuantityFn({ removeFromCart: true })}>
-        <TextDefault>-</TextDefault>
+        <TextDefault style={stylesQuantityChanger.symbol}>-</TextDefault>
       </TouchableOpacity>
 
-      <TextDefault>{quantity}</TextDefault>
+      <TextDefault style={stylesQuantityChanger.quantity}>{quantity}</TextDefault>
 
       <TouchableOpacity onPressIn={() => changeQuantityFn({})}>
-        <TextDefault>+</TextDefault>
+        <TextDefault style={stylesQuantityChanger.symbol}>+</TextDefault>
       </TouchableOpacity>
     </View>
   );
