@@ -41,16 +41,16 @@ export const stylesCartProductCard = StyleSheet.create({
   },
   normalText: {
     fontFamily: 'InterMedium',
-    fontSize: 17,
+    fontSize: 16,
   },
   infoText: {
     fontFamily: 'InterMedium',
     color: appColors.grayish,
-    fontSize: 17,
+    fontSize: 16,
   },
   priceText: {
     fontFamily: 'InterSemiBold',
-    fontSize: 17,
+    fontSize: 16,
   },
   infoBtnsContainer: {
     display: 'flex',

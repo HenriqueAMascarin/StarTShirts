@@ -10,11 +10,13 @@ import CartProductCard from '@src/modules/InApp/Cart/components/cartProduct/Cart
 import { getCartProducts } from '@src/services/product/cart/methods/getCartProducts';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import { formatCurrency } from '@src/utils/formatCurrency';
 
 function ProductsCartContent() {
-  const [cartProducts, changeCartProducts] = useState<null | Awaited<
-    ReturnType<typeof getCartProducts>
-  >>(null);
+  const [cartProducts, changeCartProducts] = useState<Awaited<ReturnType<typeof getCartProducts>>>({
+    total: 0,
+    cartWithProducts: [],
+  });
 
   async function getCartProductsAndSetToState() {
     const reponseCartProductsData = await getCartProducts();
@@ -35,24 +37,31 @@ function ProductsCartContent() {
     <View style={stylesCartProductsContent.container}>
       {hasSomeCartProduct ? (
         <View>
-          {cartProducts?.cartWithProducts?.map((cartProduct, cartKeyProduct) => {
-            return (
-              <CartProductCard
-                {...cartProduct}
-                key={cartKeyProduct}
-                index={cartKeyProduct}
-                getCartProductsAndSetToState={getCartProductsAndSetToState}
-              />
-            );
-          })}
-
-          <View style={stylesCartProductsContent.containerPrice}>
-            <TextDefault>Total</TextDefault>
-
-            <TextDefault>{cartProducts?.total}</TextDefault>
+          <View style={stylesCartProductsContent.containerProducts}>
+            {cartProducts?.cartWithProducts?.map((cartProduct, cartKeyProduct) => {
+              return (
+                <CartProductCard
+                  {...cartProduct}
+                  key={cartKeyProduct}
+                  index={cartKeyProduct}
+                  getCartProductsAndSetToState={getCartProductsAndSetToState}
+                />
+              );
+            })}
           </View>
 
-          <DefaultButton title="Checkout" />
+          <View style={stylesCartProductsContent.containerPrice}>
+            <TextDefault style={stylesCartProductsContent.containerPriceText}>Total</TextDefault>
+
+            <TextDefault style={stylesCartProductsContent.containerPriceText}>
+              {formatCurrency(cartProducts?.total)}
+            </TextDefault>
+          </View>
+
+          <DefaultButton
+            title="Checkout"
+            textProps={{ style: stylesCartProductsContent.checkoutBtn }}
+          />
         </View>
       ) : cartProducts != null ? (
         <ListIsEmptyMessages

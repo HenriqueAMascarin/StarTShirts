@@ -64,6 +64,9 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
     });
   }, []);
 
+  const notificationTestId =
+    type == 'success' ? 'successNotificationTestId' : 'errorNotificationTestId';
+
   return (
     <Animated.View
       style={[
@@ -71,6 +74,7 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
         { opacity: opacityValue, transform: [{ translateY: translateYAnimated }] },
         alertProperties?.containerClass,
       ]}
+      testID={notificationTestId}
     >
       {alertProperties?.Icon}
       <TextDefault style={stylesAlertItem.defaultAlertText}>{message}</TextDefault>
