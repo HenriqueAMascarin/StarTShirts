@@ -1,7 +1,5 @@
 import { device, element } from 'detox';
 import { registerUserE2e } from './utils/registerUserE2e';
-import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
-
 describe('cart', () => {
   beforeAll(async () => {
     await device.launchApp();
@@ -33,7 +31,7 @@ describe('cart', () => {
     await element(purchaseBtn).tap();
 
     // 5. Expect to have a success notification
-    const successNotification = by.id(`successNotificationTestId-${putCartProduct.name}`);
+    const successNotification = by.id('successNotificationTestId-putCartProduct');
 
     await expect(element(successNotification)).toBeVisible();
   });
