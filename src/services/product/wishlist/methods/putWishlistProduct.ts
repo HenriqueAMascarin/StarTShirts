@@ -19,7 +19,7 @@ export const putWishlistProduct = async ({ uniqueId, removeFromWishlist = false 
 
   const wishlistProducts = await getWishlistProducts({});
 
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: putWishlistProduct.name };
 
   let data: WishlistProductArrayType | null = null;
 

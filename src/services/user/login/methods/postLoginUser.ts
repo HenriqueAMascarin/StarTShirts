@@ -32,7 +32,7 @@ export async function setLoginData({
 export const postLoginUser = async ({ password, email, rememberMe = true }: LoginUserType) => {
   const userResponseAll = await getUsers({});
 
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: postLoginUser.name };
 
   let data: userObjectType | null = null;
 
@@ -49,14 +49,14 @@ export const postLoginUser = async ({ password, email, rememberMe = true }: Logi
         rememberMe,
       });
 
-      status = { messageSuccess: 'User logged in!' };
+      status.messageSuccess = 'User logged in!';
 
       data = hasUser;
     } else {
-      status = { ...status, errors: { email: 'Incorrect password' } };
+      status.errors = { email: 'Incorrect password' };
     }
   } else {
-    status = { ...status, errors: { email: "User doesn't exist" } };
+    status.errors = { email: "User doesn't exist" };
   }
 
   await apiManagement(status);

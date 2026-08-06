@@ -30,7 +30,7 @@ function returnTotal({ items }: { items: cartProductsType['cartWithProducts'] })
 
 // Using id to be something like a real API
 export const putCartProduct = async ({ uniqueId, removeFromCart = false }: putCartProductType) => {
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: putCartProduct.name };
 
   let data: cartProductsType | null = null;
 

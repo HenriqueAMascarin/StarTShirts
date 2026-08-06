@@ -137,7 +137,7 @@ function ProductContent({ productItem }: { productItem: ProductType }) {
                     title={'Put in your cart'}
                     style={stylesProductIndex.buttonsStyles}
                     onPressIn={handleOnCart}
-                    testID="cartBtnTestId"
+                    testID={'purchaseBtnTestId'}
                   />
 
                   <WishlistButton

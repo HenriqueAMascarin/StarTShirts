@@ -1,5 +1,6 @@
 import { device, element } from 'detox';
 import { registerUserE2e } from './utils/registerUserE2e';
+import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
 
 describe('cart', () => {
   beforeAll(async () => {
@@ -24,15 +25,15 @@ describe('cart', () => {
     // 3. Make cart btn visible
     const productScrollContainer = by.id('mainContainerScrollTestId');
 
-    await element(productScrollContainer).scroll(300, 'down', 0.5, 0.5);
+    await element(productScrollContainer).scroll(400, 'down', 0.5, 0.5);
 
-    // 4. Tap on cart btn
-    const cartBtn = by.id('cartBtnTestId');
+    // 4. Tap on purchase btn
+    const purchaseBtn = by.id('purchaseBtnTestId');
 
-    await element(cartBtn).tap();
+    await element(purchaseBtn).tap();
 
     // 5. Expect to have a success notification
-    const successNotification = by.id('successNotificationTestId');
+    const successNotification = by.id(`successNotificationTestId-${putCartProduct.name}`);
 
     await expect(element(successNotification)).toBeVisible();
   });
