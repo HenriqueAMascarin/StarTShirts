@@ -4,10 +4,7 @@ import { getWishlistProducts } from '@src/services/product/wishlist/methods/getW
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiManagement } from '@src/services/apiManagement';
-import {
-  WishlistProductArrayType,
-  WishlistProductObjectType,
-} from '@src/services/product/wishlist/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
 type putWishlistProductType = { uniqueId: string; removeFromWishlist?: boolean };
 
@@ -21,10 +18,10 @@ export const putWishlistProduct = async ({ uniqueId, removeFromWishlist = false 
 
   let status: genericStatus = { messageSuccess: null, methodApiName: putWishlistProduct.name };
 
-  let data: WishlistProductArrayType | null = null;
+  let data: ProductObjectType | null = null;
 
   if (productWishlist != null && !removeFromWishlist) {
-    const newWishlistProductData: WishlistProductObjectType = {
+    const newWishlistProductData: ProductObjectType = {
       ...productWishlist,
     };
 

@@ -19,26 +19,29 @@ import ModalProduct3D from '@src/modules/InApp/Product/components/product3D/moda
 import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScreen';
 import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
 import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
-import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
 import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
 
 export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
 
-type ProductType = WishlistProductObjectType | ProductObjectType;
+interface ProductType extends ProductObjectType {
+  wishlisted?: boolean
+} ;
 
 async function getInitialProductResponse(uniqueId: string) {
-  let responseProductsData = await getWishlistProducts({ uniqueId });
+  let responseWishlistProductsData = await getWishlistProducts({ uniqueId });
 
-  if (responseProductsData?.length < 1) {
-    responseProductsData = await getProducts({ uniqueId });
+  let productData: ProductType = responseWishlistProductsData?.[0];
+
+  if (productData == undefined) {
+    let responseProductsData = await getProducts({ uniqueId });
+
+    productData = responseProductsData?.[0];
   } else {
-    responseProductsData[0].wishlisted = true;
+    productData.wishlisted = true;
   }
 
-  const product = responseProductsData.length > 0 ? responseProductsData?.[0] : null;
-
-  return product;
+  return productData;
 }
 
 function ProductContent({ productItem }: { productItem: ProductType }) {

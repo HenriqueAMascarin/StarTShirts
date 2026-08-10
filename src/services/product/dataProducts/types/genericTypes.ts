@@ -21,7 +21,6 @@ type TypeProductUniqueIds = {
 export type ProductObjectType = {
   title: string;
   price: number;
-  wishlisted: boolean;
   productToShowInSearch: boolean;
   productWithColor: TypeProductWithColor;
   productWithAllColors: TypeProductWithColors;
@@ -35,3 +34,5 @@ export type ProductObjectType = {
   productWithUniqueIds: TypeProductUniqueIds;
   sizes: TypeProductSizes;
 };
+
+export type TypeProductArray = ProductObjectType[];

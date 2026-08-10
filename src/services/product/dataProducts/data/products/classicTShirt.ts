@@ -1,14 +1,14 @@
 import whiteTShirtImg from '@src/assets/products/classicTShirt/images/white_tshirt.webp';
 import blueTShirtImg from '@src/assets/products/classicTShirt/images/blue_tshirt.webp';
 import redTShirtImg from '@src/assets/products/classicTShirt/images/red_tshirt.webp';
-import { makeProductsArray } from '@src/services/product/dataProducts/data/products/utils/makeProductArray';
+import { makeProductsArray } from '@src/services/product/dataProducts/data/utils/makeProductArray';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
-const productTitle: ProductObjectType['title'] = 'Classic T-shirt';
+export const productTitle: ProductObjectType['title'] = 'Classic T-shirt';
 
-const productPrice: ProductObjectType['price'] = 100.00;
+export const productPrice: ProductObjectType['price'] = 100.00;
 
-const productWithAllColors: ProductObjectType['productWithAllColors'] = [
+export const productWithAllColors: ProductObjectType['productWithAllColors'] = [
   {
     color: 'white',
     urlImage: whiteTShirtImg,
@@ -26,16 +26,16 @@ const productWithAllColors: ProductObjectType['productWithAllColors'] = [
   },
 ];
 
-const productType: ProductObjectType['type'] = 'tShirt';
+export const productType: ProductObjectType['type'] = 'tShirt';
 
-const productDetails: ProductObjectType['details'] = {
+export const productDetails: ProductObjectType['details'] = {
   info: 'The Classic T-shirt is for the lovers of a good T-shirt that always want to be well-dressed.',
   list: ['100% polyester', 'Imported'],
 };
 
-const productSizes: ProductObjectType['sizes'] = ['xs', 's', 'm', 'l', 'xl', 'xxl'];
+export const productSizes: ProductObjectType['sizes'] = ['xs', 's', 'm', 'l', 'xl', 'xxl'];
 
-const productUniqueIds: ProductObjectType['productWithUniqueIds'] = {
+export const productUniqueIds: ProductObjectType['productWithUniqueIds'] = {
   xs: { white: '00010011', red: '00010021', blue: '00010031' },
   s: { white: '00010012', red: '00010022', blue: '00010032' },
   m: { white: '00010013', red: '00010023', blue: '00010033' },
