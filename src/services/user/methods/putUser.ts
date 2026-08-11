@@ -14,13 +14,13 @@ export const putUser = async (userData: putUserType) => {
 
   const userDataById = userResponseAll.find((user) => user.id === userData.id);
 
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: putUser.name };
 
   let data: userResponseObjectType | null = null;
 
   if (userDataById) {
     if (userData.currentPassword && userData.currentPassword != userDataById?.password) {
-      status = { ...status, errors: { email: 'Incorrect password' } };
+      status.errors = { email: 'Incorrect password' };
     } else {
       delete userData.currentPassword;
 
@@ -35,7 +35,7 @@ export const putUser = async (userData: putUserType) => {
       const arrayToConvertJson = newUserPayloadAll;
 
       const jsonValue = JSON.stringify(arrayToConvertJson);
-    
+
       await AsyncStorage.setItem(keysLocalStorage.usersKey, jsonValue);
 
       status.messageSuccess = 'User has been edited!';
@@ -43,7 +43,7 @@ export const putUser = async (userData: putUserType) => {
       data = newUserEditedData;
     }
   } else {
-    status = { ...status, errors: { email: "User doesn't exist" } };
+    status.errors = { email: "User doesn't exist" };
   }
 
   await apiManagement(status);

@@ -12,11 +12,7 @@ export const getUsers = async ({ id }: getUsersType): Promise<typeUserData> => {
   let usersData: typeUserData = usersResponse ? JSON.parse(usersResponse) : [];
 
   if (id) {
-    const itemFindById = usersData.find((item) => item.id === id);
-
-    if (itemFindById) {
-      usersData = [itemFindById];
-    }
+    usersData = usersData?.filter((item) => item?.id === id);
   }
 
   return usersData;

@@ -10,12 +10,12 @@ import { setLoginData } from '@src/services/user/login/methods/postLoginUser';
 export const postUser = async (userData: userObjectType) => {
   const userResponseAll = await getUsers({});
 
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: postUser.name };
 
   let data: userObjectType | null = null;
 
   if (userResponseAll?.find((user) => user.email === userData.email)) {
-    status = { ...status, errors: { email: 'User already exists' } };
+    status.errors = { email: 'User already exists' };
   } else {
     const newUserData = { ...userData, id: userResponseAll.length };
 

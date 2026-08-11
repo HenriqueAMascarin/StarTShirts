@@ -1,32 +1,28 @@
 import { genericStatus } from '@src/services/genericTypes';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
-import { getWishlistProducts } from '@src/services/wishlist/methods/getWishlistProducts';
+import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
 import { keysLocalStorage } from '@src/utils/localStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { apiManagement } from '@src/services/apiManagement';
-import {
-  WishlistProductArrayType,
-  WishlistProductObjectType,
-} from '@src/services/wishlist/types/genericTypes';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
-type putWishlistProductType = { id: number; removeFromWishlist: boolean };
+type putWishlistProductType = { uniqueId: string; removeFromWishlist?: boolean };
 
 // Using id to be something like a real API
-export const putWishlistProduct = async ({ id, removeFromWishlist }: putWishlistProductType) => {
-  const productByIdData = await getProducts({ id });
+export const putWishlistProduct = async ({ uniqueId, removeFromWishlist = false }: putWishlistProductType) => {
+  const productByIdData = await getProducts({ uniqueId });
 
   const productWishlist = productByIdData?.[0];
 
   const wishlistProducts = await getWishlistProducts({});
 
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: putWishlistProduct.name };
 
-  let data: WishlistProductArrayType | null = null;
+  let data: ProductObjectType | null = null;
 
   if (productWishlist != null && !removeFromWishlist) {
-    const newWishlistProductData: WishlistProductObjectType = {
+    const newWishlistProductData: ProductObjectType = {
       ...productWishlist,
-      wishlisted: true,
     };
 
     const arrayToConvertJson = wishlistProducts
@@ -39,7 +35,7 @@ export const putWishlistProduct = async ({ id, removeFromWishlist }: putWishlist
 
     status.messageSuccess = 'Product has added to wishlist!';
   } else if (productWishlist != null && removeFromWishlist) {
-    const arrayWithoutProduct = wishlistProducts?.filter((item) => item?.id != productWishlist?.id);
+    const arrayWithoutProduct = wishlistProducts?.filter((item) => item?.uniqueId != productWishlist?.uniqueId);
 
     const arrayToConvertJson = [...arrayWithoutProduct];
 

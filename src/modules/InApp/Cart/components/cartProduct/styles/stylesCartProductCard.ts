@@ -1,49 +1,43 @@
 import { appColors } from '@src/utils/appColors';
 import { StyleSheet } from 'react-native';
 
-export const stylesWishlistProductCard = StyleSheet.create({
+export const stylesCartProductCard = StyleSheet.create({
+  borderVertical: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: appColors.gray,
+  },
   container: {
-    maxWidth: 145,
     backgroundColor: appColors.white,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
-    borderRadius: 4,
-    outlineWidth: 1.5,
-    outlineColor: appColors.black,
-    outlineOffset: -1.2,
+    alignItems: 'flex-start',
+    gap: 15,
+    flexDirection: 'row',
+    width: '100%',
+    paddingVertical: 18,
   },
   imageContainerRounded: {
-    borderTopEndRadius: 4,
-    borderTopStartRadius: 4,
+    borderRadius: 4,
   },
   imageContainer: {
-    backgroundColor: appColors.black,
-    minWidth: '100%',
-
+    backgroundColor: appColors.yellow,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
+    padding: 6,
+    paddingTop: 8,
+    marginTop: 4,
   },
   image: {
-    marginTop: 8,
-    width: 125,
-    height: 135,
+    width: 85,
+    height: 95,
   },
-  infoContainer: {
-    minWidth: '100%',
-    display: 'flex',
-    justifyContent: 'flex-start',
-    padding: 9,
+  realPriceContainer: {
+    marginLeft: 'auto',
   },
   addCartBtn: {
     height: 30,
-  },
-  titleText: {
-    fontFamily: 'InterMedium',
-    fontSize: 17,
   },
   normalText: {
     fontFamily: 'InterMedium',
@@ -52,6 +46,10 @@ export const stylesWishlistProductCard = StyleSheet.create({
   infoText: {
     fontFamily: 'InterMedium',
     color: appColors.grayish,
+    fontSize: 16,
+  },
+  priceText: {
+    fontFamily: 'InterSemiBold',
     fontSize: 16,
   },
   infoBtnsContainer: {
@@ -66,13 +64,15 @@ export const stylesWishlistProductCard = StyleSheet.create({
   },
   clickSVGContainer: {
     position: 'absolute',
-    right: 6,
-    top: 6,
+    right: 3,
+    top: 3,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    padding: 3,
     backgroundColor: appColors.white,
     borderRadius: '100%',
+    outlineColor: appColors.black,
+    outlineWidth: 0.9,
   },
 });

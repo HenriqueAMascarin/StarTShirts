@@ -45,12 +45,12 @@ function MenuDrawerModal({ stateDrawerModal, changeStateDrawerModal }: TypeMenuD
       textAnimatedOpacity: useRef(new Animated.Value(0.6)),
       keyItem: 1,
     },
-    // {
-    //   label: 'Cart',
-    //   routeName: 'home/cart',
-    //   textAnimatedOpacity: useRef(new Animated.Value(0.6)),
-    //   keyItem: 2,
-    // },
+    {
+      label: 'Cart',
+      routeName: 'home/cart',
+      textAnimatedOpacity: useRef(new Animated.Value(0.6)),
+      keyItem: 2,
+    },
     // {
     //   label: 'Purchases',
     //   routeName: 'home/purchases',
@@ -169,7 +169,9 @@ export default function HeaderIndex() {
   );
 
   return (
-    <View style={[stylesHeaderIndex.container, { minHeight: minHeightHeaderMemo, top: insets.top }]}>
+    <View
+      style={[stylesHeaderIndex.container, { minHeight: minHeightHeaderMemo, top: insets.top }]}
+    >
       <View style={stylesHeaderIndex.headerContainer}>
         <PaddingContainer>
           <View style={stylesHeaderIndex.flexContainer}>

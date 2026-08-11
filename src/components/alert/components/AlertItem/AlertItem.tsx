@@ -9,9 +9,10 @@ type typeStatus = 'success' | 'error';
 
 export type typeAlerts = {
   type: typeStatus;
-  message?: string;
+  message: string;
   onHideFn: Function;
   duration?: number;
+  methodApiName: string;
 };
 
 type typeStatusObjects = {
@@ -20,7 +21,13 @@ type typeStatusObjects = {
   status: typeStatus;
 }[];
 
-export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAlerts) {
+export function AlertItem({
+  type,
+  message,
+  onHideFn,
+  duration = 5000,
+  methodApiName,
+}: typeAlerts) {
   const opacityValue = useRef(new Animated.Value(0)).current;
 
   const translateYAnimated = opacityValue.interpolate({
@@ -64,6 +71,14 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
     });
   }, []);
 
+  const notificationTestId = useMemo(
+    () =>
+      type == 'success'
+        ? `successNotificationTestId-${methodApiName}`
+        : `errorNotificationTestId-${methodApiName}`,
+    [methodApiName, type],
+  );
+
   return (
     <Animated.View
       style={[
@@ -71,6 +86,7 @@ export function AlertItem({ type, message, onHideFn, duration = 5000 }: typeAler
         { opacity: opacityValue, transform: [{ translateY: translateYAnimated }] },
         alertProperties?.containerClass,
       ]}
+      testID={notificationTestId}
     >
       {alertProperties?.Icon}
       <TextDefault style={stylesAlertItem.defaultAlertText}>{message}</TextDefault>

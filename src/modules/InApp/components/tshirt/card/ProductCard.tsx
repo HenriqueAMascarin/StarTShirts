@@ -1,54 +1,54 @@
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { Image, View } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import RadioColorSwitcher from '@src/components/colorSwitchers/radioType/RadioColorSwitcher';
 import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
-import useColors from '@src/components/colorSwitchers/hooks/useColors';
-import useMemoSelectedColorData from '@src/components/colorSwitchers/hooks/useMemoSelectedColorData';
 import { stylesProductCard } from '@src/modules/InApp/components/tshirt/card/styles/stylesProductCard';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
+import { formatCurrency } from '@src/utils/formatCurrency';
 
-export default function ProductCard({ title, price, colors, id }: ProductObjectType) {
+export default function ProductCard(product: ProductObjectType) {
+  const [stateProductData, changeStateProductData] = useState(product);
+
   const navigation = useNavigation();
 
-  const realPrice = '$' + price;
+  const realPrice = formatCurrency(stateProductData?.price);
 
   function onCheckProduct() {
-    navigation.navigate('home/product', { id });
+    navigation.navigate('home/product', { uniqueId: stateProductData.uniqueId });
   }
-
-  const { stateColors, changeStateColors } = useColors({ colors });
-
-  const { selectedColorMemoData } = useMemoSelectedColorData({ stateColors });
 
   return (
     <View style={stylesProductCard.container}>
       <View style={stylesProductCard.imageContainer}>
-        {selectedColorMemoData?.urlImage != null && (
+        {stateProductData?.productWithColor?.urlImage != null && (
           <Image
-            alt={title}
+            alt={stateProductData.title}
             width={125}
             height={135}
-            source={selectedColorMemoData.urlImage}
+            source={stateProductData.productWithColor?.urlImage}
             style={stylesProductCard.image}
           />
         )}
       </View>
 
       <View style={stylesProductCard.infoContainer}>
-        <TextDefault style={stylesProductCard.titleText}>{title}</TextDefault>
+        <TextDefault style={stylesProductCard.titleText}>{stateProductData?.title}</TextDefault>
 
         <TextDefault style={stylesProductCard.priceText}>{realPrice}</TextDefault>
 
-        <RadioColorSwitcher stateColors={stateColors} changeStateColors={changeStateColors} />
+        <RadioColorSwitcher
+          stateProductData={stateProductData}
+          changeStateProductData={changeStateProductData}
+        />
 
         <DefaultButton
           title="Check product"
           onPressIn={onCheckProduct}
           style={stylesProductCard.infoBtn}
           textProps={{ style: stylesProductCard.infoBtnText }}
-          testID='productCardCheckBtnTestId'
+          testID="productCardCheckBtnTestId"
         />
       </View>
     </View>

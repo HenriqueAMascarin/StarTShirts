@@ -13,7 +13,7 @@ type postResetRequestType = {
 export const postResetRequests = async (emailData: postResetRequestType) => {
   const userResponseAll = await getUsers({});
 
-  let status: genericStatus = { messageSuccess: null };
+  let status: genericStatus = { messageSuccess: null, methodApiName: postResetRequests.name };
 
   let data: resetRequestsDataObjectType | null = null;
 
@@ -42,7 +42,7 @@ export const postResetRequests = async (emailData: postResetRequestType) => {
 
     data = newRequestData;
   } else {
-    status = { ...status, errors: { email: "E-mail doesn't exists" } };
+    status.errors = { email: "E-mail doesn't exists" };
   }
 
   await apiManagement(status);

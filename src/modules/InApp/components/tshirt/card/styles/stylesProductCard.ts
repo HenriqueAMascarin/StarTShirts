@@ -9,7 +9,7 @@ export const stylesProductCard = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    borderRadius: 20,
+    borderRadius: 15,
     outlineWidth: 1.5,
     outlineColor: appColors.black,
     outlineOffset: -1.2,
@@ -17,8 +17,8 @@ export const stylesProductCard = StyleSheet.create({
   imageContainer: {
     backgroundColor: appColors.black,
     minWidth: '100%',
-    borderTopEndRadius: 20,
-    borderTopStartRadius: 20,
+    borderTopEndRadius: 15,
+    borderTopStartRadius: 15,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -47,7 +47,6 @@ export const stylesProductCard = StyleSheet.create({
   },
   priceText: {
     fontFamily: 'InterMedium',
-    color: appColors.grayish,
     fontSize: 17,
      marginBottom: 4,
   }

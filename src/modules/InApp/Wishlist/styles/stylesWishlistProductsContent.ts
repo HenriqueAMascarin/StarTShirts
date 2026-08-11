@@ -10,4 +10,14 @@ export const stylesWishlistProductsContent = StyleSheet.create({
     flexDirection: 'column',
     gap: 30,
   },
+  productsContainer: {
+    flex: 1,
+    marginBottom: 30,
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 25,
+  },
 });
