@@ -45,8 +45,13 @@ export const stylesWishlistProductCard = StyleSheet.create({
     fontFamily: 'InterMedium',
     fontSize: 17,
   },
+  normalText: {
+    fontFamily: 'InterMedium',
+    fontSize: 16,
+  },
   infoText: {
     fontFamily: 'InterMedium',
+    color: appColors.grayish,
     fontSize: 16,
   },
   infoBtnsContainer: {

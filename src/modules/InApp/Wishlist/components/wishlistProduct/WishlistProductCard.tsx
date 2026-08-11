@@ -2,7 +2,6 @@ import TextDefault from '@src/components/texts/default/TextDefault';
 import { Image, TouchableHighlight, View } from 'react-native';
 import React from 'react';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
-import { WishlistProductObjectType } from '@src/services/product/wishlist/types/genericTypes';
 import UnderlineTextButton from '@src/components/buttons/underlineText/UnderlineTextButton';
 import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWishlistProduct';
 import { stylesWishlistProductCard } from '@src/modules/InApp/Wishlist/components/wishlistProduct/styles/stylesWishlistProductCard';
@@ -11,8 +10,9 @@ import { firstLetterToUppercase } from '@src/utils/firstLetterToUppercase';
 import ClickSVG from '@src/assets/svgs/click.svg';
 import { useNavigation } from '@react-navigation/native';
 import { formatCurrency } from '@src/utils/formatCurrency';
+import { ProductObjectType } from '@src/services/product/dataProducts/types/genericTypes';
 
-interface WishlistProductCardType extends WishlistProductObjectType {
+interface WishlistProductCardType extends ProductObjectType {
   getWishlistProductsAndSet: Function;
 }
 
@@ -80,11 +80,21 @@ export default function WishlistProductCard({
       <View style={stylesWishlistProductCard.infoContainer}>
         <TextDefault style={stylesWishlistProductCard.titleText}>{title}</TextDefault>
 
-        <TextDefault style={stylesWishlistProductCard.infoText}>
-          {firstLetterToUppercase(productWithColor?.color)} {size?.toUpperCase()}
+        <TextDefault style={stylesWishlistProductCard.normalText}>
+          Color:
+          <TextDefault style={stylesWishlistProductCard.infoText}>
+            {` ${firstLetterToUppercase(productWithColor?.color)}`}
+          </TextDefault>
         </TextDefault>
 
-        <TextDefault style={stylesWishlistProductCard.infoText}>{realPrice}</TextDefault>
+        <TextDefault style={stylesWishlistProductCard.normalText}>
+          Size:
+          <TextDefault
+            style={stylesWishlistProductCard.infoText}
+          >{` ${size?.toUpperCase()}`}</TextDefault>
+        </TextDefault>
+
+        <TextDefault style={stylesWishlistProductCard.normalText}>{realPrice}</TextDefault>
 
         <View style={stylesWishlistProductCard.infoBtnsContainer}>
           <DefaultButton
