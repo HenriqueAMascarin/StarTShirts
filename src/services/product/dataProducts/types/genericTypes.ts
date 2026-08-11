@@ -15,7 +15,7 @@ type TypeProductWithColors = TypeProductWithColor[];
 type TypeProductSizes = ('xs' | 's' | 'm' | 'l' | 'xl' | 'xxl')[];
 
 type TypeProductUniqueIds = {
-  [key in TypeProductSizes[number]]: { [color in ProductColorsType]: string };
+  [key in TypeProductSizes[number]]?: { [color in ProductColorsType]?: string };
 };
 
 export type ProductObjectType = {
