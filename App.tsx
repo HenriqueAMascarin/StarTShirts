@@ -6,8 +6,31 @@ import AppRoutes, { RootStackParamList } from '@src/routes/AppRoutes';
 import { GeneratorAlert } from '@src/components/alert/GeneratorAlert';
 import { getLoggedUser } from '@src/services/user/login/methods/getLoggedUser';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { keysLocalStorage } from '@src/utils/localStorage';
+import { getVersion } from 'react-native-device-info';
 
 const { SplashScreenModule } = NativeModules;
+
+async function clearAllDataAfterImportantUpdate() {
+  const localStorageKeyVersion = 'versionApp';
+
+  const localStorageKeysValues = Object.values(keysLocalStorage);
+
+  const currentAppVersion = getVersion();
+
+  let versionAppLocalStorage = await AsyncStorage.getItem(localStorageKeyVersion);
+
+  versionAppLocalStorage = versionAppLocalStorage ? JSON.parse(versionAppLocalStorage) : null;
+
+  if (versionAppLocalStorage != currentAppVersion) {
+    for (let keyValue of localStorageKeysValues) {
+      await AsyncStorage.removeItem(keyValue);
+    }
+  }
+
+  await AsyncStorage.setItem(localStorageKeyVersion, currentAppVersion);
+}
 
 async function getBootData() {
   const loggedUserData = await getLoggedUser();
@@ -33,7 +56,10 @@ function App() {
   useEffect(() => {
     if (!bootStateData) {
       (async () => {
+        await clearAllDataAfterImportantUpdate();
+
         const bootData = await getBootData();
+
         changeBootStateData(bootData);
       })();
     } else {
@@ -48,7 +74,7 @@ function App() {
           <View style={{ flex: 1, position: 'relative' }}>
             <GeneratorAlert />
 
-            <AppRoutes initialRouteName={bootStateData.initialRoute} />
+            <AppRoutes initialRouteName={bootStateData?.initialRoute} />
           </View>
         )}
       </Provider>
