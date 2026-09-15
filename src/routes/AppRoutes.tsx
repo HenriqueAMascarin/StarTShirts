@@ -1,5 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { appColors } from '@src/utils/appColors';
 import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
 import LoginIndex from '@src/modules/FirstSteps/Login/LoginIndex';
@@ -14,6 +13,7 @@ import ProductIndex from '@src/modules/InApp/Product/pages/ProductIndex';
 import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
 import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
 import CartIndex from '@src/modules/InApp/Cart/pages/CartIndex';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 export type RootStackParamList = {
   register: undefined;
@@ -34,7 +34,7 @@ declare global {
   }
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const MyTabs = createBottomTabNavigator<RootStackParamList>();
 
 type AppRoutesType = { initialRouteName: keyof RootStackParamList };
 
@@ -43,44 +43,44 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      <MyTabs.Navigator
         initialRouteName={initialRouteName}
         screenOptions={{
           header: HeaderIndex,
-          contentStyle: {
-            backgroundColor: appColors.white,
-          },
-          animation: 'none',
+          // contentStyle: {
+          //   backgroundColor: appColors.white,
+          // },
+    
         }}
       >
-        <Stack.Group screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="register" component={RegisterIndex} />
+        <MyTabs.Group screenOptions={{ headerShown: false }}>
+          <MyTabs.Screen name="register" component={RegisterIndex} />
 
-          <Stack.Screen name="login" component={LoginIndex} />
+          <MyTabs.Screen name="login" component={LoginIndex} />
 
-          <Stack.Screen name="request-reset" component={ResetRequestIndex} />
+          <MyTabs.Screen name="request-reset" component={ResetRequestIndex} />
 
-          <Stack.Screen name="password-reset" component={PasswordResetIndex} />
-        </Stack.Group>
+          <MyTabs.Screen name="password-reset" component={PasswordResetIndex} />
+        </MyTabs.Group>
 
-        <Stack.Group
+        <MyTabs.Group
           screenLayout={(props) => {
             return <View style={{ paddingTop: insets.top }}>{props.children}</View>;
           }}
         >
-          <Stack.Screen name="home" component={HomeIndex} />
+          <MyTabs.Screen name="home" component={HomeIndex} />
 
-          <Stack.Screen name="home/product" component={ProductIndex} />
+          <MyTabs.Screen name="home/product" component={ProductIndex} />
 
-          <Stack.Screen name="home/wishlist" component={WishlistIndex} />
+          <MyTabs.Screen name="home/wishlist" component={WishlistIndex} />
 
-          <Stack.Screen name="home/cart" component={CartIndex} />
+          <MyTabs.Screen name="home/cart" component={CartIndex} />
 
-          <Stack.Screen name="home/purchases" component={HomeIndex} />
+          <MyTabs.Screen name="home/purchases" component={HomeIndex} />
 
-          <Stack.Screen name="home/account" component={AccountIndex} />
-        </Stack.Group>
-      </Stack.Navigator>
+          <MyTabs.Screen name="home/account" component={AccountIndex} />
+        </MyTabs.Group>
+      </MyTabs.Navigator>
     </NavigationContainer>
   );
 }
