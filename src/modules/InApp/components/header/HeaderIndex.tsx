@@ -20,9 +20,7 @@ export default function HeaderIndex() {
   }
 
   return (
-    <View
-      style={[stylesHeaderIndex.container, { top: insets.top }]}
-    >
+    <View style={[stylesHeaderIndex.container, { top: insets.top, minHeight: headerHeight }]}>
       <View style={stylesHeaderIndex.headerContainer}>
         <PaddingContainer>
           <View style={stylesHeaderIndex.flexContainer}>

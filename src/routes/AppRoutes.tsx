@@ -47,13 +47,10 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
         initialRouteName={initialRouteName}
         screenOptions={{
           header: HeaderIndex,
-          // contentStyle: {
-          //   backgroundColor: appColors.white,
-          // },
-    
+          sceneStyle: { backgroundColor: appColors.white },
         }}
       >
-        <MyTabs.Group screenOptions={{ headerShown: false }}>
+        <MyTabs.Group screenOptions={{ headerShown: false, tabBarStyle: { display: 'none' } }}>
           <MyTabs.Screen name="register" component={RegisterIndex} />
 
           <MyTabs.Screen name="login" component={LoginIndex} />
@@ -68,17 +65,33 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
             return <View style={{ paddingTop: insets.top }}>{props.children}</View>;
           }}
         >
-          <MyTabs.Screen name="home" component={HomeIndex} />
+          <MyTabs.Screen name="home" component={HomeIndex} options={{ title: 'home' }} />
 
-          <MyTabs.Screen name="home/product" component={ProductIndex} />
+          <MyTabs.Screen
+            name="home/product"
+            component={ProductIndex}
+            options={{ title: 'product' }}
+          />
 
-          <MyTabs.Screen name="home/wishlist" component={WishlistIndex} />
+          <MyTabs.Screen
+            name="home/wishlist"
+            component={WishlistIndex}
+            options={{ title: 'wishlist' }}
+          />
 
-          <MyTabs.Screen name="home/cart" component={CartIndex} />
+          <MyTabs.Screen name="home/cart" component={CartIndex} options={{ title: 'cart' }} />
 
-          <MyTabs.Screen name="home/purchases" component={HomeIndex} />
+          <MyTabs.Screen
+            name="home/purchases"
+            component={HomeIndex}
+            options={{ title: 'purchases' }}
+          />
 
-          <MyTabs.Screen name="home/account" component={AccountIndex} />
+          <MyTabs.Screen
+            name="home/account"
+            component={AccountIndex}
+            options={{ title: 'account' }}
+          />
         </MyTabs.Group>
       </MyTabs.Navigator>
     </NavigationContainer>
