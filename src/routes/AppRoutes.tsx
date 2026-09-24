@@ -14,6 +14,7 @@ import AccountIndex from '@src/modules/InApp/Account/pages/AccountIndex';
 import WishlistIndex from '@src/modules/InApp/Wishlist/pages/WishlistIndex';
 import CartIndex from '@src/modules/InApp/Cart/pages/CartIndex';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import NavigationTabBar from '@src/modules/InApp/components/navigation/tabBar/NavigationTabBar';
 
 export type RootStackParamList = {
   register: undefined;
@@ -26,6 +27,7 @@ export type RootStackParamList = {
   'home/cart': undefined;
   'home/purchases': undefined;
   'home/account': undefined;
+  'home/more': undefined;
 };
 
 declare global {
@@ -49,7 +51,9 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
           header: HeaderIndex,
           sceneStyle: { backgroundColor: appColors.white },
         }}
+        tabBar={NavigationTabBar}
       >
+        {/* tabBarStyle with display none, is used to not show the tabBar in certain pages */}
         <MyTabs.Group screenOptions={{ headerShown: false, tabBarStyle: { display: 'none' } }}>
           <MyTabs.Screen name="register" component={RegisterIndex} />
 
@@ -65,33 +69,19 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
             return <View style={{ paddingTop: insets.top }}>{props.children}</View>;
           }}
         >
-          <MyTabs.Screen name="home" component={HomeIndex} options={{ title: 'home' }} />
+          <MyTabs.Screen name="home" component={HomeIndex} />
 
-          <MyTabs.Screen
-            name="home/product"
-            component={ProductIndex}
-            options={{ title: 'product' }}
-          />
+          <MyTabs.Screen name="home/product" component={ProductIndex} />
 
-          <MyTabs.Screen
-            name="home/wishlist"
-            component={WishlistIndex}
-            options={{ title: 'wishlist' }}
-          />
+          <MyTabs.Screen name="home/wishlist" component={WishlistIndex} />
 
-          <MyTabs.Screen name="home/cart" component={CartIndex} options={{ title: 'cart' }} />
+          <MyTabs.Screen name="home/cart" component={CartIndex} />
 
-          <MyTabs.Screen
-            name="home/purchases"
-            component={HomeIndex}
-            options={{ title: 'purchases' }}
-          />
+          <MyTabs.Screen name="home/purchases" component={HomeIndex} />
 
-          <MyTabs.Screen
-            name="home/account"
-            component={AccountIndex}
-            options={{ title: 'account' }}
-          />
+          <MyTabs.Screen name="home/account" component={AccountIndex} />
+
+          <MyTabs.Screen name="home/more" component={AccountIndex} />
         </MyTabs.Group>
       </MyTabs.Navigator>
     </NavigationContainer>
