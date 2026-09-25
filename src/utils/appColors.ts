@@ -10,4 +10,6 @@ export const appColors = {
   green: '#1DBA6B',
   transparent: 'rgba(30, 30, 30, 0.42)',
   yellow: '#FFD600',
+  brown: '#8A7403',
+  softGray: '#CECECE'
 };

@@ -8,7 +8,10 @@ export const stylesNavigationTabBar = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     backgroundColor: appColors.white,
-    maxHeight: 100
+    maxHeight: 80,
+    borderColor: appColors.softGray,
+    borderBottomWidth: 2,
+    borderTopWidth: 2,
   },
   itemsContainer: {
     display: 'flex',
