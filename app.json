@@ -3,5 +3,8 @@
   "displayName": "Star T-Shirts",
   "android": {
     "package": "com.henriqueam.startshirts"
-  }
+  },
+  "plugins": [
+    "expo-asset"
+  ]
 }

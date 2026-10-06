@@ -6,18 +6,16 @@ export const stylesNavigationTabBar = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1,
+    paddingVertical: 5,
     backgroundColor: appColors.white,
-    maxHeight: 80,
     borderColor: appColors.softGray,
-    borderBottomWidth: 2,
-    borderTopWidth: 2,
+    borderTopWidth: 1,
   },
   itemsContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    minWidth: '100%'
-  }
+    minWidth: '100%',
+  },
 });

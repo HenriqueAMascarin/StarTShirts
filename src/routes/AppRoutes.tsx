@@ -53,8 +53,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
         }}
         tabBar={NavigationTabBar}
       >
-        {/* tabBarStyle with display none, is used to not show the tabBar in certain pages */}
-        <MyTabs.Group screenOptions={{ headerShown: false, tabBarStyle: { display: 'none' } }}>
+        <MyTabs.Group screenOptions={{ headerShown: false }}>
           <MyTabs.Screen name="register" component={RegisterIndex} />
 
           <MyTabs.Screen name="login" component={LoginIndex} />
@@ -66,7 +65,11 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
 
         <MyTabs.Group
           screenLayout={(props) => {
-            return <View style={{ paddingTop: insets.top }}>{props.children}</View>;
+            return (
+              <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+                {props.children}
+              </View>
+            );
           }}
         >
           <MyTabs.Screen name="home" component={HomeIndex} />
