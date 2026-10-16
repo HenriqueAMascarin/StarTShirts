@@ -5,9 +5,6 @@ export const stylesNavigationItems = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    // flexGrow: 1,
-    // flexShrink: 1,
-    // flexBasis: 0,
     flex: 1,
   },
   iconContainer: {

@@ -48,7 +48,7 @@ export default function AppRoutes({ initialRouteName }: AppRoutesType) {
       <MyTabs.Navigator
         initialRouteName={initialRouteName}
         screenOptions={{
-          header: HeaderIndex,
+          header: (props) => <HeaderIndex {...props} insets={insets} />,
           sceneStyle: { backgroundColor: appColors.white },
         }}
         tabBar={NavigationTabBar}

@@ -4,17 +4,17 @@ import MiniStarSVG from '@src/assets/svgs/star_mini.svg';
 import SearchSVG from '@src/assets/svgs/search.svg';
 import InputDefault from '@src/components/inputs/Default/InputDefault';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import { useNavigation } from '@react-navigation/native';
 import { stylesHeaderIndex } from '@src/modules/InApp/components/header/styles/stylesHeaderIndex';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { EdgeInsets } from 'react-native-safe-area-context';
 
 export const headerHeight = 49;
 
-export default function HeaderIndex() {
-  const navigation = useNavigation();
+interface InterfaceHeaderIndex extends BottomTabHeaderProps {
+  insets: EdgeInsets;
+}
 
-  const insets = useSafeAreaInsets();
-
+export default function HeaderIndex({ navigation, insets }: InterfaceHeaderIndex) {
   function goToHomeRoute() {
     navigation.navigate('home');
   }
