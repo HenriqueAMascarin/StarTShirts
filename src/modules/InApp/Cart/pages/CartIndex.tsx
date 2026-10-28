@@ -1,5 +1,5 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
@@ -11,6 +11,7 @@ import { getCartProducts } from '@src/services/product/cart/methods/getCartProdu
 import TextDefault from '@src/components/texts/default/TextDefault';
 import DefaultButton from '@src/components/buttons/default/DefaultButton';
 import { formatCurrency } from '@src/utils/formatCurrency';
+import { useFocusEffect } from '@react-navigation/native';
 
 function ProductsCartContent() {
   const [cartProducts, changeCartProducts] = useState<Awaited<ReturnType<typeof getCartProducts>>>({
@@ -24,9 +25,11 @@ function ProductsCartContent() {
     changeCartProducts(reponseCartProductsData);
   }
 
-  useEffect(() => {
-    getCartProductsAndSetToState();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getCartProductsAndSetToState();
+    }, []),
+  );
 
   const hasSomeCartProduct = useMemo(
     () => cartProducts?.cartWithProducts != null && cartProducts?.cartWithProducts?.length > 0,

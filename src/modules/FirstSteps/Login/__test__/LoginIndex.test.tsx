@@ -5,14 +5,14 @@ import { keysLocalStorage } from '@src/utils/localStorage';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 import { responseUserMock } from '@src/utils/test/responseUserMock';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const responseLoggedUserMock = { ...responseUserMock, rememberMe: true };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const MyTabs = createBottomTabNavigator<RootStackParamList>();
 
 describe('LoginIndex', () => {
   it('Should have a USER REGISTERED', async () => {
@@ -28,11 +28,11 @@ describe('LoginIndex', () => {
   it('Should do a LOGIN', async () => {
     render(
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={'login'}>
-          <Stack.Screen name="login" component={LoginIndex} />
+        <MyTabs.Navigator initialRouteName={'login'}>
+          <MyTabs.Screen name="login" component={LoginIndex} />
 
-          <Stack.Screen name="home" component={HomeIndex} />
-        </Stack.Navigator>
+          <MyTabs.Screen name="home" component={HomeIndex} />
+        </MyTabs.Navigator>
       </NavigationContainer>,
     );
 

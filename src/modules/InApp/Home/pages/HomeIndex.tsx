@@ -1,5 +1,5 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Image, View } from 'react-native';
 import { stylesSlogan } from '@src/modules/InApp/Home/styles/stylesSlogan';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
@@ -9,6 +9,7 @@ import MainContainer from '@src/modules/InApp/components/containers/main/MainCon
 import whiteTShirtImg from '@src/assets/products/classicTShirt/images/white_tshirt.webp';
 import { stylesProductsContent } from '@src/modules/InApp/Home/styles/stylesProductsContent';
 import SloganSVGText from '@src/assets/svgs/sloganText.svg';
+import { useFocusEffect } from '@react-navigation/native';
 
 function SloganTShirt() {
   return (
@@ -29,9 +30,11 @@ function ProductsContent() {
     changeProducts(newProducts);
   }
 
-  useEffect(() => {
-    getInitialProducts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getInitialProducts();
+    }, []),
+  );
 
   return (
     <View style={stylesProductsContent.container}>

@@ -1,5 +1,5 @@
 import PaddingContainer from '@src/components/containers/PaddingContainer';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import LoadingScreen from '@src/components/suspense/loading/LoadingScreen';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
@@ -8,6 +8,7 @@ import WishlistProductCard from '@src/modules/InApp/Wishlist/components/wishlist
 import { stylesWishlistProductsContent } from '@src/modules/InApp/Wishlist/styles/stylesWishlistProductsContent';
 import ManagementPagesContainerWithTitle from '@src/modules/InApp/components/containers/ManagementPagesWithTitle/ManagementPagesContainerWithTitle';
 import ListIsEmptyMessages from '@src/modules/InApp/components/emptyList/ListIsEmptyMessages';
+import { useFocusEffect } from '@react-navigation/native';
 
 function ProductsContent() {
   const [productsWishlist, changeProductsWishlist] = useState<null | Awaited<
@@ -20,9 +21,11 @@ function ProductsContent() {
     changeProductsWishlist(newProductsWishlist);
   }
 
-  useEffect(() => {
-    getWishlistProductsAndSetToState();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getWishlistProductsAndSetToState();
+    }, []),
+  );
 
   return (
     <View style={stylesWishlistProductsContent.container}>

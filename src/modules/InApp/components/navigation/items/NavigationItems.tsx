@@ -15,7 +15,7 @@ type TypeRoutesToShow = {
   [key in keyof RootStackParamList]?: {
     url: keyof RootStackParamList;
     label: string;
-    IconSvg: Animated.AnimatedComponent<FC<SvgProps>>;
+    IconSVG: Animated.AnimatedComponent<FC<SvgProps>>;
   };
 };
 
@@ -23,22 +23,22 @@ const routesToShow: TypeRoutesToShow = {
   home: {
     label: 'Home',
     url: 'home',
-    IconSvg: Animated.createAnimatedComponent(HomeSVG),
+    IconSVG: Animated.createAnimatedComponent(HomeSVG),
   },
   'home/cart': {
     label: 'Cart',
     url: 'home/cart',
-    IconSvg: Animated.createAnimatedComponent(CartSVG),
+    IconSVG: Animated.createAnimatedComponent(CartSVG),
   },
   'home/account': {
     label: 'Account',
     url: 'home/account',
-    IconSvg: Animated.createAnimatedComponent(UserMiniSVG),
+    IconSVG: Animated.createAnimatedComponent(UserMiniSVG),
   },
   'home/more': {
     label: 'More',
     url: 'home/more',
-    IconSvg: Animated.createAnimatedComponent(HamgurguerMenuSVG),
+    IconSVG: Animated.createAnimatedComponent(HamgurguerMenuSVG),
   },
 };
 
@@ -82,7 +82,7 @@ export default function NavigationItems({
 
   return (
     <>
-      {filteredRoutes.map(({ IconSvg, keyRoute, url, label }) => {
+      {filteredRoutes.map(({ IconSVG, keyRoute, url, label }) => {
         // 1 is for true, 0 is for false
         const animatedIsActiveValue = new Animated.Value(keyRoute == stateRoutes?.index ? 1 : 0);
 
@@ -109,7 +109,7 @@ export default function NavigationItems({
                 { backgroundColor: animatedColorBackgroundIcon },
               ]}
             >
-              <IconSvg color={animatedColorBrown} />
+              <IconSVG color={animatedColorBrown} width={25} height={'100%'} />
             </Animated.View>
 
             <TextDefault style={{ color: animatedColorBrown }}>{label}</TextDefault>
