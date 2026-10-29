@@ -3,12 +3,12 @@ import React from 'react';
 import RegisterIndex from '@src/modules/FirstSteps/Register/RegisterIndex';
 import { NavigationContainer } from '@react-navigation/native';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import HomeIndex from '@src/modules/InApp/Home/pages/HomeIndex';
 import { responseUserMock } from '@src/utils/test/responseUserMock';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const MyTabs = createBottomTabNavigator<RootStackParamList>();
 
 describe('RegisterIndex', () => {
   it('Should do a REGISTRATION', async () => {
@@ -20,11 +20,11 @@ describe('RegisterIndex', () => {
 
     render(
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={'register'}>
-          <Stack.Screen name="register" component={RegisterIndex} />
+        <MyTabs.Navigator initialRouteName={'register'}>
+          <MyTabs.Screen name="register" component={RegisterIndex} />
 
-          <Stack.Screen name="home" component={HomeIndex} />
-        </Stack.Navigator>
+          <MyTabs.Screen name="home" component={HomeIndex} />
+        </MyTabs.Navigator>
       </NavigationContainer>,
     );
 

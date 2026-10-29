@@ -2,7 +2,7 @@ import { appColors } from '@src/utils/appColors';
 import { Animated, TextProps } from 'react-native';
 import React from 'react';
 
-export default function TextDefault(textProps: TextProps) {
+export default function TextDefault(textProps: Animated.AnimatedProps<TextProps>) {
   return (
     <Animated.Text
       {...textProps}

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useCallback, useEffect, useState } from 'react';
 import TextDefault from '@src/components/texts/default/TextDefault';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import { getProducts } from '@src/services/product/dataProducts/methods/getProducts';
@@ -21,12 +20,13 @@ import { putWishlistProduct } from '@src/services/product/wishlist/methods/putWi
 import { getWishlistProducts } from '@src/services/product/wishlist/methods/getWishlistProducts';
 import WishlistButton from '@src/components/buttons/wishlist/WishlistButton';
 import { putCartProduct } from '@src/services/product/cart/methods/putCartProduct';
+import { useFocusEffect } from '@react-navigation/native';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
-export type PropsProductIndex = NativeStackScreenProps<RootStackParamList, 'home/product'>;
-
+export type PropsProductIndex = BottomTabScreenProps<RootStackParamList, 'home/product'>;
 interface ProductType extends ProductObjectType {
-  wishlisted?: boolean
-} ;
+  wishlisted?: boolean;
+}
 
 async function getInitialProductResponse(uniqueId: string) {
   let responseWishlistProductsData = await getWishlistProducts({ uniqueId });
@@ -195,9 +195,11 @@ export default function ProductIndex({ route }: PropsProductIndex) {
     changeProductData(newProduct);
   }
 
-  useEffect(() => {
-    setEditData();
-  }, [uniqueId]);
+  useFocusEffect(
+    useCallback(() => {
+      setEditData();
+    }, [uniqueId]),
+  );
 
   return <>{productData ? <ProductContent productItem={productData} /> : <LoadingPageScreen />}</>;
 }

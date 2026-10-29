@@ -3,7 +3,7 @@ import LoadingPageScreen from '@src/components/suspense/loading/LoadingPageScree
 import TextTitleH2 from '@src/components/texts/h2/TextTitleH2';
 import { getLoggedUser } from '@src/services/user/login/methods/getLoggedUser';
 import { UserLoggedType } from '@src/services/user/login/types/genericTypes';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import MainContainer from '@src/modules/InApp/components/containers/main/MainContainer';
 import PaddingContainer from '@src/components/containers/PaddingContainer';
@@ -15,7 +15,7 @@ import ModalChangeEmail from '@src/modules/InApp/Account/components/changeEmail/
 import TextTitleH3 from '@src/components/texts/h3/TextTitleH3';
 import { stylesAccountIndex } from '@src/modules/InApp/Account/styles/stylesAccountIndex';
 import { signOutAccount } from '@src/utils/signOutAccount';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import ModalChangePassword from '@src/modules/InApp/Account/components/changePassword/ModalChangePassword.tsx';
 import ModalChangeFullName from '@src/modules/InApp/Account/components/changeName/ModalChangeFullName';
 import TextTitleH4 from '@src/components/texts/h4/TextTitleH4';
@@ -174,9 +174,11 @@ export default function AccountIndex() {
     changeAccountData(accountData);
   }
 
-  useEffect(() => {
-    setEditData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      setEditData();
+    }, []),
+  );
 
   return <>{accountData ? <AccountContent {...accountData} /> : <LoadingPageScreen />}</>;
 }

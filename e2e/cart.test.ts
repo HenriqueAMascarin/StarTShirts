@@ -1,5 +1,6 @@
 import { device, element } from 'detox';
 import { registerUserE2e } from './utils/registerUserE2e';
+
 describe('cart', () => {
   beforeAll(async () => {
     await device.launchApp();

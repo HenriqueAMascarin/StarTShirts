@@ -5,10 +5,10 @@ import { keysLocalStorage } from '@src/utils/localStorage';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorageMock from '@react-native-async-storage/async-storage/jest/async-storage-mock';
 import getDataLocalStorageMock from '@src/utils/test/getDataLocalStorageMock';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@src/routes/AppRoutes';
 import PasswordResetIndex from '@src/modules/FirstSteps/PasswordReset/PasswordResetIndex';
 import { responseUserMock } from '@src/utils/test/responseUserMock';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const responseRequestMock = {
   email: responseUserMock.email,
@@ -16,7 +16,7 @@ const responseRequestMock = {
   userId: responseUserMock.id,
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const MyTabs = createBottomTabNavigator<RootStackParamList>();
 
 describe('ResetRequestIndex', () => {
   it('Should have a USER REGISTERED', async () => {
@@ -32,11 +32,11 @@ describe('ResetRequestIndex', () => {
   it('Should do a RESET REQUEST', async () => {
     render(
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={'request-reset'}>
-          <Stack.Screen name="request-reset" component={ResetRequestIndex} />
+        <MyTabs.Navigator initialRouteName={'request-reset'}>
+          <MyTabs.Screen name="request-reset" component={ResetRequestIndex} />
 
-          <Stack.Screen name="password-reset" component={PasswordResetIndex} />
-        </Stack.Navigator>
+          <MyTabs.Screen name="password-reset" component={PasswordResetIndex} />
+        </MyTabs.Navigator>
       </NavigationContainer>,
     );
 
